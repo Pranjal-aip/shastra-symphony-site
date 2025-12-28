@@ -2,95 +2,124 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Shastrakulam Design System - Vedic Modern Aesthetic */
+/* Colors derived from lotus+flame logo: maroon, saffron, bluish-gray */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Lato:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Backgrounds - Warm cream/off-white */
+    --background: 30 50% 98%;
+    --foreground: 220 30% 20%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    /* Card surfaces */
+    --card: 30 40% 99%;
+    --card-foreground: 220 30% 20%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    /* Popover surfaces */
+    --popover: 30 40% 99%;
+    --popover-foreground: 220 30% 20%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Primary - Deep Maroon (lotus lines) */
+    --primary: 340 65% 30%;
+    --primary-foreground: 30 50% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Secondary - Soft maroon tint */
+    --secondary: 340 30% 92%;
+    --secondary-foreground: 340 65% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Muted surfaces */
+    --muted: 30 20% 94%;
+    --muted-foreground: 220 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Accent - Warm Saffron (flame) */
+    --accent: 25 85% 50%;
+    --accent-foreground: 30 50% 98%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 30 50% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    /* Borders and inputs */
+    --border: 30 25% 88%;
+    --input: 30 25% 88%;
+    --ring: 340 65% 30%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Custom Shastrakulam tokens */
+    --maroon: 340 65% 30%;
+    --maroon-light: 340 40% 45%;
+    --maroon-dark: 340 70% 22%;
+    --saffron: 25 85% 50%;
+    --saffron-light: 30 90% 65%;
+    --saffron-dark: 20 80% 42%;
+    --cream: 30 50% 98%;
+    --cream-dark: 30 30% 93%;
+    --slate: 220 30% 20%;
+    --slate-light: 220 15% 45%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(30 50% 98%) 0%, hsl(340 30% 95%) 100%);
+    --gradient-saffron: linear-gradient(135deg, hsl(25 85% 50%) 0%, hsl(35 90% 55%) 100%);
+    --gradient-maroon: linear-gradient(135deg, hsl(340 65% 30%) 0%, hsl(340 50% 40%) 100%);
+    --gradient-lotus: radial-gradient(ellipse at center, hsl(340 30% 95% / 0.5) 0%, transparent 70%);
 
-    --sidebar-primary: 240 5.9% 10%;
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(340 65% 30% / 0.1);
+    --shadow-card: 0 8px 30px -8px hsl(340 65% 30% / 0.12);
+    --shadow-elevated: 0 20px 50px -15px hsl(340 65% 30% / 0.18);
+    --shadow-saffron: 0 8px 25px -5px hsl(25 85% 50% / 0.35);
 
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar */
+    --sidebar-background: 30 40% 97%;
+    --sidebar-foreground: 220 30% 20%;
+    --sidebar-primary: 340 65% 30%;
+    --sidebar-primary-foreground: 30 50% 98%;
+    --sidebar-accent: 340 30% 92%;
+    --sidebar-accent-foreground: 340 65% 25%;
+    --sidebar-border: 30 25% 88%;
+    --sidebar-ring: 340 65% 30%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 220 35% 8%;
+    --foreground: 30 30% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 220 30% 12%;
+    --card-foreground: 30 30% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 220 30% 12%;
+    --popover-foreground: 30 30% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 25 85% 55%;
+    --primary-foreground: 220 35% 8%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 340 40% 20%;
+    --secondary-foreground: 30 30% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 220 25% 18%;
+    --muted-foreground: 30 20% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 25 85% 55%;
+    --accent-foreground: 220 35% 8%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 30 30% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 220 25% 20%;
+    --input: 220 25% 20%;
+    --ring: 25 85% 55%;
+
+    --sidebar-background: 220 35% 10%;
+    --sidebar-foreground: 30 30% 95%;
+    --sidebar-primary: 25 85% 55%;
+    --sidebar-primary-foreground: 220 35% 8%;
+    --sidebar-accent: 340 40% 20%;
+    --sidebar-accent-foreground: 30 30% 95%;
+    --sidebar-border: 220 25% 20%;
+    --sidebar-ring: 25 85% 55%;
   }
 }
 
@@ -99,7 +128,113 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Lato', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    @apply tracking-tight;
+  }
+}
+
+@layer utilities {
+  .font-heading {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-body {
+    font-family: 'Lato', sans-serif;
+  }
+
+  .text-gradient-saffron {
+    background: linear-gradient(135deg, hsl(25 85% 50%) 0%, hsl(35 90% 55%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-maroon {
+    background: linear-gradient(135deg, hsl(340 65% 30%) 0%, hsl(340 50% 40%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-hero-pattern {
+    background-image: var(--gradient-hero);
+  }
+
+  .bg-lotus-pattern {
+    background-image: var(--gradient-lotus);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .shadow-saffron {
+    box-shadow: var(--shadow-saffron);
+  }
+
+  /* Lotus decoration pattern */
+  .lotus-underline {
+    position: relative;
+  }
+
+  .lotus-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent 0%, hsl(var(--saffron)) 20%, hsl(var(--maroon)) 50%, hsl(var(--saffron)) 80%, transparent 100%);
+    border-radius: 2px;
+  }
+
+  /* Animate on scroll */
+  .animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Hover lift effect */
+  .hover-lift {
+    @apply transition-all duration-300;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-elevated);
   }
 }
