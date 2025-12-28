@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   BookOpen, 
@@ -19,7 +19,8 @@ import {
   EyeOff,
   Upload,
   Bell,
-  Loader2
+  Loader2,
+  LogOut
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -53,6 +54,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useAdmin, Course, BlogPost, Category } from '@/contexts/AdminContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import DeleteConfirmDialog from '@/components/DeleteConfirmDialog';
 import logo from '@/assets/shastrakulam-logo.png';
@@ -62,6 +64,8 @@ type Tab = 'dashboard' | 'courses' | 'blogs' | 'categories' | 'notifications' | 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const { user, loading: authLoading, signOut } = useAuth();
+  const navigate = useNavigate();
   const { 
     courses, 
     blogPosts, 
@@ -87,6 +91,18 @@ const AdminDashboard: React.FC = () => {
   } = useAdmin();
   const { toast } = useToast();
 
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!authLoading && !user) {
+      navigate('/admin/login');
+    }
+  }, [user, authLoading, navigate]);
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/admin/login');
+  };
+
   const sidebarItems = [
     { id: 'dashboard' as Tab, label: 'Dashboard', icon: LayoutDashboard },
     { id: 'courses' as Tab, label: 'Courses', icon: BookOpen },
@@ -96,7 +112,7 @@ const AdminDashboard: React.FC = () => {
     { id: 'settings' as Tab, label: 'Settings', icon: Settings },
   ];
 
-  if (loading) {
+  if (authLoading || loading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
@@ -105,6 +121,10 @@ const AdminDashboard: React.FC = () => {
         </div>
       </div>
     );
+  }
+
+  if (!user) {
+    return null; // Will redirect via useEffect
   }
 
   return (
@@ -162,6 +182,13 @@ const AdminDashboard: React.FC = () => {
             <h1 className="font-heading text-2xl font-bold text-foreground">
               {sidebarItems.find(i => i.id === activeTab)?.label}
             </h1>
+          </div>
+          <div className="flex items-center gap-4">
+            <span className="text-sm text-muted-foreground hidden sm:block">{user.email}</span>
+            <Button variant="outline" size="sm" onClick={handleSignOut} className="gap-2">
+              <LogOut className="h-4 w-4" />
+              <span className="hidden sm:inline">Sign Out</span>
+            </Button>
           </div>
         </header>
 

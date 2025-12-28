@@ -17,8 +17,9 @@ const NotificationPopup: React.FC<NotificationPopupProps> = ({ currentPath = '/'
   useEffect(() => {
     if (!notificationPopup?.isEnabled) return;
 
-    // Check if user has dismissed this popup in this session
-    const dismissed = sessionStorage.getItem('notification-popup-dismissed');
+    // Create a unique dismissal key based on popup id and content
+    const dismissalKey = `notification-popup-${notificationPopup.id}`;
+    const dismissed = sessionStorage.getItem(dismissalKey);
     if (dismissed) return;
 
     // Check date range
@@ -39,10 +40,18 @@ const NotificationPopup: React.FC<NotificationPopupProps> = ({ currentPath = '/'
 
   const handleClose = () => {
     setIsOpen(false);
-    sessionStorage.setItem('notification-popup-dismissed', 'true');
+    if (notificationPopup?.id) {
+      sessionStorage.setItem(`notification-popup-${notificationPopup.id}`, 'true');
+    }
   };
 
   if (!notificationPopup?.isEnabled) return null;
+
+  const title = t(notificationPopup.title);
+  const message = t(notificationPopup.message);
+
+  // Don't show if no content
+  if (!title && !message && !notificationPopup.imageUrl) return null;
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleClose()}>
@@ -66,12 +75,16 @@ const NotificationPopup: React.FC<NotificationPopupProps> = ({ currentPath = '/'
         )}
 
         <div className="p-6 space-y-4 text-center">
-          <h3 className="font-heading text-2xl font-bold text-foreground">
-            {t(notificationPopup.title)}
-          </h3>
-          <p className="font-body text-muted-foreground">
-            {t(notificationPopup.message)}
-          </p>
+          {title && (
+            <h3 className="font-heading text-2xl font-bold text-foreground">
+              {title}
+            </h3>
+          )}
+          {message && (
+            <p className="font-body text-muted-foreground">
+              {message}
+            </p>
+          )}
           <Button variant="saffron" onClick={handleClose} className="w-full">
             Got it!
           </Button>
