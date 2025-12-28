@@ -10,7 +10,6 @@ import { useLanguage, translations } from '@/contexts/LanguageContext';
 import { useAdmin } from '@/contexts/AdminContext';
 import { testimonials } from '@/data/sampleData';
 import heroIllustration from '@/assets/hero-illustration.jpg';
-import NotificationPopup from '@/components/NotificationPopup';
 
 const Index: React.FC = () => {
   const { t } = useLanguage();
@@ -30,8 +29,6 @@ const Index: React.FC = () => {
 
   return (
     <Layout>
-      <NotificationPopup currentPath="/" />
-      
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center bg-hero-pattern overflow-hidden">
         <div className="absolute inset-0 bg-lotus-pattern opacity-50" />

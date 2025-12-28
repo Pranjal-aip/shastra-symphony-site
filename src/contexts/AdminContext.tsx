@@ -164,6 +164,50 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   useEffect(() => {
     fetchData();
+
+    // Set up realtime subscriptions
+    const coursesChannel = supabase
+      .channel('courses-changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'courses' }, () => {
+        fetchData();
+      })
+      .subscribe();
+
+    const blogChannel = supabase
+      .channel('blog-changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'blog_posts' }, () => {
+        fetchData();
+      })
+      .subscribe();
+
+    const courseCatsChannel = supabase
+      .channel('course-cats-changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'course_categories' }, () => {
+        fetchData();
+      })
+      .subscribe();
+
+    const blogCatsChannel = supabase
+      .channel('blog-cats-changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'blog_categories' }, () => {
+        fetchData();
+      })
+      .subscribe();
+
+    const popupChannel = supabase
+      .channel('popup-changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'notification_popup' }, () => {
+        fetchData();
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(coursesChannel);
+      supabase.removeChannel(blogChannel);
+      supabase.removeChannel(courseCatsChannel);
+      supabase.removeChannel(blogCatsChannel);
+      supabase.removeChannel(popupChannel);
+    };
   }, []);
 
   const addCourse = async (course: Omit<Course, 'id'>) => {
