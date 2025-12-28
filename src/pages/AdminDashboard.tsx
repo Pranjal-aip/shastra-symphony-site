@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   BookOpen, 
@@ -13,12 +13,20 @@ import {
   StarOff,
   ArrowLeft,
   Menu,
-  X
+  X,
+  Home,
+  Eye,
+  EyeOff,
+  Upload,
+  Bell,
+  Loader2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
@@ -44,13 +52,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useAdmin } from '@/contexts/AdminContext';
+import { useAdmin, Course, BlogPost, Category } from '@/contexts/AdminContext';
 import { useToast } from '@/hooks/use-toast';
-import { Course } from '@/components/CourseCard';
-import { BlogPost } from '@/components/BlogCard';
+import DeleteConfirmDialog from '@/components/DeleteConfirmDialog';
 import logo from '@/assets/shastrakulam-logo.png';
 
-type Tab = 'dashboard' | 'courses' | 'blogs' | 'categories' | 'settings';
+type Tab = 'dashboard' | 'courses' | 'blogs' | 'categories' | 'notifications' | 'settings';
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -60,28 +67,45 @@ const AdminDashboard: React.FC = () => {
     blogPosts, 
     courseCategories, 
     blogCategories,
+    notificationPopup,
+    loading,
     addCourse,
     updateCourse,
     deleteCourse,
     toggleCoursePopular,
+    toggleCourseShowOnHome,
     addBlogPost,
     updateBlogPost,
     deleteBlogPost,
+    toggleBlogShowOnHome,
     addCourseCategory,
     addBlogCategory,
     deleteCourseCategory,
     deleteBlogCategory,
+    updateNotificationPopup,
+    uploadImage,
   } = useAdmin();
   const { toast } = useToast();
-  const navigate = useNavigate();
 
   const sidebarItems = [
     { id: 'dashboard' as Tab, label: 'Dashboard', icon: LayoutDashboard },
     { id: 'courses' as Tab, label: 'Courses', icon: BookOpen },
     { id: 'blogs' as Tab, label: 'Blog Posts', icon: FileText },
     { id: 'categories' as Tab, label: 'Categories', icon: Tag },
+    { id: 'notifications' as Tab, label: 'Notifications', icon: Bell },
     { id: 'settings' as Tab, label: 'Settings', icon: Settings },
   ];
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
+          <p className="font-body text-muted-foreground">Loading admin panel...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background flex">
@@ -150,8 +174,10 @@ const AdminDashboard: React.FC = () => {
               categories={courseCategories}
               onDelete={deleteCourse}
               onTogglePopular={toggleCoursePopular}
+              onToggleShowOnHome={toggleCourseShowOnHome}
               onAdd={addCourse}
               onUpdate={updateCourse}
+              onUploadImage={uploadImage}
               toast={toast}
             />
           )}
@@ -162,6 +188,8 @@ const AdminDashboard: React.FC = () => {
               onDelete={deleteBlogPost}
               onAdd={addBlogPost}
               onUpdate={updateBlogPost}
+              onToggleShowOnHome={toggleBlogShowOnHome}
+              onUploadImage={uploadImage}
               toast={toast}
             />
           )}
@@ -173,6 +201,14 @@ const AdminDashboard: React.FC = () => {
               onAddBlogCategory={addBlogCategory}
               onDeleteCourseCategory={deleteCourseCategory}
               onDeleteBlogCategory={deleteBlogCategory}
+              toast={toast}
+            />
+          )}
+          {activeTab === 'notifications' && (
+            <NotificationsTab 
+              popup={notificationPopup}
+              onUpdate={updateNotificationPopup}
+              onUploadImage={uploadImage}
               toast={toast}
             />
           )}
@@ -188,12 +224,13 @@ const DashboardTab: React.FC<{ courses: Course[]; blogPosts: BlogPost[] }> = ({ 
   const stats = [
     { label: 'Total Courses', value: courses.length, icon: BookOpen, color: 'bg-accent/10 text-accent' },
     { label: 'Featured Courses', value: courses.filter(c => c.isPopular).length, icon: Star, color: 'bg-primary/10 text-primary' },
+    { label: 'Home Page Courses', value: courses.filter(c => c.showOnHome).length, icon: Home, color: 'bg-blue-100 text-blue-700' },
     { label: 'Blog Posts', value: blogPosts.length, icon: FileText, color: 'bg-green-100 text-green-700' },
   ];
 
   return (
     <div className="space-y-8">
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat, index) => (
           <div key={index} className="bg-card rounded-xl p-6 shadow-card border border-border">
             <div className={`w-12 h-12 rounded-lg ${stat.color} flex items-center justify-center mb-4`}>
@@ -211,13 +248,16 @@ const DashboardTab: React.FC<{ courses: Course[]; blogPosts: BlogPost[] }> = ({ 
           {courses.slice(0, 5).map((course) => (
             <div key={course.id} className="flex items-center justify-between py-2 border-b border-border last:border-0">
               <div className="flex items-center gap-3">
-                <img src={course.thumbnail} alt="" className="w-12 h-12 rounded-lg object-cover" />
+                <img src={course.thumbnail || '/placeholder.svg'} alt="" className="w-12 h-12 rounded-lg object-cover" />
                 <div>
                   <p className="font-body font-medium text-foreground">{course.title.en}</p>
                   <p className="font-body text-sm text-muted-foreground">{course.category}</p>
                 </div>
               </div>
-              {course.isPopular && <Badge className="bg-accent text-accent-foreground">Featured</Badge>}
+              <div className="flex items-center gap-2">
+                {course.isPopular && <Badge className="bg-accent text-accent-foreground">Popular</Badge>}
+                {course.showOnHome && <Badge variant="secondary">Home</Badge>}
+              </div>
             </div>
           ))}
         </div>
@@ -229,19 +269,28 @@ const DashboardTab: React.FC<{ courses: Course[]; blogPosts: BlogPost[] }> = ({ 
 // Courses Tab
 interface CoursesTabProps {
   courses: Course[];
-  categories: string[];
-  onDelete: (id: string) => void;
-  onTogglePopular: (id: string) => void;
-  onAdd: (course: Course) => void;
-  onUpdate: (id: string, course: Partial<Course>) => void;
+  categories: Category[];
+  onDelete: (id: string) => Promise<void>;
+  onTogglePopular: (id: string) => Promise<void>;
+  onToggleShowOnHome: (id: string) => Promise<void>;
+  onAdd: (course: Omit<Course, 'id'>) => Promise<void>;
+  onUpdate: (id: string, course: Partial<Course>) => Promise<void>;
+  onUploadImage: (file: File) => Promise<string>;
   toast: any;
 }
 
-const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, onTogglePopular, onAdd, onUpdate, toast }) => {
+const CoursesTab: React.FC<CoursesTabProps> = ({ 
+  courses, categories, onDelete, onTogglePopular, onToggleShowOnHome, onAdd, onUpdate, onUploadImage, toast 
+}) => {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
-  const [newCourse, setNewCourse] = useState({
+  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  const [formData, setFormData] = useState({
     title: '',
     titleHi: '',
     titleSa: '',
@@ -252,10 +301,13 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
     level: 'Kids' as Course['level'],
     duration: '',
     price: '',
+    thumbnail: '/placeholder.svg',
+    isPopular: false,
+    showOnHome: false,
   });
 
   const resetForm = () => {
-    setNewCourse({
+    setFormData({
       title: '',
       titleHi: '',
       titleSa: '',
@@ -266,43 +318,68 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
       level: 'Kids',
       duration: '',
       price: '',
+      thumbnail: '/placeholder.svg',
+      isPopular: false,
+      showOnHome: false,
     });
   };
 
-  const handleAddCourse = () => {
-    if (!newCourse.title || !newCourse.category) {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setUploadingImage(true);
+    try {
+      const url = await onUploadImage(file);
+      setFormData({ ...formData, thumbnail: url });
+      toast({ title: 'Success', description: 'Image uploaded successfully' });
+    } catch (error) {
+      toast({ title: 'Error', description: 'Failed to upload image', variant: 'destructive' });
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleAddCourse = async () => {
+    if (!formData.title || !formData.category) {
       toast({ title: 'Error', description: 'Please fill in required fields', variant: 'destructive' });
       return;
     }
-    const course: Course = {
-      id: Date.now().toString(),
-      slug: newCourse.title.toLowerCase().replace(/\s+/g, '-'),
-      title: { 
-        en: newCourse.title, 
-        hi: newCourse.titleHi || newCourse.title, 
-        sa: newCourse.titleSa || newCourse.title 
-      },
-      shortDescription: { 
-        en: newCourse.description, 
-        hi: newCourse.descriptionHi || newCourse.description, 
-        sa: newCourse.descriptionSa || newCourse.description 
-      },
-      thumbnail: '/placeholder.svg',
-      category: newCourse.category,
-      level: newCourse.level,
-      duration: newCourse.duration,
-      price: newCourse.price,
-      isPopular: false,
-    };
-    onAdd(course);
-    setIsAddOpen(false);
-    resetForm();
-    toast({ title: 'Success', description: 'Course added successfully' });
+    setIsLoading(true);
+    try {
+      await onAdd({
+        slug: formData.title.toLowerCase().replace(/\s+/g, '-'),
+        title: { 
+          en: formData.title, 
+          hi: formData.titleHi || formData.title, 
+          sa: formData.titleSa || formData.title 
+        },
+        shortDescription: { 
+          en: formData.description, 
+          hi: formData.descriptionHi || formData.description, 
+          sa: formData.descriptionSa || formData.description 
+        },
+        thumbnail: formData.thumbnail,
+        category: formData.category,
+        level: formData.level,
+        duration: formData.duration,
+        price: formData.price,
+        isPopular: formData.isPopular,
+        showOnHome: formData.showOnHome,
+      });
+      setIsAddOpen(false);
+      resetForm();
+      toast({ title: 'Success', description: 'Course added successfully' });
+    } catch (error) {
+      toast({ title: 'Error', description: 'Failed to add course', variant: 'destructive' });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleEditClick = (course: Course) => {
     setEditingCourse(course);
-    setNewCourse({
+    setFormData({
       title: course.title.en,
       titleHi: course.title.hi,
       titleSa: course.title.sa,
@@ -313,73 +390,127 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
       level: course.level,
       duration: course.duration,
       price: course.price || '',
+      thumbnail: course.thumbnail,
+      isPopular: course.isPopular,
+      showOnHome: course.showOnHome,
     });
     setIsEditOpen(true);
   };
 
-  const handleUpdateCourse = () => {
-    if (!editingCourse || !newCourse.title || !newCourse.category) {
+  const handleUpdateCourse = async () => {
+    if (!editingCourse || !formData.title || !formData.category) {
       toast({ title: 'Error', description: 'Please fill in required fields', variant: 'destructive' });
       return;
     }
-    onUpdate(editingCourse.id, {
-      slug: newCourse.title.toLowerCase().replace(/\s+/g, '-'),
-      title: { 
-        en: newCourse.title, 
-        hi: newCourse.titleHi || newCourse.title, 
-        sa: newCourse.titleSa || newCourse.title 
-      },
-      shortDescription: { 
-        en: newCourse.description, 
-        hi: newCourse.descriptionHi || newCourse.description, 
-        sa: newCourse.descriptionSa || newCourse.description 
-      },
-      category: newCourse.category,
-      level: newCourse.level,
-      duration: newCourse.duration,
-      price: newCourse.price,
-    });
-    setIsEditOpen(false);
-    setEditingCourse(null);
-    resetForm();
-    toast({ title: 'Success', description: 'Course updated successfully' });
+    setIsLoading(true);
+    try {
+      await onUpdate(editingCourse.id, {
+        slug: formData.title.toLowerCase().replace(/\s+/g, '-'),
+        title: { 
+          en: formData.title, 
+          hi: formData.titleHi || formData.title, 
+          sa: formData.titleSa || formData.title 
+        },
+        shortDescription: { 
+          en: formData.description, 
+          hi: formData.descriptionHi || formData.description, 
+          sa: formData.descriptionSa || formData.description 
+        },
+        thumbnail: formData.thumbnail,
+        category: formData.category,
+        level: formData.level,
+        duration: formData.duration,
+        price: formData.price,
+        isPopular: formData.isPopular,
+        showOnHome: formData.showOnHome,
+      });
+      setIsEditOpen(false);
+      setEditingCourse(null);
+      resetForm();
+      toast({ title: 'Success', description: 'Course updated successfully' });
+    } catch (error) {
+      toast({ title: 'Error', description: 'Failed to update course', variant: 'destructive' });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!deleteConfirm) return;
+    setIsLoading(true);
+    try {
+      await onDelete(deleteConfirm);
+      toast({ title: 'Deleted', description: 'Course removed successfully' });
+    } catch (error) {
+      toast({ title: 'Error', description: 'Failed to delete course', variant: 'destructive' });
+    } finally {
+      setIsLoading(false);
+      setDeleteConfirm(null);
+    }
   };
 
   const CourseFormFields = () => (
     <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto">
+      {/* Image Upload */}
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Course Image</label>
+        <div className="flex items-center gap-4">
+          <img src={formData.thumbnail || '/placeholder.svg'} alt="" className="w-20 h-20 rounded-lg object-cover" />
+          <div>
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleImageUpload}
+              accept="image/*"
+              className="hidden"
+            />
+            <Button 
+              type="button" 
+              variant="outline" 
+              size="sm" 
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploadingImage}
+            >
+              {uploadingImage ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Upload className="h-4 w-4 mr-2" />}
+              {uploadingImage ? 'Uploading...' : 'Upload Image'}
+            </Button>
+          </div>
+        </div>
+      </div>
+      
       <div className="space-y-2">
         <label className="text-sm font-medium">Title (English) *</label>
-        <Input placeholder="Course Title" value={newCourse.title} onChange={(e) => setNewCourse({ ...newCourse, title: e.target.value })} />
+        <Input placeholder="Course Title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} />
       </div>
       <div className="space-y-2">
         <label className="text-sm font-medium">Title (Hindi)</label>
-        <Input placeholder="कोर्स का शीर्षक" value={newCourse.titleHi} onChange={(e) => setNewCourse({ ...newCourse, titleHi: e.target.value })} />
+        <Input placeholder="कोर्स का शीर्षक" value={formData.titleHi} onChange={(e) => setFormData({ ...formData, titleHi: e.target.value })} />
       </div>
       <div className="space-y-2">
         <label className="text-sm font-medium">Title (Sanskrit)</label>
-        <Input placeholder="पाठ्यक्रमशीर्षकम्" value={newCourse.titleSa} onChange={(e) => setNewCourse({ ...newCourse, titleSa: e.target.value })} />
+        <Input placeholder="पाठ्यक्रमशीर्षकम्" value={formData.titleSa} onChange={(e) => setFormData({ ...formData, titleSa: e.target.value })} />
       </div>
       <div className="space-y-2">
         <label className="text-sm font-medium">Description (English)</label>
-        <Textarea placeholder="Short Description" value={newCourse.description} onChange={(e) => setNewCourse({ ...newCourse, description: e.target.value })} />
+        <Textarea placeholder="Short Description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
       </div>
       <div className="space-y-2">
         <label className="text-sm font-medium">Description (Hindi)</label>
-        <Textarea placeholder="संक्षिप्त विवरण" value={newCourse.descriptionHi} onChange={(e) => setNewCourse({ ...newCourse, descriptionHi: e.target.value })} />
+        <Textarea placeholder="संक्षिप्त विवरण" value={formData.descriptionHi} onChange={(e) => setFormData({ ...formData, descriptionHi: e.target.value })} />
       </div>
       <div className="space-y-2">
         <label className="text-sm font-medium">Description (Sanskrit)</label>
-        <Textarea placeholder="संक्षिप्तवर्णनम्" value={newCourse.descriptionSa} onChange={(e) => setNewCourse({ ...newCourse, descriptionSa: e.target.value })} />
+        <Textarea placeholder="संक्षिप्तवर्णनम्" value={formData.descriptionSa} onChange={(e) => setFormData({ ...formData, descriptionSa: e.target.value })} />
       </div>
-      <Select value={newCourse.category} onValueChange={(v) => setNewCourse({ ...newCourse, category: v })}>
+      <Select value={formData.category} onValueChange={(v) => setFormData({ ...formData, category: v })}>
         <SelectTrigger><SelectValue placeholder="Select Category *" /></SelectTrigger>
         <SelectContent>
           {categories.map((cat) => (
-            <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+            <SelectItem key={cat.id} value={cat.name.en}>{cat.name.en}</SelectItem>
           ))}
         </SelectContent>
       </Select>
-      <Select value={newCourse.level} onValueChange={(v) => setNewCourse({ ...newCourse, level: v as Course['level'] })}>
+      <Select value={formData.level} onValueChange={(v) => setFormData({ ...formData, level: v as Course['level'] })}>
         <SelectTrigger><SelectValue placeholder="Select Level" /></SelectTrigger>
         <SelectContent>
           {['Kids', 'Teens', 'Adults', 'Gurukul', 'All Ages'].map((level) => (
@@ -388,8 +519,16 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
         </SelectContent>
       </Select>
       <div className="grid grid-cols-2 gap-4">
-        <Input placeholder="Duration (e.g., 12 weeks)" value={newCourse.duration} onChange={(e) => setNewCourse({ ...newCourse, duration: e.target.value })} />
-        <Input placeholder="Price (e.g., ₹4,999)" value={newCourse.price} onChange={(e) => setNewCourse({ ...newCourse, price: e.target.value })} />
+        <Input placeholder="Duration (e.g., 12 weeks)" value={formData.duration} onChange={(e) => setFormData({ ...formData, duration: e.target.value })} />
+        <Input placeholder="Price (e.g., ₹4,999)" value={formData.price} onChange={(e) => setFormData({ ...formData, price: e.target.value })} />
+      </div>
+      <div className="flex items-center justify-between">
+        <Label htmlFor="popular">Mark as Popular</Label>
+        <Switch id="popular" checked={formData.isPopular} onCheckedChange={(checked) => setFormData({ ...formData, isPopular: checked })} />
+      </div>
+      <div className="flex items-center justify-between">
+        <Label htmlFor="showOnHome">Show on Home Page</Label>
+        <Switch id="showOnHome" checked={formData.showOnHome} onCheckedChange={(checked) => setFormData({ ...formData, showOnHome: checked })} />
       </div>
     </div>
   );
@@ -412,7 +551,10 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
             <CourseFormFields />
             <DialogFooter>
               <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
-              <Button variant="saffron" onClick={handleAddCourse}>Add Course</Button>
+              <Button variant="saffron" onClick={handleAddCourse} disabled={isLoading}>
+                {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+                Add Course
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -428,10 +570,22 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
           <CourseFormFields />
           <DialogFooter>
             <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
-            <Button variant="saffron" onClick={handleUpdateCourse}>Save Changes</Button>
+            <Button variant="saffron" onClick={handleUpdateCourse} disabled={isLoading}>
+              {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+              Save Changes
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Delete Confirmation */}
+      <DeleteConfirmDialog
+        open={!!deleteConfirm}
+        onOpenChange={(open) => !open && setDeleteConfirm(null)}
+        onConfirm={handleDeleteConfirm}
+        title="Delete Course?"
+        description="Are you sure you want to delete this course? This action cannot be undone."
+      />
 
       <div className="bg-card rounded-xl shadow-card border border-border overflow-hidden">
         <Table>
@@ -441,7 +595,8 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
               <TableHead>Category</TableHead>
               <TableHead>Level</TableHead>
               <TableHead>Price</TableHead>
-              <TableHead>Featured</TableHead>
+              <TableHead>Popular</TableHead>
+              <TableHead>Home Page</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -450,7 +605,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
               <TableRow key={course.id}>
                 <TableCell>
                   <div className="flex items-center gap-3">
-                    <img src={course.thumbnail} alt="" className="w-10 h-10 rounded-lg object-cover" />
+                    <img src={course.thumbnail || '/placeholder.svg'} alt="" className="w-10 h-10 rounded-lg object-cover" />
                     <span className="font-body font-medium">{course.title.en}</span>
                   </div>
                 </TableCell>
@@ -466,6 +621,15 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
                     )}
                   </button>
                 </TableCell>
+                <TableCell>
+                  <button onClick={() => onToggleShowOnHome(course.id)} className="hover:scale-110 transition-transform">
+                    {course.showOnHome ? (
+                      <Eye className="h-5 w-5 text-primary" />
+                    ) : (
+                      <EyeOff className="h-5 w-5 text-muted-foreground" />
+                    )}
+                  </button>
+                </TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
                     <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleEditClick(course)}>
@@ -475,10 +639,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
                       variant="ghost" 
                       size="icon" 
                       className="h-8 w-8 text-destructive hover:text-destructive"
-                      onClick={() => {
-                        onDelete(course.id);
-                        toast({ title: 'Deleted', description: 'Course removed successfully' });
-                      }}
+                      onClick={() => setDeleteConfirm(course.id)}
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -496,18 +657,25 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
 // Blogs Tab
 interface BlogsTabProps {
   posts: BlogPost[];
-  categories: string[];
-  onDelete: (id: string) => void;
-  onAdd: (post: BlogPost) => void;
-  onUpdate: (id: string, post: Partial<BlogPost>) => void;
+  categories: Category[];
+  onDelete: (id: string) => Promise<void>;
+  onAdd: (post: Omit<BlogPost, 'id'>) => Promise<void>;
+  onUpdate: (id: string, post: Partial<BlogPost>) => Promise<void>;
+  onToggleShowOnHome: (id: string) => Promise<void>;
+  onUploadImage: (file: File) => Promise<string>;
   toast: any;
 }
 
-const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd, onUpdate, toast }) => {
+const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd, onUpdate, onToggleShowOnHome, onUploadImage, toast }) => {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
-  const [newPost, setNewPost] = useState({
+  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  const [formData, setFormData] = useState({
     title: '',
     titleHi: '',
     titleSa: '',
@@ -516,10 +684,12 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
     excerptSa: '',
     category: '',
     author: '',
+    thumbnail: '/placeholder.svg',
+    showOnHome: false,
   });
 
   const resetForm = () => {
-    setNewPost({
+    setFormData({
       title: '',
       titleHi: '',
       titleSa: '',
@@ -528,41 +698,65 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
       excerptSa: '',
       category: '',
       author: '',
+      thumbnail: '/placeholder.svg',
+      showOnHome: false,
     });
   };
 
-  const handleAddPost = () => {
-    if (!newPost.title || !newPost.category) {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setUploadingImage(true);
+    try {
+      const url = await onUploadImage(file);
+      setFormData({ ...formData, thumbnail: url });
+      toast({ title: 'Success', description: 'Image uploaded successfully' });
+    } catch (error) {
+      toast({ title: 'Error', description: 'Failed to upload image', variant: 'destructive' });
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleAddPost = async () => {
+    if (!formData.title || !formData.category) {
       toast({ title: 'Error', description: 'Please fill in required fields', variant: 'destructive' });
       return;
     }
-    const post: BlogPost = {
-      id: Date.now().toString(),
-      slug: newPost.title.toLowerCase().replace(/\s+/g, '-'),
-      title: { 
-        en: newPost.title, 
-        hi: newPost.titleHi || newPost.title, 
-        sa: newPost.titleSa || newPost.title 
-      },
-      excerpt: { 
-        en: newPost.excerpt, 
-        hi: newPost.excerptHi || newPost.excerpt, 
-        sa: newPost.excerptSa || newPost.excerpt 
-      },
-      thumbnail: '/placeholder.svg',
-      category: newPost.category,
-      author: newPost.author || 'Admin',
-      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-    };
-    onAdd(post);
-    setIsAddOpen(false);
-    resetForm();
-    toast({ title: 'Success', description: 'Blog post added successfully' });
+    setIsLoading(true);
+    try {
+      await onAdd({
+        slug: formData.title.toLowerCase().replace(/\s+/g, '-'),
+        title: { 
+          en: formData.title, 
+          hi: formData.titleHi || formData.title, 
+          sa: formData.titleSa || formData.title 
+        },
+        excerpt: { 
+          en: formData.excerpt, 
+          hi: formData.excerptHi || formData.excerpt, 
+          sa: formData.excerptSa || formData.excerpt 
+        },
+        thumbnail: formData.thumbnail,
+        category: formData.category,
+        author: formData.author || 'Shastrakulam Team',
+        date: new Date().toISOString().split('T')[0],
+        showOnHome: formData.showOnHome,
+      });
+      setIsAddOpen(false);
+      resetForm();
+      toast({ title: 'Success', description: 'Blog post added successfully' });
+    } catch (error) {
+      toast({ title: 'Error', description: 'Failed to add post', variant: 'destructive' });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleEditClick = (post: BlogPost) => {
     setEditingPost(post);
-    setNewPost({
+    setFormData({
       title: post.title.en,
       titleHi: post.title.hi,
       titleSa: post.title.sa,
@@ -571,71 +765,127 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
       excerptSa: post.excerpt.sa,
       category: post.category,
       author: post.author,
+      thumbnail: post.thumbnail,
+      showOnHome: post.showOnHome,
     });
     setIsEditOpen(true);
   };
 
-  const handleUpdatePost = () => {
-    if (!editingPost || !newPost.title || !newPost.category) {
+  const handleUpdatePost = async () => {
+    if (!editingPost || !formData.title || !formData.category) {
       toast({ title: 'Error', description: 'Please fill in required fields', variant: 'destructive' });
       return;
     }
-    onUpdate(editingPost.id, {
-      slug: newPost.title.toLowerCase().replace(/\s+/g, '-'),
-      title: { 
-        en: newPost.title, 
-        hi: newPost.titleHi || newPost.title, 
-        sa: newPost.titleSa || newPost.title 
-      },
-      excerpt: { 
-        en: newPost.excerpt, 
-        hi: newPost.excerptHi || newPost.excerpt, 
-        sa: newPost.excerptSa || newPost.excerpt 
-      },
-      category: newPost.category,
-      author: newPost.author || 'Admin',
-    });
-    setIsEditOpen(false);
-    setEditingPost(null);
-    resetForm();
-    toast({ title: 'Success', description: 'Blog post updated successfully' });
+    setIsLoading(true);
+    try {
+      await onUpdate(editingPost.id, {
+        slug: formData.title.toLowerCase().replace(/\s+/g, '-'),
+        title: { 
+          en: formData.title, 
+          hi: formData.titleHi || formData.title, 
+          sa: formData.titleSa || formData.title 
+        },
+        excerpt: { 
+          en: formData.excerpt, 
+          hi: formData.excerptHi || formData.excerpt, 
+          sa: formData.excerptSa || formData.excerpt 
+        },
+        thumbnail: formData.thumbnail,
+        category: formData.category,
+        author: formData.author,
+        showOnHome: formData.showOnHome,
+      });
+      setIsEditOpen(false);
+      setEditingPost(null);
+      resetForm();
+      toast({ title: 'Success', description: 'Blog post updated successfully' });
+    } catch (error) {
+      toast({ title: 'Error', description: 'Failed to update post', variant: 'destructive' });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!deleteConfirm) return;
+    setIsLoading(true);
+    try {
+      await onDelete(deleteConfirm);
+      toast({ title: 'Deleted', description: 'Post removed successfully' });
+    } catch (error) {
+      toast({ title: 'Error', description: 'Failed to delete post', variant: 'destructive' });
+    } finally {
+      setIsLoading(false);
+      setDeleteConfirm(null);
+    }
   };
 
   const BlogFormFields = () => (
     <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto">
+      {/* Image Upload */}
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Featured Image</label>
+        <div className="flex items-center gap-4">
+          <img src={formData.thumbnail || '/placeholder.svg'} alt="" className="w-20 h-20 rounded-lg object-cover" />
+          <div>
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleImageUpload}
+              accept="image/*"
+              className="hidden"
+            />
+            <Button 
+              type="button" 
+              variant="outline" 
+              size="sm" 
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploadingImage}
+            >
+              {uploadingImage ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Upload className="h-4 w-4 mr-2" />}
+              {uploadingImage ? 'Uploading...' : 'Upload Image'}
+            </Button>
+          </div>
+        </div>
+      </div>
+      
       <div className="space-y-2">
         <label className="text-sm font-medium">Title (English) *</label>
-        <Input placeholder="Post Title" value={newPost.title} onChange={(e) => setNewPost({ ...newPost, title: e.target.value })} />
+        <Input placeholder="Post Title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} />
       </div>
       <div className="space-y-2">
         <label className="text-sm font-medium">Title (Hindi)</label>
-        <Input placeholder="पोस्ट का शीर्षक" value={newPost.titleHi} onChange={(e) => setNewPost({ ...newPost, titleHi: e.target.value })} />
+        <Input placeholder="पोस्ट का शीर्षक" value={formData.titleHi} onChange={(e) => setFormData({ ...formData, titleHi: e.target.value })} />
       </div>
       <div className="space-y-2">
         <label className="text-sm font-medium">Title (Sanskrit)</label>
-        <Input placeholder="लेखशीर्षकम्" value={newPost.titleSa} onChange={(e) => setNewPost({ ...newPost, titleSa: e.target.value })} />
+        <Input placeholder="लेखशीर्षकम्" value={formData.titleSa} onChange={(e) => setFormData({ ...formData, titleSa: e.target.value })} />
       </div>
       <div className="space-y-2">
         <label className="text-sm font-medium">Excerpt (English)</label>
-        <Textarea placeholder="Short excerpt" value={newPost.excerpt} onChange={(e) => setNewPost({ ...newPost, excerpt: e.target.value })} />
+        <Textarea placeholder="Short excerpt" value={formData.excerpt} onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })} />
       </div>
       <div className="space-y-2">
         <label className="text-sm font-medium">Excerpt (Hindi)</label>
-        <Textarea placeholder="संक्षिप्त अंश" value={newPost.excerptHi} onChange={(e) => setNewPost({ ...newPost, excerptHi: e.target.value })} />
+        <Textarea placeholder="संक्षिप्त अंश" value={formData.excerptHi} onChange={(e) => setFormData({ ...formData, excerptHi: e.target.value })} />
       </div>
       <div className="space-y-2">
         <label className="text-sm font-medium">Excerpt (Sanskrit)</label>
-        <Textarea placeholder="संक्षिप्तांशः" value={newPost.excerptSa} onChange={(e) => setNewPost({ ...newPost, excerptSa: e.target.value })} />
+        <Textarea placeholder="संक्षिप्तांशः" value={formData.excerptSa} onChange={(e) => setFormData({ ...formData, excerptSa: e.target.value })} />
       </div>
-      <Select value={newPost.category} onValueChange={(v) => setNewPost({ ...newPost, category: v })}>
+      <Select value={formData.category} onValueChange={(v) => setFormData({ ...formData, category: v })}>
         <SelectTrigger><SelectValue placeholder="Select Category *" /></SelectTrigger>
         <SelectContent>
           {categories.map((cat) => (
-            <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+            <SelectItem key={cat.id} value={cat.name.en}>{cat.name.en}</SelectItem>
           ))}
         </SelectContent>
       </Select>
-      <Input placeholder="Author Name" value={newPost.author} onChange={(e) => setNewPost({ ...newPost, author: e.target.value })} />
+      <Input placeholder="Author Name" value={formData.author} onChange={(e) => setFormData({ ...formData, author: e.target.value })} />
+      <div className="flex items-center justify-between">
+        <Label htmlFor="blogShowOnHome">Show on Home Page</Label>
+        <Switch id="blogShowOnHome" checked={formData.showOnHome} onCheckedChange={(checked) => setFormData({ ...formData, showOnHome: checked })} />
+      </div>
     </div>
   );
 
@@ -657,7 +907,10 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
             <BlogFormFields />
             <DialogFooter>
               <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
-              <Button variant="saffron" onClick={handleAddPost}>Add Post</Button>
+              <Button variant="saffron" onClick={handleAddPost} disabled={isLoading}>
+                {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+                Add Post
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -673,10 +926,22 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
           <BlogFormFields />
           <DialogFooter>
             <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
-            <Button variant="saffron" onClick={handleUpdatePost}>Save Changes</Button>
+            <Button variant="saffron" onClick={handleUpdatePost} disabled={isLoading}>
+              {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+              Save Changes
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Delete Confirmation */}
+      <DeleteConfirmDialog
+        open={!!deleteConfirm}
+        onOpenChange={(open) => !open && setDeleteConfirm(null)}
+        onConfirm={handleDeleteConfirm}
+        title="Delete Blog Post?"
+        description="Are you sure you want to delete this blog post? This action cannot be undone."
+      />
 
       <div className="bg-card rounded-xl shadow-card border border-border overflow-hidden">
         <Table>
@@ -686,6 +951,7 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
               <TableHead>Category</TableHead>
               <TableHead>Author</TableHead>
               <TableHead>Date</TableHead>
+              <TableHead>Home Page</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -694,13 +960,22 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
               <TableRow key={post.id}>
                 <TableCell>
                   <div className="flex items-center gap-3">
-                    <img src={post.thumbnail} alt="" className="w-10 h-10 rounded-lg object-cover" />
+                    <img src={post.thumbnail || '/placeholder.svg'} alt="" className="w-10 h-10 rounded-lg object-cover" />
                     <span className="font-body font-medium">{post.title.en}</span>
                   </div>
                 </TableCell>
                 <TableCell><Badge variant="secondary">{post.category}</Badge></TableCell>
                 <TableCell className="font-body text-sm">{post.author}</TableCell>
                 <TableCell className="font-body text-sm text-muted-foreground">{post.date}</TableCell>
+                <TableCell>
+                  <button onClick={() => onToggleShowOnHome(post.id)} className="hover:scale-110 transition-transform">
+                    {post.showOnHome ? (
+                      <Eye className="h-5 w-5 text-primary" />
+                    ) : (
+                      <EyeOff className="h-5 w-5 text-muted-foreground" />
+                    )}
+                  </button>
+                </TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
                     <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleEditClick(post)}>
@@ -710,10 +985,7 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
                       variant="ghost" 
                       size="icon" 
                       className="h-8 w-8 text-destructive hover:text-destructive"
-                      onClick={() => {
-                        onDelete(post.id);
-                        toast({ title: 'Deleted', description: 'Post removed successfully' });
-                      }}
+                      onClick={() => setDeleteConfirm(post.id)}
                     >
                       <Trash2 className="h-4 w-4" />
                     </Button>
@@ -730,12 +1002,12 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
 
 // Categories Tab
 interface CategoriesTabProps {
-  courseCategories: string[];
-  blogCategories: string[];
-  onAddCourseCategory: (cat: string) => void;
-  onAddBlogCategory: (cat: string) => void;
-  onDeleteCourseCategory: (cat: string) => void;
-  onDeleteBlogCategory: (cat: string) => void;
+  courseCategories: Category[];
+  blogCategories: Category[];
+  onAddCourseCategory: (cat: { en: string; hi: string; sa: string }) => Promise<void>;
+  onAddBlogCategory: (cat: { en: string; hi: string; sa: string }) => Promise<void>;
+  onDeleteCourseCategory: (id: string) => Promise<void>;
+  onDeleteBlogCategory: (id: string) => Promise<void>;
   toast: any;
 }
 
@@ -748,45 +1020,85 @@ const CategoriesTab: React.FC<CategoriesTabProps> = ({
   onDeleteBlogCategory,
   toast,
 }) => {
-  const [newCourseCat, setNewCourseCat] = useState('');
-  const [newBlogCat, setNewBlogCat] = useState('');
+  const [newCourseCat, setNewCourseCat] = useState({ en: '', hi: '', sa: '' });
+  const [newBlogCat, setNewBlogCat] = useState({ en: '', hi: '', sa: '' });
+  const [deleteConfirm, setDeleteConfirm] = useState<{ id: string; type: 'course' | 'blog' } | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleDeleteConfirm = async () => {
+    if (!deleteConfirm) return;
+    setIsLoading(true);
+    try {
+      if (deleteConfirm.type === 'course') {
+        await onDeleteCourseCategory(deleteConfirm.id);
+      } else {
+        await onDeleteBlogCategory(deleteConfirm.id);
+      }
+      toast({ title: 'Deleted', description: 'Category removed' });
+    } catch (error) {
+      toast({ title: 'Error', description: 'Failed to delete category', variant: 'destructive' });
+    } finally {
+      setIsLoading(false);
+      setDeleteConfirm(null);
+    }
+  };
 
   return (
     <div className="grid md:grid-cols-2 gap-8">
+      {/* Delete Confirmation */}
+      <DeleteConfirmDialog
+        open={!!deleteConfirm}
+        onOpenChange={(open) => !open && setDeleteConfirm(null)}
+        onConfirm={handleDeleteConfirm}
+        title="Delete Category?"
+        description="Are you sure you want to delete this category? This action cannot be undone."
+      />
+
       {/* Course Categories */}
       <div className="bg-card rounded-xl p-6 shadow-card border border-border">
         <h3 className="font-heading text-lg font-semibold mb-4">Course Categories</h3>
-        <div className="flex gap-2 mb-4">
+        <div className="space-y-3 mb-4">
           <Input 
-            placeholder="New category" 
-            value={newCourseCat} 
-            onChange={(e) => setNewCourseCat(e.target.value)} 
+            placeholder="Category (English)" 
+            value={newCourseCat.en} 
+            onChange={(e) => setNewCourseCat({ ...newCourseCat, en: e.target.value })} 
+          />
+          <Input 
+            placeholder="श्रेणी (Hindi)" 
+            value={newCourseCat.hi} 
+            onChange={(e) => setNewCourseCat({ ...newCourseCat, hi: e.target.value })} 
+          />
+          <Input 
+            placeholder="वर्गः (Sanskrit)" 
+            value={newCourseCat.sa} 
+            onChange={(e) => setNewCourseCat({ ...newCourseCat, sa: e.target.value })} 
           />
           <Button 
             variant="saffron" 
-            onClick={() => {
-              if (newCourseCat) {
-                onAddCourseCategory(newCourseCat);
-                setNewCourseCat('');
+            className="w-full"
+            onClick={async () => {
+              if (newCourseCat.en) {
+                await onAddCourseCategory(newCourseCat);
+                setNewCourseCat({ en: '', hi: '', sa: '' });
                 toast({ title: 'Added', description: 'Category added' });
               }
             }}
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="h-4 w-4 mr-2" /> Add Category
           </Button>
         </div>
         <div className="space-y-2">
           {courseCategories.map((cat) => (
-            <div key={cat} className="flex items-center justify-between py-2 px-3 bg-muted rounded-lg">
-              <span className="font-body">{cat}</span>
+            <div key={cat.id} className="flex items-center justify-between py-2 px-3 bg-muted rounded-lg">
+              <div>
+                <span className="font-body font-medium">{cat.name.en}</span>
+                {cat.name.hi && <span className="font-body text-sm text-muted-foreground ml-2">({cat.name.hi})</span>}
+              </div>
               <Button 
                 variant="ghost" 
                 size="icon" 
                 className="h-8 w-8 text-destructive"
-                onClick={() => {
-                  onDeleteCourseCategory(cat);
-                  toast({ title: 'Deleted', description: 'Category removed' });
-                }}
+                onClick={() => setDeleteConfirm({ id: cat.id, type: 'course' })}
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
@@ -798,43 +1110,216 @@ const CategoriesTab: React.FC<CategoriesTabProps> = ({
       {/* Blog Categories */}
       <div className="bg-card rounded-xl p-6 shadow-card border border-border">
         <h3 className="font-heading text-lg font-semibold mb-4">Blog Categories</h3>
-        <div className="flex gap-2 mb-4">
+        <div className="space-y-3 mb-4">
           <Input 
-            placeholder="New category" 
-            value={newBlogCat} 
-            onChange={(e) => setNewBlogCat(e.target.value)} 
+            placeholder="Category (English)" 
+            value={newBlogCat.en} 
+            onChange={(e) => setNewBlogCat({ ...newBlogCat, en: e.target.value })} 
+          />
+          <Input 
+            placeholder="श्रेणी (Hindi)" 
+            value={newBlogCat.hi} 
+            onChange={(e) => setNewBlogCat({ ...newBlogCat, hi: e.target.value })} 
+          />
+          <Input 
+            placeholder="वर्गः (Sanskrit)" 
+            value={newBlogCat.sa} 
+            onChange={(e) => setNewBlogCat({ ...newBlogCat, sa: e.target.value })} 
           />
           <Button 
             variant="saffron" 
-            onClick={() => {
-              if (newBlogCat) {
-                onAddBlogCategory(newBlogCat);
-                setNewBlogCat('');
+            className="w-full"
+            onClick={async () => {
+              if (newBlogCat.en) {
+                await onAddBlogCategory(newBlogCat);
+                setNewBlogCat({ en: '', hi: '', sa: '' });
                 toast({ title: 'Added', description: 'Category added' });
               }
             }}
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="h-4 w-4 mr-2" /> Add Category
           </Button>
         </div>
         <div className="space-y-2">
           {blogCategories.map((cat) => (
-            <div key={cat} className="flex items-center justify-between py-2 px-3 bg-muted rounded-lg">
-              <span className="font-body">{cat}</span>
+            <div key={cat.id} className="flex items-center justify-between py-2 px-3 bg-muted rounded-lg">
+              <div>
+                <span className="font-body font-medium">{cat.name.en}</span>
+                {cat.name.hi && <span className="font-body text-sm text-muted-foreground ml-2">({cat.name.hi})</span>}
+              </div>
               <Button 
                 variant="ghost" 
                 size="icon" 
                 className="h-8 w-8 text-destructive"
-                onClick={() => {
-                  onDeleteBlogCategory(cat);
-                  toast({ title: 'Deleted', description: 'Category removed' });
-                }}
+                onClick={() => setDeleteConfirm({ id: cat.id, type: 'blog' })}
               >
                 <Trash2 className="h-4 w-4" />
               </Button>
             </div>
           ))}
         </div>
+      </div>
+    </div>
+  );
+};
+
+// Notifications Tab
+interface NotificationsTabProps {
+  popup: any;
+  onUpdate: (popup: any) => Promise<void>;
+  onUploadImage: (file: File) => Promise<string>;
+  toast: any;
+}
+
+const NotificationsTab: React.FC<NotificationsTabProps> = ({ popup, onUpdate, onUploadImage, toast }) => {
+  const [formData, setFormData] = useState({
+    titleEn: popup?.title?.en || '',
+    titleHi: popup?.title?.hi || '',
+    titleSa: popup?.title?.sa || '',
+    messageEn: popup?.message?.en || '',
+    messageHi: popup?.message?.hi || '',
+    messageSa: popup?.message?.sa || '',
+    imageUrl: popup?.imageUrl || '',
+    isEnabled: popup?.isEnabled || false,
+    showOnAllPages: popup?.showOnAllPages || true,
+    startDate: popup?.startDate || '',
+    endDate: popup?.endDate || '',
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setUploadingImage(true);
+    try {
+      const url = await onUploadImage(file);
+      setFormData({ ...formData, imageUrl: url });
+      toast({ title: 'Success', description: 'Image uploaded successfully' });
+    } catch (error) {
+      toast({ title: 'Error', description: 'Failed to upload image', variant: 'destructive' });
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
+  const handleSave = async () => {
+    setIsLoading(true);
+    try {
+      await onUpdate({
+        title: { en: formData.titleEn, hi: formData.titleHi, sa: formData.titleSa },
+        message: { en: formData.messageEn, hi: formData.messageHi, sa: formData.messageSa },
+        imageUrl: formData.imageUrl || undefined,
+        isEnabled: formData.isEnabled,
+        showOnAllPages: formData.showOnAllPages,
+        startDate: formData.startDate || undefined,
+        endDate: formData.endDate || undefined,
+      });
+      toast({ title: 'Success', description: 'Notification settings saved' });
+    } catch (error) {
+      toast({ title: 'Error', description: 'Failed to save settings', variant: 'destructive' });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="max-w-2xl">
+      <div className="bg-card rounded-xl p-6 shadow-card border border-border space-y-6">
+        <div className="flex items-center justify-between">
+          <h3 className="font-heading text-lg font-semibold">Notification Popup</h3>
+          <div className="flex items-center gap-2">
+            <Label htmlFor="enabled">Enable Popup</Label>
+            <Switch 
+              id="enabled" 
+              checked={formData.isEnabled} 
+              onCheckedChange={(checked) => setFormData({ ...formData, isEnabled: checked })} 
+            />
+          </div>
+        </div>
+
+        {/* Image Upload */}
+        <div className="space-y-2">
+          <label className="text-sm font-medium">Poster Image (Optional)</label>
+          <div className="flex items-center gap-4">
+            {formData.imageUrl && (
+              <img src={formData.imageUrl} alt="" className="w-24 h-16 rounded-lg object-cover" />
+            )}
+            <div>
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleImageUpload}
+                accept="image/*"
+                className="hidden"
+              />
+              <Button 
+                type="button" 
+                variant="outline" 
+                size="sm" 
+                onClick={() => fileInputRef.current?.click()}
+                disabled={uploadingImage}
+              >
+                {uploadingImage ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Upload className="h-4 w-4 mr-2" />}
+                {uploadingImage ? 'Uploading...' : 'Upload Image'}
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Title (English)</label>
+            <Input value={formData.titleEn} onChange={(e) => setFormData({ ...formData, titleEn: e.target.value })} />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Title (Hindi)</label>
+            <Input value={formData.titleHi} onChange={(e) => setFormData({ ...formData, titleHi: e.target.value })} />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Title (Sanskrit)</label>
+            <Input value={formData.titleSa} onChange={(e) => setFormData({ ...formData, titleSa: e.target.value })} />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Message (English)</label>
+            <Textarea value={formData.messageEn} onChange={(e) => setFormData({ ...formData, messageEn: e.target.value })} />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Message (Hindi)</label>
+            <Textarea value={formData.messageHi} onChange={(e) => setFormData({ ...formData, messageHi: e.target.value })} />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Message (Sanskrit)</label>
+            <Textarea value={formData.messageSa} onChange={(e) => setFormData({ ...formData, messageSa: e.target.value })} />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <Label htmlFor="allPages">Show on All Pages</Label>
+            <Switch 
+              id="allPages" 
+              checked={formData.showOnAllPages} 
+              onCheckedChange={(checked) => setFormData({ ...formData, showOnAllPages: checked })} 
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Start Date (Optional)</label>
+              <Input type="date" value={formData.startDate} onChange={(e) => setFormData({ ...formData, startDate: e.target.value })} />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">End Date (Optional)</label>
+              <Input type="date" value={formData.endDate} onChange={(e) => setFormData({ ...formData, endDate: e.target.value })} />
+            </div>
+          </div>
+        </div>
+
+        <Button variant="saffron" onClick={handleSave} disabled={isLoading}>
+          {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+          Save Notification Settings
+        </Button>
       </div>
     </div>
   );

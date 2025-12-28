@@ -1,22 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Clock, Users, ArrowRight } from 'lucide-react';
+import { Clock, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage, translations } from '@/contexts/LanguageContext';
-
-export interface Course {
-  id: string;
-  slug: string;
-  title: { en: string; hi: string; sa: string };
-  shortDescription: { en: string; hi: string; sa: string };
-  thumbnail: string;
-  category: string;
-  level: 'Kids' | 'Teens' | 'Adults' | 'Gurukul' | 'All Ages';
-  duration: string;
-  isPopular?: boolean;
-  price?: string;
-}
+import { Course } from '@/contexts/AdminContext';
 
 interface CourseCardProps {
   course: Course;
@@ -41,9 +29,12 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
       {/* Image */}
       <div className="relative aspect-[16/10] overflow-hidden">
         <img
-          src={course.thumbnail}
+          src={course.thumbnail || '/placeholder.svg'}
           alt={t(course.title)}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/placeholder.svg';
+          }}
         />
         {course.isPopular && (
           <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground border-0">
