@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useLanguage, translations } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Facebook, Instagram, Youtube, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Instagram, Youtube, Twitter, Mail, Phone, MapPin, Heart } from 'lucide-react';
 import logo from '@/assets/shastrakulam-logo.png';
 
 const Footer: React.FC = () => {
@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
     { path: '/camps', label: translations.nav.camps },
     { path: '/blog', label: translations.nav.blog },
     { path: '/about', label: translations.nav.about },
-    { path: '/contact', label: translations.nav.contact },
+    { path: '/donate', label: { en: 'Donate', hi: 'दान करें', sa: 'दानं कुरुत' } },
   ];
 
   const socialLinks = [
@@ -29,7 +29,6 @@ const Footer: React.FC = () => {
 
   const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle newsletter subscription
     console.log('Newsletter subscription:', email);
     setEmail('');
   };
@@ -41,15 +40,12 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand Column */}
           <div className="space-y-6">
-            <Link to="/" className="flex items-center gap-3">
+            <Link to="/" className="inline-block">
               <img
                 src={logo}
                 alt="Shastrakulam"
-                className="h-14 w-auto bg-white/10 rounded-lg p-1"
+                className="h-20 w-auto bg-white rounded-xl p-2"
               />
-              <span className="font-heading text-2xl font-semibold">
-                Shastrakulam
-              </span>
             </Link>
             <p className="font-body text-primary-foreground/80 leading-relaxed">
               {t(translations.footer.tagline)}
@@ -123,13 +119,13 @@ const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Newsletter */}
+          {/* Newsletter & Donate */}
           <div>
             <h4 className="font-heading text-lg font-semibold mb-6">
               {t(translations.footer.newsletter)}
             </h4>
             <p className="font-body text-primary-foreground/80 text-sm mb-4">
-              Stay updated with our latest courses, events, and wisdom articles.
+              Stay updated with our latest courses and events.
             </p>
             <form onSubmit={handleNewsletterSubmit} className="space-y-3">
               <Input
@@ -148,6 +144,12 @@ const Footer: React.FC = () => {
                 {t(translations.footer.subscribe)}
               </Button>
             </form>
+            <Link to="/donate" className="block mt-4">
+              <Button variant="outline" className="w-full border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 gap-2">
+                <Heart className="h-4 w-4" />
+                Support Our Mission
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

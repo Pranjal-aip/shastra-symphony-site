@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useLanguage, translations } from '@/contexts/LanguageContext';
@@ -40,21 +40,18 @@ const Navbar: React.FC = () => {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-background/95 backdrop-blur-md shadow-soft'
-          : 'bg-transparent'
+          : 'bg-background/80 backdrop-blur-sm'
       }`}
     >
       <div className="container mx-auto px-4">
         <nav className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
+          {/* Logo - the new logo includes text, so we show it larger */}
+          <Link to="/" className="flex items-center group">
             <img
               src={logo}
               alt="Shastrakulam"
-              className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+              className="h-16 md:h-20 w-auto transition-transform duration-300 group-hover:scale-105"
             />
-            <span className="hidden sm:block font-heading text-xl font-semibold text-foreground">
-              Shastrakulam
-            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -63,7 +60,7 @@ const Navbar: React.FC = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-4 py-2 rounded-lg font-body text-sm font-medium transition-all duration-200 ${
+                className={`px-3 py-2 rounded-lg font-body text-sm font-medium transition-all duration-200 ${
                   isActive(link.path)
                     ? 'text-primary bg-secondary'
                     : 'text-muted-foreground hover:text-foreground hover:bg-muted'
@@ -75,8 +72,14 @@ const Navbar: React.FC = () => {
           </div>
 
           {/* Right side actions */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <LanguageSwitcher />
+            <Link to="/donate" className="hidden md:block">
+              <Button variant="maroon-outline" size="sm" className="gap-1">
+                <Heart className="h-4 w-4" />
+                <span className="hidden xl:inline">Donate</span>
+              </Button>
+            </Link>
             <Link to="/courses" className="hidden sm:block">
               <Button variant="saffron" size="default">
                 {t(translations.nav.enrollNow)}
@@ -116,6 +119,14 @@ const Navbar: React.FC = () => {
                   {t(link.label)}
                 </Link>
               ))}
+              <Link
+                to="/donate"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="px-4 py-3 rounded-lg font-body text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted flex items-center gap-2"
+              >
+                <Heart className="h-4 w-4" />
+                Donate
+              </Link>
               <Link
                 to="/courses"
                 onClick={() => setIsMobileMenuOpen(false)}
