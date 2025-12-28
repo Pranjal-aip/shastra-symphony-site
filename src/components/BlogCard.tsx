@@ -3,17 +3,7 @@ import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight, User } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage, translations } from '@/contexts/LanguageContext';
-
-export interface BlogPost {
-  id: string;
-  slug: string;
-  title: { en: string; hi: string; sa: string };
-  excerpt: { en: string; hi: string; sa: string };
-  thumbnail: string;
-  category: string;
-  author: string;
-  date: string;
-}
+import { BlogPost } from '@/contexts/AdminContext';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -27,9 +17,12 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
       {/* Image */}
       <div className="relative aspect-[16/10] overflow-hidden">
         <img
-          src={post.thumbnail}
+          src={post.thumbnail || '/placeholder.svg'}
           alt={t(post.title)}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          onError={(e) => {
+            (e.target as HTMLImageElement).src = '/placeholder.svg';
+          }}
         />
         <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground border-0">
           {post.category}
