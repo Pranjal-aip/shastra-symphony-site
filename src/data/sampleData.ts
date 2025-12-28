@@ -1,5 +1,4 @@
-import { Course } from '@/components/CourseCard';
-import { BlogPost } from '@/components/BlogCard';
+import { Course, BlogPost } from '@/contexts/AdminContext';
 
 import courseSanskritBasics from '@/assets/course-sanskrit-basics.jpg';
 import courseGita from '@/assets/course-gita.jpg';
@@ -27,6 +26,7 @@ export const sampleCourses: Course[] = [
     level: 'Kids',
     duration: '12 weeks',
     isPopular: true,
+    showOnHome: true,
     price: '₹4,999',
   },
   {
@@ -47,6 +47,7 @@ export const sampleCourses: Course[] = [
     level: 'Adults',
     duration: '24 weeks',
     isPopular: true,
+    showOnHome: true,
     price: '₹7,999',
   },
   {
@@ -67,6 +68,7 @@ export const sampleCourses: Course[] = [
     level: 'Kids',
     duration: '8 weeks',
     isPopular: true,
+    showOnHome: true,
     price: '₹3,499',
   },
   {
@@ -86,6 +88,8 @@ export const sampleCourses: Course[] = [
     category: 'Education',
     level: 'Teens',
     duration: '10 weeks',
+    isPopular: false,
+    showOnHome: false,
     price: '₹4,499',
   },
   {
@@ -105,6 +109,8 @@ export const sampleCourses: Course[] = [
     category: 'Arts',
     level: 'All Ages',
     duration: '16 weeks',
+    isPopular: false,
+    showOnHome: false,
     price: '₹5,999',
   },
   {
@@ -125,6 +131,7 @@ export const sampleCourses: Course[] = [
     level: 'Kids',
     duration: '6 weeks',
     isPopular: true,
+    showOnHome: true,
     price: '₹2,999',
   },
 ];
@@ -147,6 +154,7 @@ export const sampleBlogPosts: BlogPost[] = [
     category: 'Sanskrit Learning',
     author: 'Dr. Vidya Sharma',
     date: 'Dec 20, 2024',
+    showOnHome: true,
   },
   {
     id: '2',
@@ -165,6 +173,7 @@ export const sampleBlogPosts: BlogPost[] = [
     category: 'Gurukul Life',
     author: 'Acharya Ramesh',
     date: 'Dec 15, 2024',
+    showOnHome: true,
   },
   {
     id: '3',
@@ -183,6 +192,7 @@ export const sampleBlogPosts: BlogPost[] = [
     category: 'Festivals',
     author: 'Pandit Suresh',
     date: 'Dec 10, 2024',
+    showOnHome: true,
   },
   {
     id: '4',
@@ -201,6 +211,7 @@ export const sampleBlogPosts: BlogPost[] = [
     category: 'Parenting',
     author: 'Dr. Meera Joshi',
     date: 'Dec 5, 2024',
+    showOnHome: true,
   },
 ];
 
