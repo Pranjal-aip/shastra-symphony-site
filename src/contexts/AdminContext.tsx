@@ -12,9 +12,11 @@ interface AdminContextType {
   updateCourse: (id: string, course: Partial<Course>) => void;
   deleteCourse: (id: string) => void;
   toggleCoursePopular: (id: string) => void;
+  getCourseById: (id: string) => Course | undefined;
   addBlogPost: (post: BlogPost) => void;
   updateBlogPost: (id: string, post: Partial<BlogPost>) => void;
   deleteBlogPost: (id: string) => void;
+  getBlogPostById: (id: string) => BlogPost | undefined;
   addCourseCategory: (category: string) => void;
   addBlogCategory: (category: string) => void;
   deleteCourseCategory: (category: string) => void;
@@ -49,6 +51,10 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     );
   };
 
+  const getCourseById = (id: string) => {
+    return courses.find((c) => c.id === id);
+  };
+
   const addBlogPost = (post: BlogPost) => {
     setBlogPosts((prev) => [...prev, post]);
   };
@@ -61,6 +67,10 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   const deleteBlogPost = (id: string) => {
     setBlogPosts((prev) => prev.filter((p) => p.id !== id));
+  };
+
+  const getBlogPostById = (id: string) => {
+    return blogPosts.find((p) => p.id === id);
   };
 
   const addCourseCategory = (category: string) => {
@@ -94,9 +104,11 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
         updateCourse,
         deleteCourse,
         toggleCoursePopular,
+        getCourseById,
         addBlogPost,
         updateBlogPost,
         deleteBlogPost,
+        getBlogPostById,
         addCourseCategory,
         addBlogCategory,
         deleteCourseCategory,

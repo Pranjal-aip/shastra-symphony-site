@@ -61,9 +61,11 @@ const AdminDashboard: React.FC = () => {
     courseCategories, 
     blogCategories,
     addCourse,
+    updateCourse,
     deleteCourse,
     toggleCoursePopular,
     addBlogPost,
+    updateBlogPost,
     deleteBlogPost,
     addCourseCategory,
     addBlogCategory,
@@ -149,6 +151,7 @@ const AdminDashboard: React.FC = () => {
               onDelete={deleteCourse}
               onTogglePopular={toggleCoursePopular}
               onAdd={addCourse}
+              onUpdate={updateCourse}
               toast={toast}
             />
           )}
@@ -158,6 +161,7 @@ const AdminDashboard: React.FC = () => {
               categories={blogCategories}
               onDelete={deleteBlogPost}
               onAdd={addBlogPost}
+              onUpdate={updateBlogPost}
               toast={toast}
             />
           )}
@@ -229,19 +233,41 @@ interface CoursesTabProps {
   onDelete: (id: string) => void;
   onTogglePopular: (id: string) => void;
   onAdd: (course: Course) => void;
+  onUpdate: (id: string, course: Partial<Course>) => void;
   toast: any;
 }
 
-const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, onTogglePopular, onAdd, toast }) => {
+const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, onTogglePopular, onAdd, onUpdate, toast }) => {
   const [isAddOpen, setIsAddOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [editingCourse, setEditingCourse] = useState<Course | null>(null);
   const [newCourse, setNewCourse] = useState({
     title: '',
+    titleHi: '',
+    titleSa: '',
     description: '',
+    descriptionHi: '',
+    descriptionSa: '',
     category: '',
     level: 'Kids' as Course['level'],
     duration: '',
     price: '',
   });
+
+  const resetForm = () => {
+    setNewCourse({
+      title: '',
+      titleHi: '',
+      titleSa: '',
+      description: '',
+      descriptionHi: '',
+      descriptionSa: '',
+      category: '',
+      level: 'Kids',
+      duration: '',
+      price: '',
+    });
+  };
 
   const handleAddCourse = () => {
     if (!newCourse.title || !newCourse.category) {
@@ -251,8 +277,16 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
     const course: Course = {
       id: Date.now().toString(),
       slug: newCourse.title.toLowerCase().replace(/\s+/g, '-'),
-      title: { en: newCourse.title, hi: newCourse.title, sa: newCourse.title },
-      shortDescription: { en: newCourse.description, hi: newCourse.description, sa: newCourse.description },
+      title: { 
+        en: newCourse.title, 
+        hi: newCourse.titleHi || newCourse.title, 
+        sa: newCourse.titleSa || newCourse.title 
+      },
+      shortDescription: { 
+        en: newCourse.description, 
+        hi: newCourse.descriptionHi || newCourse.description, 
+        sa: newCourse.descriptionSa || newCourse.description 
+      },
       thumbnail: '/placeholder.svg',
       category: newCourse.category,
       level: newCourse.level,
@@ -262,15 +296,109 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
     };
     onAdd(course);
     setIsAddOpen(false);
-    setNewCourse({ title: '', description: '', category: '', level: 'Kids', duration: '', price: '' });
+    resetForm();
     toast({ title: 'Success', description: 'Course added successfully' });
   };
+
+  const handleEditClick = (course: Course) => {
+    setEditingCourse(course);
+    setNewCourse({
+      title: course.title.en,
+      titleHi: course.title.hi,
+      titleSa: course.title.sa,
+      description: course.shortDescription.en,
+      descriptionHi: course.shortDescription.hi,
+      descriptionSa: course.shortDescription.sa,
+      category: course.category,
+      level: course.level,
+      duration: course.duration,
+      price: course.price || '',
+    });
+    setIsEditOpen(true);
+  };
+
+  const handleUpdateCourse = () => {
+    if (!editingCourse || !newCourse.title || !newCourse.category) {
+      toast({ title: 'Error', description: 'Please fill in required fields', variant: 'destructive' });
+      return;
+    }
+    onUpdate(editingCourse.id, {
+      slug: newCourse.title.toLowerCase().replace(/\s+/g, '-'),
+      title: { 
+        en: newCourse.title, 
+        hi: newCourse.titleHi || newCourse.title, 
+        sa: newCourse.titleSa || newCourse.title 
+      },
+      shortDescription: { 
+        en: newCourse.description, 
+        hi: newCourse.descriptionHi || newCourse.description, 
+        sa: newCourse.descriptionSa || newCourse.description 
+      },
+      category: newCourse.category,
+      level: newCourse.level,
+      duration: newCourse.duration,
+      price: newCourse.price,
+    });
+    setIsEditOpen(false);
+    setEditingCourse(null);
+    resetForm();
+    toast({ title: 'Success', description: 'Course updated successfully' });
+  };
+
+  const CourseFormFields = () => (
+    <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto">
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Title (English) *</label>
+        <Input placeholder="Course Title" value={newCourse.title} onChange={(e) => setNewCourse({ ...newCourse, title: e.target.value })} />
+      </div>
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Title (Hindi)</label>
+        <Input placeholder="कोर्स का शीर्षक" value={newCourse.titleHi} onChange={(e) => setNewCourse({ ...newCourse, titleHi: e.target.value })} />
+      </div>
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Title (Sanskrit)</label>
+        <Input placeholder="पाठ्यक्रमशीर्षकम्" value={newCourse.titleSa} onChange={(e) => setNewCourse({ ...newCourse, titleSa: e.target.value })} />
+      </div>
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Description (English)</label>
+        <Textarea placeholder="Short Description" value={newCourse.description} onChange={(e) => setNewCourse({ ...newCourse, description: e.target.value })} />
+      </div>
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Description (Hindi)</label>
+        <Textarea placeholder="संक्षिप्त विवरण" value={newCourse.descriptionHi} onChange={(e) => setNewCourse({ ...newCourse, descriptionHi: e.target.value })} />
+      </div>
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Description (Sanskrit)</label>
+        <Textarea placeholder="संक्षिप्तवर्णनम्" value={newCourse.descriptionSa} onChange={(e) => setNewCourse({ ...newCourse, descriptionSa: e.target.value })} />
+      </div>
+      <Select value={newCourse.category} onValueChange={(v) => setNewCourse({ ...newCourse, category: v })}>
+        <SelectTrigger><SelectValue placeholder="Select Category *" /></SelectTrigger>
+        <SelectContent>
+          {categories.map((cat) => (
+            <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <Select value={newCourse.level} onValueChange={(v) => setNewCourse({ ...newCourse, level: v as Course['level'] })}>
+        <SelectTrigger><SelectValue placeholder="Select Level" /></SelectTrigger>
+        <SelectContent>
+          {['Kids', 'Teens', 'Adults', 'Gurukul', 'All Ages'].map((level) => (
+            <SelectItem key={level} value={level}>{level}</SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <div className="grid grid-cols-2 gap-4">
+        <Input placeholder="Duration (e.g., 12 weeks)" value={newCourse.duration} onChange={(e) => setNewCourse({ ...newCourse, duration: e.target.value })} />
+        <Input placeholder="Price (e.g., ₹4,999)" value={newCourse.price} onChange={(e) => setNewCourse({ ...newCourse, price: e.target.value })} />
+      </div>
+    </div>
+  );
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <p className="font-body text-muted-foreground">{courses.length} courses total</p>
-        <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
+        <Dialog open={isAddOpen} onOpenChange={(open) => { setIsAddOpen(open); if (!open) resetForm(); }}>
           <DialogTrigger asChild>
             <Button variant="saffron" className="gap-2">
               <Plus className="h-4 w-4" /> Add Course
@@ -281,30 +409,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
               <DialogTitle className="font-heading">Add New Course</DialogTitle>
               <DialogDescription>Create a new course for your catalog.</DialogDescription>
             </DialogHeader>
-            <div className="space-y-4 py-4">
-              <Input placeholder="Course Title *" value={newCourse.title} onChange={(e) => setNewCourse({ ...newCourse, title: e.target.value })} />
-              <Textarea placeholder="Short Description" value={newCourse.description} onChange={(e) => setNewCourse({ ...newCourse, description: e.target.value })} />
-              <Select value={newCourse.category} onValueChange={(v) => setNewCourse({ ...newCourse, category: v })}>
-                <SelectTrigger><SelectValue placeholder="Select Category *" /></SelectTrigger>
-                <SelectContent>
-                  {categories.map((cat) => (
-                    <SelectItem key={cat} value={cat}>{cat}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Select value={newCourse.level} onValueChange={(v) => setNewCourse({ ...newCourse, level: v as Course['level'] })}>
-                <SelectTrigger><SelectValue placeholder="Select Level" /></SelectTrigger>
-                <SelectContent>
-                  {['Kids', 'Teens', 'Adults', 'Gurukul', 'All Ages'].map((level) => (
-                    <SelectItem key={level} value={level}>{level}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <div className="grid grid-cols-2 gap-4">
-                <Input placeholder="Duration (e.g., 12 weeks)" value={newCourse.duration} onChange={(e) => setNewCourse({ ...newCourse, duration: e.target.value })} />
-                <Input placeholder="Price (e.g., ₹4,999)" value={newCourse.price} onChange={(e) => setNewCourse({ ...newCourse, price: e.target.value })} />
-              </div>
-            </div>
+            <CourseFormFields />
             <DialogFooter>
               <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
               <Button variant="saffron" onClick={handleAddCourse}>Add Course</Button>
@@ -312,6 +417,21 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
           </DialogContent>
         </Dialog>
       </div>
+
+      {/* Edit Dialog */}
+      <Dialog open={isEditOpen} onOpenChange={(open) => { setIsEditOpen(open); if (!open) { setEditingCourse(null); resetForm(); } }}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="font-heading">Edit Course</DialogTitle>
+            <DialogDescription>Update course details.</DialogDescription>
+          </DialogHeader>
+          <CourseFormFields />
+          <DialogFooter>
+            <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
+            <Button variant="saffron" onClick={handleUpdateCourse}>Save Changes</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <div className="bg-card rounded-xl shadow-card border border-border overflow-hidden">
         <Table>
@@ -348,7 +468,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({ courses, categories, onDelete, 
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
+                    <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleEditClick(course)}>
                       <Edit className="h-4 w-4" />
                     </Button>
                     <Button 
@@ -379,17 +499,37 @@ interface BlogsTabProps {
   categories: string[];
   onDelete: (id: string) => void;
   onAdd: (post: BlogPost) => void;
+  onUpdate: (id: string, post: Partial<BlogPost>) => void;
   toast: any;
 }
 
-const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd, toast }) => {
+const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd, onUpdate, toast }) => {
   const [isAddOpen, setIsAddOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [newPost, setNewPost] = useState({
     title: '',
+    titleHi: '',
+    titleSa: '',
     excerpt: '',
+    excerptHi: '',
+    excerptSa: '',
     category: '',
     author: '',
   });
+
+  const resetForm = () => {
+    setNewPost({
+      title: '',
+      titleHi: '',
+      titleSa: '',
+      excerpt: '',
+      excerptHi: '',
+      excerptSa: '',
+      category: '',
+      author: '',
+    });
+  };
 
   const handleAddPost = () => {
     if (!newPost.title || !newPost.category) {
@@ -399,8 +539,16 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
     const post: BlogPost = {
       id: Date.now().toString(),
       slug: newPost.title.toLowerCase().replace(/\s+/g, '-'),
-      title: { en: newPost.title, hi: newPost.title, sa: newPost.title },
-      excerpt: { en: newPost.excerpt, hi: newPost.excerpt, sa: newPost.excerpt },
+      title: { 
+        en: newPost.title, 
+        hi: newPost.titleHi || newPost.title, 
+        sa: newPost.titleSa || newPost.title 
+      },
+      excerpt: { 
+        en: newPost.excerpt, 
+        hi: newPost.excerptHi || newPost.excerpt, 
+        sa: newPost.excerptSa || newPost.excerpt 
+      },
       thumbnail: '/placeholder.svg',
       category: newPost.category,
       author: newPost.author || 'Admin',
@@ -408,15 +556,94 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
     };
     onAdd(post);
     setIsAddOpen(false);
-    setNewPost({ title: '', excerpt: '', category: '', author: '' });
+    resetForm();
     toast({ title: 'Success', description: 'Blog post added successfully' });
   };
+
+  const handleEditClick = (post: BlogPost) => {
+    setEditingPost(post);
+    setNewPost({
+      title: post.title.en,
+      titleHi: post.title.hi,
+      titleSa: post.title.sa,
+      excerpt: post.excerpt.en,
+      excerptHi: post.excerpt.hi,
+      excerptSa: post.excerpt.sa,
+      category: post.category,
+      author: post.author,
+    });
+    setIsEditOpen(true);
+  };
+
+  const handleUpdatePost = () => {
+    if (!editingPost || !newPost.title || !newPost.category) {
+      toast({ title: 'Error', description: 'Please fill in required fields', variant: 'destructive' });
+      return;
+    }
+    onUpdate(editingPost.id, {
+      slug: newPost.title.toLowerCase().replace(/\s+/g, '-'),
+      title: { 
+        en: newPost.title, 
+        hi: newPost.titleHi || newPost.title, 
+        sa: newPost.titleSa || newPost.title 
+      },
+      excerpt: { 
+        en: newPost.excerpt, 
+        hi: newPost.excerptHi || newPost.excerpt, 
+        sa: newPost.excerptSa || newPost.excerpt 
+      },
+      category: newPost.category,
+      author: newPost.author || 'Admin',
+    });
+    setIsEditOpen(false);
+    setEditingPost(null);
+    resetForm();
+    toast({ title: 'Success', description: 'Blog post updated successfully' });
+  };
+
+  const BlogFormFields = () => (
+    <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto">
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Title (English) *</label>
+        <Input placeholder="Post Title" value={newPost.title} onChange={(e) => setNewPost({ ...newPost, title: e.target.value })} />
+      </div>
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Title (Hindi)</label>
+        <Input placeholder="पोस्ट का शीर्षक" value={newPost.titleHi} onChange={(e) => setNewPost({ ...newPost, titleHi: e.target.value })} />
+      </div>
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Title (Sanskrit)</label>
+        <Input placeholder="लेखशीर्षकम्" value={newPost.titleSa} onChange={(e) => setNewPost({ ...newPost, titleSa: e.target.value })} />
+      </div>
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Excerpt (English)</label>
+        <Textarea placeholder="Short excerpt" value={newPost.excerpt} onChange={(e) => setNewPost({ ...newPost, excerpt: e.target.value })} />
+      </div>
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Excerpt (Hindi)</label>
+        <Textarea placeholder="संक्षिप्त अंश" value={newPost.excerptHi} onChange={(e) => setNewPost({ ...newPost, excerptHi: e.target.value })} />
+      </div>
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Excerpt (Sanskrit)</label>
+        <Textarea placeholder="संक्षिप्तांशः" value={newPost.excerptSa} onChange={(e) => setNewPost({ ...newPost, excerptSa: e.target.value })} />
+      </div>
+      <Select value={newPost.category} onValueChange={(v) => setNewPost({ ...newPost, category: v })}>
+        <SelectTrigger><SelectValue placeholder="Select Category *" /></SelectTrigger>
+        <SelectContent>
+          {categories.map((cat) => (
+            <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <Input placeholder="Author Name" value={newPost.author} onChange={(e) => setNewPost({ ...newPost, author: e.target.value })} />
+    </div>
+  );
 
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <p className="font-body text-muted-foreground">{posts.length} posts total</p>
-        <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
+        <Dialog open={isAddOpen} onOpenChange={(open) => { setIsAddOpen(open); if (!open) resetForm(); }}>
           <DialogTrigger asChild>
             <Button variant="saffron" className="gap-2">
               <Plus className="h-4 w-4" /> Add Post
@@ -427,19 +654,7 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
               <DialogTitle className="font-heading">Add New Blog Post</DialogTitle>
               <DialogDescription>Create a new blog post.</DialogDescription>
             </DialogHeader>
-            <div className="space-y-4 py-4">
-              <Input placeholder="Post Title *" value={newPost.title} onChange={(e) => setNewPost({ ...newPost, title: e.target.value })} />
-              <Textarea placeholder="Excerpt" value={newPost.excerpt} onChange={(e) => setNewPost({ ...newPost, excerpt: e.target.value })} />
-              <Select value={newPost.category} onValueChange={(v) => setNewPost({ ...newPost, category: v })}>
-                <SelectTrigger><SelectValue placeholder="Select Category *" /></SelectTrigger>
-                <SelectContent>
-                  {categories.map((cat) => (
-                    <SelectItem key={cat} value={cat}>{cat}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Input placeholder="Author Name" value={newPost.author} onChange={(e) => setNewPost({ ...newPost, author: e.target.value })} />
-            </div>
+            <BlogFormFields />
             <DialogFooter>
               <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
               <Button variant="saffron" onClick={handleAddPost}>Add Post</Button>
@@ -447,6 +662,21 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
           </DialogContent>
         </Dialog>
       </div>
+
+      {/* Edit Dialog */}
+      <Dialog open={isEditOpen} onOpenChange={(open) => { setIsEditOpen(open); if (!open) { setEditingPost(null); resetForm(); } }}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="font-heading">Edit Blog Post</DialogTitle>
+            <DialogDescription>Update blog post details.</DialogDescription>
+          </DialogHeader>
+          <BlogFormFields />
+          <DialogFooter>
+            <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
+            <Button variant="saffron" onClick={handleUpdatePost}>Save Changes</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       <div className="bg-card rounded-xl shadow-card border border-border overflow-hidden">
         <Table>
@@ -473,7 +703,7 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
                 <TableCell className="font-body text-sm text-muted-foreground">{post.date}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
+                    <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleEditClick(post)}>
                       <Edit className="h-4 w-4" />
                     </Button>
                     <Button 
