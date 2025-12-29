@@ -706,6 +706,9 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
     excerpt: '',
     excerptHi: '',
     excerptSa: '',
+    content: '',
+    contentHi: '',
+    contentSa: '',
     category: '',
     author: '',
     thumbnail: '/placeholder.svg',
@@ -720,6 +723,9 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
       excerpt: '',
       excerptHi: '',
       excerptSa: '',
+      content: '',
+      contentHi: '',
+      contentSa: '',
       category: '',
       author: '',
       thumbnail: '/placeholder.svg',
@@ -747,6 +753,11 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
           hi: formData.excerptHi || formData.excerpt, 
           sa: formData.excerptSa || formData.excerpt 
         },
+        content: { 
+          en: formData.content, 
+          hi: formData.contentHi || formData.content, 
+          sa: formData.contentSa || formData.content 
+        },
         thumbnail: formData.thumbnail,
         category: formData.category,
         author: formData.author || 'Shastrakulam Team',
@@ -772,6 +783,9 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
       excerpt: post.excerpt.en,
       excerptHi: post.excerpt.hi,
       excerptSa: post.excerpt.sa,
+      content: post.content?.en || '',
+      contentHi: post.content?.hi || '',
+      contentSa: post.content?.sa || '',
       category: post.category,
       author: post.author,
       thumbnail: post.thumbnail,
@@ -798,6 +812,11 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
           en: formData.excerpt, 
           hi: formData.excerptHi || formData.excerpt, 
           sa: formData.excerptSa || formData.excerpt 
+        },
+        content: { 
+          en: formData.content, 
+          hi: formData.contentHi || formData.content, 
+          sa: formData.contentSa || formData.content 
         },
         thumbnail: formData.thumbnail,
         category: formData.category,
@@ -870,6 +889,18 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
       <div className="space-y-2">
         <label className="text-sm font-medium">Excerpt (Sanskrit)</label>
         <Textarea placeholder="संक्षिप्तांशः" value={formData.excerptSa} onChange={(e) => setFormData({ ...formData, excerptSa: e.target.value })} />
+      </div>
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Content (English)</label>
+        <Textarea placeholder="Full blog content in English..." className="min-h-[150px]" value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })} />
+      </div>
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Content (Hindi)</label>
+        <Textarea placeholder="हिंदी में पूर्ण ब्लॉग सामग्री..." className="min-h-[150px]" value={formData.contentHi} onChange={(e) => setFormData({ ...formData, contentHi: e.target.value })} />
+      </div>
+      <div className="space-y-2">
+        <label className="text-sm font-medium">Content (Sanskrit)</label>
+        <Textarea placeholder="संस्कृते पूर्णं ब्लॉग सामग्री..." className="min-h-[150px]" value={formData.contentSa} onChange={(e) => setFormData({ ...formData, contentSa: e.target.value })} />
       </div>
       <Select value={formData.category} onValueChange={(v) => setFormData({ ...formData, category: v })}>
         <SelectTrigger><SelectValue placeholder="Select Category *" /></SelectTrigger>
