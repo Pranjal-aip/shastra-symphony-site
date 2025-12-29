@@ -226,7 +226,7 @@ const bodhikaTranslations = {
   duration: { en: "Duration", hi: "अवधि", sa: "अवधिः" },
   durationValue: { en: "1 Year", hi: "1 वर्ष", sa: "एकं वर्षम्" },
   schedule: { en: "Schedule", hi: "अनुसूची", sa: "अनुसूची" },
-  scheduleValue: { en: "Weekly Live Classes", hi: "साप्ताहिक लाइव कक्षाएं", sa: "साप्ताहिकाः जीवन्तकक्षाः" },
+  scheduleValue: { en: "2 days/week, 3-4 days in holidays", hi: "सप्ताह में 2 दिन, छुट्टियों में 3-4 दिन", sa: "सप्ताहे २ दिनानि, अवकाशेषु ३-४ दिनानि" },
   certificate: { en: "Certificate", hi: "प्रमाणपत्र", sa: "प्रमाणपत्रम्" },
   certificateValue: { en: "On completion", hi: "पूर्ण होने पर", sa: "समापने" },
   ageGroup: { en: "Age Group", hi: "आयु वर्ग", sa: "आयुवर्गः" },
