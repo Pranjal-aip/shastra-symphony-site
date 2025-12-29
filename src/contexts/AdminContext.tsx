@@ -14,6 +14,8 @@ export interface Course {
   isPopular: boolean;
   showOnHome: boolean;
   price?: string;
+  ageMin?: number;
+  ageMax?: number;
 }
 
 export interface BlogPost {
@@ -103,6 +105,8 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
           price: c.price || '',
           isPopular: c.is_popular,
           showOnHome: c.show_on_home,
+          ageMin: c.age_min || undefined,
+          ageMax: c.age_max || undefined,
         })));
       }
 
@@ -229,6 +233,8 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       price: course.price,
       is_popular: course.isPopular,
       show_on_home: course.showOnHome,
+      age_min: course.ageMin || null,
+      age_max: course.ageMax || null,
     });
     if (error) throw error;
     await fetchData();
@@ -259,6 +265,8 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     if (updates.price !== undefined) updateData.price = updates.price;
     if (updates.isPopular !== undefined) updateData.is_popular = updates.isPopular;
     if (updates.showOnHome !== undefined) updateData.show_on_home = updates.showOnHome;
+    if (updates.ageMin !== undefined) updateData.age_min = updates.ageMin;
+    if (updates.ageMax !== undefined) updateData.age_max = updates.ageMax;
 
     const { error } = await supabase.from('courses').update(updateData).eq('id', id);
     if (error) throw error;

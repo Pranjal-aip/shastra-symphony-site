@@ -24,7 +24,8 @@ import {
   Link2,
   UserCheck,
   Copy,
-  ExternalLink
+  ExternalLink,
+  Tent
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -61,10 +62,11 @@ import { useAdmin, Course, BlogPost, Category } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import DeleteConfirmDialog from '@/components/DeleteConfirmDialog';
+import CampsTab from '@/components/admin/CampsTab';
 import { supabase } from '@/integrations/supabase/client';
 import logo from '@/assets/shastrakulam-logo.png';
 
-type Tab = 'dashboard' | 'courses' | 'blogs' | 'categories' | 'referrals' | 'enrollments' | 'notifications' | 'settings';
+type Tab = 'dashboard' | 'courses' | 'camps' | 'blogs' | 'categories' | 'referrals' | 'enrollments' | 'notifications' | 'settings';
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -111,6 +113,7 @@ const AdminDashboard: React.FC = () => {
   const sidebarItems = [
     { id: 'dashboard' as Tab, label: 'Dashboard', icon: LayoutDashboard },
     { id: 'courses' as Tab, label: 'Courses', icon: BookOpen },
+    { id: 'camps' as Tab, label: 'Camps/Shivir', icon: Tent },
     { id: 'blogs' as Tab, label: 'Blog Posts', icon: FileText },
     { id: 'categories' as Tab, label: 'Categories', icon: Tag },
     { id: 'referrals' as Tab, label: 'Referral Links', icon: Link2 },
@@ -214,6 +217,7 @@ const AdminDashboard: React.FC = () => {
               toast={toast}
             />
           )}
+          {activeTab === 'camps' && <CampsTab toast={toast} />}
           {activeTab === 'blogs' && (
             <BlogsTab 
               posts={blogPosts}
@@ -334,6 +338,8 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
     thumbnail: '/placeholder.svg',
     isPopular: false,
     showOnHome: false,
+    ageMin: '',
+    ageMax: '',
   });
 
   const resetForm = () => {
@@ -351,6 +357,8 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       thumbnail: '/placeholder.svg',
       isPopular: false,
       showOnHome: false,
+      ageMin: '',
+      ageMax: '',
     });
   };
 
@@ -380,6 +388,8 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
         price: formData.price,
         isPopular: formData.isPopular,
         showOnHome: formData.showOnHome,
+        ageMin: formData.ageMin ? parseInt(formData.ageMin) : undefined,
+        ageMax: formData.ageMax ? parseInt(formData.ageMax) : undefined,
       });
       setIsAddOpen(false);
       resetForm();
@@ -407,6 +417,8 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       thumbnail: course.thumbnail,
       isPopular: course.isPopular,
       showOnHome: course.showOnHome,
+      ageMin: course.ageMin?.toString() || '',
+      ageMax: course.ageMax?.toString() || '',
     });
     setIsEditOpen(true);
   };
@@ -437,6 +449,8 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
         price: formData.price,
         isPopular: formData.isPopular,
         showOnHome: formData.showOnHome,
+        ageMin: formData.ageMin ? parseInt(formData.ageMin) : undefined,
+        ageMax: formData.ageMax ? parseInt(formData.ageMax) : undefined,
       });
       setIsEditOpen(false);
       setEditingCourse(null);
@@ -521,6 +535,16 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
           ))}
         </SelectContent>
       </Select>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <label className="text-sm font-medium">Min Age</label>
+          <Input type="number" placeholder="e.g., 5" value={formData.ageMin} onChange={(e) => setFormData({ ...formData, ageMin: e.target.value })} />
+        </div>
+        <div className="space-y-2">
+          <label className="text-sm font-medium">Max Age</label>
+          <Input type="number" placeholder="e.g., 12" value={formData.ageMax} onChange={(e) => setFormData({ ...formData, ageMax: e.target.value })} />
+        </div>
+      </div>
       <div className="grid grid-cols-2 gap-4">
         <Input placeholder="Duration (e.g., 12 weeks)" value={formData.duration} onChange={(e) => setFormData({ ...formData, duration: e.target.value })} />
         <Input placeholder="Price (e.g., ₹4,999)" value={formData.price} onChange={(e) => setFormData({ ...formData, price: e.target.value })} />
