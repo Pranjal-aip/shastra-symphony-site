@@ -101,6 +101,72 @@ export type Database = {
         }
         Relationships: []
       }
+      camps: {
+        Row: {
+          age_category: string
+          age_max: number | null
+          age_min: number | null
+          created_at: string
+          description_en: string | null
+          description_hi: string | null
+          description_sa: string | null
+          end_date: string
+          id: string
+          is_active: boolean
+          location: string | null
+          price: string | null
+          registration_link: string | null
+          start_date: string
+          thumbnail: string | null
+          title_en: string
+          title_hi: string | null
+          title_sa: string | null
+          updated_at: string
+        }
+        Insert: {
+          age_category: string
+          age_max?: number | null
+          age_min?: number | null
+          created_at?: string
+          description_en?: string | null
+          description_hi?: string | null
+          description_sa?: string | null
+          end_date: string
+          id?: string
+          is_active?: boolean
+          location?: string | null
+          price?: string | null
+          registration_link?: string | null
+          start_date: string
+          thumbnail?: string | null
+          title_en: string
+          title_hi?: string | null
+          title_sa?: string | null
+          updated_at?: string
+        }
+        Update: {
+          age_category?: string
+          age_max?: number | null
+          age_min?: number | null
+          created_at?: string
+          description_en?: string | null
+          description_hi?: string | null
+          description_sa?: string | null
+          end_date?: string
+          id?: string
+          is_active?: boolean
+          location?: string | null
+          price?: string | null
+          registration_link?: string | null
+          start_date?: string
+          thumbnail?: string | null
+          title_en?: string
+          title_hi?: string | null
+          title_sa?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string
