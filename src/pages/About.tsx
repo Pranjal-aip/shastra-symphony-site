@@ -4,7 +4,7 @@ import SectionHeader from '@/components/SectionHeader';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { BookOpen, Globe, Heart, Users, Calendar } from 'lucide-react';
+import { BookOpen, Globe, Heart, Users, Calendar, Sparkles, Target, Eye, Award, GraduationCap } from 'lucide-react';
 
 const aboutTranslations = {
   pageTitle: {
@@ -116,7 +116,28 @@ const aboutTranslations = {
     en: 'Get in Touch',
     hi: 'संपर्क करें',
     sa: 'सम्पर्कं कुरुत'
-  }
+  },
+  valuesTitle: {
+    en: 'Our Core Values',
+    hi: 'हमारे मूल मूल्य',
+    sa: 'अस्माकं मूलमूल्यानि'
+  },
+  value1Title: { en: 'Authenticity', hi: 'प्रामाणिकता', sa: 'प्रामाण्यम्' },
+  value1Text: { en: 'Rooted in traditional scriptures and teachings', hi: 'पारंपरिक शास्त्रों और शिक्षाओं में निहित', sa: 'पारम्परिकशास्त्रशिक्षासु निहितम्' },
+  value2Title: { en: 'Excellence', hi: 'उत्कृष्टता', sa: 'उत्कृष्टता' },
+  value2Text: { en: 'World-class pedagogy and curriculum design', hi: 'विश्व स्तरीय शिक्षाशास्त्र और पाठ्यक्रम डिजाइन', sa: 'विश्वस्तरीयशिक्षाशास्त्रं पाठ्यक्रमरचना च' },
+  value3Title: { en: 'Inclusivity', hi: 'समावेशिता', sa: 'समावेशिता' },
+  value3Text: { en: 'Open to learners of all backgrounds', hi: 'सभी पृष्ठभूमि के शिक्षार्थियों के लिए खुला', sa: 'सर्वपृष्ठभूमिशिक्षार्थिनां कृते उद्घाटितम्' },
+  value4Title: { en: 'Innovation', hi: 'नवाचार', sa: 'नवप्रवर्तनम्' },
+  value4Text: { en: 'Blending tradition with modern technology', hi: 'परंपरा को आधुनिक तकनीक के साथ मिलाना', sa: 'परम्पराम् आधुनिकप्रौद्योगिक्या सह मेलनम्' },
+  stats1: { en: '1000+', hi: '1000+', sa: '१०००+' },
+  stats1Label: { en: 'Active Students', hi: 'सक्रिय छात्र', sa: 'सक्रियछात्राः' },
+  stats2: { en: '50+', hi: '50+', sa: '५०+' },
+  stats2Label: { en: 'Expert Acharyas', hi: 'विशेषज्ञ आचार्य', sa: 'विशेषज्ञाचार्याः' },
+  stats3: { en: '15+', hi: '15+', sa: '१५+' },
+  stats3Label: { en: 'Countries', hi: 'देश', sa: 'देशाः' },
+  stats4: { en: '5', hi: '5', sa: '५' },
+  stats4Label: { en: 'Age Groups', hi: 'आयु समूह', sa: 'वयःसमूहाः' },
 };
 
 const About: React.FC = () => {
@@ -126,159 +147,284 @@ const About: React.FC = () => {
     return items[language] || items.en;
   };
 
+  const values = [
+    { icon: Heart, title: aboutTranslations.value1Title, text: aboutTranslations.value1Text, color: 'bg-primary/10 text-primary' },
+    { icon: Award, title: aboutTranslations.value2Title, text: aboutTranslations.value2Text, color: 'bg-accent/10 text-accent' },
+    { icon: Users, title: aboutTranslations.value3Title, text: aboutTranslations.value3Text, color: 'bg-blue-100 text-blue-600' },
+    { icon: Sparkles, title: aboutTranslations.value4Title, text: aboutTranslations.value4Text, color: 'bg-green-100 text-green-600' },
+  ];
+
+  const stats = [
+    { value: aboutTranslations.stats1, label: aboutTranslations.stats1Label, icon: GraduationCap },
+    { value: aboutTranslations.stats2, label: aboutTranslations.stats2Label, icon: Users },
+    { value: aboutTranslations.stats3, label: aboutTranslations.stats3Label, icon: Globe },
+    { value: aboutTranslations.stats4, label: aboutTranslations.stats4Label, icon: BookOpen },
+  ];
+
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="py-12 bg-hero-pattern">
-        <div className="container mx-auto px-4">
-          <SectionHeader 
-            title={t(aboutTranslations.pageTitle)} 
-            subtitle={t(aboutTranslations.pageSubtitle)} 
-          />
+      {/* Hero Section with enhanced design */}
+      <section className="relative py-20 bg-hero-pattern overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 bg-lotus-pattern opacity-30" />
+        <div className="absolute top-10 left-10 w-32 h-32 rounded-full bg-accent/10 blur-3xl" />
+        <div className="absolute bottom-10 right-10 w-40 h-40 rounded-full bg-primary/10 blur-3xl" />
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="text-center max-w-3xl mx-auto animate-fade-up">
+            <span className="inline-block text-6xl mb-6">🙏</span>
+            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+              {t(aboutTranslations.pageTitle)}
+            </h1>
+            <p className="font-body text-xl text-muted-foreground leading-relaxed">
+              {t(aboutTranslations.pageSubtitle)}
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Sacred Journey Section */}
-      <section className="py-16 bg-background">
+      {/* Stats Section */}
+      <section className="py-12 bg-primary">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {stats.map((stat, index) => (
+              <div 
+                key={index} 
+                className="text-center p-6 rounded-xl bg-primary-foreground/10 backdrop-blur-sm hover:bg-primary-foreground/15 transition-all duration-300"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <stat.icon className="h-8 w-8 text-accent mx-auto mb-3" />
+                <p className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-1">
+                  {t(stat.value)}
+                </p>
+                <p className="font-body text-sm text-primary-foreground/80">
+                  {t(stat.label)}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Sacred Journey Section with enhanced styling */}
+      <section className="py-20 bg-background relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent" />
+        
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-12">
-            <span className="text-4xl mb-4 block">🕉️</span>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-6">
+            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-accent/20 to-primary/20 mb-6">
+              <span className="text-4xl">🕉️</span>
+            </div>
+            <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 lotus-underline inline-block pb-4">
               {t(aboutTranslations.journeyTitle)}
             </h2>
           </div>
-          <div className="prose prose-lg mx-auto font-body text-muted-foreground space-y-6">
-            <p className="leading-relaxed">{t(aboutTranslations.journeyP1)}</p>
-            <p className="leading-relaxed">{t(aboutTranslations.journeyP2)}</p>
-            <p className="leading-relaxed">{t(aboutTranslations.journeyP3)}</p>
+          
+          <div className="bg-card rounded-3xl p-8 md:p-12 shadow-elevated border border-border/50 space-y-6">
+            <p className="font-body text-lg text-muted-foreground leading-relaxed first-letter:text-5xl first-letter:font-heading first-letter:font-bold first-letter:text-primary first-letter:float-left first-letter:mr-3 first-letter:mt-1">
+              {t(aboutTranslations.journeyP1)}
+            </p>
+            <p className="font-body text-lg text-muted-foreground leading-relaxed">
+              {t(aboutTranslations.journeyP2)}
+            </p>
+            <p className="font-body text-lg text-muted-foreground leading-relaxed">
+              {t(aboutTranslations.journeyP3)}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Core Values Section */}
+      <section className="py-20 bg-secondary/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 lotus-underline inline-block pb-4">
+              {t(aboutTranslations.valuesTitle)}
+            </h2>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {values.map((value, index) => (
+              <div 
+                key={index}
+                className="bg-card rounded-2xl p-6 shadow-card border border-border hover-lift text-center group"
+              >
+                <div className={`w-16 h-16 rounded-2xl ${value.color} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <value.icon className="h-8 w-8" />
+                </div>
+                <h3 className="font-heading text-xl font-bold text-foreground mb-2">
+                  {t(value.title)}
+                </h3>
+                <p className="font-body text-sm text-muted-foreground">
+                  {t(value.text)}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* Mission & Vision Section */}
-      <section className="py-16 bg-secondary/30">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Mission Card */}
-            <div className="bg-card rounded-2xl p-8 shadow-card border border-border">
-              <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-6">
-                <Heart className="h-8 w-8 text-accent" />
+            <div className="bg-gradient-to-br from-primary/5 via-card to-accent/5 rounded-3xl p-8 shadow-elevated border border-border/50 relative overflow-hidden group hover-lift">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-colors duration-500" />
+              
+              <div className="relative z-10">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center mb-6 shadow-lg">
+                  <Target className="h-8 w-8 text-primary-foreground" />
+                </div>
+                <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">
+                  {t(aboutTranslations.missionTitle)}
+                </h3>
+                <p className="font-body text-muted-foreground leading-relaxed text-lg">
+                  {t(aboutTranslations.missionText)}
+                </p>
               </div>
-              <h3 className="font-heading text-2xl font-bold text-foreground mb-4">
-                {t(aboutTranslations.missionTitle)}
-              </h3>
-              <p className="font-body text-muted-foreground leading-relaxed">
-                {t(aboutTranslations.missionText)}
-              </p>
             </div>
 
             {/* Vision Card */}
-            <div className="bg-card rounded-2xl p-8 shadow-card border border-border">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-6">
-                <Globe className="h-8 w-8 text-primary" />
+            <div className="bg-gradient-to-br from-accent/5 via-card to-primary/5 rounded-3xl p-8 shadow-elevated border border-border/50 relative overflow-hidden group hover-lift">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 rounded-full blur-3xl group-hover:bg-accent/20 transition-colors duration-500" />
+              
+              <div className="relative z-10">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent to-accent/80 flex items-center justify-center mb-6 shadow-lg">
+                  <Eye className="h-8 w-8 text-accent-foreground" />
+                </div>
+                <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">
+                  {t(aboutTranslations.visionTitle)}
+                </h3>
+                <p className="font-body text-muted-foreground leading-relaxed text-lg">
+                  {t(aboutTranslations.visionText)}
+                </p>
               </div>
-              <h3 className="font-heading text-2xl font-bold text-foreground mb-4">
-                {t(aboutTranslations.visionTitle)}
-              </h3>
-              <p className="font-body text-muted-foreground leading-relaxed">
-                {t(aboutTranslations.visionText)}
-              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Team Section */}
-      <section className="py-16 bg-background">
+      <section className="py-20 bg-secondary/30">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-12">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 lotus-underline inline-block pb-4">
               {t(aboutTranslations.teamTitle)}
             </h2>
-            <p className="font-body text-lg text-muted-foreground">
+            <p className="font-body text-lg text-muted-foreground mt-6">
               {t(aboutTranslations.teamSubtitle)}
             </p>
           </div>
           
           {/* Founder Card */}
-          <div className="bg-gradient-to-br from-primary/5 to-accent/5 rounded-2xl p-8 border border-border text-center">
-            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary to-accent mx-auto mb-6 flex items-center justify-center">
-              <Users className="h-16 w-16 text-primary-foreground" />
+          <div className="bg-card rounded-3xl p-8 md:p-12 shadow-elevated border border-border/50 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
+            
+            <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
+              <div className="w-40 h-40 rounded-full bg-gradient-to-br from-primary via-primary/80 to-accent flex-shrink-0 flex items-center justify-center shadow-lg ring-4 ring-background">
+                <Users className="h-20 w-20 text-primary-foreground" />
+              </div>
+              <div className="text-center md:text-left">
+                <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-2">
+                  {t(aboutTranslations.founderName)}
+                </h3>
+                <p className="font-body text-lg text-accent font-semibold mb-4">
+                  {t(aboutTranslations.founderRole)}
+                </p>
+                <p className="font-body text-muted-foreground">
+                  With decades of experience in Vedic education and a passion for making ancient wisdom accessible to the modern generation.
+                </p>
+              </div>
             </div>
-            <h3 className="font-heading text-2xl font-bold text-foreground mb-2">
-              {t(aboutTranslations.founderName)}
-            </h3>
-            <p className="font-body text-accent font-medium">
-              {t(aboutTranslations.founderRole)}
-            </p>
           </div>
         </div>
       </section>
 
       {/* Timeline Section */}
-      <section className="py-16 bg-secondary/30">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-12">
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 lotus-underline inline-block pb-4">
               {t(aboutTranslations.timelineTitle)}
             </h2>
           </div>
           
-          <div className="space-y-8">
-            {/* 2019-2020 */}
-            <div className="flex gap-6 items-start">
-              <div className="w-24 flex-shrink-0">
-                <div className="bg-primary text-primary-foreground rounded-lg px-3 py-2 text-center font-heading font-bold">
-                  {t(aboutTranslations.timeline2019)}
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary via-accent to-primary rounded-full hidden md:block" />
+            
+            <div className="space-y-12">
+              {/* 2019-2020 */}
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="md:w-1/2 md:text-right">
+                  <div className="bg-card rounded-2xl p-6 shadow-card border border-border hover-lift inline-block">
+                    <ul className="space-y-3">
+                      {getTimelineItems(aboutTranslations.timeline2019Items).map((item, index) => (
+                        <li key={index} className="flex items-center gap-3 font-body text-muted-foreground md:flex-row-reverse">
+                          <Sparkles className="h-4 w-4 text-accent flex-shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
+                <div className="relative z-10">
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center shadow-lg ring-4 ring-background">
+                    <span className="font-heading font-bold text-primary-foreground text-xs text-center leading-tight">
+                      {t(aboutTranslations.timeline2019)}
+                    </span>
+                  </div>
+                </div>
+                <div className="md:w-1/2" />
               </div>
-              <div className="flex-1 bg-card rounded-xl p-6 shadow-card border border-border">
-                <ul className="space-y-2">
-                  {getTimelineItems(aboutTranslations.timeline2019Items).map((item, index) => (
-                    <li key={index} className="flex items-center gap-3 font-body text-muted-foreground">
-                      <Calendar className="h-4 w-4 text-accent flex-shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
 
-            {/* 2021-2022 */}
-            <div className="flex gap-6 items-start">
-              <div className="w-24 flex-shrink-0">
-                <div className="bg-accent text-accent-foreground rounded-lg px-3 py-2 text-center font-heading font-bold">
-                  {t(aboutTranslations.timeline2021)}
+              {/* 2021-2022 */}
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="md:w-1/2" />
+                <div className="relative z-10">
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-accent to-accent/80 flex items-center justify-center shadow-lg ring-4 ring-background">
+                    <span className="font-heading font-bold text-accent-foreground text-xs text-center leading-tight">
+                      {t(aboutTranslations.timeline2021)}
+                    </span>
+                  </div>
+                </div>
+                <div className="md:w-1/2">
+                  <div className="bg-card rounded-2xl p-6 shadow-card border border-border hover-lift inline-block">
+                    <ul className="space-y-3">
+                      {getTimelineItems(aboutTranslations.timeline2021Items).map((item, index) => (
+                        <li key={index} className="flex items-center gap-3 font-body text-muted-foreground">
+                          <BookOpen className="h-4 w-4 text-primary flex-shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
-              <div className="flex-1 bg-card rounded-xl p-6 shadow-card border border-border">
-                <ul className="space-y-2">
-                  {getTimelineItems(aboutTranslations.timeline2021Items).map((item, index) => (
-                    <li key={index} className="flex items-center gap-3 font-body text-muted-foreground">
-                      <BookOpen className="h-4 w-4 text-primary flex-shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
 
-            {/* 2023-2024 */}
-            <div className="flex gap-6 items-start">
-              <div className="w-24 flex-shrink-0">
-                <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground rounded-lg px-3 py-2 text-center font-heading font-bold">
-                  {t(aboutTranslations.timeline2023)}
+              {/* 2023-2024 */}
+              <div className="flex flex-col md:flex-row items-center gap-6">
+                <div className="md:w-1/2 md:text-right">
+                  <div className="bg-card rounded-2xl p-6 shadow-card border border-border hover-lift inline-block">
+                    <ul className="space-y-3">
+                      {getTimelineItems(aboutTranslations.timeline2023Items).map((item, index) => (
+                        <li key={index} className="flex items-center gap-3 font-body text-muted-foreground md:flex-row-reverse">
+                          <Globe className="h-4 w-4 text-accent flex-shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-              </div>
-              <div className="flex-1 bg-card rounded-xl p-6 shadow-card border border-border">
-                <ul className="space-y-2">
-                  {getTimelineItems(aboutTranslations.timeline2023Items).map((item, index) => (
-                    <li key={index} className="flex items-center gap-3 font-body text-muted-foreground">
-                      <Globe className="h-4 w-4 text-accent flex-shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+                <div className="relative z-10">
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary via-accent to-primary flex items-center justify-center shadow-lg ring-4 ring-background">
+                    <span className="font-heading font-bold text-primary-foreground text-xs text-center leading-tight">
+                      {t(aboutTranslations.timeline2023)}
+                    </span>
+                  </div>
+                </div>
+                <div className="md:w-1/2" />
               </div>
             </div>
           </div>
@@ -286,10 +432,20 @@ const About: React.FC = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-background">
-        <div className="text-center">
+      <section className="py-20 bg-gradient-to-br from-primary via-primary/95 to-primary relative overflow-hidden">
+        <div className="absolute inset-0 bg-lotus-pattern opacity-10" />
+        <div className="absolute top-0 left-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl" />
+        
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
+            {t(aboutTranslations.getInTouch)}
+          </h2>
+          <p className="font-body text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
+            Join our growing family of learners and be part of the Shastrakulam journey.
+          </p>
           <Link to="/contact">
-            <Button variant="saffron" size="lg">
+            <Button variant="saffron" size="lg" className="shadow-saffron font-semibold text-lg px-8">
               {t(aboutTranslations.getInTouch)}
             </Button>
           </Link>
