@@ -12,6 +12,10 @@ const loginTranslations = {
   logout: { en: 'Logout', hi: 'लॉगआउट', sa: 'निर्गमनम्' },
 };
 
+const donateTranslations = {
+  donate: { en: 'Donate', hi: 'दान करें', sa: 'दानम्' },
+};
+
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -82,23 +86,23 @@ const Navbar: React.FC = () => {
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
             <Link to="/donate" className="hidden md:block">
-              <Button variant="maroon-outline" size="sm" className="gap-1">
+              <Button variant="maroon-outline" size="sm" className="gap-2">
                 <Heart className="h-4 w-4" />
-                <span className="hidden xl:inline">Donate</span>
+                {t(donateTranslations.donate)}
               </Button>
             </Link>
             
             {/* Login/Logout Button */}
             {user ? (
-              <Button variant="outline" size="sm" className="gap-1" onClick={() => signOut()}>
+              <Button variant="outline" size="sm" className="gap-2" onClick={() => signOut()}>
                 <LogOut className="h-4 w-4" />
-                <span className="hidden xl:inline">{t(loginTranslations.logout)}</span>
+                {t(loginTranslations.logout)}
               </Button>
             ) : (
               <Link to="/admin/login" className="hidden sm:block">
-                <Button variant="outline" size="sm" className="gap-1">
+                <Button variant="outline" size="sm" className="gap-2">
                   <LogIn className="h-4 w-4" />
-                  <span className="hidden xl:inline">{t(loginTranslations.login)}</span>
+                  {t(loginTranslations.login)}
                 </Button>
               </Link>
             )}
