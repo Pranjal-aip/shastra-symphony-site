@@ -51,7 +51,7 @@ const Index: React.FC = () => {
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </Link>
-                <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/919674916567" target="_blank" rel="noopener noreferrer">
                   <Button variant="hero-outline" size="lg">
                     {t(translations.hero.whatsappCta)}
                   </Button>

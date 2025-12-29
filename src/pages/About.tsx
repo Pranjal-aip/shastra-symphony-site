@@ -58,9 +58,9 @@ const aboutTranslations = {
     sa: '2047 पर्यन्तं वयं धर्मकेन्द्रितव्यक्तीनां पीढीं कल्पयामः ये सनातनमूल्येषु गम्भीरतया निहिताः तथापि वैश्विकविश्वे नेतृत्वे समर्थाः, भारतीयचिन्तनसंस्कृत्योः पुनर्जागरणं निर्मान्ति।'
   },
   teamTitle: {
-    en: 'Our Acharyas & Team',
-    hi: 'हमारे आचार्य और टीम',
-    sa: 'अस्माकम् आचार्याः दलं च'
+    en: 'Our Founders & Team',
+    hi: 'हमारे संस्थापक और टीम',
+    sa: 'अस्माकं संस्थापकाः दलं च'
   },
   teamSubtitle: {
     en: 'Meet the dedicated souls who bring ancient wisdom to modern learners',
@@ -76,6 +76,26 @@ const aboutTranslations = {
     en: 'Founder & Lead Acharya',
     hi: 'संस्थापक और मुख्य आचार्य',
     sa: 'संस्थापकः मुख्याचार्यश्च'
+  },
+  founderBio: {
+    en: 'With decades of experience in Vedic education and a passion for making ancient wisdom accessible to the modern generation.',
+    hi: 'वैदिक शिक्षा में दशकों के अनुभव और प्राचीन ज्ञान को आधुनिक पीढ़ी के लिए सुलभ बनाने के जुनून के साथ।',
+    sa: 'वैदिकशिक्षायां दशकानां अनुभवेन प्राचीनज्ञानं आधुनिकपीढ्यै सुलभं कर्तुं उत्साहेन च।'
+  },
+  cofounderName: {
+    en: 'Co-Founder Name',
+    hi: 'सह-संस्थापक नाम',
+    sa: 'सहसंस्थापकस्य नाम'
+  },
+  cofounderRole: {
+    en: 'Co-Founder',
+    hi: 'सह-संस्थापक',
+    sa: 'सहसंस्थापकः'
+  },
+  cofounderBio: {
+    en: 'Dedicated to spreading the light of Sanskrit and Sanatan Dharma to future generations.',
+    hi: 'आने वाली पीढ़ियों को संस्कृत और सनातन धर्म का प्रकाश फैलाने के लिए समर्पित।',
+    sa: 'भावीपीढीभ्यः संस्कृतसनातनधर्मयोः प्रकाशं प्रसारयितुं समर्पितः।'
   },
   timelineTitle: {
     en: 'Our Journey So Far',
@@ -116,6 +136,11 @@ const aboutTranslations = {
     en: 'Get in Touch',
     hi: 'संपर्क करें',
     sa: 'सम्पर्कं कुरुत'
+  },
+  ctaSubtitle: {
+    en: 'Join our growing family of learners and be part of the Shastrakulam journey.',
+    hi: 'शिक्षार्थियों के हमारे बढ़ते परिवार में शामिल हों और शास्त्रकुलम् यात्रा का हिस्सा बनें।',
+    sa: 'शिक्षार्थिनां अस्माकं वर्धमानकुटुम्बे सम्मिलत शास्त्रकुलयात्रायाः अंशो भवत।'
   },
   valuesTitle: {
     en: 'Our Core Values',
@@ -307,7 +332,7 @@ const About: React.FC = () => {
 
       {/* Team Section */}
       <section className="py-20 bg-secondary/30">
-        <div className="container mx-auto px-4 max-w-4xl">
+        <div className="container mx-auto px-4 max-w-5xl">
           <div className="text-center mb-12">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4 lotus-underline inline-block pb-4">
               {t(aboutTranslations.teamTitle)}
@@ -317,23 +342,44 @@ const About: React.FC = () => {
             </p>
           </div>
           
-          {/* Founder Card */}
-          <div className="bg-card rounded-3xl p-8 md:p-12 shadow-elevated border border-border/50 relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
-            
-            <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
-              <div className="w-40 h-40 rounded-full bg-gradient-to-br from-primary via-primary/80 to-accent flex-shrink-0 flex items-center justify-center shadow-lg ring-4 ring-background">
-                <Users className="h-20 w-20 text-primary-foreground" />
-              </div>
-              <div className="text-center md:text-left">
-                <h3 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-2">
+          {/* Founders Grid */}
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {/* Founder Card */}
+            <div className="bg-card rounded-3xl p-8 shadow-elevated border border-border/50 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
+              
+              <div className="relative z-10 flex flex-col items-center text-center">
+                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary via-primary/80 to-accent flex-shrink-0 flex items-center justify-center shadow-lg ring-4 ring-background mb-6">
+                  <Users className="h-16 w-16 text-primary-foreground" />
+                </div>
+                <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-2">
                   {t(aboutTranslations.founderName)}
                 </h3>
                 <p className="font-body text-lg text-accent font-semibold mb-4">
                   {t(aboutTranslations.founderRole)}
                 </p>
                 <p className="font-body text-muted-foreground">
-                  With decades of experience in Vedic education and a passion for making ancient wisdom accessible to the modern generation.
+                  {t(aboutTranslations.founderBio)}
+                </p>
+              </div>
+            </div>
+
+            {/* Co-Founder Card */}
+            <div className="bg-card rounded-3xl p-8 shadow-elevated border border-border/50 relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-primary/5" />
+              
+              <div className="relative z-10 flex flex-col items-center text-center">
+                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-accent via-accent/80 to-primary flex-shrink-0 flex items-center justify-center shadow-lg ring-4 ring-background mb-6">
+                  <Users className="h-16 w-16 text-accent-foreground" />
+                </div>
+                <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-2">
+                  {t(aboutTranslations.cofounderName)}
+                </h3>
+                <p className="font-body text-lg text-primary font-semibold mb-4">
+                  {t(aboutTranslations.cofounderRole)}
+                </p>
+                <p className="font-body text-muted-foreground">
+                  {t(aboutTranslations.cofounderBio)}
                 </p>
               </div>
             </div>
@@ -442,7 +488,7 @@ const About: React.FC = () => {
             {t(aboutTranslations.getInTouch)}
           </h2>
           <p className="font-body text-lg text-primary-foreground/80 mb-8 max-w-2xl mx-auto">
-            Join our growing family of learners and be part of the Shastrakulam journey.
+            {t(aboutTranslations.ctaSubtitle)}
           </p>
           <Link to="/contact">
             <Button variant="saffron" size="lg" className="shadow-saffron font-semibold text-lg px-8">
