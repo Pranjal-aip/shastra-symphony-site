@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Heart } from 'lucide-react';
+import { Menu, X, Heart, LogIn, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useLanguage, translations } from '@/contexts/LanguageContext';
+import { useAuth } from '@/contexts/AuthContext';
 import logo from '@/assets/shastrakulam-logo.png';
+
+const loginTranslations = {
+  login: { en: 'Login', hi: 'लॉगिन', sa: 'प्रवेशः' },
+  logout: { en: 'Logout', hi: 'लॉगआउट', sa: 'निर्गमनम्' },
+};
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { t } = useLanguage();
+  const { user, signOut } = useAuth();
   const location = useLocation();
 
   useEffect(() => {
@@ -80,6 +87,22 @@ const Navbar: React.FC = () => {
                 <span className="hidden xl:inline">Donate</span>
               </Button>
             </Link>
+            
+            {/* Login/Logout Button */}
+            {user ? (
+              <Button variant="outline" size="sm" className="gap-1" onClick={() => signOut()}>
+                <LogOut className="h-4 w-4" />
+                <span className="hidden xl:inline">{t(loginTranslations.logout)}</span>
+              </Button>
+            ) : (
+              <Link to="/admin/login" className="hidden sm:block">
+                <Button variant="outline" size="sm" className="gap-1">
+                  <LogIn className="h-4 w-4" />
+                  <span className="hidden xl:inline">{t(loginTranslations.login)}</span>
+                </Button>
+              </Link>
+            )}
+            
             <Link to="/courses" className="hidden sm:block">
               <Button variant="saffron" size="default">
                 {t(translations.nav.enrollNow)}
@@ -119,23 +142,44 @@ const Navbar: React.FC = () => {
                   {t(link.label)}
                 </Link>
               ))}
-              <Link
-                to="/donate"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="px-4 py-3 rounded-lg font-body text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted flex items-center gap-2"
-              >
-                <Heart className="h-4 w-4" />
-                Donate
-              </Link>
-              <Link
-                to="/courses"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="mt-2"
-              >
-                <Button variant="saffron" className="w-full">
-                  {t(translations.nav.enrollNow)}
-                </Button>
-              </Link>
+                <Link
+                  to="/donate"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="px-4 py-3 rounded-lg font-body text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted flex items-center gap-2"
+                >
+                  <Heart className="h-4 w-4" />
+                  Donate
+                </Link>
+                
+                {/* Mobile Login/Logout */}
+                {user ? (
+                  <button
+                    onClick={() => { signOut(); setIsMobileMenuOpen(false); }}
+                    className="px-4 py-3 rounded-lg font-body text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted flex items-center gap-2"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    {t(loginTranslations.logout)}
+                  </button>
+                ) : (
+                  <Link
+                    to="/admin/login"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="px-4 py-3 rounded-lg font-body text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted flex items-center gap-2"
+                  >
+                    <LogIn className="h-4 w-4" />
+                    {t(loginTranslations.login)}
+                  </Link>
+                )}
+                
+                <Link
+                  to="/courses"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="mt-2"
+                >
+                  <Button variant="saffron" className="w-full">
+                    {t(translations.nav.enrollNow)}
+                  </Button>
+                </Link>
             </div>
           </div>
         )}
