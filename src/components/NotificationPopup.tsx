@@ -45,13 +45,30 @@ const NotificationPopup: React.FC<NotificationPopupProps> = ({ currentPath = '/'
     }
   };
 
+  const handleButtonClick = () => {
+    if (notificationPopup?.linkUrl) {
+      window.open(notificationPopup.linkUrl, '_blank');
+    }
+    handleClose();
+  };
+
+  const handleImageClick = () => {
+    if (notificationPopup?.linkUrl) {
+      window.open(notificationPopup.linkUrl, '_blank');
+      handleClose();
+    }
+  };
+
   if (!notificationPopup?.isEnabled) return null;
 
   const title = t(notificationPopup.title);
   const message = t(notificationPopup.message);
+  const buttonText = t(notificationPopup.buttonText) || 'Learn More';
 
   // Don't show if no content
   if (!title && !message && !notificationPopup.imageUrl) return null;
+
+  const hasLink = !!notificationPopup.linkUrl;
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleClose()}>
@@ -65,7 +82,10 @@ const NotificationPopup: React.FC<NotificationPopupProps> = ({ currentPath = '/'
         </button>
 
         {notificationPopup.imageUrl && (
-          <div className="w-full aspect-video overflow-hidden">
+          <div 
+            className={`w-full aspect-video overflow-hidden ${hasLink ? 'cursor-pointer hover:opacity-90 transition-opacity' : ''}`}
+            onClick={hasLink ? handleImageClick : undefined}
+          >
             <img
               src={notificationPopup.imageUrl}
               alt=""
@@ -85,8 +105,8 @@ const NotificationPopup: React.FC<NotificationPopupProps> = ({ currentPath = '/'
               {message}
             </p>
           )}
-          <Button variant="saffron" onClick={handleClose} className="w-full">
-            Got it!
+          <Button variant="saffron" onClick={handleButtonClick} className="w-full">
+            {buttonText}
           </Button>
         </div>
       </DialogContent>

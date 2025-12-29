@@ -40,7 +40,9 @@ export interface NotificationPopup {
   id: string;
   title: { en: string; hi: string; sa: string };
   message: { en: string; hi: string; sa: string };
+  buttonText: { en: string; hi: string; sa: string };
   imageUrl?: string;
+  linkUrl?: string;
   isEnabled: boolean;
   showOnAllPages: boolean;
   startDate?: string;
@@ -152,7 +154,13 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
           id: popupData.id,
           title: { en: popupData.title_en || '', hi: popupData.title_hi || '', sa: popupData.title_sa || '' },
           message: { en: popupData.message_en || '', hi: popupData.message_hi || '', sa: popupData.message_sa || '' },
+          buttonText: { 
+            en: (popupData as Record<string, unknown>).button_text_en as string || 'Learn More', 
+            hi: (popupData as Record<string, unknown>).button_text_hi as string || 'और जानें', 
+            sa: (popupData as Record<string, unknown>).button_text_sa as string || 'अधिकं जानातु' 
+          },
           imageUrl: popupData.image_url || undefined,
+          linkUrl: (popupData as Record<string, unknown>).link_url as string || undefined,
           isEnabled: popupData.is_enabled,
           showOnAllPages: popupData.show_on_all_pages,
           startDate: popupData.start_date || undefined,
@@ -408,7 +416,13 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       updateData.message_hi = popup.message.hi;
       updateData.message_sa = popup.message.sa;
     }
+    if (popup.buttonText) {
+      updateData.button_text_en = popup.buttonText.en;
+      updateData.button_text_hi = popup.buttonText.hi;
+      updateData.button_text_sa = popup.buttonText.sa;
+    }
     if (popup.imageUrl !== undefined) updateData.image_url = popup.imageUrl;
+    if (popup.linkUrl !== undefined) updateData.link_url = popup.linkUrl;
     if (popup.isEnabled !== undefined) updateData.is_enabled = popup.isEnabled;
     if (popup.showOnAllPages !== undefined) updateData.show_on_all_pages = popup.showOnAllPages;
     if (popup.startDate !== undefined) updateData.start_date = popup.startDate;

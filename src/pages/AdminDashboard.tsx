@@ -1207,7 +1207,11 @@ const NotificationsTab: React.FC<NotificationsTabProps> = ({ popup, onUpdate, to
     messageEn: popup?.message?.en || '',
     messageHi: popup?.message?.hi || '',
     messageSa: popup?.message?.sa || '',
+    buttonTextEn: popup?.buttonText?.en || 'Learn More',
+    buttonTextHi: popup?.buttonText?.hi || 'और जानें',
+    buttonTextSa: popup?.buttonText?.sa || 'अधिकं जानातु',
     imageUrl: popup?.imageUrl || '',
+    linkUrl: popup?.linkUrl || '',
     isEnabled: popup?.isEnabled || false,
     showOnAllPages: popup?.showOnAllPages || true,
     startDate: popup?.startDate || '',
@@ -1221,7 +1225,9 @@ const NotificationsTab: React.FC<NotificationsTabProps> = ({ popup, onUpdate, to
       await onUpdate({
         title: { en: formData.titleEn, hi: formData.titleHi, sa: formData.titleSa },
         message: { en: formData.messageEn, hi: formData.messageHi, sa: formData.messageSa },
+        buttonText: { en: formData.buttonTextEn, hi: formData.buttonTextHi, sa: formData.buttonTextSa },
         imageUrl: formData.imageUrl || undefined,
+        linkUrl: formData.linkUrl || undefined,
         isEnabled: formData.isEnabled,
         showOnAllPages: formData.showOnAllPages,
         startDate: formData.startDate || undefined,
@@ -1294,7 +1300,34 @@ const NotificationsTab: React.FC<NotificationsTabProps> = ({ popup, onUpdate, to
             <Textarea value={formData.messageSa} onChange={(e) => setFormData({ ...formData, messageSa: e.target.value })} />
           </div>
 
-          <div className="flex items-center justify-between">
+          {/* Link URL */}
+          <div className="space-y-2 border-t pt-4 mt-4">
+            <label className="text-sm font-medium">Link URL (Makes image & button clickable)</label>
+            <Input 
+              placeholder="https://example.com or /bodhika" 
+              value={formData.linkUrl} 
+              onChange={(e) => setFormData({ ...formData, linkUrl: e.target.value })} 
+            />
+            <p className="text-xs text-muted-foreground">When set, clicking the image or button will open this link</p>
+          </div>
+
+          {/* Button Text */}
+          <div className="grid grid-cols-3 gap-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Button Text (English)</label>
+              <Input value={formData.buttonTextEn} onChange={(e) => setFormData({ ...formData, buttonTextEn: e.target.value })} />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Button Text (Hindi)</label>
+              <Input value={formData.buttonTextHi} onChange={(e) => setFormData({ ...formData, buttonTextHi: e.target.value })} />
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Button Text (Sanskrit)</label>
+              <Input value={formData.buttonTextSa} onChange={(e) => setFormData({ ...formData, buttonTextSa: e.target.value })} />
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between border-t pt-4 mt-4">
             <Label htmlFor="allPages">Show on All Pages</Label>
             <Switch 
               id="allPages" 
