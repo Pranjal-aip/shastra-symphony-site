@@ -355,11 +355,15 @@ export type Database = {
       }
       notification_popup: {
         Row: {
+          button_text_en: string | null
+          button_text_hi: string | null
+          button_text_sa: string | null
           created_at: string
           end_date: string | null
           id: string
           image_url: string | null
           is_enabled: boolean
+          link_url: string | null
           message_en: string | null
           message_hi: string | null
           message_sa: string | null
@@ -371,11 +375,15 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          button_text_en?: string | null
+          button_text_hi?: string | null
+          button_text_sa?: string | null
           created_at?: string
           end_date?: string | null
           id?: string
           image_url?: string | null
           is_enabled?: boolean
+          link_url?: string | null
           message_en?: string | null
           message_hi?: string | null
           message_sa?: string | null
@@ -387,11 +395,15 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          button_text_en?: string | null
+          button_text_hi?: string | null
+          button_text_sa?: string | null
           created_at?: string
           end_date?: string | null
           id?: string
           image_url?: string | null
           is_enabled?: boolean
+          link_url?: string | null
           message_en?: string | null
           message_hi?: string | null
           message_sa?: string | null
