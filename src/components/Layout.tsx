@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import NotificationPopup from '@/components/NotificationPopup';
+import { useReferral } from '@/hooks/useReferral';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -11,6 +12,9 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
+  
+  // Track referral visits
+  useReferral();
 
   return (
     <div className="min-h-screen flex flex-col">
