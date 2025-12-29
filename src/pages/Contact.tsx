@@ -146,13 +146,17 @@ const Contact: React.FC = () => {
                 {t(contactTranslations.getInTouch)}
               </h3>
               <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <MapPin className="h-6 w-6 text-accent" />
-                  <span className="font-body">123 Vedic Lane, Vrindavan, UP 281121</span>
+                <div className="flex items-start gap-4">
+                  <MapPin className="h-6 w-6 text-accent flex-shrink-0 mt-1" />
+                  <span className="font-body">
+                    Main Campus, Shastrakulam<br />
+                    NH334, Badheri, Uttar Pradesh<br />
+                    PIN: 251307
+                  </span>
                 </div>
                 <div className="flex items-center gap-4">
                   <Phone className="h-6 w-6 text-accent" />
-                  <span className="font-body">+91 98765 43210</span>
+                  <span className="font-body">+91 96749 16567</span>
                 </div>
                 <div className="flex items-center gap-4">
                   <Mail className="h-6 w-6 text-accent" />

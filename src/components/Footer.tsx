@@ -94,17 +94,18 @@ const Footer: React.FC = () => {
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 text-accent flex-shrink-0 mt-0.5" />
                 <span className="font-body text-primary-foreground/80 text-sm">
-                  123 Vedic Lane, Vrindavan<br />
-                  Uttar Pradesh, India 281121
+                  Main Campus, Shastrakulam<br />
+                  NH334, Badheri, Uttar Pradesh<br />
+                  PIN: 251307
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-accent flex-shrink-0" />
                 <a
-                  href="tel:+919876543210"
+                  href="tel:+919674916567"
                   className="font-body text-primary-foreground/80 hover:text-accent transition-colors"
                 >
-                  +91 98765 43210
+                  +91 96749 16567
                 </a>
               </li>
               <li className="flex items-center gap-3">

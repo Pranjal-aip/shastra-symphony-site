@@ -101,6 +101,21 @@ const translations = {
     en: 'All Ages',
     hi: 'सभी आयु',
     sa: 'सर्ववयस्काः'
+  },
+  ctaTitle: {
+    en: "Can't find what you're looking for?",
+    hi: 'जो आप खोज रहे हैं वह नहीं मिल रहा?',
+    sa: 'यद् भवन्तः अन्विष्यन्ति तत् न प्राप्यते?'
+  },
+  ctaDesc: {
+    en: 'Contact us to learn about upcoming camps or suggest a new program for your community.',
+    hi: 'आगामी शिविरों के बारे में जानने या अपने समुदाय के लिए नया कार्यक्रम सुझाने के लिए हमसे संपर्क करें।',
+    sa: 'आगामिशिविराणां विषये ज्ञातुं स्वसमुदायस्य कृते नूतनं कार्यक्रमं सूचयितुं वा अस्मान् सम्पर्कयत।'
+  },
+  contactUs: {
+    en: 'Contact Us',
+    hi: 'संपर्क करें',
+    sa: 'सम्पर्कं कुरुत'
   }
 };
 
@@ -340,14 +355,14 @@ const Camps: React.FC = () => {
       <section className="py-16 bg-secondary/30">
         <div className="container mx-auto px-4 text-center">
           <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground mb-4">
-            Can't find what you're looking for?
+            {t(translations.ctaTitle)}
           </h2>
           <p className="font-body text-muted-foreground mb-6 max-w-xl mx-auto">
-            Contact us to learn about upcoming camps or suggest a new program for your community.
+            {t(translations.ctaDesc)}
           </p>
           <Link to="/contact">
             <Button variant="saffron" size="lg">
-              Contact Us
+              {t(translations.contactUs)}
             </Button>
           </Link>
         </div>
