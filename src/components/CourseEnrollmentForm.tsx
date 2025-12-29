@@ -169,7 +169,7 @@ const CourseEnrollmentForm: React.FC<CourseEnrollmentFormProps> = ({
             <Input
               id="phone"
               type="tel"
-              placeholder="+91 9876543210"
+              placeholder="+91 9674916567"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             />

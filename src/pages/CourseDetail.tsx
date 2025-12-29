@@ -123,7 +123,7 @@ const CourseDetail: React.FC = () => {
                 <Button variant="saffron" size="lg" onClick={() => setEnrollOpen(true)}>
                   Enroll Now
                 </Button>
-                <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/919674916567" target="_blank" rel="noopener noreferrer">
                   <Button variant="outline" size="lg">
                     Inquire via WhatsApp
                   </Button>
