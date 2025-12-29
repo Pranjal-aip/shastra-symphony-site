@@ -49,7 +49,9 @@ import {
   Play,
   Zap,
   Crown,
-  Gift
+  Gift,
+  Video,
+  Radio
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
@@ -224,13 +226,32 @@ const bodhikaTranslations = {
   duration: { en: "Duration", hi: "अवधि", sa: "अवधिः" },
   durationValue: { en: "1 Year", hi: "1 वर्ष", sa: "एकं वर्षम्" },
   schedule: { en: "Schedule", hi: "अनुसूची", sa: "अनुसूची" },
-  scheduleValue: { en: "Weekly interactive sessions", hi: "साप्ताहिक इंटरैक्टिव सत्र", sa: "साप्ताहिकाः परस्परक्रियासत्राः" },
+  scheduleValue: { en: "Weekly Live Classes", hi: "साप्ताहिक लाइव कक्षाएं", sa: "साप्ताहिकाः जीवन्तकक्षाः" },
   certificate: { en: "Certificate", hi: "प्रमाणपत्र", sa: "प्रमाणपत्रम्" },
   certificateValue: { en: "On completion", hi: "पूर्ण होने पर", sa: "समापने" },
   ageGroup: { en: "Age Group", hi: "आयु वर्ग", sa: "आयुवर्गः" },
   ageValue: { en: "8-17 years", hi: "8-17 वर्ष", sa: "८-१७ वर्षाणि" },
   mode: { en: "Mode", hi: "मोड", sa: "प्रकारः" },
-  modeValue: { en: "Online / Offline / Hybrid", hi: "ऑनलाइन / ऑफलाइन / हाइब्रिड", sa: "ऑनलाइन / ऑफलाइन / मिश्रितम्" },
+  modeValue: { en: "Live Online Classes", hi: "लाइव ऑनलाइन कक्षाएं", sa: "जीवन्त ऑनलाइन कक्षाः" },
+  liveClasses: { en: "Live Interactive Classes", hi: "लाइव इंटरैक्टिव कक्षाएं", sa: "जीवन्तपरस्परक्रियाकक्षाः" },
+  liveClassesValue: { en: "Real-time with mentors", hi: "संरक्षकों के साथ रियल-टाइम", sa: "संरक्षकैः सह वास्तविकसमये" },
+
+  // Video Section
+  videoTitle: {
+    en: "Watch How Bodhika Transforms Lives",
+    hi: "देखें बोधिका कैसे जीवन बदलती है",
+    sa: "पश्यत बोधिका कथं जीवनानि परिवर्तयति"
+  },
+  videoSubtitle: {
+    en: "A glimpse into our joyful learning journey",
+    hi: "हमारी आनंदमय सीखने की यात्रा की एक झलक",
+    sa: "अस्माकम् आनन्दप्रदशिक्षणयात्रायाः एका झलकः"
+  },
+  watchVideo: {
+    en: "Watch Video",
+    hi: "वीडियो देखें",
+    sa: "वीडियो पश्यतु"
+  },
 
   // Batch Options
   batchTitle: {
@@ -263,9 +284,9 @@ const bodhikaTranslations = {
     hi: "पूरे वर्ष के लिए प्रति छात्र",
     sa: "पूर्णवर्षस्य कृते प्रतिछात्रम्"
   },
-  regularFeature1: { en: "Group learning environment", hi: "समूह सीखने का वातावरण", sa: "समूहशिक्षणवातावरणम्" },
+  regularFeature1: { en: "Weekly Live Classes with mentors", hi: "संरक्षकों के साथ साप्ताहिक लाइव कक्षाएं", sa: "संरक्षकैः सह साप्ताहिकजीवन्तकक्षाः" },
   regularFeature2: { en: "Energetic peer interactions", hi: "ऊर्जावान सहपाठी संवाद", sa: "ऊर्जापूर्णाः सहपाठिसम्भाषणाः" },
-  regularFeature3: { en: "Collaborative activities", hi: "सहयोगात्मक गतिविधियां", sa: "सहयोगात्मकाः क्रियाः" },
+  regularFeature3: { en: "Interactive activities & Q&A", hi: "इंटरैक्टिव गतिविधियां और प्रश्नोत्तर", sa: "परस्परक्रियाः क्रियाः प्रश्नोत्तराणि च" },
   regularFeature4: { en: "Community building", hi: "समुदाय निर्माण", sa: "समुदायनिर्माणम्" },
   premiumBatch: {
     en: "Premium Small Batch",
@@ -530,6 +551,10 @@ const Bodhika: React.FC = () => {
               <Badge className="bg-orange-600 text-white px-4 py-2 text-sm font-medium shadow-lg">
                 {t('byShastrakulam')}
               </Badge>
+              <Badge className="bg-green-600 text-white px-4 py-2 text-sm font-medium shadow-lg">
+                <Radio className="w-3 h-3 mr-1" />
+                {language === 'hi' ? 'लाइव कक्षाएं' : language === 'sa' ? 'जीवन्तकक्षाः' : 'Live Classes'}
+              </Badge>
               <Badge variant="outline" className="border-orange-500 text-orange-700 px-4 py-2 text-sm">
                 <Clock className="w-3 h-3 mr-1" />
                 {t('limitedSeats')}
@@ -711,20 +736,78 @@ const Bodhika: React.FC = () => {
             {t('detailsTitle')}
           </h2>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-6 gap-6 max-w-7xl mx-auto">
             {[
               { icon: Calendar, label: t('duration'), value: t('durationValue') },
+              { icon: Radio, label: t('liveClasses'), value: t('liveClassesValue') },
               { icon: Clock, label: t('schedule'), value: t('scheduleValue') },
               { icon: Award, label: t('certificate'), value: t('certificateValue') },
               { icon: Users, label: t('ageGroup'), value: t('ageValue') },
-              { icon: MapPin, label: t('mode'), value: t('modeValue') },
+              { icon: Video, label: t('mode'), value: t('modeValue') },
             ].map((item, i) => (
               <div key={i} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center hover:bg-white/20 transition-colors">
                 <item.icon className="w-10 h-10 mx-auto mb-3 text-amber-200" />
                 <p className="font-body text-amber-200 text-sm mb-2">{item.label}</p>
-                <p className="font-display text-xl">{item.value}</p>
+                <p className="font-display text-lg">{item.value}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Video Section */}
+      <section className="py-20 bg-gradient-to-b from-white to-orange-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="font-display text-4xl md:text-5xl text-orange-800 mb-4 lotus-underline inline-block">
+              {t('videoTitle')}
+            </h2>
+            <p className="font-body text-lg text-orange-700/80 mt-8">
+              {t('videoSubtitle')}
+            </p>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <div className="relative aspect-video rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-orange-100 to-amber-100 group">
+              {/* Video Placeholder - Replace with actual YouTube embed */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                <div className="w-24 h-24 bg-gradient-to-br from-orange-500 to-amber-500 rounded-full flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform cursor-pointer mb-4">
+                  <Play className="w-10 h-10 text-white ml-1" fill="white" />
+                </div>
+                <p className="font-body text-orange-700 text-lg">{t('watchVideo')}</p>
+              </div>
+              
+              {/* Decorative Elements */}
+              <div className="absolute top-6 left-6 text-orange-300 text-4xl font-display opacity-30">ॐ</div>
+              <div className="absolute bottom-6 right-6 text-amber-300 text-3xl font-display opacity-30">श्री</div>
+              
+              {/* You can replace this with an actual YouTube embed like:
+              <iframe
+                className="w-full h-full"
+                src="https://www.youtube.com/embed/YOUR_VIDEO_ID"
+                title="Bodhika Course Introduction"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+              */}
+            </div>
+
+            {/* Video Features */}
+            <div className="grid sm:grid-cols-3 gap-6 mt-8">
+              {[
+                { icon: Radio, text: language === 'hi' ? 'लाइव इंटरैक्टिव कक्षाएं' : language === 'sa' ? 'जीवन्तपरस्परक्रियाकक्षाः' : 'Live Interactive Classes' },
+                { icon: Users, text: language === 'hi' ? 'अनुभवी संरक्षक' : language === 'sa' ? 'अनुभविनः संरक्षकाः' : 'Expert Mentors' },
+                { icon: Heart, text: language === 'hi' ? 'आनंदमय शिक्षण' : language === 'sa' ? 'आनन्दप्रदं शिक्षणम्' : 'Joyful Learning' },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center gap-3 bg-white rounded-xl p-4 shadow-md">
+                  <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                    <item.icon className="w-5 h-5 text-orange-600" />
+                  </div>
+                  <span className="font-body font-medium text-orange-800">{item.text}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
