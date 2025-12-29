@@ -477,7 +477,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
     }
   };
 
-  const CourseFormFields = () => (
+  const courseFormFieldsJSX = (
     <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto">
       {/* Image URL Input */}
       <div className="space-y-2">
@@ -575,7 +575,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
               <DialogTitle className="font-heading">Add New Course</DialogTitle>
               <DialogDescription>Create a new course for your catalog.</DialogDescription>
             </DialogHeader>
-            <CourseFormFields />
+            {courseFormFieldsJSX}
             <DialogFooter>
               <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
               <Button variant="saffron" onClick={handleAddCourse} disabled={isLoading}>
@@ -594,10 +594,10 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
             <DialogTitle className="font-heading">Edit Course</DialogTitle>
             <DialogDescription>Update course details.</DialogDescription>
           </DialogHeader>
-          <CourseFormFields />
-          <DialogFooter>
-            <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
-            <Button variant="saffron" onClick={handleUpdateCourse} disabled={isLoading}>
+            {courseFormFieldsJSX}
+            <DialogFooter>
+              <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
+              <Button variant="saffron" onClick={handleUpdateCourse} disabled={isLoading}>
               {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
               Save Changes
             </Button>
@@ -829,7 +829,7 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
     }
   };
 
-  const BlogFormFields = () => (
+  const blogFormFieldsJSX = (
     <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto">
       {/* Image URL Input */}
       <div className="space-y-2">
@@ -902,7 +902,7 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
               <DialogTitle className="font-heading">Add New Blog Post</DialogTitle>
               <DialogDescription>Create a new blog post.</DialogDescription>
             </DialogHeader>
-            <BlogFormFields />
+            {blogFormFieldsJSX}
             <DialogFooter>
               <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
               <Button variant="saffron" onClick={handleAddPost} disabled={isLoading}>
@@ -921,7 +921,7 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
             <DialogTitle className="font-heading">Edit Blog Post</DialogTitle>
             <DialogDescription>Update blog post details.</DialogDescription>
           </DialogHeader>
-          <BlogFormFields />
+          {blogFormFieldsJSX}
           <DialogFooter>
             <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
             <Button variant="saffron" onClick={handleUpdatePost} disabled={isLoading}>
