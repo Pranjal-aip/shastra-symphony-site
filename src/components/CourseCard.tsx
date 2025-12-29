@@ -85,7 +85,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
         </div>
 
         {/* CTA */}
-        <Link to={`/courses/${course.slug}`}>
+        <Link to="/bodhika">
           <Button
             variant="maroon-outline"
             className="w-full mt-2 group/btn"
