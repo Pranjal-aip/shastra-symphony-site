@@ -8,10 +8,35 @@ import { useAdmin } from '@/contexts/AdminContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Loader2 } from 'lucide-react';
 
+const blogDetailTranslations = {
+  postNotFound: {
+    en: 'Post Not Found',
+    hi: 'पोस्ट नहीं मिली',
+    sa: 'लेखः न प्राप्तः'
+  },
+  postNotFoundDesc: {
+    en: "The blog post you're looking for doesn't exist.",
+    hi: 'जिस ब्लॉग पोस्ट को आप खोज रहे हैं वह मौजूद नहीं है।',
+    sa: 'यं ब्लॉगलेखं भवान् अन्विष्यति स विद्यते न।'
+  },
+  backToBlog: {
+    en: 'Back to Blog',
+    hi: 'ब्लॉग पर वापस',
+    sa: 'ब्लॉगं प्रति प्रत्यागमनम्'
+  },
+  loading: {
+    en: 'Loading...',
+    hi: 'लोड हो रहा है...',
+    sa: 'आह्वयति...'
+  }
+};
+
 const BlogDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const { getBlogPostBySlug, loading } = useAdmin();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+
+  const tl = (obj: { en: string; hi: string; sa: string }) => obj[language] || obj.en;
   
   const post = getBlogPostBySlug(slug || '');
 
@@ -29,12 +54,12 @@ const BlogDetail: React.FC = () => {
     return (
       <Layout>
         <div className="min-h-screen flex flex-col items-center justify-center p-4">
-          <h1 className="font-heading text-3xl font-bold text-foreground mb-4">Post Not Found</h1>
-          <p className="text-muted-foreground mb-8">The blog post you're looking for doesn't exist.</p>
+          <h1 className="font-heading text-3xl font-bold text-foreground mb-4">{tl(blogDetailTranslations.postNotFound)}</h1>
+          <p className="text-muted-foreground mb-8">{tl(blogDetailTranslations.postNotFoundDesc)}</p>
           <Link to="/blog">
             <Button variant="saffron">
               <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Blog
+              {tl(blogDetailTranslations.backToBlog)}
             </Button>
           </Link>
         </div>
@@ -49,7 +74,7 @@ const BlogDetail: React.FC = () => {
         <div className="container mx-auto px-4">
           <Link to="/blog" className="inline-flex items-center text-muted-foreground hover:text-primary transition-colors mb-6">
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Blog
+            {tl(blogDetailTranslations.backToBlog)}
           </Link>
           
           <div className="max-w-4xl mx-auto">
