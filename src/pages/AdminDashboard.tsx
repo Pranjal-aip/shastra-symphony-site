@@ -25,7 +25,10 @@ import {
   UserCheck,
   Copy,
   ExternalLink,
-  Tent
+  Tent,
+  Mail,
+  MailOpen,
+  CheckCircle2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -66,7 +69,7 @@ import CampsTab from '@/components/admin/CampsTab';
 import { supabase } from '@/integrations/supabase/client';
 import logo from '@/assets/shastrakulam-logo.png';
 
-type Tab = 'dashboard' | 'courses' | 'camps' | 'blogs' | 'categories' | 'referrals' | 'enrollments' | 'notifications' | 'settings';
+type Tab = 'dashboard' | 'courses' | 'camps' | 'blogs' | 'categories' | 'referrals' | 'enrollments' | 'messages' | 'notifications' | 'settings';
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -118,6 +121,7 @@ const AdminDashboard: React.FC = () => {
     { id: 'categories' as Tab, label: 'Categories', icon: Tag },
     { id: 'referrals' as Tab, label: 'Referral Links', icon: Link2 },
     { id: 'enrollments' as Tab, label: 'Enrollments', icon: UserCheck },
+    { id: 'messages' as Tab, label: 'Messages', icon: Mail },
     { id: 'notifications' as Tab, label: 'Notifications', icon: Bell },
     { id: 'settings' as Tab, label: 'Settings', icon: Settings },
   ];
@@ -249,6 +253,7 @@ const AdminDashboard: React.FC = () => {
           )}
           {activeTab === 'referrals' && <ReferralsTab toast={toast} />}
           {activeTab === 'enrollments' && <EnrollmentsTab courses={courses} toast={toast} />}
+          {activeTab === 'messages' && <MessagesTab toast={toast} />}
           {activeTab === 'settings' && <SettingsTab />}
         </div>
       </main>
@@ -1709,6 +1714,281 @@ const EnrollmentsTab: React.FC<EnrollmentsTabProps> = ({ courses, toast }) => {
           </TableBody>
         </Table>
       </div>
+    </div>
+  );
+};
+
+// Messages Tab
+interface ContactMessage {
+  id: string;
+  name: string;
+  email: string;
+  message: string;
+  is_read: boolean;
+  created_at: string;
+}
+
+const MessagesTab: React.FC<{ toast: any }> = ({ toast }) => {
+  const [messages, setMessages] = useState<ContactMessage[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedMessage, setSelectedMessage] = useState<ContactMessage | null>(null);
+  const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [filter, setFilter] = useState<'all' | 'unread' | 'read'>('all');
+
+  const fetchMessages = async () => {
+    setLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('contact_messages')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      setMessages(data || []);
+    } catch (error) {
+      console.error('Error fetching messages:', error);
+      toast({ title: 'Error', description: 'Failed to load messages', variant: 'destructive' });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchMessages();
+  }, []);
+
+  const toggleReadStatus = async (id: string, currentStatus: boolean) => {
+    try {
+      const { error } = await supabase
+        .from('contact_messages')
+        .update({ is_read: !currentStatus })
+        .eq('id', id);
+      
+      if (error) throw error;
+      
+      setMessages(messages.map(msg => 
+        msg.id === id ? { ...msg, is_read: !currentStatus } : msg
+      ));
+      
+      if (selectedMessage?.id === id) {
+        setSelectedMessage({ ...selectedMessage, is_read: !currentStatus });
+      }
+      
+      toast({ 
+        title: 'Updated', 
+        description: `Message marked as ${!currentStatus ? 'read' : 'unread'}` 
+      });
+    } catch (error) {
+      toast({ title: 'Error', description: 'Failed to update message', variant: 'destructive' });
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!deleteConfirm) return;
+    try {
+      const { error } = await supabase
+        .from('contact_messages')
+        .delete()
+        .eq('id', deleteConfirm);
+      
+      if (error) throw error;
+      
+      setMessages(messages.filter(msg => msg.id !== deleteConfirm));
+      if (selectedMessage?.id === deleteConfirm) {
+        setSelectedMessage(null);
+      }
+      toast({ title: 'Deleted', description: 'Message removed successfully' });
+    } catch (error) {
+      toast({ title: 'Error', description: 'Failed to delete message', variant: 'destructive' });
+    } finally {
+      setDeleteConfirm(null);
+    }
+  };
+
+  const filteredMessages = messages.filter(msg => {
+    if (filter === 'unread') return !msg.is_read;
+    if (filter === 'read') return msg.is_read;
+    return true;
+  });
+
+  const unreadCount = messages.filter(msg => !msg.is_read).length;
+
+  const formatDate = (dateStr: string) => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-IN', { 
+      day: 'numeric', 
+      month: 'short', 
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Stats & Filter */}
+      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="bg-card rounded-lg px-4 py-2 border border-border">
+            <span className="text-sm text-muted-foreground">Total: </span>
+            <span className="font-semibold">{messages.length}</span>
+          </div>
+          {unreadCount > 0 && (
+            <div className="bg-primary/10 rounded-lg px-4 py-2 border border-primary/20">
+              <span className="text-sm text-primary">Unread: </span>
+              <span className="font-semibold text-primary">{unreadCount}</span>
+            </div>
+          )}
+        </div>
+        <Select value={filter} onValueChange={(v) => setFilter(v as typeof filter)}>
+          <SelectTrigger className="w-[150px]">
+            <SelectValue placeholder="Filter" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Messages</SelectItem>
+            <SelectItem value="unread">Unread</SelectItem>
+            <SelectItem value="read">Read</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      {/* Messages Table */}
+      <div className="bg-card rounded-xl shadow-card border border-border overflow-hidden">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="w-[40px]"></TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>Email</TableHead>
+              <TableHead className="hidden md:table-cell">Message</TableHead>
+              <TableHead>Date</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {filteredMessages.map((msg) => (
+              <TableRow 
+                key={msg.id} 
+                className={`cursor-pointer ${!msg.is_read ? 'bg-primary/5' : ''}`}
+                onClick={() => setSelectedMessage(msg)}
+              >
+                <TableCell>
+                  {msg.is_read ? (
+                    <MailOpen className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <Mail className="h-4 w-4 text-primary" />
+                  )}
+                </TableCell>
+                <TableCell className="font-medium">
+                  {msg.name}
+                  {!msg.is_read && (
+                    <Badge variant="default" className="ml-2 bg-primary text-xs">New</Badge>
+                  )}
+                </TableCell>
+                <TableCell className="text-muted-foreground">{msg.email}</TableCell>
+                <TableCell className="hidden md:table-cell max-w-[200px] truncate text-muted-foreground">
+                  {msg.message}
+                </TableCell>
+                <TableCell className="text-sm text-muted-foreground whitespace-nowrap">
+                  {formatDate(msg.created_at)}
+                </TableCell>
+                <TableCell className="text-right">
+                  <div className="flex items-center justify-end gap-2" onClick={(e) => e.stopPropagation()}>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => toggleReadStatus(msg.id, msg.is_read)}
+                      title={msg.is_read ? 'Mark as unread' : 'Mark as read'}
+                    >
+                      {msg.is_read ? (
+                        <Mail className="h-4 w-4" />
+                      ) : (
+                        <CheckCircle2 className="h-4 w-4" />
+                      )}
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setDeleteConfirm(msg.id)}
+                      className="text-destructive hover:text-destructive"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+            {filteredMessages.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
+                  {filter === 'all' ? 'No messages yet' : `No ${filter} messages`}
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      {/* View Message Dialog */}
+      <Dialog open={!!selectedMessage} onOpenChange={(open) => !open && setSelectedMessage(null)}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Mail className="h-5 w-5 text-primary" />
+              Message from {selectedMessage?.name}
+            </DialogTitle>
+            <DialogDescription>
+              Received on {selectedMessage && formatDate(selectedMessage.created_at)}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div>
+              <label className="text-sm font-medium text-muted-foreground">From</label>
+              <p className="font-medium">{selectedMessage?.name}</p>
+            </div>
+            <div>
+              <label className="text-sm font-medium text-muted-foreground">Email</label>
+              <p className="font-medium">
+                <a href={`mailto:${selectedMessage?.email}`} className="text-primary hover:underline">
+                  {selectedMessage?.email}
+                </a>
+              </p>
+            </div>
+            <div>
+              <label className="text-sm font-medium text-muted-foreground">Message</label>
+              <p className="mt-1 p-3 bg-muted rounded-lg whitespace-pre-wrap">{selectedMessage?.message}</p>
+            </div>
+          </div>
+          <DialogFooter className="gap-2">
+            <Button
+              variant="outline"
+              onClick={() => selectedMessage && toggleReadStatus(selectedMessage.id, selectedMessage.is_read)}
+            >
+              {selectedMessage?.is_read ? 'Mark as Unread' : 'Mark as Read'}
+            </Button>
+            <a href={`mailto:${selectedMessage?.email}`}>
+              <Button variant="saffron">Reply via Email</Button>
+            </a>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation */}
+      <DeleteConfirmDialog
+        open={!!deleteConfirm}
+        onOpenChange={(open) => !open && setDeleteConfirm(null)}
+        onConfirm={handleDelete}
+        title="Delete Message"
+        description="Are you sure you want to delete this message? This action cannot be undone."
+      />
     </div>
   );
 };
