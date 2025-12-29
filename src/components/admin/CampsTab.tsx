@@ -262,7 +262,7 @@ const CampsTab: React.FC<CampsTabProps> = ({ toast }) => {
     }
   };
 
-  const CampFormFields = () => (
+  const campFormFieldsJSX = (
     <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto">
       {/* Image URL */}
       <div className="space-y-2">
@@ -389,7 +389,7 @@ const CampsTab: React.FC<CampsTabProps> = ({ toast }) => {
             <DialogHeader>
               <DialogTitle>Add New Camp</DialogTitle>
             </DialogHeader>
-            <CampFormFields />
+            {campFormFieldsJSX}
             <DialogFooter>
               <DialogClose asChild>
                 <Button variant="outline">Cancel</Button>
@@ -486,7 +486,7 @@ const CampsTab: React.FC<CampsTabProps> = ({ toast }) => {
           <DialogHeader>
             <DialogTitle>Edit Camp</DialogTitle>
           </DialogHeader>
-          <CampFormFields />
+          {campFormFieldsJSX}
           <DialogFooter>
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
