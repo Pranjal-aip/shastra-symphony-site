@@ -211,7 +211,6 @@ const AdminDashboard: React.FC = () => {
               onToggleShowOnHome={toggleCourseShowOnHome}
               onAdd={addCourse}
               onUpdate={updateCourse}
-              onUploadImage={uploadImage}
               toast={toast}
             />
           )}
@@ -223,7 +222,6 @@ const AdminDashboard: React.FC = () => {
               onAdd={addBlogPost}
               onUpdate={updateBlogPost}
               onToggleShowOnHome={toggleBlogShowOnHome}
-              onUploadImage={uploadImage}
               toast={toast}
             />
           )}
@@ -242,7 +240,6 @@ const AdminDashboard: React.FC = () => {
             <NotificationsTab 
               popup={notificationPopup}
               onUpdate={updateNotificationPopup}
-              onUploadImage={uploadImage}
               toast={toast}
             />
           )}
@@ -311,20 +308,17 @@ interface CoursesTabProps {
   onToggleShowOnHome: (id: string) => Promise<void>;
   onAdd: (course: Omit<Course, 'id'>) => Promise<void>;
   onUpdate: (id: string, course: Partial<Course>) => Promise<void>;
-  onUploadImage: (file: File) => Promise<string>;
   toast: any;
 }
 
 const CoursesTab: React.FC<CoursesTabProps> = ({ 
-  courses, categories, onDelete, onTogglePopular, onToggleShowOnHome, onAdd, onUpdate, onUploadImage, toast 
+  courses, categories, onDelete, onTogglePopular, onToggleShowOnHome, onAdd, onUpdate, toast 
 }) => {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [uploadingImage, setUploadingImage] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   
   const [formData, setFormData] = useState({
     title: '',
@@ -358,22 +352,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       isPopular: false,
       showOnHome: false,
     });
-  };
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    
-    setUploadingImage(true);
-    try {
-      const url = await onUploadImage(file);
-      setFormData({ ...formData, thumbnail: url });
-      toast({ title: 'Success', description: 'Image uploaded successfully' });
-    } catch (error) {
-      toast({ title: 'Error', description: 'Failed to upload image', variant: 'destructive' });
-    } finally {
-      setUploadingImage(false);
-    }
   };
 
   const handleAddCourse = async () => {
@@ -487,29 +465,18 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
 
   const CourseFormFields = () => (
     <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto">
-      {/* Image Upload */}
+      {/* Image URL Input */}
       <div className="space-y-2">
-        <label className="text-sm font-medium">Course Image</label>
-        <div className="flex items-center gap-4">
-          <img src={formData.thumbnail || '/placeholder.svg'} alt="" className="w-20 h-20 rounded-lg object-cover" />
-          <div>
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleImageUpload}
-              accept="image/*"
-              className="hidden"
+        <label className="text-sm font-medium">Course Image URL</label>
+        <div className="flex items-start gap-4">
+          <img src={formData.thumbnail || '/placeholder.svg'} alt="" className="w-20 h-20 rounded-lg object-cover flex-shrink-0" />
+          <div className="flex-1">
+            <Input 
+              placeholder="Paste image URL here (e.g., https://...)" 
+              value={formData.thumbnail} 
+              onChange={(e) => setFormData({ ...formData, thumbnail: e.target.value })} 
             />
-            <Button 
-              type="button" 
-              variant="outline" 
-              size="sm" 
-              onClick={() => fileInputRef.current?.click()}
-              disabled={uploadingImage}
-            >
-              {uploadingImage ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Upload className="h-4 w-4 mr-2" />}
-              {uploadingImage ? 'Uploading...' : 'Upload Image'}
-            </Button>
+            <p className="text-xs text-muted-foreground mt-1">Paste a direct link to an image</p>
           </div>
         </div>
       </div>
@@ -698,18 +665,15 @@ interface BlogsTabProps {
   onAdd: (post: Omit<BlogPost, 'id'>) => Promise<void>;
   onUpdate: (id: string, post: Partial<BlogPost>) => Promise<void>;
   onToggleShowOnHome: (id: string) => Promise<void>;
-  onUploadImage: (file: File) => Promise<string>;
   toast: any;
 }
 
-const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd, onUpdate, onToggleShowOnHome, onUploadImage, toast }) => {
+const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd, onUpdate, onToggleShowOnHome, toast }) => {
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [uploadingImage, setUploadingImage] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   
   const [formData, setFormData] = useState({
     title: '',
@@ -858,29 +822,18 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
 
   const BlogFormFields = () => (
     <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto">
-      {/* Image Upload */}
+      {/* Image URL Input */}
       <div className="space-y-2">
-        <label className="text-sm font-medium">Featured Image</label>
-        <div className="flex items-center gap-4">
-          <img src={formData.thumbnail || '/placeholder.svg'} alt="" className="w-20 h-20 rounded-lg object-cover" />
-          <div>
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleImageUpload}
-              accept="image/*"
-              className="hidden"
+        <label className="text-sm font-medium">Featured Image URL</label>
+        <div className="flex items-start gap-4">
+          <img src={formData.thumbnail || '/placeholder.svg'} alt="" className="w-20 h-20 rounded-lg object-cover flex-shrink-0" />
+          <div className="flex-1">
+            <Input 
+              placeholder="Paste image URL here (e.g., https://...)" 
+              value={formData.thumbnail} 
+              onChange={(e) => setFormData({ ...formData, thumbnail: e.target.value })} 
             />
-            <Button 
-              type="button" 
-              variant="outline" 
-              size="sm" 
-              onClick={() => fileInputRef.current?.click()}
-              disabled={uploadingImage}
-            >
-              {uploadingImage ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Upload className="h-4 w-4 mr-2" />}
-              {uploadingImage ? 'Uploading...' : 'Upload Image'}
-            </Button>
+            <p className="text-xs text-muted-foreground mt-1">Paste a direct link to an image</p>
           </div>
         </div>
       </div>
@@ -1203,11 +1156,10 @@ const CategoriesTab: React.FC<CategoriesTabProps> = ({
 interface NotificationsTabProps {
   popup: any;
   onUpdate: (popup: any) => Promise<void>;
-  onUploadImage: (file: File) => Promise<string>;
   toast: any;
 }
 
-const NotificationsTab: React.FC<NotificationsTabProps> = ({ popup, onUpdate, onUploadImage, toast }) => {
+const NotificationsTab: React.FC<NotificationsTabProps> = ({ popup, onUpdate, toast }) => {
   const [formData, setFormData] = useState({
     titleEn: popup?.title?.en || '',
     titleHi: popup?.title?.hi || '',
@@ -1222,24 +1174,6 @@ const NotificationsTab: React.FC<NotificationsTabProps> = ({ popup, onUpdate, on
     endDate: popup?.endDate || '',
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [uploadingImage, setUploadingImage] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    
-    setUploadingImage(true);
-    try {
-      const url = await onUploadImage(file);
-      setFormData({ ...formData, imageUrl: url });
-      toast({ title: 'Success', description: 'Image uploaded successfully' });
-    } catch (error) {
-      toast({ title: 'Error', description: 'Failed to upload image', variant: 'destructive' });
-    } finally {
-      setUploadingImage(false);
-    }
-  };
 
   const handleSave = async () => {
     setIsLoading(true);
@@ -1276,31 +1210,20 @@ const NotificationsTab: React.FC<NotificationsTabProps> = ({ popup, onUpdate, on
           </div>
         </div>
 
-        {/* Image Upload */}
+        {/* Image URL Input */}
         <div className="space-y-2">
-          <label className="text-sm font-medium">Poster Image (Optional)</label>
-          <div className="flex items-center gap-4">
+          <label className="text-sm font-medium">Poster Image URL (Optional)</label>
+          <div className="flex items-start gap-4">
             {formData.imageUrl && (
-              <img src={formData.imageUrl} alt="" className="w-24 h-16 rounded-lg object-cover" />
+              <img src={formData.imageUrl} alt="" className="w-24 h-16 rounded-lg object-cover flex-shrink-0" />
             )}
-            <div>
-              <input
-                type="file"
-                ref={fileInputRef}
-                onChange={handleImageUpload}
-                accept="image/*"
-                className="hidden"
+            <div className="flex-1">
+              <Input 
+                placeholder="Paste image URL here (e.g., https://...)" 
+                value={formData.imageUrl} 
+                onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })} 
               />
-              <Button 
-                type="button" 
-                variant="outline" 
-                size="sm" 
-                onClick={() => fileInputRef.current?.click()}
-                disabled={uploadingImage}
-              >
-                {uploadingImage ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Upload className="h-4 w-4 mr-2" />}
-                {uploadingImage ? 'Uploading...' : 'Upload Image'}
-              </Button>
+              <p className="text-xs text-muted-foreground mt-1">Paste a direct link to an image</p>
             </div>
           </div>
         </div>
