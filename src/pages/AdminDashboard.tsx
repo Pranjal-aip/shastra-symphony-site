@@ -1697,7 +1697,7 @@ const SettingsTab: React.FC = () => {
           </div>
           <div>
             <label className="font-body text-sm font-medium mb-2 block">Contact Phone</label>
-            <Input placeholder="+91 98765 43210" defaultValue="+91 98765 43210" />
+            <Input placeholder="+91 96749 16567" defaultValue="+91 96749 16567" />
           </div>
           <div>
             <label className="font-body text-sm font-medium mb-2 block">Address</label>
