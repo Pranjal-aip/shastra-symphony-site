@@ -280,6 +280,8 @@ export type Database = {
       }
       courses: {
         Row: {
+          age_max: number | null
+          age_min: number | null
           category: string
           created_at: string
           duration: string | null
@@ -302,6 +304,8 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          age_max?: number | null
+          age_min?: number | null
           category: string
           created_at?: string
           duration?: string | null
@@ -324,6 +328,8 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          age_max?: number | null
+          age_min?: number | null
           category?: string
           created_at?: string
           duration?: string | null

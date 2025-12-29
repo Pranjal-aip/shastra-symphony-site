@@ -53,6 +53,11 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           </Badge>
           <Badge className={`text-xs font-body border ${getLevelColor(course.level)}`}>
             {course.level}
+            {(course.ageMin || course.ageMax) && (
+              <span className="ml-1">
+                ({course.ageMin || '?'}-{course.ageMax || '?'} yrs)
+              </span>
+            )}
           </Badge>
         </div>
 
