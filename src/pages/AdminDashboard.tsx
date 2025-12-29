@@ -703,21 +703,6 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
     });
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    
-    setUploadingImage(true);
-    try {
-      const url = await onUploadImage(file);
-      setFormData({ ...formData, thumbnail: url });
-      toast({ title: 'Success', description: 'Image uploaded successfully' });
-    } catch (error) {
-      toast({ title: 'Error', description: 'Failed to upload image', variant: 'destructive' });
-    } finally {
-      setUploadingImage(false);
-    }
-  };
 
   const handleAddPost = async () => {
     if (!formData.title || !formData.category) {
