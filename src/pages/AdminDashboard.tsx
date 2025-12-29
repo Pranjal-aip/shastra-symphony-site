@@ -20,7 +20,11 @@ import {
   Upload,
   Bell,
   Loader2,
-  LogOut
+  LogOut,
+  Link2,
+  UserCheck,
+  Copy,
+  ExternalLink
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -57,9 +61,10 @@ import { useAdmin, Course, BlogPost, Category } from '@/contexts/AdminContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import DeleteConfirmDialog from '@/components/DeleteConfirmDialog';
+import { supabase } from '@/integrations/supabase/client';
 import logo from '@/assets/shastrakulam-logo.png';
 
-type Tab = 'dashboard' | 'courses' | 'blogs' | 'categories' | 'notifications' | 'settings';
+type Tab = 'dashboard' | 'courses' | 'blogs' | 'categories' | 'referrals' | 'enrollments' | 'notifications' | 'settings';
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -108,6 +113,8 @@ const AdminDashboard: React.FC = () => {
     { id: 'courses' as Tab, label: 'Courses', icon: BookOpen },
     { id: 'blogs' as Tab, label: 'Blog Posts', icon: FileText },
     { id: 'categories' as Tab, label: 'Categories', icon: Tag },
+    { id: 'referrals' as Tab, label: 'Referral Links', icon: Link2 },
+    { id: 'enrollments' as Tab, label: 'Enrollments', icon: UserCheck },
     { id: 'notifications' as Tab, label: 'Notifications', icon: Bell },
     { id: 'settings' as Tab, label: 'Settings', icon: Settings },
   ];
@@ -239,6 +246,8 @@ const AdminDashboard: React.FC = () => {
               toast={toast}
             />
           )}
+          {activeTab === 'referrals' && <ReferralsTab toast={toast} />}
+          {activeTab === 'enrollments' && <EnrollmentsTab courses={courses} toast={toast} />}
           {activeTab === 'settings' && <SettingsTab />}
         </div>
       </main>
@@ -1347,6 +1356,362 @@ const NotificationsTab: React.FC<NotificationsTabProps> = ({ popup, onUpdate, on
           {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
           Save Notification Settings
         </Button>
+      </div>
+    </div>
+  );
+};
+
+// Referrals Tab
+interface ReferralsTabProps {
+  toast: any;
+}
+
+const ReferralsTab: React.FC<ReferralsTabProps> = ({ toast }) => {
+  const [referralLinks, setReferralLinks] = useState<any[]>([]);
+  const [referralVisits, setReferralVisits] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAddOpen, setIsAddOpen] = useState(false);
+  const [formData, setFormData] = useState({ name: '', code: '', description: '' });
+  const [isSaving, setIsSaving] = useState(false);
+
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const [linksRes, visitsRes] = await Promise.all([
+        supabase.from('referral_links').select('*').order('created_at', { ascending: false }),
+        supabase.from('referral_visits').select('*, referral_links(name, code)').order('visited_at', { ascending: false }).limit(100)
+      ]);
+      
+      if (linksRes.data) setReferralLinks(linksRes.data);
+      if (visitsRes.data) setReferralVisits(visitsRes.data);
+    } catch (error) {
+      console.error('Failed to fetch referral data:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const generateCode = () => {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let code = '';
+    for (let i = 0; i < 8; i++) {
+      code += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    setFormData({ ...formData, code });
+  };
+
+  const handleAddLink = async () => {
+    if (!formData.name || !formData.code) {
+      toast({ title: 'Error', description: 'Name and code are required', variant: 'destructive' });
+      return;
+    }
+    
+    setIsSaving(true);
+    try {
+      const { error } = await supabase.from('referral_links').insert({
+        name: formData.name,
+        code: formData.code.toUpperCase(),
+        description: formData.description || null,
+      });
+      
+      if (error) throw error;
+      
+      toast({ title: 'Success', description: 'Referral link created' });
+      setFormData({ name: '', code: '', description: '' });
+      setIsAddOpen(false);
+      fetchData();
+    } catch (error: any) {
+      toast({ title: 'Error', description: error.message || 'Failed to create link', variant: 'destructive' });
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const toggleActive = async (id: string, currentState: boolean) => {
+    try {
+      await supabase.from('referral_links').update({ is_active: !currentState }).eq('id', id);
+      fetchData();
+    } catch (error) {
+      toast({ title: 'Error', description: 'Failed to update', variant: 'destructive' });
+    }
+  };
+
+  const copyLink = (code: string) => {
+    const url = `${window.location.origin}/?ref=${code}`;
+    navigator.clipboard.writeText(url);
+    toast({ title: 'Copied!', description: 'Referral link copied to clipboard' });
+  };
+
+  const getVisitCount = (linkId: string) => {
+    return referralVisits.filter(v => v.referral_link_id === linkId).length;
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <p className="font-body text-muted-foreground">{referralLinks.length} referral links</p>
+        <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
+          <DialogTrigger asChild>
+            <Button variant="saffron" className="gap-2">
+              <Plus className="h-4 w-4" /> Create Referral Link
+            </Button>
+          </DialogTrigger>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Create Referral Link</DialogTitle>
+              <DialogDescription>Create a unique referral link to track visits and enrollments.</DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4 py-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Name *</label>
+                <Input 
+                  placeholder="e.g., Instagram Campaign" 
+                  value={formData.name} 
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })} 
+                />
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Referral Code *</label>
+                <div className="flex gap-2">
+                  <Input 
+                    placeholder="SUMMER2024" 
+                    value={formData.code} 
+                    onChange={(e) => setFormData({ ...formData, code: e.target.value.toUpperCase() })} 
+                  />
+                  <Button type="button" variant="outline" onClick={generateCode}>Generate</Button>
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Description</label>
+                <Input 
+                  placeholder="Optional description" 
+                  value={formData.description} 
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })} 
+                />
+              </div>
+            </div>
+            <DialogFooter>
+              <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
+              <Button variant="saffron" onClick={handleAddLink} disabled={isSaving}>
+                {isSaving && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+                Create Link
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </div>
+
+      <div className="bg-card rounded-xl shadow-card border border-border overflow-hidden">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Name</TableHead>
+              <TableHead>Code</TableHead>
+              <TableHead>Visits</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {referralLinks.map((link) => (
+              <TableRow key={link.id}>
+                <TableCell>
+                  <div>
+                    <span className="font-body font-medium">{link.name}</span>
+                    {link.description && (
+                      <p className="text-sm text-muted-foreground">{link.description}</p>
+                    )}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <Badge variant="secondary">{link.code}</Badge>
+                </TableCell>
+                <TableCell>
+                  <span className="font-body">{getVisitCount(link.id)}</span>
+                </TableCell>
+                <TableCell>
+                  <Switch 
+                    checked={link.is_active} 
+                    onCheckedChange={() => toggleActive(link.id, link.is_active)}
+                  />
+                </TableCell>
+                <TableCell className="text-right">
+                  <div className="flex justify-end gap-2">
+                    <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => copyLink(link.code)}>
+                      <Copy className="h-4 w-4" />
+                    </Button>
+                    <a href={`/?ref=${link.code}`} target="_blank" rel="noopener noreferrer">
+                      <Button variant="ghost" size="icon" className="h-8 w-8">
+                        <ExternalLink className="h-4 w-4" />
+                      </Button>
+                    </a>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+            {referralLinks.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={5} className="text-center py-8 text-muted-foreground">
+                  No referral links created yet
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </div>
+    </div>
+  );
+};
+
+// Enrollments Tab
+interface EnrollmentsTabProps {
+  courses: Course[];
+  toast: any;
+}
+
+const EnrollmentsTab: React.FC<EnrollmentsTabProps> = ({ courses, toast }) => {
+  const [enrollments, setEnrollments] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const fetchEnrollments = async () => {
+    setIsLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('course_enrollments')
+        .select('*, referral_links(name, code)')
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      if (data) setEnrollments(data);
+    } catch (error) {
+      console.error('Failed to fetch enrollments:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchEnrollments();
+  }, []);
+
+  const updateStatus = async (id: string, status: string) => {
+    try {
+      await supabase.from('course_enrollments').update({ status }).eq('id', id);
+      fetchEnrollments();
+      toast({ title: 'Updated', description: 'Enrollment status updated' });
+    } catch (error) {
+      toast({ title: 'Error', description: 'Failed to update', variant: 'destructive' });
+    }
+  };
+
+  const getCourseName = (courseId: string) => {
+    const course = courses.find(c => c.id === courseId);
+    return course?.title.en || 'Unknown Course';
+  };
+
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case 'approved': return <Badge className="bg-green-100 text-green-800">Approved</Badge>;
+      case 'rejected': return <Badge className="bg-red-100 text-red-800">Rejected</Badge>;
+      case 'contacted': return <Badge className="bg-blue-100 text-blue-800">Contacted</Badge>;
+      default: return <Badge variant="secondary">Pending</Badge>;
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex justify-between items-center">
+        <p className="font-body text-muted-foreground">{enrollments.length} enrollment requests</p>
+      </div>
+
+      <div className="bg-card rounded-xl shadow-card border border-border overflow-hidden">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Student</TableHead>
+              <TableHead>Course</TableHead>
+              <TableHead>Age</TableHead>
+              <TableHead>Referral</TableHead>
+              <TableHead>Date</TableHead>
+              <TableHead>Status</TableHead>
+              <TableHead className="text-right">Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {enrollments.map((enrollment) => (
+              <TableRow key={enrollment.id}>
+                <TableCell>
+                  <div>
+                    <span className="font-body font-medium">{enrollment.student_name}</span>
+                    <p className="text-sm text-muted-foreground">{enrollment.email}</p>
+                    {enrollment.phone && <p className="text-sm text-muted-foreground">{enrollment.phone}</p>}
+                  </div>
+                </TableCell>
+                <TableCell>
+                  <span className="font-body">{getCourseName(enrollment.course_id)}</span>
+                </TableCell>
+                <TableCell>
+                  <span className="font-body">
+                    {enrollment.age ? `${enrollment.age} years` : enrollment.age_group || '-'}
+                  </span>
+                </TableCell>
+                <TableCell>
+                  {enrollment.referral_links ? (
+                    <Badge variant="outline">{enrollment.referral_links.code}</Badge>
+                  ) : (
+                    <span className="text-muted-foreground">-</span>
+                  )}
+                </TableCell>
+                <TableCell>
+                  <span className="font-body text-sm">
+                    {new Date(enrollment.created_at).toLocaleDateString()}
+                  </span>
+                </TableCell>
+                <TableCell>{getStatusBadge(enrollment.status)}</TableCell>
+                <TableCell className="text-right">
+                  <Select value={enrollment.status} onValueChange={(v) => updateStatus(enrollment.id, v)}>
+                    <SelectTrigger className="w-28">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="pending">Pending</SelectItem>
+                      <SelectItem value="contacted">Contacted</SelectItem>
+                      <SelectItem value="approved">Approved</SelectItem>
+                      <SelectItem value="rejected">Rejected</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </TableCell>
+              </TableRow>
+            ))}
+            {enrollments.length === 0 && (
+              <TableRow>
+                <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
+                  No enrollment requests yet
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
       </div>
     </div>
   );

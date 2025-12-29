@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Clock, Users, BookOpen, Star } from 'lucide-react';
 import Layout from '@/components/Layout';
@@ -7,11 +7,13 @@ import { Badge } from '@/components/ui/badge';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Loader2 } from 'lucide-react';
+import CourseEnrollmentForm from '@/components/CourseEnrollmentForm';
 
 const CourseDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const { getCourseBySlug, loading } = useAdmin();
   const { t } = useLanguage();
+  const [enrollOpen, setEnrollOpen] = useState(false);
   
   const course = getCourseBySlug(slug || '');
 
@@ -114,13 +116,19 @@ const CourseDetail: React.FC = () => {
               {course.price && (
                 <div className="space-y-4">
                   <p className="font-heading text-3xl font-bold text-primary">{course.price}</p>
-                  <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
-                    <Button variant="saffron" size="lg" className="w-full sm:w-auto">
-                      Enroll via WhatsApp
-                    </Button>
-                  </a>
                 </div>
               )}
+              
+              <div className="flex flex-wrap gap-4">
+                <Button variant="saffron" size="lg" onClick={() => setEnrollOpen(true)}>
+                  Enroll Now
+                </Button>
+                <a href="https://wa.me/919876543210" target="_blank" rel="noopener noreferrer">
+                  <Button variant="outline" size="lg">
+                    Inquire via WhatsApp
+                  </Button>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -141,6 +149,14 @@ const CourseDetail: React.FC = () => {
           </div>
         </section>
       )}
+
+      {/* Enrollment Form Dialog */}
+      <CourseEnrollmentForm
+        courseId={course.id}
+        courseName={t(course.title)}
+        open={enrollOpen}
+        onOpenChange={setEnrollOpen}
+      />
     </Layout>
   );
 };

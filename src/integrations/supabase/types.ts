@@ -125,6 +125,66 @@ export type Database = {
         }
         Relationships: []
       }
+      course_enrollments: {
+        Row: {
+          age: number | null
+          age_group: string | null
+          course_id: string
+          created_at: string
+          email: string
+          id: string
+          message: string | null
+          phone: string | null
+          referral_link_id: string | null
+          status: string
+          student_name: string
+          updated_at: string
+        }
+        Insert: {
+          age?: number | null
+          age_group?: string | null
+          course_id: string
+          created_at?: string
+          email: string
+          id?: string
+          message?: string | null
+          phone?: string | null
+          referral_link_id?: string | null
+          status?: string
+          student_name: string
+          updated_at?: string
+        }
+        Update: {
+          age?: number | null
+          age_group?: string | null
+          course_id?: string
+          created_at?: string
+          email?: string
+          id?: string
+          message?: string | null
+          phone?: string | null
+          referral_link_id?: string | null
+          status?: string
+          student_name?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_enrollments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_enrollments_referral_link_id_fkey"
+            columns: ["referral_link_id"]
+            isOneToOne: false
+            referencedRelation: "referral_links"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       courses: {
         Row: {
           category: string
@@ -244,6 +304,71 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      referral_links: {
+        Row: {
+          code: string
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          name?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      referral_visits: {
+        Row: {
+          id: string
+          ip_hash: string | null
+          page_visited: string | null
+          referral_link_id: string
+          user_agent: string | null
+          visited_at: string
+        }
+        Insert: {
+          id?: string
+          ip_hash?: string | null
+          page_visited?: string | null
+          referral_link_id: string
+          user_agent?: string | null
+          visited_at?: string
+        }
+        Update: {
+          id?: string
+          ip_hash?: string | null
+          page_visited?: string | null
+          referral_link_id?: string
+          user_agent?: string | null
+          visited_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "referral_visits_referral_link_id_fkey"
+            columns: ["referral_link_id"]
+            isOneToOne: false
+            referencedRelation: "referral_links"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       site_settings: {
         Row: {
