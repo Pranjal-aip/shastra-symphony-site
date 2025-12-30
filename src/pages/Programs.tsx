@@ -1,10 +1,24 @@
 import React from 'react';
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import SectionHeader from '@/components/SectionHeader';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { Home, BookOpen, Users, Sparkles, Heart } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+
+const seoData = {
+  title: {
+    en: 'Programs - Gurukul, Online Courses & Camps',
+    hi: 'कार्यक्रम - गुरुकुल, ऑनलाइन पाठ्यक्रम और शिविर',
+    sa: 'कार्यक्रमाः - गुरुकुलम् अन्तर्जालपाठ्यक्रमाः शिविराणि च'
+  },
+  description: {
+    en: 'Explore Shastrakulam\'s full-time gurukul schooling, online Sanskrit courses, and seasonal camps. Holistic Vedic education for all ages.',
+    hi: 'शास्त्रकुलम के पूर्णकालिक गुरुकुल, ऑनलाइन संस्कृत पाठ्यक्रम और मौसमी शिविरों का अन्वेषण करें। सभी आयु के लिए समग्र वैदिक शिक्षा।',
+    sa: 'शास्त्रकुलस्य पूर्णकालिकगुरुकुलम् अन्तर्जालसंस्कृतपाठ्यक्रमान् ऋतुशिविराणि च अन्वेषयत। सर्ववयस्कानां कृते समग्रवैदिकशिक्षा।'
+  }
+};
 
 const programsTranslations = {
   pageTitle: {
@@ -99,6 +113,12 @@ const Programs: React.FC = () => {
 
   return (
     <Layout>
+      <SEO 
+        title={seoData.title}
+        description={seoData.description}
+        keywords="gurukul schooling India, residential Sanskrit school, online Vedic courses, seasonal camps"
+        url="/programs"
+      />
       <section className="py-12 bg-hero-pattern">
         <div className="container mx-auto px-4">
           <SectionHeader 

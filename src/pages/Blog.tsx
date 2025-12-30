@@ -1,10 +1,24 @@
 import React from 'react';
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import SectionHeader from '@/components/SectionHeader';
 import BlogCard from '@/components/BlogCard';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Loader2 } from 'lucide-react';
+
+const seoData = {
+  title: {
+    en: 'Wisdom Blog - Insights & Stories',
+    hi: 'ज्ञान ब्लॉग - अंतर्दृष्टि और कहानियाँ',
+    sa: 'ज्ञानपत्रिका - अन्तर्दृष्टयः कथाश्च'
+  },
+  description: {
+    en: 'Explore articles on Sanskrit, Vedic wisdom, parenting with Indian values, spiritual guidance, and stories from ancient scriptures.',
+    hi: 'संस्कृत, वैदिक ज्ञान, भारतीय मूल्यों के साथ पालन-पोषण, आध्यात्मिक मार्गदर्शन और प्राचीन शास्त्रों की कहानियों पर लेख पढ़ें।',
+    sa: 'संस्कृतविषये वैदिकज्ञानविषये भारतीयमूल्यैः सह पोषणविषये आध्यात्मिकमार्गदर्शनविषये प्राचीनशास्त्राणां कथासु च लेखान् पठत।'
+  }
+};
 
 const blogTranslations = {
   title: {
@@ -32,6 +46,12 @@ const Blog: React.FC = () => {
 
   return (
     <Layout>
+      <SEO 
+        title={seoData.title}
+        description={seoData.description}
+        keywords="Sanskrit blog, Vedic wisdom articles, parenting Indian values, spiritual guidance, Ramayana stories, Bhagavad Gita lessons"
+        url="/blog"
+      />
       <section className="py-12 bg-hero-pattern">
         <div className="container mx-auto px-4">
           <SectionHeader title={t(blogTranslations.title)} subtitle={t(blogTranslations.subtitle)} />

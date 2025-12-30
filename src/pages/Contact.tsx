@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import SectionHeader from '@/components/SectionHeader';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,6 +9,19 @@ import { Mail, Phone, MapPin, Loader2 } from 'lucide-react';
 import { useLanguage, translations } from '@/contexts/LanguageContext';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
+
+const seoData = {
+  title: {
+    en: 'Contact Us - Get in Touch',
+    hi: 'संपर्क करें - हमसे जुड़ें',
+    sa: 'सम्पर्कं कुरुत - अस्माभिः सह युज्यध्वम्'
+  },
+  description: {
+    en: 'Contact Shastrakulam for inquiries about Sanskrit courses, gurukul admission, camps, or donations. Reach us via WhatsApp, email, or visit our campus.',
+    hi: 'संस्कृत पाठ्यक्रम, गुरुकुल प्रवेश, शिविर या दान के बारे में पूछताछ के लिए शास्त्रकुलम से संपर्क करें।',
+    sa: 'संस्कृतपाठ्यक्रमाणां गुरुकुलप्रवेशस्य शिविराणां दानस्य वा विषये पृच्छार्थं शास्त्रकुलं सम्पर्कयत।'
+  }
+};
 
 const contactTranslations = {
   title: {
@@ -137,6 +151,12 @@ const Contact: React.FC = () => {
 
   return (
     <Layout>
+      <SEO 
+        title={seoData.title}
+        description={seoData.description}
+        keywords="contact Shastrakulam, Sanskrit school contact, gurukul inquiry, Vedic education help"
+        url="/contact"
+      />
       <section className="py-12 bg-hero-pattern">
         <div className="container mx-auto px-4">
           <SectionHeader 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, Home, Sun, Users, Heart, Sparkles } from 'lucide-react';
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import { Button } from '@/components/ui/button';
 import SectionHeader from '@/components/SectionHeader';
 import CourseCard from '@/components/CourseCard';
@@ -10,6 +11,19 @@ import { useLanguage, translations } from '@/contexts/LanguageContext';
 import { useAdmin } from '@/contexts/AdminContext';
 import { testimonials } from '@/data/sampleData';
 import heroIllustration from '@/assets/hero-illustration.jpg';
+
+const seoData = {
+  title: {
+    en: 'Holistic Education Based on Sanskar, Shastra & Sanskrit',
+    hi: 'संस्कार, शास्त्र और संस्कृत पर आधारित समग्र शिक्षा',
+    sa: 'संस्कारशास्त्रसंस्कृताधारिता समग्रशिक्षा'
+  },
+  description: {
+    en: 'Shastrakulam offers authentic Vedic education through Sanskrit courses, full-time gurukul schooling, and immersive camps for children and seekers worldwide.',
+    hi: 'शास्त्रकुलम संस्कृत पाठ्यक्रमों, पूर्णकालिक गुरुकुल शिक्षा और बच्चों और साधकों के लिए गहन शिविरों के माध्यम से प्रामाणिक वैदिक शिक्षा प्रदान करता है।',
+    sa: 'शास्त्रकुलं संस्कृतपाठ्यक्रमैः पूर्णकालिकगुरुकुलशिक्षया बालानां साधकानां च कृते गहनशिविरैश्च प्रामाणिकां वैदिकशिक्षां प्रददाति।'
+  }
+};
 
 const Index: React.FC = () => {
   const { t } = useLanguage();
@@ -27,8 +41,28 @@ const Index: React.FC = () => {
     { icon: Home, ...translations.whyUs.homeLike },
   ];
 
+  const homeSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Shastrakulam",
+    "url": "https://shastrakulam.org",
+    "description": seoData.description.en,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://shastrakulam.org/courses?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <Layout>
+      <SEO 
+        title={seoData.title}
+        description={seoData.description}
+        keywords="Sanskrit, Vedic education, Gurukul, Sanskrit courses, Bhagavad Gita, yoga, Indian culture, Sanatan Dharma, online Sanskrit learning"
+        url="/"
+        structuredData={homeSchema}
+      />
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center bg-hero-pattern overflow-hidden">
         <div className="absolute inset-0 bg-lotus-pattern opacity-50" />

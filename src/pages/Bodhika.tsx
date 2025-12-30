@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -524,6 +525,20 @@ const Bodhika: React.FC = () => {
 
   return (
     <Layout>
+      <SEO 
+        title={{
+          en: 'Bodhika - Awakening Young Minds | One-Year Certificate Course',
+          hi: 'बोधिका - युवा मनों को जागृत करना | एक वर्षीय प्रमाणपत्र पाठ्यक्रम',
+          sa: 'बोधिका - युवमनसां प्रबोधनम् | एकवर्षीयं प्रमाणपत्रपाठ्यक्रमम्'
+        }}
+        description={{
+          en: 'Bodhika is a one-year certificate course in Sanatan values and wisdom for kids and teens aged 8-17. Live online classes, shlokas, stories from Ramayana & Mahabharata.',
+          hi: 'बोधिका 8-17 वर्ष के बच्चों और किशोरों के लिए सनातन मूल्यों और ज्ञान में एक वर्षीय प्रमाणपत्र पाठ्यक्रम है।',
+          sa: '८-१७ वर्षीयबालानां किशोराणां च कृते सनातनमूल्येषु ज्ञाने च एकवर्षीयं प्रमाणपत्रपाठ्यक्रमम्।'
+        }}
+        keywords="Bodhika course, Sanatan values for kids, online Sanskrit course for children, Bhagavad Gita for kids, Ramayana stories, cultural education India"
+        url="/bodhika"
+      />
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
         {/* Animated Backgrounds */}

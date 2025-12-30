@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import SectionHeader from '@/components/SectionHeader';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -7,6 +8,19 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Heart, BookOpen, Users, Home, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/LanguageContext';
+
+const seoData = {
+  title: {
+    en: 'Donate - Support Vedic Education',
+    hi: 'दान करें - वैदिक शिक्षा का समर्थन करें',
+    sa: 'दानं कुरुत - वैदिकशिक्षां समर्थयत'
+  },
+  description: {
+    en: 'Support Shastrakulam\'s mission to preserve Vedic wisdom. Your tax-deductible donation (80G) helps provide Sanskrit education to children across India.',
+    hi: 'वैदिक ज्ञान को संरक्षित करने के शास्त्रकुलम के मिशन का समर्थन करें। आपका कर-कटौती योग्य दान (80G) भारत भर के बच्चों को संस्कृत शिक्षा प्रदान करने में मदद करता है।',
+    sa: 'वैदिकज्ञानं संरक्षितुं शास्त्रकुलस्य लक्ष्यं समर्थयत। भवतां करकटौतीयोग्यं दानं (80G) भारतस्य बालकेभ्यः संस्कृतशिक्षां प्रदातुं साहाय्यं करोति।'
+  }
+};
 
 const donateTranslations = {
   heroTitle: {
@@ -229,6 +243,12 @@ const Donate: React.FC = () => {
 
   return (
     <Layout>
+      <SEO 
+        title={seoData.title}
+        description={seoData.description}
+        keywords="donate Shastrakulam, support Vedic education, 80G donation India, sponsor Sanskrit student"
+        url="/donate"
+      />
       {/* Hero Section */}
       <section className="py-16 bg-gradient-to-br from-accent/10 via-background to-primary/10">
         <div className="container mx-auto px-4 text-center">
