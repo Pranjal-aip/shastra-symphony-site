@@ -42,6 +42,11 @@ import {
   Globe
 } from 'lucide-react';
 
+// Scroll helper
+const scrollToPricing = () => {
+  document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' });
+};
+
 // Hero Section Component
 const HeroSection = () => {
   return (
@@ -54,6 +59,21 @@ const HeroSection = () => {
         <div className="absolute top-10 left-10 w-40 h-40 border-4 border-white/30 rounded-full" />
         <div className="absolute top-1/4 right-20 w-60 h-60 border-4 border-white/20 rounded-full" />
         <div className="absolute bottom-20 left-1/4 w-32 h-32 border-4 border-white/25 rounded-full" />
+      </div>
+      
+      {/* Decorative Illustration Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 right-10 w-24 h-24 opacity-20">
+          <svg viewBox="0 0 100 100" fill="white">
+            <path d="M50 0 L100 50 L50 100 L0 50 Z" />
+          </svg>
+        </div>
+        <div className="absolute bottom-40 left-10 w-16 h-16 opacity-15">
+          <Sun className="w-full h-full text-white" />
+        </div>
+        <div className="absolute top-1/3 right-1/4 w-12 h-12 opacity-20">
+          <Flame className="w-full h-full text-white" />
+        </div>
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
@@ -85,6 +105,7 @@ const HeroSection = () => {
               <Button 
                 size="lg" 
                 className="bg-white text-[hsl(25,85%,45%)] hover:bg-white/90 font-semibold px-8 py-6 text-lg shadow-lg"
+                onClick={scrollToPricing}
               >
                 Enroll My Child Now
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -224,6 +245,184 @@ const AboutSection = () => {
                   </p>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Video Section Component  
+const VideoSection = () => {
+  return (
+    <section className="py-20 bg-secondary/20">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <Badge className="bg-primary/10 text-primary border-primary/20 mb-4">Watch & Learn</Badge>
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+            Know More About Bodhika
+          </h2>
+          <p className="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+            Watch this short video to understand how Bodhika can transform your child's understanding of Sanatan Dharma
+          </p>
+        </div>
+        
+        <div className="max-w-4xl mx-auto">
+          <div className="relative aspect-video rounded-2xl overflow-hidden shadow-elevated bg-gradient-to-br from-[hsl(25,85%,50%)] to-[hsl(340,65%,35%)]">
+            {/* Video Placeholder */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center text-white">
+              <div className="w-24 h-24 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-6 hover:scale-110 transition-transform cursor-pointer group">
+                <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center group-hover:bg-white/90 transition-colors">
+                  <Play className="h-10 w-10 text-[hsl(25,85%,50%)] ml-1" />
+                </div>
+              </div>
+              <h3 className="font-heading text-2xl font-semibold mb-2">Introduction to Bodhika</h3>
+              <p className="font-body text-white/80">Course Overview Video</p>
+            </div>
+            
+            {/* Decorative Elements */}
+            <div className="absolute top-4 left-4 w-16 h-16 opacity-20">
+              <BookOpen className="w-full h-full" />
+            </div>
+            <div className="absolute bottom-4 right-4 w-12 h-12 opacity-20">
+              <Flame className="w-full h-full" />
+            </div>
+          </div>
+          
+          {/* Video Features */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+            {[
+              { icon: Clock, label: "5 min watch" },
+              { icon: Eye, label: "Course Preview" },
+              { icon: Users, label: "Meet Teachers" },
+              { icon: Star, label: "Student Stories" },
+            ].map((item, idx) => (
+              <div key={idx} className="flex items-center gap-2 justify-center p-3 rounded-xl bg-background border border-border">
+                <item.icon className="h-5 w-5 text-[hsl(25,85%,50%)]" />
+                <span className="font-body text-sm text-foreground">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Sacred Texts & Wisdom Section
+const SacredTextsSection = () => {
+  const sacredTexts = [
+    {
+      icon: BookMarked,
+      title: "Ramayana",
+      description: "Learn about Lord Rama's journey, dharma, family values, and the triumph of good over evil.",
+      color: "from-[hsl(25,85%,50%)] to-[hsl(35,75%,55%)]",
+      image: "🏹"
+    },
+    {
+      icon: Feather,
+      title: "Mahabharata",
+      description: "Explore the epic tales of Pandavas, Krishna's wisdom, and lessons on duty and righteousness.",
+      color: "from-[hsl(220,70%,50%)] to-[hsl(220,60%,60%)]",
+      image: "⚔️"
+    },
+    {
+      icon: BookOpen,
+      title: "Bhagavad Gita",
+      description: "Understand Krishna's timeless teachings on life, karma, dharma, and spiritual wisdom.",
+      color: "from-[hsl(340,65%,30%)] to-[hsl(340,50%,45%)]",
+      image: "🙏"
+    },
+    {
+      icon: Eye,
+      title: "Does God Exist?",
+      description: "Age-appropriate discussions on spirituality, faith, and understanding the divine.",
+      color: "from-[hsl(280,60%,45%)] to-[hsl(280,50%,55%)]",
+      image: "✨"
+    },
+    {
+      icon: Compass,
+      title: "Main Texts of Sanatan Dharma",
+      description: "Introduction to Vedas, Upanishads, Puranas, and other sacred scriptures.",
+      color: "from-[hsl(145,60%,35%)] to-[hsl(145,50%,45%)]",
+      image: "📜"
+    },
+    {
+      icon: Heart,
+      title: "Good Behaviour & Moral Values",
+      description: "Building character through truth, compassion, respect, discipline, and ethical living.",
+      color: "from-[hsl(200,70%,45%)] to-[hsl(200,60%,55%)]",
+      image: "💝"
+    },
+    {
+      icon: Globe,
+      title: "Cultural Pride & Heritage",
+      description: "Develop deep interest and pride in Indian culture, traditions, and festivals.",
+      color: "from-[hsl(30,85%,45%)] to-[hsl(40,80%,50%)]",
+      image: "🪔"
+    },
+    {
+      icon: Lightbulb,
+      title: "Can We See God?",
+      description: "Understanding different forms of the divine and experiencing spirituality in daily life.",
+      color: "from-[hsl(170,60%,40%)] to-[hsl(170,50%,50%)]",
+      image: "🙌"
+    },
+  ];
+  
+  return (
+    <section className="py-20 bg-gradient-to-b from-background to-secondary/20">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <Badge className="bg-[hsl(340,65%,30%)]/10 text-[hsl(340,65%,35%)] border-[hsl(340,65%,30%)]/20 mb-4">
+            Sacred Wisdom
+          </Badge>
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
+            Explore Timeless Scriptures & Values
+          </h2>
+          <p className="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
+            Your child will explore the great epics, sacred texts, and timeless values that form the foundation of Sanatan Dharma
+          </p>
+        </div>
+        
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {sacredTexts.map((item, idx) => (
+            <Card 
+              key={idx} 
+              className="border-0 shadow-card hover-lift bg-card group cursor-pointer overflow-hidden relative"
+            >
+              {/* Large Emoji Background */}
+              <div className="absolute top-2 right-2 text-6xl opacity-10 group-hover:opacity-20 transition-opacity">
+                {item.image}
+              </div>
+              
+              <CardContent className="p-6 relative z-10">
+                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <item.icon className="h-7 w-7 text-white" />
+                </div>
+                <h3 className="font-heading text-lg font-semibold text-foreground mb-2">
+                  {item.title}
+                </h3>
+                <p className="font-body text-sm text-muted-foreground leading-relaxed">
+                  {item.description}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        
+        {/* Visual Quote */}
+        <div className="mt-16 max-w-3xl mx-auto">
+          <Card className="border-0 shadow-elevated bg-gradient-to-br from-[hsl(25,85%,50%)]/5 to-[hsl(340,65%,30%)]/5">
+            <CardContent className="p-8 md:p-10 text-center">
+              <Quote className="h-10 w-10 text-[hsl(25,85%,50%)]/40 mx-auto mb-4" />
+              <p className="font-heading text-xl md:text-2xl text-foreground italic mb-4">
+                "धर्मो रक्षति रक्षितः"
+              </p>
+              <p className="font-body text-muted-foreground">
+                Dharma protects those who protect it — This ancient wisdom guides our entire curriculum
+              </p>
             </CardContent>
           </Card>
         </div>
@@ -532,7 +731,7 @@ const CourseStructureSection = () => {
 // Pricing Section
 const PricingSection = () => {
   return (
-    <section className="py-20 bg-background">
+    <section id="pricing-section" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <Badge className="bg-[hsl(25,85%,50%)]/10 text-[hsl(25,85%,45%)] border-[hsl(25,85%,50%)]/20 mb-4">
@@ -753,6 +952,7 @@ const FinalCTASection = () => {
             <Button 
               size="lg" 
               className="bg-white text-[hsl(25,85%,45%)] hover:bg-white/90 font-semibold px-10 py-6 text-lg shadow-lg"
+              onClick={scrollToPricing}
             >
               Enroll My Child Now
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -795,7 +995,14 @@ const StickyEnrollButton = () => {
   
   useEffect(() => {
     const handleScroll = () => {
-      setIsVisible(window.scrollY > 600);
+      const pricingSection = document.getElementById('pricing-section');
+      if (pricingSection) {
+        const rect = pricingSection.getBoundingClientRect();
+        const isNearPricing = rect.top < window.innerHeight && rect.bottom > 0;
+        setIsVisible(window.scrollY > 600 && !isNearPricing);
+      } else {
+        setIsVisible(window.scrollY > 600);
+      }
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -809,6 +1016,7 @@ const StickyEnrollButton = () => {
         size="lg" 
         variant="saffron"
         className="w-full md:w-auto shadow-lg font-semibold"
+        onClick={scrollToPricing}
       >
         Enroll Now
         <ArrowRight className="ml-2 h-4 w-4" />
@@ -831,6 +1039,8 @@ const BodhikaLanding: React.FC = () => {
         <HeroSection />
         <HighlightStrip />
         <AboutSection />
+        <VideoSection />
+        <SacredTextsSection />
         <LearningSection />
         <LearningExperienceSection />
         <SanskritSection />
