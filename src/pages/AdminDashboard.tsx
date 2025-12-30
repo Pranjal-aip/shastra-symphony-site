@@ -29,7 +29,6 @@ import {
   Mail,
   MailOpen,
   CheckCircle2,
-  Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -68,11 +67,10 @@ import { useToast } from '@/hooks/use-toast';
 import DeleteConfirmDialog from '@/components/DeleteConfirmDialog';
 import CampsTab from '@/components/admin/CampsTab';
 import LandingPagesTab from '@/components/admin/LandingPagesTab';
-import AILandingPagesTab from '@/components/admin/AILandingPagesTab';
 import { supabase } from '@/integrations/supabase/client';
 import logo from '@/assets/shastrakulam-logo.png';
 
-type Tab = 'dashboard' | 'courses' | 'camps' | 'blogs' | 'categories' | 'referrals' | 'enrollments' | 'messages' | 'notifications' | 'settings' | 'landing-pages' | 'ai-landing-pages';
+type Tab = 'dashboard' | 'courses' | 'camps' | 'blogs' | 'categories' | 'referrals' | 'enrollments' | 'messages' | 'notifications' | 'settings' | 'landing-pages';
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -119,7 +117,6 @@ const AdminDashboard: React.FC = () => {
   const sidebarItems = [
     { id: 'dashboard' as Tab, label: 'Dashboard', icon: LayoutDashboard },
     { id: 'courses' as Tab, label: 'Courses', icon: BookOpen },
-    { id: 'ai-landing-pages' as Tab, label: 'AI Landing Pages', icon: Sparkles },
     { id: 'landing-pages' as Tab, label: 'Landing Pages', icon: ExternalLink },
     { id: 'camps' as Tab, label: 'Camps/Shivir', icon: Tent },
     { id: 'blogs' as Tab, label: 'Blog Posts', icon: FileText },
@@ -260,7 +257,6 @@ const AdminDashboard: React.FC = () => {
           {activeTab === 'enrollments' && <EnrollmentsTab courses={courses} toast={toast} />}
           {activeTab === 'messages' && <MessagesTab toast={toast} />}
           {activeTab === 'landing-pages' && <LandingPagesTab courses={courses} toast={toast} />}
-          {activeTab === 'ai-landing-pages' && <AILandingPagesTab toast={toast} />}
           {activeTab === 'settings' && <SettingsTab />}
         </div>
       </main>
@@ -335,10 +331,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isGeneratingLandingPage, setIsGeneratingLandingPage] = useState(false);
-  const [newCourseId, setNewCourseId] = useState<string | null>(null);
-  const [showLandingPagePrompt, setShowLandingPagePrompt] = useState(false);
-  const [newCourseData, setNewCourseData] = useState<{title: string; category: string; duration: string; level: string; description: string} | null>(null);
+  
   
   const [formData, setFormData] = useState({
     title: '',
@@ -378,102 +371,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
     });
   };
 
-  const generateAILandingPage = async (courseId: string, courseData: {title: string; category: string; duration: string; level: string; description: string}) => {
-    setIsGeneratingLandingPage(true);
-    try {
-      // Map course level to target audience
-      const targetAudienceMap: Record<string, string[]> = {
-        'Kids': ['Kids'],
-        'Teens': ['Teens'],
-        'Adults': ['Adults'],
-        'Gurukul': ['Kids', 'Teens'],
-        'All Ages': ['Kids', 'Teens', 'Adults', 'Parents'],
-      };
-
-      // Create AI landing page record with defaults
-      const slug = courseData.title.toLowerCase().replace(/\s+/g, '-') + '-landing';
-      const { data: landingPageData, error: insertError } = await supabase.from('ai_landing_pages').insert({
-        course_id: courseId,
-        course_name: courseData.title,
-        transformation_goal: courseData.description || `Master ${courseData.title} with our comprehensive program`,
-        course_category: courseData.category || 'Value Education',
-        course_duration: courseData.duration || '3 months',
-        course_mode: 'Online',
-        languages: ['English', 'Hindi', 'Sanskrit'],
-        target_audience: targetAudienceMap[courseData.level] || ['Adults'],
-        course_nature: 'Foundation',
-        difficulty_level: courseData.level === 'Kids' ? 'Beginner' : courseData.level === 'Teens' ? 'Intermediate' : 'Beginner',
-        number_of_modules: 8,
-        weekly_hours: 3,
-        teaching_style: ['Story Based', 'Interactive'],
-        batches: [{ name: 'Regular Batch', size: 30, price: '₹2,999', highlighted: true }],
-        institution_name: 'Shastrakulam',
-        tone_style: 'Calm & Spiritual',
-        slug: slug,
-        status: 'draft',
-      }).select('id').single();
-
-      if (insertError) throw insertError;
-
-      // Call AI to generate content
-      const { data: generatedData, error: genError } = await supabase.functions.invoke('generate-landing-page', {
-        body: {
-          courseName: courseData.title,
-          transformationGoal: courseData.description || `Master ${courseData.title} with our comprehensive program`,
-          courseCategory: courseData.category || 'Value Education',
-          courseDuration: courseData.duration || '3 months',
-          courseMode: 'Online',
-          languages: ['English', 'Hindi', 'Sanskrit'],
-          targetAudience: targetAudienceMap[courseData.level] || ['Adults'],
-          courseNature: 'Foundation',
-          difficultyLevel: courseData.level === 'Kids' ? 'Beginner' : 'Intermediate',
-          numberOfModules: 8,
-          weeklyHours: 3,
-          teachingStyle: ['Story Based', 'Interactive'],
-          certificateProvided: true,
-          batches: [{ name: 'Regular Batch', size: 30, price: '₹2,999', highlighted: true }],
-          scholarshipAvailable: true,
-          limitedSeatsBadge: true,
-          institutionName: 'Shastrakulam',
-          instructorName: null,
-          yearsOfExperience: 10,
-          totalStudentsTaught: 5000,
-          recognitions: 'Traditional Gurukul teaching methods',
-          toneStyle: 'Calm & Spiritual',
-        }
-      });
-
-      if (genError) {
-        console.error('AI generation error:', genError);
-        toast({ 
-          title: 'Landing Page Created', 
-          description: 'Course saved. AI generation failed - you can regenerate from AI Landing Pages tab.',
-        });
-      } else if (generatedData) {
-        // Update the landing page with generated content
-        await supabase.from('ai_landing_pages').update({
-          generated_content: generatedData,
-        }).eq('id', landingPageData.id);
-
-        toast({ 
-          title: 'Success', 
-          description: 'Course added and AI landing page generated! Check AI Landing Pages tab.',
-        });
-      }
-    } catch (error) {
-      console.error('Error generating landing page:', error);
-      toast({ 
-        title: 'Course Added', 
-        description: 'Course saved successfully. Landing page generation failed.',
-      });
-    } finally {
-      setIsGeneratingLandingPage(false);
-      setShowLandingPagePrompt(false);
-      setNewCourseId(null);
-      setNewCourseData(null);
-    }
-  };
-
   const handleAddCourse = async () => {
     if (!formData.title || !formData.category) {
       toast({ title: 'Error', description: 'Please fill in required fields', variant: 'destructive' });
@@ -481,7 +378,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
     }
     setIsLoading(true);
     try {
-      const courseId = await onAdd({
+      await onAdd({
         slug: formData.title.toLowerCase().replace(/\s+/g, '-'),
         title: { 
           en: formData.title, 
@@ -505,20 +402,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       });
       
       setIsAddOpen(false);
-      
-      if (courseId) {
-        // Store course data and show prompt
-        setNewCourseId(courseId);
-        setNewCourseData({
-          title: formData.title,
-          category: formData.category,
-          duration: formData.duration,
-          level: formData.level,
-          description: formData.description,
-        });
-        setShowLandingPagePrompt(true);
-      }
-      
       resetForm();
       toast({ title: 'Success', description: 'Course added successfully' });
     } catch (error) {
@@ -804,88 +687,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
           </TableBody>
         </Table>
       </div>
-
-      {/* AI Landing Page Generation Prompt */}
-      <Dialog open={showLandingPagePrompt} onOpenChange={(open) => {
-        if (!open && !isGeneratingLandingPage) {
-          setShowLandingPagePrompt(false);
-          setNewCourseId(null);
-          setNewCourseData(null);
-        }
-      }}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle className="font-heading flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-accent" />
-              Generate AI Landing Page?
-            </DialogTitle>
-            <DialogDescription>
-              Would you like to automatically generate a high-converting landing page for "{newCourseData?.title}" using AI?
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4 py-4">
-            <div className="bg-muted/50 rounded-lg p-4 space-y-2">
-              <p className="text-sm text-muted-foreground">This will create:</p>
-              <ul className="text-sm space-y-1">
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-green-500" />
-                  Emotion-driven hero section
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-green-500" />
-                  Course benefits & structure
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-green-500" />
-                  Pricing cards & CTAs
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-green-500" />
-                  Auto-generated FAQs
-                </li>
-                <li className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-green-500" />
-                  3 languages (EN, HI, SA)
-                </li>
-              </ul>
-            </div>
-          </div>
-          <DialogFooter className="gap-2 sm:gap-0">
-            <Button 
-              variant="outline" 
-              onClick={() => {
-                setShowLandingPagePrompt(false);
-                setNewCourseId(null);
-                setNewCourseData(null);
-              }}
-              disabled={isGeneratingLandingPage}
-            >
-              Skip for now
-            </Button>
-            <Button 
-              variant="saffron"
-              onClick={() => {
-                if (newCourseId && newCourseData) {
-                  generateAILandingPage(newCourseId, newCourseData);
-                }
-              }}
-              disabled={isGeneratingLandingPage}
-            >
-              {isGeneratingLandingPage ? (
-                <>
-                  <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                  Generating...
-                </>
-              ) : (
-                <>
-                  <Sparkles className="h-4 w-4 mr-2" />
-                  Generate Landing Page
-                </>
-              )}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };

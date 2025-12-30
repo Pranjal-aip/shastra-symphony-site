@@ -11,7 +11,6 @@ import Index from "./pages/Index";
 import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
 import CourseLanding from "./pages/CourseLanding";
-import AILandingPage from "./pages/AILandingPage";
 import Blog from "./pages/Blog";
 import BlogDetail from "./pages/BlogDetail";
 import About from "./pages/About";
@@ -41,7 +40,6 @@ const App = () => (
                   <Route path="/courses" element={<Courses />} />
                   <Route path="/courses/:slug" element={<CourseDetail />} />
                   <Route path="/landing/:slug" element={<CourseLanding />} />
-                  <Route path="/lp/:slug" element={<AILandingPage />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:slug" element={<BlogDetail />} />
                   <Route path="/about" element={<About />} />
