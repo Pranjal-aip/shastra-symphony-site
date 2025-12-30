@@ -75,6 +75,7 @@ type Tab = 'dashboard' | 'courses' | 'camps' | 'blogs' | 'categories' | 'referra
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const { user, loading: authLoading, signOut } = useAuth();
   const navigate = useNavigate();
   const { 
@@ -102,12 +103,50 @@ const AdminDashboard: React.FC = () => {
   } = useAdmin();
   const { toast } = useToast();
 
-  // Redirect to login if not authenticated
+  // Check admin role on mount and when user changes
   useEffect(() => {
-    if (!authLoading && !user) {
-      navigate('/admin/login');
+    const checkAdminRole = async () => {
+      if (!user) {
+        navigate('/admin/login');
+        return;
+      }
+      
+      try {
+        // Call the has_role function to check if user is admin
+        const { data, error } = await supabase.rpc('has_role', {
+          _user_id: user.id,
+          _role: 'admin'
+        });
+        
+        if (error) {
+          console.error('Role check error:', error);
+          setIsAdmin(false);
+          navigate('/');
+          return;
+        }
+        
+        if (data === true) {
+          setIsAdmin(true);
+        } else {
+          setIsAdmin(false);
+          toast({
+            title: 'Access Denied',
+            description: 'You do not have admin privileges.',
+            variant: 'destructive'
+          });
+          navigate('/');
+        }
+      } catch (err) {
+        console.error('Role check failed:', err);
+        setIsAdmin(false);
+        navigate('/');
+      }
+    };
+    
+    if (!authLoading) {
+      checkAdminRole();
     }
-  }, [user, authLoading, navigate]);
+  }, [user, authLoading, navigate, toast]);
 
   const handleSignOut = async () => {
     await signOut();
@@ -128,19 +167,21 @@ const AdminDashboard: React.FC = () => {
     { id: 'settings' as Tab, label: 'Settings', icon: Settings },
   ];
 
-  if (authLoading || loading) {
+  // Show loading while checking auth or admin role
+  if (authLoading || loading || isAdmin === null) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto mb-4" />
-          <p className="font-body text-muted-foreground">Loading admin panel...</p>
+          <p className="font-body text-muted-foreground">Verifying permissions...</p>
         </div>
       </div>
     );
   }
 
-  if (!user) {
-    return null; // Will redirect via useEffect
+  // Block rendering if not admin - will redirect via useEffect
+  if (!user || !isAdmin) {
+    return null;
   }
 
   return (
