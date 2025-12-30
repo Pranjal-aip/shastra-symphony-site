@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Heart, LogIn, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import CartDrawer from '@/components/CartDrawer';
 import { useLanguage, translations } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import logo from '@/assets/shastrakulam-logo.png';
@@ -85,6 +86,7 @@ const Navbar: React.FC = () => {
           {/* Right side actions */}
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
+            <CartDrawer />
             <Link to="/donate" className="hidden md:block">
               <Button variant="maroon-outline" size="sm" className="gap-2">
                 <Heart className="h-4 w-4" />

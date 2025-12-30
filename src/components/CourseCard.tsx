@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Clock, ArrowRight } from 'lucide-react';
+import { Clock, ArrowRight, ShoppingCart, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useLanguage, translations } from '@/contexts/LanguageContext';
+import { useCart } from '@/contexts/CartContext';
 import { Course } from '@/contexts/AdminContext';
+import { toast } from '@/hooks/use-toast';
 
 interface CourseCardProps {
   course: Course;
@@ -12,6 +14,18 @@ interface CourseCardProps {
 
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   const { t } = useLanguage();
+  const { addToCart, isInCart } = useCart();
+  const inCart = isInCart(course.id);
+
+  const handleAddToCart = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    addToCart(course);
+    toast({
+      title: "Added to cart",
+      description: `${t(course.title)} has been added to your cart.`,
+    });
+  };
 
   const getLevelColor = (level: string) => {
     const colors: Record<string, string> = {
@@ -88,16 +102,27 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           )}
         </div>
 
-        {/* CTA - Links to course detail page */}
-        <Link to={`/courses/${course.slug}`}>
+        {/* CTA Buttons */}
+        <div className="flex gap-2 mt-2">
+          <Link to={`/courses/${course.slug}`} className="flex-1">
+            <Button
+              variant="maroon-outline"
+              className="w-full group/btn"
+            >
+              {t(translations.sections.viewDetails)}
+              <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+            </Button>
+          </Link>
           <Button
-            variant="maroon-outline"
-            className="w-full mt-2 group/btn"
+            variant={inCart ? "secondary" : "saffron"}
+            size="icon"
+            onClick={handleAddToCart}
+            disabled={inCart}
+            className="shrink-0"
           >
-            {t(translations.sections.viewDetails)}
-            <ArrowRight className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+            {inCart ? <Check className="h-4 w-4" /> : <ShoppingCart className="h-4 w-4" />}
           </Button>
-        </Link>
+        </div>
       </div>
     </div>
   );
