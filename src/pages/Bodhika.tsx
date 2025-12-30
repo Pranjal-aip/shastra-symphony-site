@@ -904,18 +904,12 @@ const Bodhika: React.FC = () => {
                   ))}
                 </div>
 
-                <a 
-                  href="https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full"
+                <Button 
+                  className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white py-6 rounded-xl font-semibold text-lg"
+                  onClick={scrollToEnrollment}
                 >
-                  <Button 
-                    className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white py-6 rounded-xl font-semibold text-lg"
-                  >
-                    {t('enrollNow')}
-                  </Button>
-                </a>
+                  {t('enrollNow')}
+                </Button>
               </CardContent>
             </Card>
           </div>
