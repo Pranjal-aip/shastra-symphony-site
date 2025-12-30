@@ -357,28 +357,11 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-maroon/95 via-maroon/80 to-transparent" />
       </div>
       
-      {/* Decorative Elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 right-10 w-32 h-32 opacity-10">
-          <img src={omDivine} alt="" className="w-full h-full object-contain rounded-full" />
-        </div>
-        <div className="absolute bottom-40 left-10 w-20 h-20 opacity-15">
-          <Sun className="w-full h-full text-saffron" />
-        </div>
-      </div>
-      
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="text-white space-y-6 animate-fade-in">
-            <Badge className="bg-saffron/20 text-white border-saffron/30 backdrop-blur-sm px-4 py-2 text-sm font-body">
-              {t(bodhikaTranslations.heroBadge)}
-            </Badge>
-            
             <div className="border-l-4 border-saffron pl-6">
-              <p className="text-cream/90 font-body text-lg mb-2 tracking-wide">
-                {t(bodhikaTranslations.heroSubtitle)}
-              </p>
               <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-white">
                 {t(bodhikaTranslations.heroTitle)}
               </h1>
@@ -410,33 +393,6 @@ const HeroSection = () => {
                 <Phone className="mr-2 h-5 w-5" />
                 {t(bodhikaTranslations.bookCounseling)}
               </Button>
-            </div>
-            
-            {/* Scholarship Banner */}
-            <button 
-              onClick={() => window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=Hi! I want to inquire about the scholarship for Bodhika course.`, '_blank')}
-              className="w-full max-w-xl bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-xl p-4 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] cursor-pointer animate-pulse"
-            >
-              <Award className="h-6 w-6" />
-              <span className="font-heading text-lg font-bold">{t(bodhikaTranslations.scholarshipCTA)}</span>
-              <ArrowRight className="h-5 w-5" />
-            </button>
-            
-            {/* Trust Icons */}
-            <div className="flex flex-wrap gap-6 pt-6">
-              {[
-                { icon: Video, label: t(bodhikaTranslations.liveClasses) },
-                { icon: Download, label: t(bodhikaTranslations.recordedAccess) },
-                { icon: Smile, label: t(bodhikaTranslations.childFriendly) },
-                { icon: Calendar, label: t(bodhikaTranslations.oneYearProgram) },
-              ].map((item, idx) => (
-                <div key={idx} className="flex items-center gap-2 text-cream/90">
-                  <div className="w-10 h-10 rounded-full bg-saffron/20 flex items-center justify-center backdrop-blur-sm">
-                    <item.icon className="h-5 w-5" />
-                  </div>
-                  <span className="font-body text-sm">{item.label}</span>
-                </div>
-              ))}
             </div>
           </div>
           
