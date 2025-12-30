@@ -56,7 +56,7 @@ interface AdminContextType {
   blogCategories: Category[];
   notificationPopup: NotificationPopup | null;
   loading: boolean;
-  addCourse: (course: Omit<Course, 'id'>) => Promise<void>;
+  addCourse: (course: Omit<Course, 'id'>) => Promise<string | null>;
   updateCourse: (id: string, course: Partial<Course>) => Promise<void>;
   deleteCourse: (id: string) => Promise<void>;
   toggleCoursePopular: (id: string) => Promise<void>;
@@ -222,8 +222,8 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     };
   }, []);
 
-  const addCourse = async (course: Omit<Course, 'id'>) => {
-    const { error } = await supabase.from('courses').insert({
+  const addCourse = async (course: Omit<Course, 'id'>): Promise<string | null> => {
+    const { data, error } = await supabase.from('courses').insert({
       slug: course.slug,
       title_en: course.title.en,
       title_hi: course.title.hi,
@@ -243,9 +243,10 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       show_on_home: course.showOnHome,
       age_min: course.ageMin || null,
       age_max: course.ageMax || null,
-    });
+    }).select('id').single();
     if (error) throw error;
     await fetchData();
+    return data?.id || null;
   };
 
   const updateCourse = async (id: string, updates: Partial<Course>) => {
