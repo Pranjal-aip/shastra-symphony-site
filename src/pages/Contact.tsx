@@ -96,7 +96,7 @@ const Contact: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.message) {
       toast({
         title: t(contactTranslations.errorTitle),
         description: t(contactTranslations.requiredFields),
@@ -178,6 +178,7 @@ const Contact: React.FC = () => {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 maxLength={100}
+                required
               />
               <Input 
                 type="email" 
@@ -186,6 +187,7 @@ const Contact: React.FC = () => {
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 maxLength={255}
+                required
               />
               <Input 
                 type="tel" 
@@ -194,6 +196,7 @@ const Contact: React.FC = () => {
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 maxLength={20}
+                required
               />
               <Textarea
                 placeholder={t(contactTranslations.yourMessage)} 
@@ -202,6 +205,7 @@ const Contact: React.FC = () => {
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 maxLength={1000}
+                required
               />
               <Button variant="saffron" className="w-full" disabled={isLoading}>
                 {isLoading ? (
