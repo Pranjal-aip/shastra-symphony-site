@@ -311,6 +311,26 @@ const bodhikaTranslations = {
 
   // Scholarship CTA
   scholarshipCTA: { en: '🎓 Scholarship Available for Needy Families - Apply Now!', hi: '🎓 जरूरतमंद परिवारों के लिए छात्रवृत्ति उपलब्ध - अभी आवेदन करें!', sa: '🎓 आवश्यककुटुम्बेभ्यः छात्रवृत्तिः उपलब्धा - अधुना आवेदयत!' },
+
+  // Benefits Section
+  benefitsTitle: { en: 'Benefits Your Child Will Get', hi: 'आपके बच्चे को मिलने वाले लाभ', sa: 'भवतः सन्तानाय लाभाः' },
+  benefitsSubtitle: { en: 'Transform Your Child\'s Life with Ancient Wisdom', hi: 'प्राचीन ज्ञान से अपने बच्चे के जीवन को बदलें', sa: 'प्राचीनज्ञानेन स्वसन्तानस्य जीवनं परिवर्तयत' },
+  benefitCharacter: { en: 'Strong Moral Character', hi: 'मजबूत नैतिक चरित्र', sa: 'दृढं नैतिकचरित्रम्' },
+  benefitCharacterDesc: { en: 'Develop integrity, honesty, and ethical values that will guide them throughout life', hi: 'ईमानदारी, सत्यनिष्ठा और नैतिक मूल्य विकसित करें जो जीवन भर मार्गदर्शन करेंगे', sa: 'सत्यनिष्ठां ईमानदारीं नैतिकमूल्यानि च विकसयत ये जीवनपर्यन्तं मार्गदर्शयिष्यन्ति' },
+  benefitConfidence: { en: 'Cultural Confidence', hi: 'सांस्कृतिक आत्मविश्वास', sa: 'सांस्कृतिक आत्मविश्वासः' },
+  benefitConfidenceDesc: { en: 'Pride in their heritage and ability to articulate our rich traditions', hi: 'अपनी विरासत पर गर्व और हमारी समृद्ध परंपराओं को व्यक्त करने की क्षमता', sa: 'स्वपैतृके गर्वः अस्माकं समृद्धपरम्पराणां अभिव्यक्तिक्षमता च' },
+  benefitSanskrit: { en: 'Sanskrit Speaking Skills', hi: 'संस्कृत बोलने का कौशल', sa: 'संस्कृतभाषणकौशलम्' },
+  benefitSanskritDesc: { en: 'Connect with the divine language of our scriptures through conversational Sanskrit', hi: 'संवादी संस्कृत के माध्यम से हमारे शास्त्रों की दिव्य भाषा से जुड़ें', sa: 'संवादसंस्कृतद्वारा अस्माकं शास्त्राणां दिव्यभाषया सह संयुज्यध्वम्' },
+  benefitMindfulness: { en: 'Inner Peace & Focus', hi: 'आंतरिक शांति और एकाग्रता', sa: 'आन्तरिकशान्तिः एकाग्रता च' },
+  benefitMindfulnessDesc: { en: 'Learn meditation and mindfulness techniques for better concentration and emotional balance', hi: 'बेहतर एकाग्रता और भावनात्मक संतुलन के लिए ध्यान और माइंडफुलनेस तकनीकें सीखें', sa: 'उत्तमैकाग्रतायै भावनात्मकसन्तुलनाय च ध्यानमनोयोगतन्त्राणि अधिगच्छत' },
+  benefitWisdom: { en: 'Scriptural Knowledge', hi: 'शास्त्रीय ज्ञान', sa: 'शास्त्रीयज्ञानम्' },
+  benefitWisdomDesc: { en: 'Deep understanding of Ramayana, Mahabharata, Gita and other sacred texts', hi: 'रामायण, महाभारत, गीता और अन्य पवित्र ग्रंथों की गहरी समझ', sa: 'रामायणमहाभारतगीतादीनां पवित्रग्रन्थानां गहनावबोधः' },
+  benefitRespect: { en: 'Respect for Elders', hi: 'बड़ों का सम्मान', sa: 'वृद्धानां सम्मानम्' },
+  benefitRespectDesc: { en: 'Cultivate gratitude and respect for parents, teachers, and elders', hi: 'माता-पिता, शिक्षकों और बड़ों के प्रति कृतज्ञता और सम्मान विकसित करें', sa: 'पितृभ्यः शिक्षकेभ्यः वृद्धेभ्यश्च कृतज्ञतां सम्मानं च विकसयत' },
+  benefitCommunity: { en: 'Dharmic Community', hi: 'धार्मिक समुदाय', sa: 'धार्मिकसमुदायः' },
+  benefitCommunityDesc: { en: 'Connect with like-minded families and build lasting friendships rooted in dharma', hi: 'समान विचारधारा वाले परिवारों से जुड़ें और धर्म पर आधारित स्थायी मित्रता बनाएं', sa: 'समानविचाराणां कुटुम्बैः सह संयुज्यध्वं धर्ममूलिकां स्थायिमैत्रीं च निर्मात' },
+  benefitLifeSkills: { en: 'Life Skills & Discipline', hi: 'जीवन कौशल और अनुशासन', sa: 'जीवनकौशलम् अनुशासनं च' },
+  benefitLifeSkillsDesc: { en: 'Develop self-discipline, time management, and positive daily habits', hi: 'आत्म-अनुशासन, समय प्रबंधन और सकारात्मक दैनिक आदतें विकसित करें', sa: 'आत्मानुशासनं कालप्रबन्धनं सकारात्मकदैनन्दिनाभ्यासांश्च विकसयत' },
 };
 
 // WhatsApp Number
@@ -519,6 +539,68 @@ const AboutSection = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Benefits Section Component
+const BenefitsSection = () => {
+  const { t } = useLanguage();
+  
+  const benefits = [
+    { icon: Shield, title: t(bodhikaTranslations.benefitCharacter), description: t(bodhikaTranslations.benefitCharacterDesc), color: 'bg-maroon' },
+    { icon: Star, title: t(bodhikaTranslations.benefitConfidence), description: t(bodhikaTranslations.benefitConfidenceDesc), color: 'bg-saffron' },
+    { icon: Languages, title: t(bodhikaTranslations.benefitSanskrit), description: t(bodhikaTranslations.benefitSanskritDesc), color: 'bg-maroon' },
+    { icon: Brain, title: t(bodhikaTranslations.benefitMindfulness), description: t(bodhikaTranslations.benefitMindfulnessDesc), color: 'bg-saffron' },
+    { icon: BookOpen, title: t(bodhikaTranslations.benefitWisdom), description: t(bodhikaTranslations.benefitWisdomDesc), color: 'bg-maroon' },
+    { icon: Heart, title: t(bodhikaTranslations.benefitRespect), description: t(bodhikaTranslations.benefitRespectDesc), color: 'bg-saffron' },
+    { icon: Users, title: t(bodhikaTranslations.benefitCommunity), description: t(bodhikaTranslations.benefitCommunityDesc), color: 'bg-maroon' },
+    { icon: Target, title: t(bodhikaTranslations.benefitLifeSkills), description: t(bodhikaTranslations.benefitLifeSkillsDesc), color: 'bg-saffron' },
+  ];
+  
+  return (
+    <section className="py-20 bg-gradient-to-b from-cream to-background">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <Badge className="bg-saffron/10 text-saffron border-saffron/20 mb-4">
+            <Sparkles className="h-3 w-3 mr-1" />
+            {t(bodhikaTranslations.benefitsTitle)}
+          </Badge>
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground lotus-underline inline-block">
+            {t(bodhikaTranslations.benefitsSubtitle)}
+          </h2>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          {benefits.map((benefit, idx) => (
+            <Card key={idx} className="group hover-lift border-border/50 bg-card/80 backdrop-blur-sm overflow-hidden">
+              <CardContent className="p-6">
+                <div className={`w-14 h-14 rounded-2xl ${benefit.color} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <benefit.icon className="h-7 w-7 text-white" />
+                </div>
+                <h3 className="font-heading text-lg font-bold text-foreground mb-2">
+                  {benefit.title}
+                </h3>
+                <p className="font-body text-sm text-muted-foreground leading-relaxed">
+                  {benefit.description}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        
+        <div className="text-center mt-12">
+          <Button 
+            size="lg" 
+            className="bg-saffron hover:bg-saffron/90 text-white font-semibold"
+            onClick={scrollToPricing}
+          >
+            <GraduationCap className="mr-2 h-5 w-5" />
+            {t(bodhikaTranslations.enrollNow)}
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
       </div>
     </section>
@@ -1243,6 +1325,7 @@ const BodhikaLanding = () => {
       <HeroSection />
       <HighlightStrip />
       <AboutSection />
+      <BenefitsSection />
       <VideoSection />
       <LearningSection />
       <LearningExperienceSection />
