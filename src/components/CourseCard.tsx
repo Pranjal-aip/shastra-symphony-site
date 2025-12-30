@@ -26,23 +26,25 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
 
   return (
     <div className="group bg-card rounded-2xl overflow-hidden shadow-card hover-lift border border-border/50">
-      {/* Image */}
-      <div className="relative aspect-[16/10] overflow-hidden">
-        <img
-          src={course.thumbnail || '/placeholder.svg'}
-          alt={t(course.title)}
-          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = '/placeholder.svg';
-          }}
-        />
-        {course.isPopular && (
-          <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground border-0">
-            ⭐ Popular
-          </Badge>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      </div>
+      {/* Image - Clickable to landing page */}
+      <Link to={`/landing/${course.slug}`} className="block">
+        <div className="relative aspect-[16/10] overflow-hidden cursor-pointer">
+          <img
+            src={course.thumbnail || '/placeholder.svg'}
+            alt={t(course.title)}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = '/placeholder.svg';
+            }}
+          />
+          {course.isPopular && (
+            <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground border-0">
+              ⭐ Popular
+            </Badge>
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        </div>
+      </Link>
 
       {/* Content */}
       <div className="p-6 space-y-4">
@@ -61,10 +63,12 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           </Badge>
         </div>
 
-        {/* Title */}
-        <h3 className="font-heading text-xl font-semibold text-card-foreground line-clamp-2 group-hover:text-primary transition-colors">
-          {t(course.title)}
-        </h3>
+        {/* Title - Also clickable */}
+        <Link to={`/landing/${course.slug}`}>
+          <h3 className="font-heading text-xl font-semibold text-card-foreground line-clamp-2 group-hover:text-primary transition-colors cursor-pointer">
+            {t(course.title)}
+          </h3>
+        </Link>
 
         {/* Description */}
         <p className="font-body text-muted-foreground text-sm line-clamp-2">
@@ -84,8 +88,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           )}
         </div>
 
-        {/* CTA */}
-        <Link to="/bodhika">
+        {/* CTA - Links to landing page */}
+        <Link to={`/landing/${course.slug}`}>
           <Button
             variant="maroon-outline"
             className="w-full mt-2 group/btn"
