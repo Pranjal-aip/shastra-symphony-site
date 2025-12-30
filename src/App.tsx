@@ -19,7 +19,7 @@ import Contact from "./pages/Contact";
 import Programs from "./pages/Programs";
 import Camps from "./pages/Camps";
 import Donate from "./pages/Donate";
-import Bodhika from "./pages/Bodhika";
+import Bodhika from "./pages/BodhikaLanding";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
