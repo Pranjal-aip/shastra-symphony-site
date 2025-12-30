@@ -204,7 +204,7 @@ const bodhikaTranslations = {
   focusedStudents: { en: '12 students per batch', hi: 'प्रति बैच 12 छात्र', sa: 'प्रतिवर्गं १२ छात्राः' },
   recommended: { en: 'Recommended', hi: 'अनुशंसित', sa: 'अनुशंसितम्' },
   yearlyFee: { en: '/year', hi: '/वर्ष', sa: '/वर्षम्' },
-  weeklyLiveClasses: { en: 'Weekly Live Classes with mentors', hi: 'मार्गदर्शकों के साथ साप्ताहिक लाइव कक्षाएं', sa: 'मार्गदर्शकैः सह साप्ताहिकजीवन्तकक्षाः' },
+  weeklyLiveClasses: { en: 'Live Classes with mentors', hi: 'मार्गदर्शकों के साथ लाइव कक्षाएं', sa: 'मार्गदर्शकैः सह जीवन्तकक्षाः' },
   peerInteractions: { en: 'Energetic peer interactions', hi: 'ऊर्जावान साथी बातचीत', sa: 'ऊर्जावत्सहपाठिसंवादाः' },
   interactiveActivities: { en: 'Interactive activities & Q&A', hi: 'इंटरैक्टिव गतिविधियां और प्रश्नोत्तर', sa: 'परस्परक्रियात्मकक्रियाः प्रश्नोत्तराणि च' },
   communityBuilding: { en: 'Community building', hi: 'समुदाय निर्माण', sa: 'समुदायनिर्माणम्' },
