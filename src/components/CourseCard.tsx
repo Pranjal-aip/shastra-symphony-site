@@ -26,8 +26,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
 
   return (
     <div className="group bg-card rounded-2xl overflow-hidden shadow-card hover-lift border border-border/50">
-      {/* Image - Clickable to landing page */}
-      <Link to={`/landing/${course.slug}`} className="block">
+      {/* Image - Clickable to course detail page */}
+      <Link to={`/courses/${course.slug}`} className="block">
         <div className="relative aspect-[16/10] overflow-hidden cursor-pointer">
           <img
             src={course.thumbnail || '/placeholder.svg'}
@@ -64,7 +64,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
         </div>
 
         {/* Title - Also clickable */}
-        <Link to={`/landing/${course.slug}`}>
+        <Link to={`/courses/${course.slug}`}>
           <h3 className="font-heading text-xl font-semibold text-card-foreground line-clamp-2 group-hover:text-primary transition-colors cursor-pointer">
             {t(course.title)}
           </h3>
@@ -88,8 +88,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           )}
         </div>
 
-        {/* CTA - Links to landing page */}
-        <Link to={`/landing/${course.slug}`}>
+        {/* CTA - Links to course detail page */}
+        <Link to={`/courses/${course.slug}`}>
           <Button
             variant="maroon-outline"
             className="w-full mt-2 group/btn"
