@@ -259,7 +259,7 @@ const bodhikaTranslations = {
   godExistsDesc: { en: 'Age-appropriate discussions on spirituality, faith, and understanding the divine.', hi: 'आध्यात्मिकता, विश्वास और दिव्य को समझने पर आयु-उपयुक्त चर्चा।', sa: 'आध्यात्मिकतायां विश्वासे दिव्यावबोधे च आयुउपयुक्तचर्चाः।' },
   sacredTexts: { en: 'Sacred Texts', hi: 'पवित्र ग्रंथ', sa: 'पवित्रग्रन्थाः' },
   sacredTextsSubtitle: { en: 'Vedic Knowledge', hi: 'वैदिक ज्ञान', sa: 'वैदिकज्ञानम्' },
-  sacredTextsDesc: { en: 'Introduction to Vedas, Upanishads, Puranas, and other sacred scriptures.', hi: 'वेदों, उपनिषदों, पुराणों और अन्य पवित्र ग्रंथों का परिचय।', sa: 'वेदानाम् उपनिषदां पुराणानाम् अन्येषां पवित्रग्रन्थानां च परिचयः।' },
+  sacredTextsDesc: { en: 'Introduction to Vedas, Upanishads, and other sacred scriptures.', hi: 'वेदों, उपनिषदों और अन्य पवित्र ग्रंथों का परिचय।', sa: 'वेदानाम् उपनिषदाम् अन्येषां पवित्रग्रन्थानां च परिचयः।' },
   sanskars: { en: '16 Sanskars', hi: '16 संस्कार', sa: '१६ संस्काराः' },
   sanskarsSubtitle: { en: 'Life Ceremonies', hi: 'जीवन संस्कार', sa: 'जीवनसंस्काराः' },
   sanskarsDesc: { en: 'Learning the purpose, values, and relevance of the 16 Sanskars in shaping life.', hi: 'जीवन को आकार देने में 16 संस्कारों के उद्देश्य, मूल्यों और प्रासंगिकता को सीखना।', sa: 'जीवननिर्माणे षोडशसंस्काराणाम् उद्देश्यं मूल्यानि प्रासंगिकता च अधिगन्तुम्।' },
@@ -613,99 +613,6 @@ const VideoSection = () => {
   );
 };
 
-// Sacred Texts & Wisdom Section
-const SacredTextsSection = () => {
-  const { t } = useLanguage();
-  
-  const sacredTexts = [
-    {
-      image: ramayanaScene,
-      title: t(bodhikaTranslations.ramayana),
-      subtitle: t(bodhikaTranslations.ramayanaSubtitle),
-      description: t(bodhikaTranslations.ramayanaDesc)
-    },
-    {
-      image: mahabharataScene,
-      title: t(bodhikaTranslations.mahabharata),
-      subtitle: t(bodhikaTranslations.mahabharataSubtitle),
-      description: t(bodhikaTranslations.mahabharataDesc)
-    },
-    {
-      image: gitaScene,
-      title: t(bodhikaTranslations.gita),
-      subtitle: t(bodhikaTranslations.gitaSubtitle),
-      description: t(bodhikaTranslations.gitaDesc)
-    },
-    {
-      image: omDivine,
-      title: t(bodhikaTranslations.godExists),
-      subtitle: t(bodhikaTranslations.godExistsSubtitle),
-      description: t(bodhikaTranslations.godExistsDesc)
-    },
-    {
-      image: vedasTexts,
-      title: t(bodhikaTranslations.sacredTexts),
-      subtitle: t(bodhikaTranslations.sacredTextsSubtitle),
-      description: t(bodhikaTranslations.sacredTextsDesc)
-    },
-    {
-      image: sanskarScene,
-      title: t(bodhikaTranslations.sanskars),
-      subtitle: t(bodhikaTranslations.sanskarsSubtitle),
-      description: t(bodhikaTranslations.sanskarsDesc)
-    },
-  ];
-  
-  return (
-    <section className="py-20 bg-gradient-to-b from-background to-cream/30">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <Badge className="bg-maroon/10 text-maroon border-maroon/20 mb-4">
-            {t(bodhikaTranslations.sacredWisdom)}
-          </Badge>
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            {t(bodhikaTranslations.exploreScriptures)}
-          </h2>
-          <p className="font-body text-lg text-muted-foreground max-w-2xl mx-auto">
-            {t(bodhikaTranslations.scripturesDesc)}
-          </p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {sacredTexts.map((item, idx) => (
-            <SacredTextCard 
-              key={idx}
-              image={item.image}
-              title={item.title}
-              subtitle={item.subtitle}
-              description={item.description}
-            />
-          ))}
-        </div>
-        
-        <CulturalDivider variant="om" className="mt-16" />
-        
-        {/* Visual Quote */}
-        <div className="max-w-3xl mx-auto mt-8">
-          <Card className="border-0 shadow-elevated bg-gradient-to-br from-saffron/5 to-maroon/5 overflow-hidden relative">
-            <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
-              <img src={omDivine} alt="" className="w-full h-full object-cover" />
-            </div>
-            <CardContent className="p-8 md:p-10 text-center relative z-10">
-              <Quote className="h-10 w-10 text-saffron/40 mx-auto mb-4" />
-              <p className="font-heading text-xl md:text-2xl text-foreground italic mb-4">
-                "धर्मो रक्षति रक्षितः"
-              </p>
-              <p className="font-body text-muted-foreground">
-                {t(bodhikaTranslations.dharmaQuote)}
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    </section>
-  );
-};
 
 // Learning Outcomes Section (merged with Sacred Texts)
 const LearningSection = () => {
