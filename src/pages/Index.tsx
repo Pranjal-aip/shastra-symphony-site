@@ -45,12 +45,16 @@ const Index: React.FC = () => {
                 {t(translations.hero.subheadline)}
               </p>
               <div className="flex flex-wrap gap-4">
-                <Link to="/courses">
+                <a 
+                  href="https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-695393a483bcbf4ec9283f27" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
                   <Button variant="hero" size="lg" className="group">
                     {t(translations.hero.exploreCourses)}
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Button>
-                </Link>
+                </a>
                 <a href="https://wa.me/919674916567" target="_blank" rel="noopener noreferrer">
                   <Button variant="hero-outline" size="lg">
                     {t(translations.hero.whatsappCta)}
