@@ -937,7 +937,10 @@ const PricingSection = () => {
                 ))}
               </ul>
               
-              <Button className="w-full bg-saffron hover:bg-saffron/90 text-white">
+              <Button 
+                className="w-full bg-saffron hover:bg-saffron/90 text-white"
+                onClick={() => window.open('https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-695393a483bcbf4ec9283f27', '_blank')}
+              >
                 {t(bodhikaTranslations.enrollGroup)}
               </Button>
             </CardContent>
