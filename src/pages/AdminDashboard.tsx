@@ -1723,6 +1723,7 @@ interface ContactMessage {
   id: string;
   name: string;
   email: string;
+  phone: string | null;
   message: string;
   is_read: boolean;
   created_at: string;
@@ -1868,6 +1869,7 @@ const MessagesTab: React.FC<{ toast: any }> = ({ toast }) => {
               <TableHead className="w-[40px]"></TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Email</TableHead>
+              <TableHead className="hidden lg:table-cell">Phone</TableHead>
               <TableHead className="hidden md:table-cell">Message</TableHead>
               <TableHead>Date</TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -1894,6 +1896,13 @@ const MessagesTab: React.FC<{ toast: any }> = ({ toast }) => {
                   )}
                 </TableCell>
                 <TableCell className="text-muted-foreground">{msg.email}</TableCell>
+                <TableCell className="hidden lg:table-cell text-muted-foreground">
+                  {msg.phone ? (
+                    <a href={`tel:${msg.phone}`} className="hover:text-primary">{msg.phone}</a>
+                  ) : (
+                    <span className="text-muted-foreground/50">—</span>
+                  )}
+                </TableCell>
                 <TableCell className="hidden md:table-cell max-w-[200px] truncate text-muted-foreground">
                   {msg.message}
                 </TableCell>
@@ -1928,7 +1937,7 @@ const MessagesTab: React.FC<{ toast: any }> = ({ toast }) => {
             ))}
             {filteredMessages.length === 0 && (
               <TableRow>
-                <TableCell colSpan={6} className="text-center py-8 text-muted-foreground">
+                <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
                   {filter === 'all' ? 'No messages yet' : `No ${filter} messages`}
                 </TableCell>
               </TableRow>
@@ -1962,6 +1971,16 @@ const MessagesTab: React.FC<{ toast: any }> = ({ toast }) => {
                 </a>
               </p>
             </div>
+            {selectedMessage?.phone && (
+              <div>
+                <label className="text-sm font-medium text-muted-foreground">Phone</label>
+                <p className="font-medium">
+                  <a href={`tel:${selectedMessage?.phone}`} className="text-primary hover:underline">
+                    {selectedMessage?.phone}
+                  </a>
+                </p>
+              </div>
+            )}
             <div>
               <label className="text-sm font-medium text-muted-foreground">Message</label>
               <p className="mt-1 p-3 bg-muted rounded-lg whitespace-pre-wrap">{selectedMessage?.message}</p>
