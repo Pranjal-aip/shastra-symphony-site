@@ -77,7 +77,9 @@ const AILandingPage: React.FC = () => {
         if (error) throw error;
         if (!data) throw new Error('Page not found');
         
-        setPageData(data as LandingPageData);
+        // Cast through unknown to handle JSONB types
+        const pageData = data as unknown as LandingPageData;
+        setPageData(pageData);
       } catch (err: any) {
         console.error('Error fetching page:', err);
         setError(err.message || 'Failed to load page');
@@ -473,23 +475,12 @@ const AILandingPage: React.FC = () => {
 
         {/* Enrollment Form */}
         <CourseEnrollmentForm
-          isOpen={isEnrollOpen}
-          onClose={() => {
-            setIsEnrollOpen(false);
-            setSelectedBatch(null);
-          }}
-          course={{
-            id: pageData.id,
-            slug: pageData.slug,
-            title: { en: pageData.course_name, hi: pageData.course_name, sa: pageData.course_name },
-            shortDescription: { en: getText(content?.hero?.subheadline) || '', hi: '', sa: '' },
-            thumbnail: '/placeholder.svg',
-            category: pageData.course_category,
-            level: 'All Ages',
-            duration: pageData.course_duration,
-            price: pageData.batches[0]?.price?.toString() || '',
-            isPopular: false,
-            showOnHome: false
+          courseId={pageData.id}
+          courseName={pageData.course_name}
+          open={isEnrollOpen}
+          onOpenChange={(open) => {
+            setIsEnrollOpen(open);
+            if (!open) setSelectedBatch(null);
           }}
         />
       </div>

@@ -246,35 +246,37 @@ const AILandingPageGenerator: React.FC<AILandingPageGeneratorProps> = ({
     try {
       const slug = formData.courseName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
       
+      const insertData = {
+        course_name: formData.courseName,
+        transformation_goal: formData.transformationGoal,
+        course_category: formData.courseCategory,
+        course_duration: formData.courseDuration,
+        course_mode: formData.courseMode,
+        languages: formData.languages,
+        target_audience: formData.targetAudience,
+        course_nature: formData.courseNature,
+        difficulty_level: formData.difficultyLevel,
+        number_of_modules: formData.numberOfModules,
+        weekly_hours: formData.weeklyHours,
+        teaching_style: formData.teachingStyle,
+        certificate_provided: formData.certificateProvided,
+        batches: JSON.parse(JSON.stringify(formData.batches)),
+        scholarship_available: formData.scholarshipAvailable,
+        limited_seats_badge: formData.limitedSeatsBadge,
+        institution_name: formData.institutionName,
+        instructor_name: formData.instructorName || null,
+        years_of_experience: formData.yearsOfExperience || null,
+        total_students_taught: formData.totalStudentsTaught || null,
+        recognitions: formData.recognitions || null,
+        tone_style: formData.toneStyle,
+        generated_content: generatedContent ? JSON.parse(JSON.stringify(generatedContent)) : null,
+        status,
+        slug,
+      };
+
       const { error } = await supabase
         .from('ai_landing_pages')
-        .insert({
-          course_name: formData.courseName,
-          transformation_goal: formData.transformationGoal,
-          course_category: formData.courseCategory,
-          course_duration: formData.courseDuration,
-          course_mode: formData.courseMode,
-          languages: formData.languages,
-          target_audience: formData.targetAudience,
-          course_nature: formData.courseNature,
-          difficulty_level: formData.difficultyLevel,
-          number_of_modules: formData.numberOfModules,
-          weekly_hours: formData.weeklyHours,
-          teaching_style: formData.teachingStyle,
-          certificate_provided: formData.certificateProvided,
-          batches: formData.batches,
-          scholarship_available: formData.scholarshipAvailable,
-          limited_seats_badge: formData.limitedSeatsBadge,
-          institution_name: formData.institutionName,
-          instructor_name: formData.instructorName || null,
-          years_of_experience: formData.yearsOfExperience || null,
-          total_students_taught: formData.totalStudentsTaught || null,
-          recognitions: formData.recognitions || null,
-          tone_style: formData.toneStyle,
-          generated_content: generatedContent,
-          status,
-          slug,
-        });
+        .insert([insertData]);
 
       if (error) throw error;
 

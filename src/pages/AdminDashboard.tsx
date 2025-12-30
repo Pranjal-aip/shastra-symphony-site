@@ -28,7 +28,8 @@ import {
   Tent,
   Mail,
   MailOpen,
-  CheckCircle2
+  CheckCircle2,
+  Sparkles
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -67,10 +68,11 @@ import { useToast } from '@/hooks/use-toast';
 import DeleteConfirmDialog from '@/components/DeleteConfirmDialog';
 import CampsTab from '@/components/admin/CampsTab';
 import LandingPagesTab from '@/components/admin/LandingPagesTab';
+import AILandingPagesTab from '@/components/admin/AILandingPagesTab';
 import { supabase } from '@/integrations/supabase/client';
 import logo from '@/assets/shastrakulam-logo.png';
 
-type Tab = 'dashboard' | 'courses' | 'camps' | 'blogs' | 'categories' | 'referrals' | 'enrollments' | 'messages' | 'notifications' | 'settings' | 'landing-pages';
+type Tab = 'dashboard' | 'courses' | 'camps' | 'blogs' | 'categories' | 'referrals' | 'enrollments' | 'messages' | 'notifications' | 'settings' | 'landing-pages' | 'ai-landing-pages';
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -117,6 +119,7 @@ const AdminDashboard: React.FC = () => {
   const sidebarItems = [
     { id: 'dashboard' as Tab, label: 'Dashboard', icon: LayoutDashboard },
     { id: 'courses' as Tab, label: 'Courses', icon: BookOpen },
+    { id: 'ai-landing-pages' as Tab, label: 'AI Landing Pages', icon: Sparkles },
     { id: 'landing-pages' as Tab, label: 'Landing Pages', icon: ExternalLink },
     { id: 'camps' as Tab, label: 'Camps/Shivir', icon: Tent },
     { id: 'blogs' as Tab, label: 'Blog Posts', icon: FileText },
@@ -257,6 +260,7 @@ const AdminDashboard: React.FC = () => {
           {activeTab === 'enrollments' && <EnrollmentsTab courses={courses} toast={toast} />}
           {activeTab === 'messages' && <MessagesTab toast={toast} />}
           {activeTab === 'landing-pages' && <LandingPagesTab courses={courses} toast={toast} />}
+          {activeTab === 'ai-landing-pages' && <AILandingPagesTab toast={toast} />}
           {activeTab === 'settings' && <SettingsTab />}
         </div>
       </main>
