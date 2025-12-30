@@ -322,8 +322,8 @@ const AILandingPagesTab: React.FC<AILandingPagesTabProps> = ({ toast }) => {
 
       {/* Delete Confirmation */}
       <DeleteConfirmDialog
-        isOpen={!!deleteConfirm}
-        onClose={() => setDeleteConfirm(null)}
+        open={!!deleteConfirm}
+        onOpenChange={() => setDeleteConfirm(null)}
         onConfirm={handleDelete}
         title="Delete Landing Page"
         description="Are you sure you want to delete this landing page? This action cannot be undone."
