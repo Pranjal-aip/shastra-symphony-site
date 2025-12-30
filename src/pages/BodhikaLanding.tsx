@@ -981,7 +981,10 @@ const PricingSection = () => {
                 ))}
               </ul>
               
-              <Button className="w-full bg-maroon hover:bg-maroon/90 text-white">
+              <Button 
+                className="w-full bg-maroon hover:bg-maroon/90 text-white"
+                onClick={() => window.open('https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42', '_blank')}
+              >
                 {t(bodhikaTranslations.enrollFocused)}
               </Button>
             </CardContent>
