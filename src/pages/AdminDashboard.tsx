@@ -29,7 +29,6 @@ import {
   Mail,
   MailOpen,
   CheckCircle2,
-  Sparkles,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -350,8 +349,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
     showOnHome: false,
     ageMin: '',
     ageMax: '',
-    generateLandingPage: true,
-    landingPagePrompt: '',
   });
 
   const resetForm = () => {
@@ -371,8 +368,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       showOnHome: false,
       ageMin: '',
       ageMax: '',
-      generateLandingPage: true,
-      landingPagePrompt: '',
     });
   };
 
@@ -409,27 +404,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       
       setIsAddOpen(false);
       resetForm();
-      
-      if (formData.generateLandingPage) {
-        toast({ 
-          title: 'Course Created!', 
-          description: (
-            <div className="space-y-2">
-              <p>Landing page is ready at:</p>
-              <a 
-                href={`/landing/${courseSlug}`} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-primary underline font-medium"
-              >
-                /landing/{courseSlug}
-              </a>
-            </div>
-          )
-        });
-      } else {
-        toast({ title: 'Success', description: 'Course added successfully' });
-      }
+      toast({ title: 'Success', description: 'Course added successfully' });
     } catch (error) {
       toast({ title: 'Error', description: 'Failed to add course', variant: 'destructive' });
     } finally {
@@ -455,8 +430,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       showOnHome: course.showOnHome,
       ageMin: course.ageMin?.toString() || '',
       ageMax: course.ageMax?.toString() || '',
-      generateLandingPage: false,
-      landingPagePrompt: '',
     });
     setIsEditOpen(true);
   };
@@ -595,39 +568,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
         <Label htmlFor="showOnHome">Show on Home Page</Label>
         <Switch id="showOnHome" checked={formData.showOnHome} onCheckedChange={(checked) => setFormData({ ...formData, showOnHome: checked })} />
       </div>
-      <div className="flex items-center justify-between p-3 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg border border-primary/20">
-        <div className="flex items-center gap-2">
-          <ExternalLink className="h-4 w-4 text-primary" />
-          <Label htmlFor="generateLandingPage" className="font-medium">Generate Landing Page</Label>
-        </div>
-        <Switch id="generateLandingPage" checked={formData.generateLandingPage} onCheckedChange={(checked) => setFormData({ ...formData, generateLandingPage: checked })} />
-      </div>
-      {formData.generateLandingPage && (
-        <div className="space-y-3 pl-2 border-l-2 border-primary/30 ml-2">
-          <p className="text-xs text-muted-foreground">
-            ✨ An attractive landing page will be created at: <span className="font-mono text-primary">/landing/{formData.title.toLowerCase().replace(/\s+/g, '-') || 'course-slug'}</span>
-          </p>
-          <div className="space-y-2">
-            <Label htmlFor="landingPagePrompt" className="text-sm font-medium flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-accent" />
-              Landing Page Customization Prompt
-            </Label>
-            <Textarea 
-              id="landingPagePrompt"
-              placeholder="Describe what you want highlighted on the landing page...
-
-Example: Focus on Vedic mathematics for kids aged 8-14. Highlight that this is a 6-month course with weekly live classes. Emphasize parent testimonials and the certificate provided. Use warm saffron colors and traditional Indian design elements."
-              value={formData.landingPagePrompt}
-              onChange={(e) => setFormData({ ...formData, landingPagePrompt: e.target.value })}
-              rows={5}
-              className="text-sm"
-            />
-            <p className="text-xs text-muted-foreground">
-              💡 Tip: Describe the target audience, key benefits, design preferences, and any special features to highlight.
-            </p>
-          </div>
-        </div>
-      )}
     </div>
   );
 
