@@ -38,10 +38,14 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
     return colors[level] || colors['All Ages'];
   };
 
+  // Check if this is the Bodhika course
+  const isBodhikaCourse = course.slug === 'bodhika' || t(course.title).toLowerCase().includes('bodhika');
+  const courseLink = isBodhikaCourse ? '/bodhika' : `/courses/${course.slug}`;
+
   return (
     <div className="group bg-card rounded-2xl overflow-hidden shadow-card hover-lift border border-border/50">
-      {/* Image - Clickable to course detail page */}
-      <Link to={`/courses/${course.slug}`} className="block">
+      {/* Image - Clickable to course detail page or Bodhika landing */}
+      <Link to={courseLink} className="block">
         <div className="relative aspect-[16/10] overflow-hidden cursor-pointer">
           <img
             src={course.thumbnail || '/placeholder.svg'}
@@ -78,7 +82,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
         </div>
 
         {/* Title - Also clickable */}
-        <Link to={`/courses/${course.slug}`}>
+        <Link to={courseLink}>
           <h3 className="font-heading text-xl font-semibold text-card-foreground line-clamp-2 group-hover:text-primary transition-colors cursor-pointer">
             {t(course.title)}
           </h3>
@@ -104,7 +108,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
 
         {/* CTA Buttons */}
         <div className="flex gap-2 mt-2">
-          <Link to={`/courses/${course.slug}`} className="flex-1">
+          <Link to={courseLink} className="flex-1">
             <Button
               variant="maroon-outline"
               className="w-full group/btn"
