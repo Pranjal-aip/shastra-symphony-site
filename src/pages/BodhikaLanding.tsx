@@ -966,6 +966,7 @@ const PricingSection = () => {
               
               <ul className="space-y-3 mb-6">
                 {[
+                  t(bodhikaTranslations.liveClasses),
                   t(bodhikaTranslations.personalizedAttention),
                   t(bodhikaTranslations.smallGroupLearning),
                   t(bodhikaTranslations.deeperDiscussions),
