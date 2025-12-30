@@ -614,12 +614,12 @@ const VideoSection = () => {
 };
 
 
-// Learning Outcomes Section (merged with Sacred Texts)
+// Learning Outcomes Section (unified)
 const LearningSection = () => {
   const { t } = useLanguage();
   
-  // Sacred texts as learning cards
-  const sacredTexts = [
+  // All learning topics in one unified list
+  const allLearningTopics = [
     {
       icon: BookOpen,
       image: ramayanaScene,
@@ -656,26 +656,11 @@ const LearningSection = () => {
       title: t(bodhikaTranslations.sanskars),
       description: t(bodhikaTranslations.sanskarsDesc)
     },
-  ];
-  
-  const learningOutcomes = [
-    {
-      icon: BookMarked,
-      image: vedasTexts,
-      title: t(bodhikaTranslations.deepTeaching),
-      description: t(bodhikaTranslations.deepTeachingDesc)
-    },
     {
       icon: Globe,
       image: heroCulture,
       title: t(bodhikaTranslations.cultureTraditions),
       description: t(bodhikaTranslations.cultureTraditionsDesc)
-    },
-    {
-      icon: Award,
-      image: sanskarScene,
-      title: t(bodhikaTranslations.sanskarsLearning),
-      description: t(bodhikaTranslations.sanskarsLearningDesc)
     },
     {
       icon: Music,
@@ -754,30 +739,9 @@ const LearningSection = () => {
           </p>
         </div>
         
-        {/* Sacred Texts First */}
-        <div className="mb-12">
-          <h3 className="font-heading text-2xl font-bold text-foreground text-center mb-8">
-            {t(bodhikaTranslations.exploreScriptures)}
-          </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sacredTexts.map((item, idx) => (
-              <LearningOutcomeCard 
-                key={idx}
-                icon={item.icon}
-                image={item.image}
-                title={item.title}
-                description={item.description}
-                index={idx}
-              />
-            ))}
-          </div>
-        </div>
-        
-        <CulturalDivider variant="om" className="my-12" />
-        
-        {/* Learning Outcomes */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {learningOutcomes.map((item, idx) => (
+        {/* All Learning Topics in unified grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {allLearningTopics.map((item, idx) => (
             <LearningOutcomeCard 
               key={idx}
               icon={item.icon}
