@@ -35,6 +35,11 @@ const contactTranslations = {
     hi: 'आपका ईमेल',
     sa: 'भवतः ईमेल'
   },
+  yourPhone: {
+    en: 'Your Phone Number',
+    hi: 'आपका फोन नंबर',
+    sa: 'भवतः दूरभाषसङ्ख्या'
+  },
   yourMessage: {
     en: 'Your Message',
     hi: 'आपका संदेश',
@@ -84,6 +89,7 @@ const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     message: ''
   });
 
@@ -106,6 +112,7 @@ const Contact: React.FC = () => {
         .insert({
           name: formData.name.trim(),
           email: formData.email.trim(),
+          phone: formData.phone.trim() || null,
           message: formData.message.trim()
         });
 
@@ -115,7 +122,7 @@ const Contact: React.FC = () => {
         title: t(contactTranslations.successTitle),
         description: t(contactTranslations.successMessage)
       });
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (error) {
       console.error('Error submitting contact form:', error);
       toast({
@@ -180,7 +187,15 @@ const Contact: React.FC = () => {
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 maxLength={255}
               />
-              <Textarea 
+              <Input 
+                type="tel" 
+                placeholder={t(contactTranslations.yourPhone)} 
+                className="font-body" 
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                maxLength={20}
+              />
+              <Textarea
                 placeholder={t(contactTranslations.yourMessage)} 
                 rows={5} 
                 className="font-body" 
