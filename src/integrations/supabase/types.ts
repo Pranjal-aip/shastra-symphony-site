@@ -14,6 +14,110 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_landing_pages: {
+        Row: {
+          batches: Json
+          certificate_provided: boolean | null
+          course_category: string
+          course_duration: string
+          course_id: string | null
+          course_mode: string
+          course_name: string
+          course_nature: string
+          created_at: string
+          difficulty_level: string
+          generated_content: Json | null
+          id: string
+          institution_name: string
+          instructor_name: string | null
+          languages: string[]
+          limited_seats_badge: boolean | null
+          number_of_modules: number
+          recognitions: string | null
+          scholarship_available: boolean | null
+          slug: string | null
+          status: string
+          target_audience: string[]
+          teaching_style: string[]
+          tone_style: string
+          total_students_taught: number | null
+          transformation_goal: string
+          updated_at: string
+          weekly_hours: number
+          years_of_experience: number | null
+        }
+        Insert: {
+          batches?: Json
+          certificate_provided?: boolean | null
+          course_category: string
+          course_duration: string
+          course_id?: string | null
+          course_mode: string
+          course_name: string
+          course_nature: string
+          created_at?: string
+          difficulty_level: string
+          generated_content?: Json | null
+          id?: string
+          institution_name: string
+          instructor_name?: string | null
+          languages: string[]
+          limited_seats_badge?: boolean | null
+          number_of_modules: number
+          recognitions?: string | null
+          scholarship_available?: boolean | null
+          slug?: string | null
+          status?: string
+          target_audience: string[]
+          teaching_style: string[]
+          tone_style: string
+          total_students_taught?: number | null
+          transformation_goal: string
+          updated_at?: string
+          weekly_hours: number
+          years_of_experience?: number | null
+        }
+        Update: {
+          batches?: Json
+          certificate_provided?: boolean | null
+          course_category?: string
+          course_duration?: string
+          course_id?: string | null
+          course_mode?: string
+          course_name?: string
+          course_nature?: string
+          created_at?: string
+          difficulty_level?: string
+          generated_content?: Json | null
+          id?: string
+          institution_name?: string
+          instructor_name?: string | null
+          languages?: string[]
+          limited_seats_badge?: boolean | null
+          number_of_modules?: number
+          recognitions?: string | null
+          scholarship_available?: boolean | null
+          slug?: string | null
+          status?: string
+          target_audience?: string[]
+          teaching_style?: string[]
+          tone_style?: string
+          total_students_taught?: number | null
+          transformation_goal?: string
+          updated_at?: string
+          weekly_hours?: number
+          years_of_experience?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_landing_pages_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       blog_categories: {
         Row: {
           created_at: string
