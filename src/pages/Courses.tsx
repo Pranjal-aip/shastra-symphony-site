@@ -1,10 +1,24 @@
 import React from 'react';
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import SectionHeader from '@/components/SectionHeader';
 import CourseCard from '@/components/CourseCard';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Loader2 } from 'lucide-react';
+
+const seoData = {
+  title: {
+    en: 'Sanskrit & Vedic Courses Online',
+    hi: 'ऑनलाइन संस्कृत और वैदिक पाठ्यक्रम',
+    sa: 'अन्तर्जाले संस्कृतवैदिकपाठ्यक्रमाः'
+  },
+  description: {
+    en: 'Explore authentic Sanskrit courses, Bhagavad Gita classes, Vedic mathematics, yoga, and more. Learn from expert Acharyas with live interactive sessions.',
+    hi: 'प्रामाणिक संस्कृत पाठ्यक्रम, भगवद्गीता कक्षाएं, वैदिक गणित, योग और बहुत कुछ। विशेषज्ञ आचार्यों से लाइव इंटरैक्टिव सत्रों के साथ सीखें।',
+    sa: 'प्रामाणिकसंस्कृतपाठ्यक्रमान्, भगवद्गीताकक्षाः, वैदिकगणितम्, योगं च अन्वेषयत। विशेषज्ञाचार्येभ्यः जीवन्तपरस्परक्रियासत्रैः सह अधिगच्छत।'
+  }
+};
 
 const coursesTranslations = {
   pageTitle: {
@@ -25,6 +39,12 @@ const Courses: React.FC = () => {
 
   return (
     <Layout>
+      <SEO 
+        title={seoData.title}
+        description={seoData.description}
+        keywords="Sanskrit courses online, Vedic education, Bhagavad Gita classes, learn Sanskrit, yoga classes for kids"
+        url="/courses"
+      />
       <section className="py-12 bg-hero-pattern">
         <div className="container mx-auto px-4">
           <SectionHeader 

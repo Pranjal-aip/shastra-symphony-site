@@ -1,10 +1,24 @@
 import React from 'react';
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import SectionHeader from '@/components/SectionHeader';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { BookOpen, Globe, Heart, Users, Calendar, Sparkles, Target, Eye, Award, GraduationCap } from 'lucide-react';
+
+const seoData = {
+  title: {
+    en: 'About Shastrakulam - Our Mission & Vision',
+    hi: 'शास्त्रकुलम् के बारे में - हमारा मिशन और विजन',
+    sa: 'शास्त्रकुलम् विषये - अस्माकं लक्ष्यं दृष्टिश्च'
+  },
+  description: {
+    en: 'Learn about Shastrakulam\'s journey, mission to make authentic Sanatan education accessible, and our vision for Bharat 2047. Founded by Acharya Yogesh Bhardwaj.',
+    hi: 'शास्त्रकुलम की यात्रा, प्रामाणिक सनातन शिक्षा को सुलभ बनाने के मिशन और भारत 2047 के लिए हमारी दृष्टि के बारे में जानें।',
+    sa: 'शास्त्रकुलस्य यात्राम्, प्रामाणिकसनातनशिक्षां सुलभां कर्तुं लक्ष्यम्, भारतस्य २०४७ कृते अस्माकं दृष्टिं च जानीत।'
+  }
+};
 
 const aboutTranslations = {
   pageTitle: {
@@ -188,6 +202,12 @@ const About: React.FC = () => {
 
   return (
     <Layout>
+      <SEO 
+        title={seoData.title}
+        description={seoData.description}
+        keywords="About Shastrakulam, Vedic education mission, Acharya Yogesh Bhardwaj, Sanskrit school India, Bharat 2047"
+        url="/about"
+      />
       {/* Hero Section with enhanced design */}
       <section className="relative py-20 bg-hero-pattern overflow-hidden">
         {/* Decorative elements */}

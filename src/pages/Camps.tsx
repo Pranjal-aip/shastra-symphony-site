@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import SectionHeader from '@/components/SectionHeader';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -20,6 +21,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+
+const seoData = {
+  title: {
+    en: 'Seasonal Camps - Sanskrit & Yoga Retreats',
+    hi: 'मौसमी शिविर - संस्कृत और योग शिविर',
+    sa: 'ऋतुशिविराणि - संस्कृतयोगशिविराणि'
+  },
+  description: {
+    en: 'Join immersive seasonal camps for Sanskrit learning, yoga, meditation, and cultural experiences. Perfect for kids, teens, and families during vacations.',
+    hi: 'संस्कृत सीखने, योग, ध्यान और सांस्कृतिक अनुभवों के लिए गहन मौसमी शिविरों में शामिल हों। छुट्टियों के दौरान बच्चों, किशोरों और परिवारों के लिए उपयुक्त।',
+    sa: 'संस्कृतशिक्षणस्य योगस्य ध्यानस्य सांस्कृतिकानुभवानां च कृते गहनऋतुशिविरेषु सम्मिलत। अवकाशकाले बालकानां किशोराणां कुटुम्बानां च कृते उपयुक्तम्।'
+  }
+};
 
 interface Camp {
   id: string;
@@ -202,6 +216,12 @@ const Camps: React.FC = () => {
 
   return (
     <Layout>
+      <SEO 
+        title={seoData.title}
+        description={seoData.description}
+        keywords="Sanskrit camps India, yoga camps for kids, cultural immersion camps, Vedic summer camps"
+        url="/camps"
+      />
       {/* Hero Section */}
       <section className="relative py-16 bg-hero-pattern overflow-hidden">
         <div className="absolute inset-0 bg-lotus-pattern opacity-30" />

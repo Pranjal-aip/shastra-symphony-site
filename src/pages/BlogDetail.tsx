@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, User } from 'lucide-react';
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAdmin } from '@/contexts/AdminContext';
@@ -69,6 +70,25 @@ const BlogDetail: React.FC = () => {
 
   return (
     <Layout>
+      <SEO 
+        title={{
+          en: post.title.en,
+          hi: post.title.hi || post.title.en,
+          sa: post.title.sa || post.title.en
+        }}
+        description={{
+          en: post.excerpt.en || '',
+          hi: post.excerpt.hi || post.excerpt.en || '',
+          sa: post.excerpt.sa || post.excerpt.en || ''
+        }}
+        url={`/blog/${slug}`}
+        type="article"
+        article={{
+          publishedTime: post.date,
+          author: post.author,
+          section: post.category
+        }}
+      />
       {/* Hero Section */}
       <section className="py-12 bg-hero-pattern">
         <div className="container mx-auto px-4">
