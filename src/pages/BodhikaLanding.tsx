@@ -283,10 +283,8 @@ const bodhikaTranslations = {
   mindfulnessDesc: { en: 'Practices that develop focus, calmness, emotional balance, self-awareness, and confidence.', hi: 'अभ्यास जो ध्यान, शांति, भावनात्मक संतुलन, आत्म-जागरूकता और आत्मविश्वास विकसित करते हैं।', sa: 'अभ्यासाः ये ध्यानं शान्तिं भावात्मकसन्तुलनम् आत्मजागरूकताम् आत्मविश्वासं च विकासयन्ति।' },
   
   // Additional Learning Outcomes
-  vedantaBasics: { en: 'Vedanta Philosophy Basics', hi: 'वेदांत दर्शन की मूल बातें', sa: 'वेदान्तदर्शनमूलतत्त्वानि' },
-  vedantaDesc: { en: 'Introduction to fundamental concepts of Vedanta including Atman, Brahman, Maya, and the nature of reality.', hi: 'आत्मा, ब्रह्म, माया और वास्तविकता की प्रकृति सहित वेदांत की मौलिक अवधारणाओं का परिचय।', sa: 'आत्मा ब्रह्म माया वास्तविकतायाः स्वभावश्च सम्मिलित्य वेदान्तस्य मौलिकधारणानां परिचयः।' },
-  poojaRituals: { en: 'Pooja & Daily Rituals', hi: 'पूजा और दैनिक अनुष्ठान', sa: 'पूजा दैनिकसंस्काराश्च' },
-  poojaDesc: { en: 'Understanding the significance and practice of daily worship, aarti, and home rituals.', hi: 'दैनिक पूजा, आरती और घरेलू अनुष्ठानों के महत्व और अभ्यास को समझना।', sa: 'दैनिकपूजायाः आरत्याः गृहसंस्काराणां च महत्त्वं अभ्यासं च अवगन्तुम्।' },
+  philosophyBasics: { en: 'Philosophy Basics', hi: 'दर्शन की मूल बातें', sa: 'दर्शनमूलतत्त्वानि' },
+  philosophyDesc: { en: 'Introduction to basic philosophical concepts like truth, karma, and dharma in a simple, child-friendly way.', hi: 'सत्य, कर्म और धर्म जैसी बुनियादी दार्शनिक अवधारणाओं का सरल, बाल-अनुकूल परिचय।', sa: 'सत्यकर्मधर्मादीनां मूलदार्शनिकसिद्धान्तानां सरलबालोपयुक्तपरिचयः।' },
   yogaBreathing: { en: 'Yoga & Pranayama Basics', hi: 'योग और प्राणायाम की मूल बातें', sa: 'योगप्राणायाममूलतत्त्वानि' },
   yogaDesc: { en: 'Simple yoga postures and breathing techniques for physical health and mental clarity.', hi: 'शारीरिक स्वास्थ्य और मानसिक स्पष्टता के लिए सरल योग मुद्राएं और श्वास तकनीक।', sa: 'शारीरिकस्वास्थ्याय मानसिकस्पष्टतायै च सरलयोगमुद्राः श्वासतन्त्राणि च।' },
   environmentalValues: { en: 'Environmental Consciousness', hi: 'पर्यावरण चेतना', sa: 'पर्यावरणचेतना' },
@@ -295,10 +293,28 @@ const bodhikaTranslations = {
   respectDesc: { en: 'Understanding the importance of guru-shishya parampara and respecting parents, elders, and teachers.', hi: 'गुरु-शिष्य परंपरा के महत्व को समझना और माता-पिता, बड़ों और शिक्षकों का सम्मान करना।', sa: 'गुरुशिष्यपरम्परायाः महत्त्वम् अवगन्तुं पितृभ्यः वृद्धेभ्यः शिक्षकेभ्यश्च आदरं कर्तुं च।' },
   festivalCelebrations: { en: 'Festival Significance', hi: 'त्योहारों का महत्व', sa: 'उत्सवमहत्त्वम्' },
   festivalDesc: { en: 'Deep understanding of major Hindu festivals - their stories, rituals, and spiritual significance.', hi: 'प्रमुख हिंदू त्योहारों की गहन समझ - उनकी कहानियां, अनुष्ठान और आध्यात्मिक महत्व।', sa: 'प्रमुखहिन्दूत्सवानां गहनावबोधः - तेषां कथाः संस्काराः आध्यात्मिकमहत्त्वं च।' },
+
+  // FAQ Section
+  faqTitle: { en: 'Frequently Asked Questions', hi: 'अक्सर पूछे जाने वाले प्रश्न', sa: 'प्रायः पृच्छ्यमानप्रश्नाः' },
+  faq1Q: { en: 'What age group is Bodhika suitable for?', hi: 'बोधिका किस आयु वर्ग के लिए उपयुक्त है?', sa: 'बोधिका कस्मै आयुवर्गाय उपयुक्ता?' },
+  faq1A: { en: 'Bodhika is designed for children aged 6-16 years. We have age-appropriate batches to ensure optimal learning.', hi: 'बोधिका 6-16 वर्ष की आयु के बच्चों के लिए डिज़ाइन की गई है। हमारे पास आयु-उपयुक्त बैच हैं।', sa: 'बोधिका षड्वर्षीयेभ्यः षोडशवर्षीयेभ्यः बालकेभ्यः निर्मिता। वयं आयुउपयुक्तवर्गान् धारयामः।' },
+  faq2Q: { en: 'How are the classes conducted?', hi: 'कक्षाएं कैसे आयोजित की जाती हैं?', sa: 'कक्षाः कथं प्रवर्त्यन्ते?' },
+  faq2A: { en: 'All classes are conducted live online via Zoom. Recordings are provided for every session so you never miss anything.', hi: 'सभी कक्षाएं Zoom के माध्यम से लाइव ऑनलाइन आयोजित की जाती हैं। हर सत्र की रिकॉर्डिंग प्रदान की जाती है।', sa: 'सर्वाः कक्षाः Zoom-माध्यमेन जीवन्तरूपेण अन्तर्जाले प्रवर्त्यन्ते। प्रत्येकसत्रस्य अभिलेखः प्रदीयते।' },
+  faq3Q: { en: 'What if my child misses a class?', hi: 'अगर मेरा बच्चा कक्षा छोड़ दे तो?', sa: 'यदि मम सन्तानः कक्षां त्यजति तर्हि?' },
+  faq3A: { en: 'No worries! Every class is recorded and shared. Your child can watch the recording and catch up at their convenience.', hi: 'चिंता न करें! हर कक्षा रिकॉर्ड की जाती है। आपका बच्चा रिकॉर्डिंग देख सकता है।', sa: 'चिन्ता मास्तु! प्रत्येका कक्षा अभिलिख्यते। भवतः सन्तानः अभिलेखं द्रष्टुं शक्नोति।' },
+  faq4Q: { en: 'Is there a scholarship for needy families?', hi: 'क्या जरूरतमंद परिवारों के लिए छात्रवृत्ति है?', sa: 'किम् आवश्यककुटुम्बेभ्यः छात्रवृत्तिः अस्ति?' },
+  faq4A: { en: 'Yes! We offer scholarships for families who need financial assistance. Contact us on WhatsApp to discuss your situation.', hi: 'हाँ! हम उन परिवारों को छात्रवृत्ति प्रदान करते हैं जिन्हें वित्तीय सहायता की आवश्यकता है। WhatsApp पर संपर्क करें।', sa: 'आम्! वयं आर्थिकसहायतार्थिभ्यः कुटुम्बेभ्यः छात्रवृत्तीः प्रयच्छामः। WhatsApp-द्वारा संपर्कं कुरुत।' },
+  faq5Q: { en: 'What topics are covered in the course?', hi: 'कोर्स में कौन से विषय शामिल हैं?', sa: 'पाठ्यक्रमे के विषयाः सम्मिलिताः?' },
+  faq5A: { en: 'We cover Ramayana, Mahabharata, Bhagavad Gita, Sanskrit speaking, mantras, Indian culture, festivals, moral values, and much more!', hi: 'हम रामायण, महाभारत, भगवद्गीता, संस्कृत, मंत्र, भारतीय संस्कृति, त्योहार, नैतिक मूल्य और बहुत कुछ सिखाते हैं!', sa: 'वयं रामायणं महाभारतं भगवद्गीतां संस्कृतभाषणं मन्त्रान् भारतीयसंस्कृतिम् उत्सवान् नैतिकमूल्यानि बहुच अध्यापयामः!' },
+  faq6Q: { en: 'How can I enroll my child?', hi: 'मैं अपने बच्चे का नामांकन कैसे कर सकता हूं?', sa: 'अहं स्वसन्तानस्य नामाङ्कनं कथं कर्तुं शक्नोमि?' },
+  faq6A: { en: 'Simply click on "Enroll Now" or contact us on WhatsApp. Our team will guide you through the process.', hi: 'बस "अभी नामांकन करें" पर क्लिक करें या WhatsApp पर संपर्क करें। हमारी टीम आपका मार्गदर्शन करेगी।', sa: '"अधुना नामाङ्कयत" इत्यत्र क्लिक् कुरुत अथवा WhatsApp-द्वारा संपर्कं कुरुत।' },
+
+  // Scholarship CTA
+  scholarshipCTA: { en: '🎓 Scholarship Available for Needy Families - Apply Now!', hi: '🎓 जरूरतमंद परिवारों के लिए छात्रवृत्ति उपलब्ध - अभी आवेदन करें!', sa: '🎓 आवश्यककुटुम्बेभ्यः छात्रवृत्तिः उपलब्धा - अधुना आवेदयत!' },
 };
 
 // WhatsApp Number
-const WHATSAPP_NUMBER = '919876543210'; // Replace with actual number
+const WHATSAPP_NUMBER = '919674916567';
 
 // Scroll helper
 const scrollToPricing = () => {
@@ -375,6 +391,16 @@ const HeroSection = () => {
                 {t(bodhikaTranslations.bookCounseling)}
               </Button>
             </div>
+            
+            {/* Scholarship Banner */}
+            <button 
+              onClick={() => window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=Hi! I want to inquire about the scholarship for Bodhika course.`, '_blank')}
+              className="w-full max-w-xl bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white rounded-xl p-4 flex items-center justify-center gap-3 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] cursor-pointer animate-pulse"
+            >
+              <Award className="h-6 w-6" />
+              <span className="font-heading text-lg font-bold">{t(bodhikaTranslations.scholarshipCTA)}</span>
+              <ArrowRight className="h-5 w-5" />
+            </button>
             
             {/* Trust Icons */}
             <div className="flex flex-wrap gap-6 pt-6">
@@ -681,9 +707,49 @@ const SacredTextsSection = () => {
   );
 };
 
-// Learning Outcomes Section
+// Learning Outcomes Section (merged with Sacred Texts)
 const LearningSection = () => {
   const { t } = useLanguage();
+  
+  // Sacred texts as learning cards
+  const sacredTexts = [
+    {
+      icon: BookOpen,
+      image: ramayanaScene,
+      title: t(bodhikaTranslations.ramayana),
+      description: t(bodhikaTranslations.ramayanaDesc)
+    },
+    {
+      icon: BookOpen,
+      image: mahabharataScene,
+      title: t(bodhikaTranslations.mahabharata),
+      description: t(bodhikaTranslations.mahabharataDesc)
+    },
+    {
+      icon: BookOpen,
+      image: gitaScene,
+      title: t(bodhikaTranslations.gita),
+      description: t(bodhikaTranslations.gitaDesc)
+    },
+    {
+      icon: Sparkles,
+      image: omDivine,
+      title: t(bodhikaTranslations.godExists),
+      description: t(bodhikaTranslations.godExistsDesc)
+    },
+    {
+      icon: BookMarked,
+      image: vedasTexts,
+      title: t(bodhikaTranslations.sacredTexts),
+      description: t(bodhikaTranslations.sacredTextsDesc)
+    },
+    {
+      icon: Award,
+      image: sanskarScene,
+      title: t(bodhikaTranslations.sanskars),
+      description: t(bodhikaTranslations.sanskarsDesc)
+    },
+  ];
   
   const learningOutcomes = [
     {
@@ -737,14 +803,8 @@ const LearningSection = () => {
     {
       icon: Lightbulb,
       image: gitaScene,
-      title: t(bodhikaTranslations.vedantaBasics),
-      description: t(bodhikaTranslations.vedantaDesc)
-    },
-    {
-      icon: Flame,
-      image: omDivine,
-      title: t(bodhikaTranslations.poojaRituals),
-      description: t(bodhikaTranslations.poojaDesc)
+      title: t(bodhikaTranslations.philosophyBasics),
+      description: t(bodhikaTranslations.philosophyDesc)
     },
     {
       icon: Leaf,
@@ -787,6 +847,28 @@ const LearningSection = () => {
           </p>
         </div>
         
+        {/* Sacred Texts First */}
+        <div className="mb-12">
+          <h3 className="font-heading text-2xl font-bold text-foreground text-center mb-8">
+            {t(bodhikaTranslations.exploreScriptures)}
+          </h3>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {sacredTexts.map((item, idx) => (
+              <LearningOutcomeCard 
+                key={idx}
+                icon={item.icon}
+                image={item.image}
+                title={item.title}
+                description={item.description}
+                index={idx}
+              />
+            ))}
+          </div>
+        </div>
+        
+        <CulturalDivider variant="om" className="my-12" />
+        
+        {/* Learning Outcomes */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {learningOutcomes.map((item, idx) => (
             <LearningOutcomeCard 
@@ -1046,6 +1128,47 @@ const PricingSection = () => {
   );
 };
 
+// FAQ Section
+const FAQSection = () => {
+  const { t } = useLanguage();
+  
+  const faqs = [
+    { q: t(bodhikaTranslations.faq1Q), a: t(bodhikaTranslations.faq1A) },
+    { q: t(bodhikaTranslations.faq2Q), a: t(bodhikaTranslations.faq2A) },
+    { q: t(bodhikaTranslations.faq3Q), a: t(bodhikaTranslations.faq3A) },
+    { q: t(bodhikaTranslations.faq4Q), a: t(bodhikaTranslations.faq4A) },
+    { q: t(bodhikaTranslations.faq5Q), a: t(bodhikaTranslations.faq5A) },
+    { q: t(bodhikaTranslations.faq6Q), a: t(bodhikaTranslations.faq6A) },
+  ];
+  
+  return (
+    <section className="py-20 bg-cream/30">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <Badge className="bg-saffron/10 text-saffron border-saffron/20 mb-4">FAQ</Badge>
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+            {t(bodhikaTranslations.faqTitle)}
+          </h2>
+        </div>
+        
+        <div className="max-w-3xl mx-auto space-y-4">
+          {faqs.map((faq, idx) => (
+            <Card key={idx} className="border shadow-card">
+              <CardContent className="p-6">
+                <h3 className="font-heading font-semibold text-foreground mb-2 flex items-start gap-3">
+                  <span className="w-6 h-6 bg-saffron text-white rounded-full flex items-center justify-center text-sm shrink-0">{idx + 1}</span>
+                  {faq.q}
+                </h3>
+                <p className="font-body text-muted-foreground ml-9">{faq.a}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // Trust Section
 const TrustSection = () => {
   const { t } = useLanguage();
@@ -1243,11 +1366,11 @@ const BodhikaLanding = () => {
       <HighlightStrip />
       <AboutSection />
       <VideoSection />
-      <SacredTextsSection />
       <LearningSection />
       <LearningExperienceSection />
       <SanskritSection />
       <PricingSection />
+      <FAQSection />
       <TrustSection />
       <TestimonialsSection />
       <FinalCTASection />
