@@ -349,6 +349,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
     showOnHome: false,
     ageMin: '',
     ageMax: '',
+    generateLandingPage: true,
   });
 
   const resetForm = () => {
@@ -368,6 +369,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       showOnHome: false,
       ageMin: '',
       ageMax: '',
+      generateLandingPage: true,
     });
   };
 
@@ -378,8 +380,9 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
     }
     setIsLoading(true);
     try {
+      const courseSlug = formData.title.toLowerCase().replace(/\s+/g, '-');
       await onAdd({
-        slug: formData.title.toLowerCase().replace(/\s+/g, '-'),
+        slug: courseSlug,
         title: { 
           en: formData.title, 
           hi: formData.titleHi || formData.title, 
@@ -403,7 +406,27 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       
       setIsAddOpen(false);
       resetForm();
-      toast({ title: 'Success', description: 'Course added successfully' });
+      
+      if (formData.generateLandingPage) {
+        toast({ 
+          title: 'Course Created!', 
+          description: (
+            <div className="space-y-2">
+              <p>Landing page is ready at:</p>
+              <a 
+                href={`/landing/${courseSlug}`} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary underline font-medium"
+              >
+                /landing/{courseSlug}
+              </a>
+            </div>
+          )
+        });
+      } else {
+        toast({ title: 'Success', description: 'Course added successfully' });
+      }
     } catch (error) {
       toast({ title: 'Error', description: 'Failed to add course', variant: 'destructive' });
     } finally {
@@ -429,6 +452,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       showOnHome: course.showOnHome,
       ageMin: course.ageMin?.toString() || '',
       ageMax: course.ageMax?.toString() || '',
+      generateLandingPage: false,
     });
     setIsEditOpen(true);
   };
@@ -567,6 +591,18 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
         <Label htmlFor="showOnHome">Show on Home Page</Label>
         <Switch id="showOnHome" checked={formData.showOnHome} onCheckedChange={(checked) => setFormData({ ...formData, showOnHome: checked })} />
       </div>
+      <div className="flex items-center justify-between p-3 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg border border-primary/20">
+        <div className="flex items-center gap-2">
+          <ExternalLink className="h-4 w-4 text-primary" />
+          <Label htmlFor="generateLandingPage" className="font-medium">Generate Landing Page</Label>
+        </div>
+        <Switch id="generateLandingPage" checked={formData.generateLandingPage} onCheckedChange={(checked) => setFormData({ ...formData, generateLandingPage: checked })} />
+      </div>
+      {formData.generateLandingPage && (
+        <p className="text-xs text-muted-foreground pl-6">
+          ✨ An attractive landing page will be created at: /landing/{formData.title.toLowerCase().replace(/\s+/g, '-') || 'course-slug'}
+        </p>
+      )}
     </div>
   );
 
