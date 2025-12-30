@@ -66,10 +66,11 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import DeleteConfirmDialog from '@/components/DeleteConfirmDialog';
 import CampsTab from '@/components/admin/CampsTab';
+import LandingPagesTab from '@/components/admin/LandingPagesTab';
 import { supabase } from '@/integrations/supabase/client';
 import logo from '@/assets/shastrakulam-logo.png';
 
-type Tab = 'dashboard' | 'courses' | 'camps' | 'blogs' | 'categories' | 'referrals' | 'enrollments' | 'messages' | 'notifications' | 'settings';
+type Tab = 'dashboard' | 'courses' | 'camps' | 'blogs' | 'categories' | 'referrals' | 'enrollments' | 'messages' | 'notifications' | 'settings' | 'landing-pages';
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
@@ -116,6 +117,7 @@ const AdminDashboard: React.FC = () => {
   const sidebarItems = [
     { id: 'dashboard' as Tab, label: 'Dashboard', icon: LayoutDashboard },
     { id: 'courses' as Tab, label: 'Courses', icon: BookOpen },
+    { id: 'landing-pages' as Tab, label: 'Landing Pages', icon: ExternalLink },
     { id: 'camps' as Tab, label: 'Camps/Shivir', icon: Tent },
     { id: 'blogs' as Tab, label: 'Blog Posts', icon: FileText },
     { id: 'categories' as Tab, label: 'Categories', icon: Tag },
@@ -254,6 +256,7 @@ const AdminDashboard: React.FC = () => {
           {activeTab === 'referrals' && <ReferralsTab toast={toast} />}
           {activeTab === 'enrollments' && <EnrollmentsTab courses={courses} toast={toast} />}
           {activeTab === 'messages' && <MessagesTab toast={toast} />}
+          {activeTab === 'landing-pages' && <LandingPagesTab courses={courses} toast={toast} />}
           {activeTab === 'settings' && <SettingsTab />}
         </div>
       </main>
