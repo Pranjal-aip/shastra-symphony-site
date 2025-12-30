@@ -7,6 +7,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AdminProvider } from "@/contexts/AdminContext";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { CartProvider } from "@/contexts/CartContext";
 import Index from "./pages/Index";
 import Courses from "./pages/Courses";
 import CourseDetail from "./pages/CourseDetail";
@@ -31,8 +32,9 @@ const App = () => (
       <AuthProvider>
         <LanguageProvider>
           <AdminProvider>
-            <TooltipProvider>
-              <Toaster />
+            <CartProvider>
+              <TooltipProvider>
+                <Toaster />
               <Sonner />
               <BrowserRouter>
                 <Routes>
@@ -52,8 +54,9 @@ const App = () => (
                   <Route path="/admin" element={<AdminDashboard />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
-              </BrowserRouter>
-            </TooltipProvider>
+                </BrowserRouter>
+              </TooltipProvider>
+            </CartProvider>
           </AdminProvider>
         </LanguageProvider>
       </AuthProvider>

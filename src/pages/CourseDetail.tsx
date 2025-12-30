@@ -1,21 +1,35 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Clock, Users, BookOpen, Star } from 'lucide-react';
+import { ArrowLeft, Clock, Users, BookOpen, Star, ShoppingCart, Check } from 'lucide-react';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useCart } from '@/contexts/CartContext';
 import { Loader2 } from 'lucide-react';
 import CourseEnrollmentForm from '@/components/CourseEnrollmentForm';
+import { toast } from '@/hooks/use-toast';
 
 const CourseDetail: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const { getCourseBySlug, loading } = useAdmin();
   const { t } = useLanguage();
+  const { addToCart, isInCart } = useCart();
   const [enrollOpen, setEnrollOpen] = useState(false);
   
   const course = getCourseBySlug(slug || '');
+  const inCart = course ? isInCart(course.id) : false;
+
+  const handleAddToCart = () => {
+    if (course) {
+      addToCart(course);
+      toast({
+        title: "Added to cart",
+        description: `${t(course.title)} has been added to your cart.`,
+      });
+    }
+  };
 
   if (loading) {
     return (
@@ -122,6 +136,24 @@ const CourseDetail: React.FC = () => {
               <div className="flex flex-wrap gap-4">
                 <Button variant="saffron" size="lg" onClick={() => setEnrollOpen(true)}>
                   Enroll Now
+                </Button>
+                <Button 
+                  variant={inCart ? "secondary" : "outline"} 
+                  size="lg" 
+                  onClick={handleAddToCart}
+                  disabled={inCart}
+                >
+                  {inCart ? (
+                    <>
+                      <Check className="mr-2 h-4 w-4" />
+                      Added to Cart
+                    </>
+                  ) : (
+                    <>
+                      <ShoppingCart className="mr-2 h-4 w-4" />
+                      Add to Cart
+                    </>
+                  )}
                 </Button>
                 <a href="https://wa.me/919674916567" target="_blank" rel="noopener noreferrer">
                   <Button variant="outline" size="lg">
