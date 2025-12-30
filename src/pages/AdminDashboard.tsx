@@ -29,6 +29,7 @@ import {
   Mail,
   MailOpen,
   CheckCircle2,
+  Users,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -66,16 +67,20 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import DeleteConfirmDialog from '@/components/DeleteConfirmDialog';
 import CampsTab from '@/components/admin/CampsTab';
+import TeamManagementTab from '@/components/admin/TeamManagementTab';
 
 import { supabase } from '@/integrations/supabase/client';
 import logo from '@/assets/shastrakulam-logo.png';
 
-type Tab = 'dashboard' | 'courses' | 'camps' | 'blogs' | 'categories' | 'referrals' | 'enrollments' | 'messages' | 'notifications' | 'settings';
+type Tab = 'dashboard' | 'courses' | 'camps' | 'blogs' | 'categories' | 'referrals' | 'enrollments' | 'messages' | 'notifications' | 'settings' | 'team';
+
+type AppRole = 'admin' | 'blog_writer' | 'course_manager' | 'enrollment_manager' | 'user';
 
 const AdminDashboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
+  const [userRoles, setUserRoles] = useState<AppRole[]>([]);
+  const [hasAccess, setHasAccess] = useState<boolean | null>(null);
   const { user, loading: authLoading, signOut } = useAuth();
   const navigate = useNavigate();
   const { 
@@ -103,48 +108,65 @@ const AdminDashboard: React.FC = () => {
   } = useAdmin();
   const { toast } = useToast();
 
-  // Check admin role on mount and when user changes
+  // Helper to check if user has a specific role
+  const hasRole = (role: AppRole) => userRoles.includes(role);
+  const isAdmin = hasRole('admin');
+
+  // Check user roles on mount and when user changes
   useEffect(() => {
-    const checkAdminRole = async () => {
+    const checkUserRoles = async () => {
       if (!user) {
         navigate('/admin/login');
         return;
       }
       
       try {
-        // Call the has_role function to check if user is admin
-        const { data, error } = await supabase.rpc('has_role', {
-          _user_id: user.id,
-          _role: 'admin'
+        // Check if user has any staff role
+        const { data: hasStaffRole, error: staffError } = await supabase.rpc('has_any_staff_role', {
+          _user_id: user.id
         });
         
-        if (error) {
-          console.error('Role check error:', error);
-          setIsAdmin(false);
+        if (staffError) {
+          console.error('Staff role check error:', staffError);
+          setHasAccess(false);
           navigate('/');
           return;
         }
         
-        if (data === true) {
-          setIsAdmin(true);
-        } else {
-          setIsAdmin(false);
+        if (!hasStaffRole) {
+          setHasAccess(false);
           toast({
             title: 'Access Denied',
-            description: 'You do not have admin privileges.',
+            description: 'You do not have staff privileges.',
             variant: 'destructive'
           });
           navigate('/');
+          return;
         }
+
+        // Fetch all user roles
+        const { data: roles, error: rolesError } = await supabase.rpc('get_user_roles', {
+          _user_id: user.id
+        });
+
+        if (rolesError) {
+          console.error('Get roles error:', rolesError);
+          setHasAccess(false);
+          navigate('/');
+          return;
+        }
+
+        setUserRoles((roles || []) as AppRole[]);
+        setHasAccess(true);
       } catch (err) {
         console.error('Role check failed:', err);
-        setIsAdmin(false);
+        setHasAccess(false);
         navigate('/');
       }
     };
     
     if (!authLoading) {
-      checkAdminRole();
+      checkUserRoles();
     }
   }, [user, authLoading, navigate, toast]);
 
@@ -153,10 +175,34 @@ const AdminDashboard: React.FC = () => {
     navigate('/admin/login');
   };
 
-  const sidebarItems = [
+  // Define which tabs are visible for each role
+  const getVisibleTabs = (): Tab[] => {
+    if (isAdmin) {
+      // Admin sees everything
+      return ['dashboard', 'courses', 'camps', 'blogs', 'categories', 'referrals', 'enrollments', 'messages', 'notifications', 'team', 'settings'];
+    }
+    
+    const tabs: Tab[] = ['dashboard'];
+    
+    if (hasRole('course_manager')) {
+      tabs.push('courses', 'camps', 'categories');
+    }
+    if (hasRole('blog_writer')) {
+      tabs.push('blogs');
+      if (!tabs.includes('categories')) tabs.push('categories');
+    }
+    if (hasRole('enrollment_manager')) {
+      tabs.push('enrollments');
+    }
+    
+    return tabs;
+  };
+
+  const visibleTabs = getVisibleTabs();
+
+  const allSidebarItems = [
     { id: 'dashboard' as Tab, label: 'Dashboard', icon: LayoutDashboard },
     { id: 'courses' as Tab, label: 'Courses', icon: BookOpen },
-    
     { id: 'camps' as Tab, label: 'Camps/Shivir', icon: Tent },
     { id: 'blogs' as Tab, label: 'Blog Posts', icon: FileText },
     { id: 'categories' as Tab, label: 'Categories', icon: Tag },
@@ -164,11 +210,15 @@ const AdminDashboard: React.FC = () => {
     { id: 'enrollments' as Tab, label: 'Enrollments', icon: UserCheck },
     { id: 'messages' as Tab, label: 'Messages', icon: Mail },
     { id: 'notifications' as Tab, label: 'Notifications', icon: Bell },
+    { id: 'team' as Tab, label: 'Team', icon: Users },
     { id: 'settings' as Tab, label: 'Settings', icon: Settings },
   ];
 
-  // Show loading while checking auth or admin role
-  if (authLoading || loading || isAdmin === null) {
+  // Filter sidebar items based on user roles
+  const sidebarItems = allSidebarItems.filter(item => visibleTabs.includes(item.id));
+
+  // Show loading while checking auth or roles
+  if (authLoading || loading || hasAccess === null) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
@@ -179,8 +229,8 @@ const AdminDashboard: React.FC = () => {
     );
   }
 
-  // Block rendering if not admin - will redirect via useEffect
-  if (!user || !isAdmin) {
+  // Block rendering if no access - will redirect via useEffect
+  if (!user || !hasAccess) {
     return null;
   }
 
@@ -297,7 +347,7 @@ const AdminDashboard: React.FC = () => {
           {activeTab === 'referrals' && <ReferralsTab toast={toast} />}
           {activeTab === 'enrollments' && <EnrollmentsTab courses={courses} toast={toast} />}
           {activeTab === 'messages' && <MessagesTab toast={toast} />}
-          
+          {activeTab === 'team' && <TeamManagementTab toast={toast} />}
           {activeTab === 'settings' && <SettingsTab />}
         </div>
       </main>

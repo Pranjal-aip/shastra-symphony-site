@@ -531,6 +531,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      can_manage_blogs: { Args: { _user_id: string }; Returns: boolean }
+      can_manage_courses: { Args: { _user_id: string }; Returns: boolean }
+      can_manage_enrollments: { Args: { _user_id: string }; Returns: boolean }
+      get_user_roles: {
+        Args: { _user_id: string }
+        Returns: Database["public"]["Enums"]["app_role"][]
+      }
+      has_any_staff_role: { Args: { _user_id: string }; Returns: boolean }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -538,6 +546,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_admin: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
       app_role:
