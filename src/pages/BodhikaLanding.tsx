@@ -91,9 +91,9 @@ const bodhikaTranslations = {
     sa: 'स्वसन्तानं सनातनधर्मे प्रतिष्ठापयत'
   },
   heroDesc: {
-    en: 'Live online classes with recordings • Values • Culture • Sanskrit',
-    hi: 'रिकॉर्डिंग के साथ लाइव ऑनलाइन कक्षाएं • संस्कार • संस्कृति • संस्कृत',
-    sa: 'अभिलेखसहिताः जीवन्त-अन्तर्जालकक्षाः • संस्काराः • संस्कृतिः • संस्कृतम्'
+    en: 'Live online classes • Values • Culture • Sanskrit',
+    hi: 'लाइव ऑनलाइन कक्षाएं • संस्कार • संस्कृति • संस्कृत',
+    sa: 'जीवन्त-अन्तर्जालकक्षाः • संस्काराः • संस्कृतिः • संस्कृतम्'
   },
   enrollNow: { en: 'Enroll My Child Now', hi: 'अभी नामांकन करें', sa: 'अधुना नामाङ्कनं कुरुत' },
   bookCounseling: { en: 'Book Free Counseling', hi: 'निःशुल्क परामर्श बुक करें', sa: 'निःशुल्कपरामर्शं प्राप्नुत' },
