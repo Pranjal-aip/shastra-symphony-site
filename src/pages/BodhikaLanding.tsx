@@ -906,8 +906,8 @@ const PricingSection = () => {
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {/* Group Batch */}
           <Card className="border-2 border-border shadow-card hover-lift overflow-hidden relative">
-            <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
-              <img src={heroGurukul} alt="" className="w-full h-full object-cover" />
+            <div className="absolute top-4 right-4 w-20 h-20 opacity-15 rounded-lg overflow-hidden">
+              <img src={heroGurukul} alt="" className="w-full h-full object-cover object-center" />
             </div>
             <div className="bg-cream/50 p-6 relative z-10">
               <div className="flex items-center justify-between mb-4">
@@ -945,8 +945,8 @@ const PricingSection = () => {
           
           {/* Focused Batch */}
           <Card className="border-2 border-saffron shadow-elevated hover-lift overflow-hidden relative">
-            <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
-              <img src={mantrasScene} alt="" className="w-full h-full object-cover" />
+            <div className="absolute top-4 right-12 w-20 h-20 opacity-15 rounded-lg overflow-hidden">
+              <img src={mantrasScene} alt="" className="w-full h-full object-cover object-center" />
             </div>
             <div className="absolute top-4 right-4 z-20">
               <Badge className="bg-saffron text-white border-0">{t(bodhikaTranslations.recommended)}</Badge>
