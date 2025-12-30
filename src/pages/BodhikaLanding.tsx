@@ -104,7 +104,7 @@ const bodhikaTranslations = {
 
   // Highlight Strip
   monthsLearning: { en: '12 Months Learning', hi: '12 महीने का अध्ययन', sa: '१२ मासानाम् अध्ययनम्' },
-  liveInteractive: { en: '100% Live Sessions + Recording', hi: '100% लाइव सेशन + रिकॉर्डिंग', sa: '१००% जीवन्तसत्राणि + अभिलेखः' },
+  liveInteractive: { en: '100% Live Sessions', hi: '100% लाइव सेशन', sa: '१००% जीवन्तसत्राणि' },
   classRecordings: { en: 'Class Recordings', hi: 'कक्षा रिकॉर्डिंग', sa: 'कक्षाभिलेखाः' },
   deepSanatan: { en: 'Deep Sanatan Dharma', hi: 'गहन सनातन धर्म', sa: 'गहनसनातनधर्मः' },
   spokenSanskrit: { en: 'Spoken Sanskrit', hi: 'बोलचाल की संस्कृत', sa: 'संस्कृतभाषणम्' },
