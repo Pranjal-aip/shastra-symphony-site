@@ -29,6 +29,7 @@ import {
   Mail,
   MailOpen,
   CheckCircle2,
+  Sparkles,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -350,6 +351,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
     ageMin: '',
     ageMax: '',
     generateLandingPage: true,
+    landingPagePrompt: '',
   });
 
   const resetForm = () => {
@@ -370,6 +372,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       ageMin: '',
       ageMax: '',
       generateLandingPage: true,
+      landingPagePrompt: '',
     });
   };
 
@@ -453,6 +456,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       ageMin: course.ageMin?.toString() || '',
       ageMax: course.ageMax?.toString() || '',
       generateLandingPage: false,
+      landingPagePrompt: '',
     });
     setIsEditOpen(true);
   };
@@ -599,9 +603,30 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
         <Switch id="generateLandingPage" checked={formData.generateLandingPage} onCheckedChange={(checked) => setFormData({ ...formData, generateLandingPage: checked })} />
       </div>
       {formData.generateLandingPage && (
-        <p className="text-xs text-muted-foreground pl-6">
-          ✨ An attractive landing page will be created at: /landing/{formData.title.toLowerCase().replace(/\s+/g, '-') || 'course-slug'}
-        </p>
+        <div className="space-y-3 pl-2 border-l-2 border-primary/30 ml-2">
+          <p className="text-xs text-muted-foreground">
+            ✨ An attractive landing page will be created at: <span className="font-mono text-primary">/landing/{formData.title.toLowerCase().replace(/\s+/g, '-') || 'course-slug'}</span>
+          </p>
+          <div className="space-y-2">
+            <Label htmlFor="landingPagePrompt" className="text-sm font-medium flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-accent" />
+              Landing Page Customization Prompt
+            </Label>
+            <Textarea 
+              id="landingPagePrompt"
+              placeholder="Describe what you want highlighted on the landing page...
+
+Example: Focus on Vedic mathematics for kids aged 8-14. Highlight that this is a 6-month course with weekly live classes. Emphasize parent testimonials and the certificate provided. Use warm saffron colors and traditional Indian design elements."
+              value={formData.landingPagePrompt}
+              onChange={(e) => setFormData({ ...formData, landingPagePrompt: e.target.value })}
+              rows={5}
+              className="text-sm"
+            />
+            <p className="text-xs text-muted-foreground">
+              💡 Tip: Describe the target audience, key benefits, design preferences, and any special features to highlight.
+            </p>
+          </div>
+        </div>
       )}
     </div>
   );
