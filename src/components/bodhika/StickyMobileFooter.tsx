@@ -5,15 +5,15 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 const translations = {
-  joinThe70: {
-    en: 'Join the 70',
-    hi: '70 में शामिल हों',
-    sa: '७० मध्ये सम्मिलत'
+  secureSeat: {
+    en: 'Secure My Seat',
+    hi: 'अपनी सीट सुरक्षित करें',
+    sa: 'स्वस्थानं सुरक्षितं कुरुत'
   },
   seatsLeft: {
-    en: '12 left',
-    hi: '12 शेष',
-    sa: '१२ शेषम्'
+    en: 'Few seats left!',
+    hi: 'कुछ सीटें शेष!',
+    sa: 'कानिचित् आसनानि शेषाणि!'
   }
 };
 
@@ -67,7 +67,7 @@ const StickyMobileFooter = () => {
             className="bg-saffron hover:bg-saffron/90 text-white font-semibold px-6 py-2 rounded-full shadow-lg flex-1 max-w-[200px] animate-pulse"
             onClick={scrollToPricing}
           >
-            {t(translations.joinThe70)}
+            {t(translations.secureSeat)}
             <ArrowRight className="ml-1 h-4 w-4" />
           </Button>
         </div>

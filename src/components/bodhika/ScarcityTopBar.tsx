@@ -4,14 +4,14 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 const translations = {
   scarcityText: {
-    en: '⚠️ Strict Enrollment Limit: Only 70 seats available to ensure personalized guidance.',
-    hi: '⚠️ सख्त नामांकन सीमा: व्यक्तिगत मार्गदर्शन सुनिश्चित करने के लिए केवल 70 सीटें उपलब्ध।',
-    sa: '⚠️ कठोरनामाङ्कनसीमा: व्यक्तिगतमार्गदर्शनार्थं केवलं ७० आसनानि उपलब्धानि।'
+    en: '⚠️ Limited Enrollment: Few seats left to ensure personalized guidance.',
+    hi: '⚠️ सीमित नामांकन: व्यक्तिगत मार्गदर्शन के लिए कुछ ही सीटें शेष।',
+    sa: '⚠️ सीमितनामाङ्कनम्: व्यक्तिगतमार्गदर्शनार्थं कानिचित् आसनानि शेषाणि।'
   },
   seatsRemaining: {
-    en: '12 Seats Remaining',
-    hi: '12 सीटें शेष',
-    sa: '१२ आसनानि शेषाणि'
+    en: 'Few Seats Left!',
+    hi: 'कुछ सीटें शेष!',
+    sa: 'कानिचित् आसनानि शेषाणि!'
   }
 };
 

@@ -6,14 +6,14 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 const translations = {
   title: {
-    en: 'Why We Limit to 70 Seekers',
-    hi: 'हम 70 साधकों तक क्यों सीमित करते हैं',
-    sa: 'वयं सप्ततिसाधकेषु किमर्थं सीमयामः'
+    en: 'Why We Limit Seats',
+    hi: 'हम सीटें क्यों सीमित करते हैं',
+    sa: 'वयं आसनानि किमर्थं सीमयामः'
   },
   description: {
-    en: 'Bodhika is not a mass-enrollment course. We limit each cohort to 70 seekers to maintain the sanctity of the transmission and allow for direct interaction.',
-    hi: 'बोधिका एक सामूहिक-नामांकन पाठ्यक्रम नहीं है। हम प्रसारण की पवित्रता बनाए रखने और प्रत्यक्ष संपर्क की अनुमति देने के लिए प्रत्येक समूह को 70 साधकों तक सीमित करते हैं।',
-    sa: 'बोधिका जननामाङ्कनपाठ्यक्रमः न। वयं प्रसारणस्य पवित्रतां रक्षितुं प्रत्यक्षसंवादं च अनुमन्तुं प्रत्येकं समूहं सप्ततिसाधकेषु सीमयामः।'
+    en: 'Bodhika is not a mass-enrollment course. We limit each cohort to maintain the sanctity of the transmission and allow for direct, personal interaction with every child.',
+    hi: 'बोधिका एक सामूहिक-नामांकन पाठ्यक्रम नहीं है। हम प्रसारण की पवित्रता बनाए रखने और हर बच्चे के साथ प्रत्यक्ष, व्यक्तिगत संपर्क की अनुमति देने के लिए प्रत्येक समूह को सीमित करते हैं।',
+    sa: 'बोधिका जननामाङ्कनपाठ्यक्रमः न। वयं प्रसारणस्य पवित्रतां रक्षितुं प्रत्येकबालकेन सह प्रत्यक्षव्यक्तिगतसंवादं च अनुमन्तुं प्रत्येकं समूहं सीमयामः।'
   },
   point1: {
     en: 'Deep, personal guidance for every child',
