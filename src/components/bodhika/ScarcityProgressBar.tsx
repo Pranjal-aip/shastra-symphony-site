@@ -4,14 +4,14 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 const translations = {
   joinOthers: {
-    en: 'Join 58 others who have already secured their spot',
-    hi: '58 अन्य लोगों के साथ जुड़ें जिन्होंने पहले ही अपनी सीट सुरक्षित कर ली है',
-    sa: '५८ अन्यैः सह मिलित ये स्वस्थानं सुरक्षितं कृतवन्तः'
+    en: 'Join others who have already secured their spot',
+    hi: 'उन लोगों के साथ जुड़ें जिन्होंने पहले ही अपनी सीट सुरक्षित कर ली है',
+    sa: 'अन्यैः सह मिलित ये स्वस्थानं सुरक्षितं कृतवन्तः'
   },
   spotsLeft: {
-    en: '12 spots left!',
-    hi: '12 स्थान शेष!',
-    sa: '१२ स्थानानि शेषाणि!'
+    en: 'Few spots left!',
+    hi: 'कुछ स्थान शेष!',
+    sa: 'कानिचित् स्थानानि शेषाणि!'
   }
 };
 
@@ -44,7 +44,7 @@ const ScarcityProgressBar = ({ className = '' }: ScarcityProgressBarProps) => {
           </div>
         </div>
         <div className="flex justify-between items-center mt-2">
-          <span className="text-xs text-muted-foreground font-body">58/70 enrolled</span>
+          <span className="text-xs text-muted-foreground font-body">Filling fast</span>
           <span className="text-xs font-semibold text-red-600 font-body flex items-center gap-1">
             <Flame className="h-3 w-3" />
             {t(translations.spotsLeft)}

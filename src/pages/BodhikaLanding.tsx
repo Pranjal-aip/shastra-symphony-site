@@ -1218,6 +1218,16 @@ const PricingSection = () => {
             {t(bodhikaTranslations.scholarshipBadge)}
           </Badge>
         </div>
+        
+        {/* Scarcity Progress Bar */}
+        <div className="max-w-xl mx-auto mt-10">
+          <ScarcityProgressBar />
+        </div>
+        
+        {/* Risk Reversal Card */}
+        <div className="max-w-4xl mx-auto mt-12">
+          <RiskReversalCard />
+        </div>
       </div>
     </section>
   );
