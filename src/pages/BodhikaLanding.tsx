@@ -70,6 +70,15 @@ import { SacredTextCard } from '@/components/bodhika/SacredTextCard';
 import { CulturalDivider } from '@/components/bodhika/CulturalDivider';
 import { LearningOutcomeCard } from '@/components/bodhika/LearningOutcomeCard';
 import { TestimonialCard } from '@/components/bodhika/TestimonialCard';
+import ScarcityTopBar from '@/components/bodhika/ScarcityTopBar';
+import ScarcityProgressBar from '@/components/bodhika/ScarcityProgressBar';
+import TransformationTable from '@/components/bodhika/TransformationTable';
+import RiskReversalCard from '@/components/bodhika/RiskReversalCard';
+import ObjectionCrusherFAQ from '@/components/bodhika/ObjectionCrusherFAQ';
+import FounderInvitation from '@/components/bodhika/FounderInvitation';
+import StickyMobileFooter from '@/components/bodhika/StickyMobileFooter';
+import ScarcityNarrative from '@/components/bodhika/ScarcityNarrative';
+import HeroVSL from '@/components/bodhika/HeroVSL';
 
 // Translations
 const bodhikaTranslations = {
@@ -1441,30 +1450,35 @@ const BodhikaLanding = () => {
   const { t } = useLanguage();
   
   return (
-    <Layout>
-      <Helmet>
-        <title>Bodhika - Sanatan Dharma Course for Children | March 2026 Batch | Shastrakulam</title>
-        <meta name="description" content="Bodhika is a 1-year live online program starting March 2026. Build a foundation of Sanskar and Sanskrit for your child through character building, culture, and values." />
-        <meta name="keywords" content="Sanatan Dharma course, children education, Sanskrit learning, Indian culture, Vedic education, online learning, March 2026 batch, character building" />
-      </Helmet>
-      
-      <HeroSection />
-      <HighlightStrip />
-      <FlexibleScheduleSection />
-      <ShastrakulamLegacySection />
-      <AboutSection />
-      <BenefitsSection />
-      <VideoSection />
-      <LearningSection />
-      <LearningExperienceSection />
-      <SanskritSection />
-      <PricingSection />
-      <FAQSection />
-      <TrustSection />
-      <TestimonialsSection />
-      <FinalCTASection />
-      <StickyEnrollButton />
-    </Layout>
+    <>
+      <ScarcityTopBar />
+      <Layout>
+        <Helmet>
+          <title>Bodhika - Sanatan Dharma Course for Children | Only 70 Seats | Shastrakulam</title>
+          <meta name="description" content="Bodhika is a 1-year live online program. Build a foundation of Sanskar and Sanskrit for your child. Limited to 70 seekers for personalized guidance." />
+          <meta name="keywords" content="Sanatan Dharma course, children education, Sanskrit learning, Indian culture, Vedic education, online learning, character building" />
+        </Helmet>
+        
+        <HeroSection />
+        <HighlightStrip />
+        <TransformationTable />
+        <FlexibleScheduleSection />
+        <ShastrakulamLegacySection />
+        <AboutSection />
+        <BenefitsSection />
+        <VideoSection />
+        <LearningSection />
+        <LearningExperienceSection />
+        <SanskritSection />
+        <PricingSection />
+        <ObjectionCrusherFAQ />
+        <TrustSection />
+        <TestimonialsSection />
+        <FounderInvitation />
+        <FinalCTASection />
+        <StickyMobileFooter />
+      </Layout>
+    </>
   );
 };
 
