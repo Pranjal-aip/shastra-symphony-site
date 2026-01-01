@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { AlertTriangle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -19,16 +20,45 @@ const ScarcityTopBar = () => {
   const { t } = useLanguage();
   
   return (
-    <div className="bg-gradient-to-r from-maroon-dark via-maroon to-maroon-dark text-cream py-2.5 px-4 sticky top-0 z-50">
+    <motion.div 
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="bg-gradient-to-r from-maroon-dark via-maroon to-maroon-dark text-cream py-2.5 px-4 sticky top-0 z-50"
+    >
       <div className="container mx-auto flex items-center justify-center gap-4 text-sm font-body">
-        <span className="hidden sm:inline">{t(translations.scarcityText)}</span>
-        <span className="sm:hidden text-xs">⚠️ Only 70 seats • Personalized guidance</span>
-        <span className="inline-flex items-center gap-1.5 bg-saffron text-white px-3 py-1 rounded-full font-semibold text-xs animate-pulse">
-          <AlertTriangle className="h-3 w-3" />
+        <motion.span 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="hidden sm:inline"
+        >
+          {t(translations.scarcityText)}
+        </motion.span>
+        <motion.span 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+          className="sm:hidden text-xs"
+        >
+          ⚠️ Only 70 seats • Personalized guidance
+        </motion.span>
+        <motion.span 
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
+          className="inline-flex items-center gap-1.5 bg-saffron text-white px-3 py-1 rounded-full font-semibold text-xs"
+        >
+          <motion.div
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+          >
+            <AlertTriangle className="h-3 w-3" />
+          </motion.div>
           {t(translations.seatsRemaining)}
-        </span>
+        </motion.span>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

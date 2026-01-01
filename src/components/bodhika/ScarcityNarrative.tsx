@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Users, Lock, Heart } from 'lucide-react';
@@ -32,6 +33,26 @@ const translations = {
   }
 };
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: { 
+    opacity: 1, 
+    x: 0,
+    transition: { duration: 0.4, ease: [0.25, 0.1, 0.25, 1] as const }
+  }
+};
+
 const ScarcityNarrative = () => {
   const { t } = useLanguage();
   
@@ -42,36 +63,79 @@ const ScarcityNarrative = () => {
   ];
   
   return (
-    <Card className="border-2 border-maroon/20 bg-gradient-to-br from-maroon/5 to-saffron/5 shadow-lg">
-      <CardContent className="p-8">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="w-14 h-14 rounded-2xl bg-maroon flex items-center justify-center shadow-lg">
-            <Lock className="h-7 w-7 text-white" />
-          </div>
-          <div>
-            <Badge className="bg-red-100 text-red-700 border-red-200 mb-1">Exclusive</Badge>
-            <h3 className="font-heading text-xl font-bold text-foreground">
-              {t(translations.title)}
-            </h3>
-          </div>
-        </div>
-        
-        <p className="font-body text-muted-foreground leading-relaxed mb-6">
-          {t(translations.description)}
-        </p>
-        
-        <div className="space-y-3">
-          {points.map((point, idx) => (
-            <div key={idx} className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-saffron/20 flex items-center justify-center">
-                <point.icon className="h-4 w-4 text-saffron" />
-              </div>
-              <span className="font-body text-sm text-foreground">{point.text}</span>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6 }}
+    >
+      <Card className="border-2 border-maroon/20 bg-gradient-to-br from-maroon/5 to-saffron/5 shadow-lg overflow-hidden">
+        <CardContent className="p-8">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.4 }}
+            className="flex items-center gap-4 mb-6"
+          >
+            <motion.div 
+              whileHover={{ rotate: 10, scale: 1.1 }}
+              className="w-14 h-14 rounded-2xl bg-maroon flex items-center justify-center shadow-lg"
+            >
+              <Lock className="h-7 w-7 text-white" />
+            </motion.div>
+            <div>
+              <motion.div
+                initial={{ scale: 0 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+              >
+                <Badge className="bg-red-100 text-red-700 border-red-200 mb-1">Exclusive</Badge>
+              </motion.div>
+              <h3 className="font-heading text-xl font-bold text-foreground">
+                {t(translations.title)}
+              </h3>
             </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+          </motion.div>
+          
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="font-body text-muted-foreground leading-relaxed mb-6"
+          >
+            {t(translations.description)}
+          </motion.p>
+          
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="space-y-3"
+          >
+            {points.map((point, idx) => (
+              <motion.div 
+                key={idx} 
+                variants={itemVariants}
+                whileHover={{ x: 5, transition: { duration: 0.2 } }}
+                className="flex items-center gap-3"
+              >
+                <motion.div 
+                  whileHover={{ scale: 1.2, rotate: 5 }}
+                  className="w-8 h-8 rounded-full bg-saffron/20 flex items-center justify-center"
+                >
+                  <point.icon className="h-4 w-4 text-saffron" />
+                </motion.div>
+                <span className="font-body text-sm text-foreground">{point.text}</span>
+              </motion.div>
+            ))}
+          </motion.div>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 };
 
