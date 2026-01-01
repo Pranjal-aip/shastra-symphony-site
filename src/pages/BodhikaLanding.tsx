@@ -75,14 +75,14 @@ import { TestimonialCard } from '@/components/bodhika/TestimonialCard';
 const bodhikaTranslations = {
   // Hero Section
   heroBadge: {
-    en: '1-Year Live Online Program for Kids & Teens',
-    hi: 'बच्चों और किशोरों के लिए 1 वर्षीय लाइव ऑनलाइन कार्यक्रम',
-    sa: 'बालकानां युवानां च कृते एकवर्षीयं जीवन्त-अन्तर्जालकार्यक्रमम्'
+    en: 'Starting March 2026 • Limited Seats',
+    hi: 'मार्च 2026 से शुरू • सीमित सीटें',
+    sa: 'मार्च २०२६ तः आरभ्यते • सीमितासनानि'
   },
   heroSubtitle: {
-    en: 'A Transformational Journey in Sanatan Dharma',
-    hi: 'सनातन धर्म में एक परिवर्तनकारी यात्रा',
-    sa: 'सनातनधर्मे परिवर्तनात्मिका यात्रा'
+    en: 'Building a foundation of Sanskar and Sanskrit, starting this March',
+    hi: 'संस्कार और संस्कृत की नींव, इस मार्च से',
+    sa: 'संस्कारसंस्कृतयोः आधारः, अस्मिन् मार्चमासे आरभ्यते'
   },
   heroTitle: { en: 'Bodhika', hi: 'बोधिका', sa: 'बोधिका' },
   heroTagline: {
@@ -91,24 +91,50 @@ const bodhikaTranslations = {
     sa: 'स्वसन्तानं सनातनधर्मे प्रतिष्ठापयत'
   },
   heroDesc: {
-    en: 'Live online classes • Values • Culture • Sanskrit',
-    hi: 'लाइव ऑनलाइन कक्षाएं • संस्कार • संस्कृति • संस्कृत',
-    sa: 'जीवन्त-अन्तर्जालकक्षाः • संस्काराः • संस्कृतिः • संस्कृतम्'
+    en: 'A 1-Year Live Program • Character Building • Culture • Sanskrit',
+    hi: '1 वर्षीय लाइव कार्यक्रम • चरित्र निर्माण • संस्कृति • संस्कृत',
+    sa: 'एकवर्षीयं जीवन्तकार्यक्रमम् • चरित्रनिर्माणम् • संस्कृतिः • संस्कृतम्'
   },
-  enrollNow: { en: 'Enroll My Child Now', hi: 'अभी नामांकन करें', sa: 'अधुना नामाङ्कनं कुरुत' },
+  enrollNow: { en: 'Secure My Child\'s Spot', hi: 'अपने बच्चे की सीट सुरक्षित करें', sa: 'स्वसन्तानस्य स्थानं सुरक्षितं कुरुत' },
+  joinMarchBatch: { en: 'Join the March Batch', hi: 'मार्च बैच में शामिल हों', sa: 'मार्चवर्गे सम्मिलत' },
   bookCounseling: { en: 'Book Free Counseling', hi: 'निःशुल्क परामर्श बुक करें', sa: 'निःशुल्कपरामर्शं प्राप्नुत' },
   liveClasses: { en: 'Live Classes', hi: 'लाइव कक्षाएं', sa: 'जीवन्तकक्षाः' },
   recordedAccess: { en: 'Recorded Access', hi: 'रिकॉर्डेड एक्सेस', sa: 'अभिलिखितप्राप्तिः' },
   childFriendly: { en: 'Child-Friendly', hi: 'बाल-अनुकूल', sa: 'बालोपयुक्तम्' },
   oneYearProgram: { en: '1-Year Program', hi: '1 वर्षीय कार्यक्रम', sa: 'एकवर्षीयकार्यक्रमः' },
 
+  // Scarcity & Urgency
+  limitedSeatsForMarch: { en: '🔥 Limited Seats for March Batch', hi: '🔥 मार्च बैच के लिए सीमित सीटें', sa: '🔥 मार्चवर्गाय सीमितासनानि' },
+  marchBatchStarting: { en: 'March 2026 Batch Starting Soon', hi: 'मार्च 2026 बैच जल्द शुरू', sa: 'मार्च २०२६ वर्गः शीघ्रम् आरभ्यते' },
+  
   // Highlight Strip
+  marchStart: { en: 'Starts March 2026', hi: 'मार्च 2026 से शुरू', sa: 'मार्च २०२६ तः' },
   monthsLearning: { en: '12 Months Learning', hi: '12 महीने का अध्ययन', sa: '१२ मासानाम् अध्ययनम्' },
   liveInteractive: { en: '100% Live Sessions', hi: '100% लाइव सेशन', sa: '१००% जीवन्तसत्राणि' },
   classRecordings: { en: 'Class Recordings', hi: 'कक्षा रिकॉर्डिंग', sa: 'कक्षाभिलेखाः' },
   deepSanatan: { en: 'Deep Sanatan Dharma', hi: 'गहन सनातन धर्म', sa: 'गहनसनातनधर्मः' },
   spokenSanskrit: { en: 'Spoken Sanskrit', hi: 'बोलचाल की संस्कृत', sa: 'संस्कृतभाषणम्' },
   moralEducation: { en: 'Moral & Cultural Education', hi: 'नैतिक और सांस्कृतिक शिक्षा', sa: 'नैतिकसांस्कृतिकशिक्षा' },
+  
+  // Flexible Schedule
+  flexibleScheduleTitle: { en: 'Flexible Learning Rhythm', hi: 'लचीला सीखने का क्रम', sa: 'लचीलः अधिगमक्रमः' },
+  flexibleScheduleDesc: { en: 'Designed to complement your child\'s school schedule', hi: 'आपके बच्चे के स्कूल समय के अनुसार डिज़ाइन किया गया', sa: 'भवतः सन्तानस्य विद्यालयसमयानुसारं निर्मितम्' },
+  academicTerm: { en: 'During Academic Term', hi: 'शैक्षणिक सत्र के दौरान', sa: 'शैक्षणिकसत्रे' },
+  academicTermDays: { en: '2 Classes/Week', hi: '2 कक्षाएं/सप्ताह', sa: '२ कक्षाः/सप्ताहम्' },
+  academicTermDesc: { en: 'Balanced to complement school work without overwhelming your child', hi: 'स्कूल के काम के साथ संतुलित, बच्चे पर अधिक बोझ नहीं', sa: 'विद्यालयकार्येण सह सन्तुलितं बालकं न अतिभारयति' },
+  holidayIntensive: { en: 'During School Holidays', hi: 'स्कूल की छुट्टियों में', sa: 'विद्यालयावकाशेषु' },
+  holidayIntensiveDays: { en: '3-4 Classes/Week', hi: '3-4 कक्षाएं/सप्ताह', sa: '३-४ कक्षाः/सप्ताहम्' },
+  holidayIntensiveDesc: { en: 'Deep cultural immersion when your child has more time to learn and absorb', hi: 'जब बच्चे के पास सीखने का समय हो, तब गहन सांस्कृतिक अनुभव', sa: 'यदा सन्तानस्य अधिककालः तदा गहनसांस्कृतिकानुभवः' },
+  premiumBenefit: { en: '✨ Premium Benefit: Maximize learning during holidays', hi: '✨ विशेष लाभ: छुट्टियों में अधिकतम सीखना', sa: '✨ विशेषलाभः: अवकाशेषु अधिकतमम् अधिगमम्' },
+  
+  // Shastrakulam Legacy
+  shastrakulamLegacy: { en: 'The Shastrakulam Mission', hi: 'शास्त्रकुलम् का मिशन', sa: 'शास्त्रकुलम् अभियानम्' },
+  whyHolisticApproach: { en: 'Why This Holistic Approach?', hi: 'यह समग्र दृष्टिकोण क्यों?', sa: 'एतत् समग्रदृष्टिकोणः किमर्थम्?' },
+  legacyDesc1: { en: 'In today\'s world, children are disconnected from their roots. They know global trends but not their own heritage. Shastrakulam bridges this gap.', hi: 'आज की दुनिया में, बच्चे अपनी जड़ों से कटे हुए हैं। वे वैश्विक रुझान जानते हैं लेकिन अपनी विरासत नहीं। शास्त्रकुलम् इस अंतर को पाटता है।', sa: 'अद्यतने विश्वे बालकाः स्वमूलेभ्यः विच्छिन्नाः। ते वैश्विकप्रवृत्तीः जानन्ति किन्तु स्वपैतृकं न। शास्त्रकुलम् एतद्अन्तरं पूरयति।' },
+  legacyDesc2: { en: 'Bodhika isn\'t just Sanskrit classes—it\'s character building, cultural confidence, and spiritual grounding that modern education lacks.', hi: 'बोधिका सिर्फ संस्कृत कक्षाएं नहीं है—यह चरित्र निर्माण, सांस्कृतिक आत्मविश्वास और आध्यात्मिक आधार है जो आधुनिक शिक्षा में नहीं है।', sa: 'बोधिका केवलं संस्कृतकक्षाः न—एतत् चरित्रनिर्माणं सांस्कृतिकात्मविश्वासः आध्यात्मिकाधारश्च यत् आधुनिकशिक्षायां नास्ति।' },
+  legacyPoint1: { en: 'Founded by educators passionate about Vedic wisdom', hi: 'वैदिक ज्ञान के प्रति समर्पित शिक्षकों द्वारा स्थापित', sa: 'वैदिकज्ञाने समर्पितैः शिक्षकैः स्थापितम्' },
+  legacyPoint2: { en: 'Curriculum designed for the modern Indian child', hi: 'आधुनिक भारतीय बच्चे के लिए पाठ्यक्रम', sa: 'आधुनिकभारतीयबालकाय पाठ्यक्रमः' },
+  legacyPoint3: { en: 'Values that create confident, rooted individuals', hi: 'मूल्य जो आत्मविश्वासी, जड़ वाले व्यक्तियों का निर्माण करते हैं', sa: 'मूल्यानि ये आत्मविश्वासिनः मूलवन्तः व्यक्तयः निर्मान्ति' },
 
   // About Section
   aboutCourse: { en: 'About the Course', hi: 'पाठ्यक्रम के बारे में', sa: 'पाठ्यक्रमविषये' },
@@ -214,8 +240,8 @@ const bodhikaTranslations = {
   deeperDiscussions: { en: 'Deeper discussions', hi: 'गहन चर्चा', sa: 'गहनचर्चाः' },
   progressTracking: { en: 'Individual progress tracking', hi: 'व्यक्तिगत प्रगति ट्रैकिंग', sa: 'व्यक्तिगतप्रगतिअनुसरणम्' },
   priorityDoubt: { en: 'Priority doubt resolution', hi: 'प्राथमिकता संदेह समाधान', sa: 'प्राथमिकतासंशयसमाधानम्' },
-  enrollGroup: { en: 'Enroll in Group Batch', hi: 'ग्रुप बैच में नामांकन करें', sa: 'समूहवर्गे नामाङ्कनं कुरुत' },
-  enrollFocused: { en: 'Enroll in Focused Batch', hi: 'फोकस्ड बैच में नामांकन करें', sa: 'केन्द्रितवर्गे नामाङ्कनं कुरुत' },
+  enrollGroup: { en: 'Secure My Child\'s Spot', hi: 'अपने बच्चे की सीट सुरक्षित करें', sa: 'स्वसन्तानस्य स्थानं सुरक्षितं कुरुत' },
+  enrollFocused: { en: 'Join the March Batch', hi: 'मार्च बैच में शामिल हों', sa: 'मार्चवर्गे सम्मिलत' },
   scholarshipBadge: { en: 'Scholarships available for needy families', hi: 'जरूरतमंद परिवारों के लिए छात्रवृत्ति उपलब्ध', sa: 'आवश्यककुटुम्बेभ्यः छात्रवृत्तयः उपलब्धाः' },
 
   // Trust Section
@@ -231,18 +257,18 @@ const bodhikaTranslations = {
   longTermDesc: { en: 'Building foundations that last a lifetime', hi: 'जीवन भर चलने वाली नींव बनाना', sa: 'जीवनपर्यन्तं स्थायिनः आधाराः निर्मीयन्ते' },
 
   // Testimonials Section
-  parentTestimonials: { en: 'Parent Testimonials', hi: 'अभिभावक प्रशंसापत्र', sa: 'पितृप्रशंसापत्राणि' },
-  whatParentsSay: { en: 'What Parents Say', hi: 'माता-पिता क्या कहते हैं', sa: 'पितरः किं वदन्ति' },
+  parentTestimonials: { en: 'What Parents are Saying about Bodhika', hi: 'माता-पिता बोधिका के बारे में क्या कह रहे हैं', sa: 'पितरः बोधिकायाः विषये किं वदन्ति' },
+  whatParentsSay: { en: 'Trusted by Families Across India', hi: 'पूरे भारत के परिवारों द्वारा विश्वसनीय', sa: 'सम्पूर्णभारते कुटुम्बैः विश्वसितम्' },
 
   // Final CTA Section
   giveRoots: { en: 'Give Your Child Roots Before Wings', hi: 'पंख देने से पहले अपने बच्चे को जड़ें दें', sa: 'पक्षात् पूर्वं स्वसन्तानाय मूलानि ददातु' },
   finalCTADesc: {
-    en: 'Enroll now and give your child the gift of timeless wisdom, strong values, and cultural pride',
-    hi: 'अभी नामांकन करें और अपने बच्चे को शाश्वत ज्ञान, मजबूत मूल्यों और सांस्कृतिक गौरव का उपहार दें',
-    sa: 'अधुना नामाङ्कनं कुरुत स्वसन्तानाय शाश्वतज्ञानस्य दृढमूल्यानां सांस्कृतिकगौरवस्य च उपहारं ददातु'
+    en: 'March 2026 batch is filling up fast. Secure your child\'s spot in this transformational journey.',
+    hi: 'मार्च 2026 बैच तेजी से भर रहा है। इस परिवर्तनकारी यात्रा में अपने बच्चे की सीट सुरक्षित करें।',
+    sa: 'मार्च २०२६ वर्गः शीघ्रं पूर्यते। अस्मिन् परिवर्तनात्मिकयात्रायां स्वसन्तानस्य स्थानं सुरक्षितं कुरुत।'
   },
   talkToUs: { en: 'Talk to Us', hi: 'हमसे बात करें', sa: 'अस्माभिः सह वदत' },
-  limitedSeats: { en: 'Live Classes + Recordings Included • Limited Seats', hi: 'लाइव कक्षाएं + रिकॉर्डिंग शामिल • सीमित सीटें', sa: 'जीवन्तकक्षाः + अभिलेखाः सम्मिलिताः • सीमितासनानि' },
+  limitedSeats: { en: '🔥 Limited Seats for March Batch • Enroll Today', hi: '🔥 मार्च बैच के लिए सीमित सीटें • आज नामांकन करें', sa: '🔥 मार्चवर्गाय सीमितासनानि • अद्य नामाङ्कयत' },
 
   // Sacred Texts
   ramayana: { en: 'Ramayana', hi: 'रामायण', sa: 'रामायणम्' },
@@ -361,6 +387,12 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="text-white space-y-6 animate-fade-in">
+            {/* Scarcity Badge */}
+            <div className="inline-flex items-center gap-2 bg-saffron/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg animate-pulse">
+              <Flame className="h-4 w-4" />
+              <span className="font-body text-sm font-semibold">{t(bodhikaTranslations.limitedSeatsForMarch)}</span>
+            </div>
+            
             <div className="border-l-4 border-saffron pl-6">
               <h1 className="font-heading text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-white">
                 {t(bodhikaTranslations.heroTitle)}
@@ -371,7 +403,11 @@ const HeroSection = () => {
               {t(bodhikaTranslations.heroTagline)}
             </h2>
             
-            <p className="font-body text-lg md:text-xl text-cream/85 max-w-xl leading-relaxed">
+            <p className="font-body text-lg md:text-xl text-saffron-light font-medium max-w-xl leading-relaxed">
+              {t(bodhikaTranslations.heroSubtitle)}
+            </p>
+            
+            <p className="font-body text-base text-cream/80 max-w-xl leading-relaxed">
               {t(bodhikaTranslations.heroDesc)}
             </p>
             
@@ -388,7 +424,7 @@ const HeroSection = () => {
                 size="lg" 
                 variant="outline"
                 className="border-2 border-cream text-cream hover:bg-cream/10 font-semibold px-8 py-6 text-lg"
-                onClick={() => window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=Hi! I want to know more about Bodhika course.`, '_blank')}
+                onClick={() => window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=Hi! I want to know more about Bodhika course for March 2026 batch.`, '_blank')}
               >
                 <Phone className="mr-2 h-5 w-5" />
                 {t(bodhikaTranslations.bookCounseling)}
@@ -438,6 +474,125 @@ const HighlightStrip = () => {
               <span className="font-body font-medium">{item.label}</span>
             </div>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Flexible Schedule Section
+const FlexibleScheduleSection = () => {
+  const { t } = useLanguage();
+  
+  return (
+    <section className="py-16 bg-gradient-to-br from-cream via-background to-cream/50">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-12">
+          <Badge className="bg-maroon/10 text-maroon border-maroon/20 mb-4">
+            <Calendar className="h-3 w-3 mr-1" />
+            {t(bodhikaTranslations.flexibleScheduleTitle)}
+          </Badge>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
+            {t(bodhikaTranslations.flexibleScheduleDesc)}
+          </h2>
+        </div>
+        
+        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          {/* Academic Term */}
+          <Card className="border-2 border-border bg-card hover-lift">
+            <CardContent className="p-8">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
+                  <BookOpen className="h-8 w-8 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-heading text-xl font-bold text-foreground">{t(bodhikaTranslations.academicTerm)}</h3>
+                  <p className="font-body text-2xl font-bold text-maroon">{t(bodhikaTranslations.academicTermDays)}</p>
+                </div>
+              </div>
+              <p className="font-body text-muted-foreground leading-relaxed">
+                {t(bodhikaTranslations.academicTermDesc)}
+              </p>
+              <div className="mt-4 flex items-center gap-2 text-blue-600">
+                <CheckCircle2 className="h-5 w-5" />
+                <span className="font-body text-sm">Balanced with school schedule</span>
+              </div>
+            </CardContent>
+          </Card>
+          
+          {/* Holiday Intensive */}
+          <Card className="border-2 border-saffron bg-gradient-to-br from-saffron/5 to-maroon/5 hover-lift relative overflow-hidden">
+            <div className="absolute top-4 right-4">
+              <Badge className="bg-saffron text-white border-0 shadow-lg">
+                <Sparkles className="h-3 w-3 mr-1" />
+                Premium
+              </Badge>
+            </div>
+            <CardContent className="p-8">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-saffron to-maroon flex items-center justify-center shadow-lg">
+                  <Sun className="h-8 w-8 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-heading text-xl font-bold text-foreground">{t(bodhikaTranslations.holidayIntensive)}</h3>
+                  <p className="font-body text-2xl font-bold text-saffron">{t(bodhikaTranslations.holidayIntensiveDays)}</p>
+                </div>
+              </div>
+              <p className="font-body text-muted-foreground leading-relaxed">
+                {t(bodhikaTranslations.holidayIntensiveDesc)}
+              </p>
+              <div className="mt-4 p-3 bg-saffron/10 rounded-lg">
+                <p className="font-body text-sm text-maroon font-medium">
+                  {t(bodhikaTranslations.premiumBenefit)}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Shastrakulam Legacy Section
+const ShastrakulamLegacySection = () => {
+  const { t } = useLanguage();
+  
+  return (
+    <section className="py-20 bg-gradient-to-br from-maroon via-maroon-dark to-maroon">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto text-center text-white">
+          <Badge className="bg-saffron/20 text-saffron border-saffron/30 mb-6">
+            <Award className="h-3 w-3 mr-1" />
+            {t(bodhikaTranslations.shastrakulamLegacy)}
+          </Badge>
+          
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-8">
+            {t(bodhikaTranslations.whyHolisticApproach)}
+          </h2>
+          
+          <p className="font-body text-lg md:text-xl text-cream/90 mb-6 leading-relaxed">
+            {t(bodhikaTranslations.legacyDesc1)}
+          </p>
+          
+          <p className="font-body text-lg text-cream/80 mb-12 leading-relaxed">
+            {t(bodhikaTranslations.legacyDesc2)}
+          </p>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { icon: GraduationCap, text: t(bodhikaTranslations.legacyPoint1) },
+              { icon: Target, text: t(bodhikaTranslations.legacyPoint2) },
+              { icon: Heart, text: t(bodhikaTranslations.legacyPoint3) },
+            ].map((item, idx) => (
+              <div key={idx} className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/10">
+                <div className="w-12 h-12 rounded-full bg-saffron flex items-center justify-center mx-auto mb-4">
+                  <item.icon className="h-6 w-6 text-white" />
+                </div>
+                <p className="font-body text-cream text-sm">{item.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -929,6 +1084,14 @@ const PricingSection = () => {
   return (
     <section id="pricing-section" className="py-20 bg-background">
       <div className="container mx-auto px-4">
+        {/* Scarcity Banner */}
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/20 rounded-full px-6 py-3 animate-pulse">
+            <Flame className="h-5 w-5 text-red-500" />
+            <span className="font-body font-bold text-red-600">{t(bodhikaTranslations.limitedSeatsForMarch)}</span>
+          </div>
+        </div>
+        
         <div className="text-center mb-16">
           <Badge className="bg-saffron/10 text-saffron border-saffron/20 mb-4">
             {t(bodhikaTranslations.batchPricing)}
@@ -939,15 +1102,22 @@ const PricingSection = () => {
           <p className="font-body text-lg text-muted-foreground">
             {t(bodhikaTranslations.pricingDesc)}
           </p>
+          <p className="font-body text-sm text-maroon font-medium mt-2">
+            {t(bodhikaTranslations.marchBatchStarting)}
+          </p>
         </div>
         
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {/* Group Batch */}
           <Card className="border-2 border-border shadow-card hover-lift overflow-hidden relative">
-            <div className="absolute top-4 right-4 w-20 h-20 opacity-15 rounded-lg overflow-hidden">
+            {/* Scarcity Tag */}
+            <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-red-500 to-orange-500 text-white text-center py-1 text-xs font-bold z-20">
+              🔥 {t(bodhikaTranslations.limitedSeatsForMarch)}
+            </div>
+            <div className="absolute top-8 right-4 w-20 h-20 opacity-15 rounded-lg overflow-hidden">
               <img src={heroGurukul} alt="" className="w-full h-full object-cover object-center" />
             </div>
-            <div className="bg-cream/50 p-6 relative z-10">
+            <div className="bg-cream/50 p-6 pt-10 relative z-10">
               <div className="flex items-center justify-between mb-4">
                 <Badge className="bg-saffron/10 text-saffron">{t(bodhikaTranslations.groupBatch)}</Badge>
                 <Users className="h-6 w-6 text-muted-foreground" />
@@ -1273,13 +1443,15 @@ const BodhikaLanding = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Bodhika - Sanatan Dharma Course for Children | Shastrakulam</title>
-        <meta name="description" content="Bodhika is a 1-year live online program teaching Sanatan Dharma, Sanskrit, moral values, and Indian culture to children through engaging classes and stories." />
-        <meta name="keywords" content="Sanatan Dharma course, children education, Sanskrit learning, Indian culture, Vedic education, online learning, Ramayana, Mahabharata, Bhagavad Gita" />
+        <title>Bodhika - Sanatan Dharma Course for Children | March 2026 Batch | Shastrakulam</title>
+        <meta name="description" content="Bodhika is a 1-year live online program starting March 2026. Build a foundation of Sanskar and Sanskrit for your child through character building, culture, and values." />
+        <meta name="keywords" content="Sanatan Dharma course, children education, Sanskrit learning, Indian culture, Vedic education, online learning, March 2026 batch, character building" />
       </Helmet>
       
       <HeroSection />
       <HighlightStrip />
+      <FlexibleScheduleSection />
+      <ShastrakulamLegacySection />
       <AboutSection />
       <BenefitsSection />
       <VideoSection />
