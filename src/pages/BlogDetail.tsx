@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, User } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Share2 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import SEO from '@/components/SEO';
 import { Button } from '@/components/ui/button';
@@ -24,6 +24,11 @@ const blogDetailTranslations = {
     en: 'Back to Blog',
     hi: 'ब्लॉग पर वापस',
     sa: 'ब्लॉगं प्रति प्रत्यागमनम्'
+  },
+  shareOnWhatsApp: {
+    en: 'Share on WhatsApp',
+    hi: 'व्हाट्सएप पर शेयर करें',
+    sa: 'व्हाट्सएप् द्वारा साझयतु'
   },
   loading: {
     en: 'Loading...',
@@ -105,15 +110,27 @@ const BlogDetail: React.FC = () => {
               {t(post.title)}
             </h1>
 
-            <div className="flex flex-wrap items-center gap-4 text-muted-foreground mb-8">
-              <div className="flex items-center gap-2">
-                <User className="h-4 w-4" />
-                <span className="font-body">{post.author}</span>
+            <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+              <div className="flex flex-wrap items-center gap-4 text-muted-foreground">
+                <div className="flex items-center gap-2">
+                  <User className="h-4 w-4" />
+                  <span className="font-body">{post.author}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Calendar className="h-4 w-4" />
+                  <span className="font-body">{post.date}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4" />
-                <span className="font-body">{post.date}</span>
-              </div>
+              <a 
+                href={`https://wa.me/?text=${encodeURIComponent(`${post.title.en} - https://qqvirwqrecpzbldjyiua.supabase.co/functions/v1/og-share/blog/${slug}`)}`}
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <Button variant="outline" size="sm" className="gap-2">
+                  <Share2 className="h-4 w-4" />
+                  {tl(blogDetailTranslations.shareOnWhatsApp)}
+                </Button>
+              </a>
             </div>
           </div>
         </div>
