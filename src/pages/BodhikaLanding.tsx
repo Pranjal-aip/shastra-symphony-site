@@ -79,6 +79,7 @@ import FounderInvitation from '@/components/bodhika/FounderInvitation';
 import StickyMobileFooter from '@/components/bodhika/StickyMobileFooter';
 import ScarcityNarrative from '@/components/bodhika/ScarcityNarrative';
 import HeroVSL from '@/components/bodhika/HeroVSL';
+import FloatingScarcityBadge from '@/components/bodhika/FloatingScarcityBadge';
 
 // Translations
 const bodhikaTranslations = {
@@ -1462,6 +1463,7 @@ const BodhikaLanding = () => {
   return (
     <>
       <ScarcityTopBar />
+      <FloatingScarcityBadge />
       <Layout>
         <Helmet>
           <title>Bodhika - Sanatan Dharma Course for Children | Only 70 Seats | Shastrakulam</title>
