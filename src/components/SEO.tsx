@@ -31,7 +31,7 @@ const SEO: React.FC<SEOProps> = ({
   title,
   description,
   keywords,
-  image = 'https://lovable.dev/opengraph-image-p98pqg.png',
+  image = '/og-default.jpg',
   url,
   type = 'website',
   article,
