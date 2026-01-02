@@ -38,9 +38,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
     return colors[level] || colors['All Ages'];
   };
 
-  // Check if this is the Bodhika course
-  const isBodhikaCourse = course.slug === 'bodhika' || t(course.title).toLowerCase().includes('bodhika');
-  const courseLink = isBodhikaCourse ? '/bodhika' : `/courses/${course.slug}`;
+  // All courses redirect to /bodhika page
+  const courseLink = '/bodhika';
 
   return (
     <div className="group bg-card rounded-2xl overflow-hidden shadow-card hover-lift border border-border/50">
