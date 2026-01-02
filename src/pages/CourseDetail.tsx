@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Clock, Users, BookOpen, Star, ShoppingCart, Check } from 'lucide-react';
 import Layout from '@/components/Layout';
+import SEO from '@/components/SEO';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useAdmin } from '@/contexts/AdminContext';
@@ -70,6 +71,22 @@ const CourseDetail: React.FC = () => {
 
   return (
     <Layout>
+      <SEO 
+        title={{
+          en: course.title.en,
+          hi: course.title.hi || course.title.en,
+          sa: course.title.sa || course.title.en
+        }}
+        description={{
+          en: course.shortDescription.en || '',
+          hi: course.shortDescription.hi || course.shortDescription.en || '',
+          sa: course.shortDescription.sa || course.shortDescription.en || ''
+        }}
+        image={course.thumbnail || ''}
+        url={`/courses/${slug}`}
+        type="product"
+        keywords={`${course.category}, ${course.level}, Sanskrit course, Vedic education, Shastrakulam`}
+      />
       {/* Hero Section */}
       <section className="py-12 bg-hero-pattern">
         <div className="container mx-auto px-4">

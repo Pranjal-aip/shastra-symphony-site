@@ -81,6 +81,7 @@ const BlogDetail: React.FC = () => {
           hi: post.excerpt.hi || post.excerpt.en || '',
           sa: post.excerpt.sa || post.excerpt.en || ''
         }}
+        image={post.thumbnail || ''}
         url={`/blog/${slug}`}
         type="article"
         article={{
