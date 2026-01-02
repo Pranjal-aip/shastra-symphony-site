@@ -1489,6 +1489,7 @@ const BodhikaLanding = () => {
         <FounderInvitation />
         <FinalCTASection />
         <StickyMobileFooter />
+        <ScarcityProgressBar floating />
       </Layout>
     </>
   );
