@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Clock, Users, BookOpen, Star, ShoppingCart, Check } from 'lucide-react';
+import { ArrowLeft, Clock, Users, BookOpen, Star, ShoppingCart, Check, Share2 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import SEO from '@/components/SEO';
 import { Button } from '@/components/ui/button';
@@ -175,6 +175,16 @@ const CourseDetail: React.FC = () => {
                 <a href="https://wa.me/919674916567" target="_blank" rel="noopener noreferrer">
                   <Button variant="outline" size="lg">
                     Inquire via WhatsApp
+                  </Button>
+                </a>
+                <a 
+                  href={`https://wa.me/?text=${encodeURIComponent(`${course.title.en} - https://qqvirwqrecpzbldjyiua.supabase.co/functions/v1/og-share/courses/${slug}`)}`}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  <Button variant="ghost" size="lg" className="gap-2">
+                    <Share2 className="h-4 w-4" />
+                    Share
                   </Button>
                 </a>
               </div>
