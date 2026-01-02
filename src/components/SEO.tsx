@@ -46,6 +46,16 @@ const SEO: React.FC<SEOProps> = ({
   const baseUrl = 'https://shastrakulam.org';
   const currentUrl = url ? `${baseUrl}${url}` : baseUrl;
   
+  // Ensure image URL is absolute for social media platforms
+  const getAbsoluteImageUrl = (img: string) => {
+    if (!img) return 'https://lovable.dev/opengraph-image-p98pqg.png';
+    if (img.startsWith('http')) return img;
+    if (img.startsWith('/')) return `${baseUrl}${img}`;
+    return `${baseUrl}/${img}`;
+  };
+  
+  const absoluteImageUrl = getAbsoluteImageUrl(image);
+  
   // Default organization structured data
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -106,7 +116,10 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:site_name" content="Shastrakulam" />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={currentDescription} />
-      <meta property="og:image" content={image} />
+      <meta property="og:image" content={absoluteImageUrl} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:type" content="image/jpeg" />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:locale" content={language === 'en' ? 'en_US' : language === 'hi' ? 'hi_IN' : 'sa_IN'} />
       
@@ -126,7 +139,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:creator" content="@shastrakulam" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={currentDescription} />
-      <meta name="twitter:image" content={image} />
+      <meta name="twitter:image" content={absoluteImageUrl} />
       
       {/* Structured Data */}
       <script type="application/ld+json">
