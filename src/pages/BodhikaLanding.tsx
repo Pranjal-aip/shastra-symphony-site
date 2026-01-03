@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
-import CourseEnrollmentForm from '@/components/CourseEnrollmentForm';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -1088,15 +1087,9 @@ const SanskritSection = () => {
   );
 };
 
-// Course IDs for enrollment
-const BODHIKA_GROUP_BATCH_ID = 'e5a43aaf-1e76-4f7b-89cf-c8ab854dbb77';
-const BODHIKA_FOCUSED_BATCH_ID = '5950b376-89bb-4a67-90a2-0b551784cac9';
-
 // Pricing Section
 const PricingSection = () => {
   const { t } = useLanguage();
-  const [groupEnrollOpen, setGroupEnrollOpen] = useState(false);
-  const [focusedEnrollOpen, setFocusedEnrollOpen] = useState(false);
   
   return (
     <section id="pricing-section" className="py-20 bg-background">
@@ -1164,7 +1157,7 @@ const PricingSection = () => {
               
               <Button 
                 className="w-full bg-saffron hover:bg-saffron/90 text-white"
-                onClick={() => setGroupEnrollOpen(true)}
+                onClick={() => window.open('https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-695393a483bcbf4ec9283f27', '_blank')}
               >
                 {t(bodhikaTranslations.enrollGroup)}
               </Button>
@@ -1211,7 +1204,7 @@ const PricingSection = () => {
               
               <Button 
                 className="w-full bg-maroon hover:bg-maroon/90 text-white"
-                onClick={() => setFocusedEnrollOpen(true)}
+                onClick={() => window.open('https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42', '_blank')}
               >
                 {t(bodhikaTranslations.enrollFocused)}
               </Button>
@@ -1237,20 +1230,6 @@ const PricingSection = () => {
           <RiskReversalCard />
         </div>
       </div>
-      
-      {/* Enrollment Forms */}
-      <CourseEnrollmentForm
-        courseId={BODHIKA_GROUP_BATCH_ID}
-        courseName="Bodhika – Group Batch (₹6,000)"
-        open={groupEnrollOpen}
-        onOpenChange={setGroupEnrollOpen}
-      />
-      <CourseEnrollmentForm
-        courseId={BODHIKA_FOCUSED_BATCH_ID}
-        courseName="Bodhika – Focused Batch (₹13,000)"
-        open={focusedEnrollOpen}
-        onOpenChange={setFocusedEnrollOpen}
-      />
     </section>
   );
 };

@@ -228,15 +228,10 @@ export type Database = {
           course_id: string
           created_at: string
           email: string
-          gender: string | null
-          graphy_enrolled_at: string | null
-          graphy_learner_id: string | null
-          graphy_sync_status: string | null
           id: string
           message: string | null
           phone: string | null
           referral_link_id: string | null
-          state: string | null
           status: string
           student_name: string
           updated_at: string
@@ -247,15 +242,10 @@ export type Database = {
           course_id: string
           created_at?: string
           email: string
-          gender?: string | null
-          graphy_enrolled_at?: string | null
-          graphy_learner_id?: string | null
-          graphy_sync_status?: string | null
           id?: string
           message?: string | null
           phone?: string | null
           referral_link_id?: string | null
-          state?: string | null
           status?: string
           student_name: string
           updated_at?: string
@@ -266,15 +256,10 @@ export type Database = {
           course_id?: string
           created_at?: string
           email?: string
-          gender?: string | null
-          graphy_enrolled_at?: string | null
-          graphy_learner_id?: string | null
-          graphy_sync_status?: string | null
           id?: string
           message?: string | null
           phone?: string | null
           referral_link_id?: string | null
-          state?: string | null
           status?: string
           student_name?: string
           updated_at?: string
@@ -306,7 +291,6 @@ export type Database = {
           full_description_en: string | null
           full_description_hi: string | null
           full_description_sa: string | null
-          graphy_product_id: string | null
           id: string
           is_popular: boolean
           level: string
@@ -331,7 +315,6 @@ export type Database = {
           full_description_en?: string | null
           full_description_hi?: string | null
           full_description_sa?: string | null
-          graphy_product_id?: string | null
           id?: string
           is_popular?: boolean
           level?: string
@@ -356,7 +339,6 @@ export type Database = {
           full_description_en?: string | null
           full_description_hi?: string | null
           full_description_sa?: string | null
-          graphy_product_id?: string | null
           id?: string
           is_popular?: boolean
           level?: string
@@ -373,47 +355,6 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
-      }
-      graphy_progress: {
-        Row: {
-          created_at: string
-          enrollment_id: string
-          id: string
-          last_synced_at: string | null
-          progress_percent: number | null
-          quiz_scores: Json | null
-          time_spent_secs: number | null
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          enrollment_id: string
-          id?: string
-          last_synced_at?: string | null
-          progress_percent?: number | null
-          quiz_scores?: Json | null
-          time_spent_secs?: number | null
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          enrollment_id?: string
-          id?: string
-          last_synced_at?: string | null
-          progress_percent?: number | null
-          quiz_scores?: Json | null
-          time_spent_secs?: number | null
-          updated_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "graphy_progress_enrollment_id_fkey"
-            columns: ["enrollment_id"]
-            isOneToOne: true
-            referencedRelation: "course_enrollments"
-            referencedColumns: ["id"]
-          },
-        ]
       }
       notification_popup: {
         Row: {

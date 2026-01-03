@@ -414,12 +414,6 @@ interface CoursesTabProps {
   toast: any;
 }
 
-interface GraphyProduct {
-  id: string;
-  title: string;
-  price?: number;
-}
-
 const CoursesTab: React.FC<CoursesTabProps> = ({ 
   courses, categories, onDelete, onTogglePopular, onToggleShowOnHome, onAdd, onUpdate, toast 
 }) => {
@@ -428,35 +422,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
   const [editingCourse, setEditingCourse] = useState<Course | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [graphyProducts, setGraphyProducts] = useState<GraphyProduct[]>([]);
-  const [isFetchingGraphy, setIsFetchingGraphy] = useState(false);
-
-  const fetchGraphyProducts = async () => {
-    setIsFetchingGraphy(true);
-    try {
-      const { data, error } = await supabase.functions.invoke('graphy-sync', {
-        body: { action: 'get_products' }
-      });
-      
-      if (error) throw error;
-      
-      if (data.success && data.data?.products) {
-        setGraphyProducts(data.data.products);
-        toast({ title: 'Success', description: `Loaded ${data.data.products.length} Graphy products` });
-      } else {
-        throw new Error(data.error || 'Failed to fetch products');
-      }
-    } catch (error: any) {
-      console.error('Graphy fetch error:', error);
-      toast({ 
-        title: 'Error', 
-        description: error.message || 'Failed to fetch Graphy products', 
-        variant: 'destructive' 
-      });
-    } finally {
-      setIsFetchingGraphy(false);
-    }
-  };
   
   
   const [formData, setFormData] = useState({
@@ -475,7 +440,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
     showOnHome: false,
     ageMin: '',
     ageMax: '',
-    graphyProductId: '',
   });
 
   const resetForm = () => {
@@ -495,7 +459,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       showOnHome: false,
       ageMin: '',
       ageMax: '',
-      graphyProductId: '',
     });
   };
 
@@ -528,7 +491,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
         showOnHome: formData.showOnHome,
         ageMin: formData.ageMin ? parseInt(formData.ageMin) : undefined,
         ageMax: formData.ageMax ? parseInt(formData.ageMax) : undefined,
-        graphyProductId: formData.graphyProductId || undefined,
       });
       
       setIsAddOpen(false);
@@ -559,7 +521,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       showOnHome: course.showOnHome,
       ageMin: course.ageMin?.toString() || '',
       ageMax: course.ageMax?.toString() || '',
-      graphyProductId: course.graphyProductId || '',
     });
     setIsEditOpen(true);
   };
@@ -592,7 +553,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
         showOnHome: formData.showOnHome,
         ageMin: formData.ageMin ? parseInt(formData.ageMin) : undefined,
         ageMax: formData.ageMax ? parseInt(formData.ageMax) : undefined,
-        graphyProductId: formData.graphyProductId || undefined,
       });
       setIsEditOpen(false);
       setEditingCourse(null);
@@ -691,48 +651,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
         <Input placeholder="Duration (e.g., 12 weeks)" value={formData.duration} onChange={(e) => setFormData({ ...formData, duration: e.target.value })} />
         <Input placeholder="Price (e.g., ₹4,999)" value={formData.price} onChange={(e) => setFormData({ ...formData, price: e.target.value })} />
       </div>
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Graphy Product</label>
-        <div className="flex gap-2">
-          <Button 
-            type="button" 
-            variant="outline" 
-            size="sm"
-            onClick={fetchGraphyProducts}
-            disabled={isFetchingGraphy}
-            className="shrink-0"
-          >
-            {isFetchingGraphy ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : null}
-            Fetch Products
-          </Button>
-          {graphyProducts.length > 0 ? (
-            <Select 
-              value={formData.graphyProductId} 
-              onValueChange={(v) => setFormData({ ...formData, graphyProductId: v })}
-            >
-              <SelectTrigger className="flex-1">
-                <SelectValue placeholder="Select Graphy Product" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="">None</SelectItem>
-                {graphyProducts.map((product) => (
-                  <SelectItem key={product.id} value={product.id}>
-                    {product.title} {product.price ? `(₹${product.price})` : ''}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          ) : (
-            <Input 
-              placeholder="Product ID or click Fetch" 
-              value={formData.graphyProductId} 
-              onChange={(e) => setFormData({ ...formData, graphyProductId: e.target.value })}
-              className="flex-1"
-            />
-          )}
-        </div>
-        <p className="text-xs text-muted-foreground">Click "Fetch Products" to load available Graphy courses</p>
-      </div>
       <div className="flex items-center justify-between">
         <Label htmlFor="popular">Mark as Popular</Label>
         <Switch id="popular" checked={formData.isPopular} onCheckedChange={(checked) => setFormData({ ...formData, isPopular: checked })} />
@@ -806,7 +724,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
               <TableHead>Category</TableHead>
               <TableHead>Level</TableHead>
               <TableHead>Price</TableHead>
-              <TableHead>Graphy</TableHead>
               <TableHead>Popular</TableHead>
               <TableHead>Home Page</TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -824,13 +741,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
                 <TableCell><Badge variant="secondary">{course.category}</Badge></TableCell>
                 <TableCell className="font-body text-sm">{course.level}</TableCell>
                 <TableCell className="font-body">{course.price || '-'}</TableCell>
-                <TableCell>
-                  {course.graphyProductId ? (
-                    <Badge className="bg-green-100 text-green-800">Linked</Badge>
-                  ) : (
-                    <Badge variant="outline" className="text-muted-foreground">Not linked</Badge>
-                  )}
-                </TableCell>
                 <TableCell>
                   <button onClick={() => onTogglePopular(course.id)} className="hover:scale-110 transition-transform">
                     {course.isPopular ? (
@@ -1840,7 +1750,6 @@ const EnrollmentsTab: React.FC<EnrollmentsTabProps> = ({ courses, toast }) => {
               <TableHead>Course</TableHead>
               <TableHead>Age</TableHead>
               <TableHead>Referral</TableHead>
-              <TableHead>Graphy</TableHead>
               <TableHead>Date</TableHead>
               <TableHead>Status</TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -1872,17 +1781,6 @@ const EnrollmentsTab: React.FC<EnrollmentsTabProps> = ({ courses, toast }) => {
                   )}
                 </TableCell>
                 <TableCell>
-                  {enrollment.graphy_sync_status === 'synced' ? (
-                    <Badge className="bg-green-100 text-green-800">Synced</Badge>
-                  ) : enrollment.graphy_sync_status === 'learner_created' ? (
-                    <Badge className="bg-blue-100 text-blue-800">Learner Only</Badge>
-                  ) : enrollment.graphy_sync_status === 'failed' ? (
-                    <Badge className="bg-red-100 text-red-800">Failed</Badge>
-                  ) : (
-                    <Badge variant="outline" className="text-muted-foreground">Pending</Badge>
-                  )}
-                </TableCell>
-                <TableCell>
                   <span className="font-body text-sm">
                     {new Date(enrollment.created_at).toLocaleDateString()}
                   </span>
@@ -1905,7 +1803,7 @@ const EnrollmentsTab: React.FC<EnrollmentsTabProps> = ({ courses, toast }) => {
             ))}
             {enrollments.length === 0 && (
               <TableRow>
-                <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
+                <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
                   No enrollment requests yet
                 </TableCell>
               </TableRow>
