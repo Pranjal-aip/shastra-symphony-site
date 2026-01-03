@@ -13,11 +13,23 @@ Deno.serve(async (req) => {
   const url = new URL(req.url)
   const pathParts = url.pathname.split('/').filter(Boolean)
   
-  // Expected path: /og-share/blog/:slug or /og-share/courses/:slug
-  const type = pathParts[1] // 'blog' or 'courses'
-  const slug = pathParts[2]
+  // Log incoming request for debugging
+  const userAgent = req.headers.get('user-agent') || ''
+  console.log('OG Share Request:', {
+    pathname: url.pathname,
+    pathParts,
+    userAgent: userAgent.substring(0, 100),
+  })
+  
+  // Use last two segments: /functions/v1/og-share/blog/:slug -> type=blog, slug=:slug
+  const type = pathParts.at(-2) // 'blog' or 'courses'
+  const slug = pathParts.at(-1)
 
-  if (!type || !slug) {
+  console.log('Parsed:', { type, slug })
+
+  // Validate type and slug
+  if (!type || !slug || (type !== 'blog' && type !== 'courses')) {
+    console.log('Invalid type or slug, returning 404')
     return new Response('Not found', { status: 404 })
   }
 
@@ -35,11 +47,13 @@ Deno.serve(async (req) => {
 
   try {
     if (type === 'blog') {
-      const { data: post } = await supabase
+      const { data: post, error } = await supabase
         .from('blog_posts')
         .select('title_en, excerpt_en, thumbnail, slug')
         .eq('slug', slug)
         .single()
+
+      console.log('Blog query result:', { post, error })
 
       if (post) {
         title = post.title_en || title
@@ -52,11 +66,13 @@ Deno.serve(async (req) => {
         pageUrl = `${baseUrl}/blog/${slug}`
       }
     } else if (type === 'courses') {
-      const { data: course } = await supabase
+      const { data: course, error } = await supabase
         .from('courses')
         .select('title_en, short_description_en, thumbnail, slug')
         .eq('slug', slug)
         .single()
+
+      console.log('Course query result:', { course, error })
 
       if (course) {
         title = course.title_en || title
@@ -74,8 +90,9 @@ Deno.serve(async (req) => {
   }
 
   // Detect if this is a social media crawler
-  const userAgent = req.headers.get('user-agent') || ''
   const isCrawler = /facebookexternalhit|WhatsApp|Twitterbot|LinkedInBot|Slackbot|TelegramBot|Pinterest|Discordbot/i.test(userAgent)
+
+  console.log('Final values:', { title, description, image, pageUrl, isCrawler })
 
   // For crawlers, return HTML with OG tags
   // For regular users, redirect to the actual page
