@@ -1472,10 +1472,11 @@ const BodhikaLanding = () => {
     setEnrollDialogOpen(true);
   };
 
-  const handleMobileEnrollClick = () => {
-    // Default to group batch from mobile footer
-    setSelectedBatch('group');
-    setEnrollDialogOpen(true);
+  const scrollToPricing = () => {
+    const pricingSection = document.getElementById('pricing-section');
+    if (pricingSection) {
+      pricingSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
   
   return (
@@ -1506,7 +1507,7 @@ const BodhikaLanding = () => {
         <TestimonialsSection />
         <FounderInvitation />
         <FinalCTASection />
-        <StickyMobileFooter onEnrollClick={handleMobileEnrollClick} />
+        <StickyMobileFooter onEnrollClick={scrollToPricing} />
         <ScarcityProgressBar floating />
       </Layout>
 
