@@ -178,7 +178,7 @@ const CourseDetail: React.FC = () => {
                   </Button>
                 </a>
                 <a 
-                  href={`https://wa.me/?text=${encodeURIComponent(`${course.title.en} - https://qqvirwqrecpzbldjyiua.supabase.co/functions/v1/og-share/courses/${slug}?v=${Date.now()}`)}`}
+                  href={`https://wa.me/?text=${encodeURIComponent(`${course.title.en} - https://shastrakulam.com/courses/${slug}`)}`}
                   target="_blank" 
                   rel="noopener noreferrer"
                 >

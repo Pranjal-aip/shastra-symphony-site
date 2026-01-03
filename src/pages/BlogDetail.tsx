@@ -122,7 +122,7 @@ const BlogDetail: React.FC = () => {
                 </div>
               </div>
               <a 
-                href={`https://wa.me/?text=${encodeURIComponent(`${post.title.en} - https://qqvirwqrecpzbldjyiua.supabase.co/functions/v1/og-share/blog/${slug}?v=${Date.now()}`)}`}
+                href={`https://wa.me/?text=${encodeURIComponent(`${post.title.en} - https://shastrakulam.com/blog/${slug}`)}`}
                 target="_blank" 
                 rel="noopener noreferrer"
               >

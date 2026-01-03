@@ -43,7 +43,7 @@ const SEO: React.FC<SEOProps> = ({
   const currentTitle = title[language] || title.en;
   const currentDescription = description[language] || description.en;
   const fullTitle = `${currentTitle} | Shastrakulam`;
-  const baseUrl = 'https://shastrakulam.org';
+  const baseUrl = 'https://shastrakulam.com';
   const currentUrl = url ? `${baseUrl}${url}` : baseUrl;
   
   // Ensure image URL is absolute for social media platforms
@@ -77,7 +77,7 @@ const SEO: React.FC<SEOProps> = ({
       "@type": "ContactPoint",
       "telephone": "+91-96749-16567",
       "contactType": "customer service",
-      "email": "info@shastrakulam.org",
+      "email": "info@shastrakulam.com",
       "availableLanguage": ["English", "Hindi", "Sanskrit"]
     },
     "sameAs": [

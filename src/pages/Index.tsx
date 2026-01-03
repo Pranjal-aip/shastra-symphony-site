@@ -45,11 +45,11 @@ const Index: React.FC = () => {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Shastrakulam",
-    "url": "https://shastrakulam.org",
+    "url": "https://shastrakulam.com",
     "description": seoData.description.en,
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://shastrakulam.org/courses?q={search_term_string}",
+      "target": "https://shastrakulam.com/courses?q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   };
