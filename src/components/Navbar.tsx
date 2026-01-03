@@ -92,11 +92,9 @@ const Navbar: React.FC = () => {
             <LanguageSwitcher />
             <CartDrawer />
             
-            {/* Student Login - Graphy Dashboard */}
+            {/* Student Login - My Courses Dashboard */}
             <a 
-              href="https://learn.shastrakulam.com/login" 
-              target="_blank" 
-              rel="noopener noreferrer"
+              href="/my-courses" 
               className="hidden sm:block"
             >
               <Button variant="outline" size="sm" className="gap-2">
@@ -168,11 +166,9 @@ const Navbar: React.FC = () => {
                   Donate
                 </Link>
                 
-                {/* Student Login - Graphy Dashboard */}
+                {/* Student Dashboard Link */}
                 <a
-                  href="https://learn.shastrakulam.com/login"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/my-courses"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="px-4 py-3 rounded-lg font-body text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted flex items-center gap-2"
                 >
