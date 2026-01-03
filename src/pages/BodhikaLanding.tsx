@@ -1097,7 +1097,7 @@ const PricingSection = ({ onEnrollClick }: PricingSectionProps) => {
   const { t } = useLanguage();
   
   return (
-    <section id="pricing-section" className="py-20 bg-background">
+    <section id="pricing-section" className="py-20 bg-background scroll-mt-40">
       <div className="container mx-auto px-4">
         {/* Scarcity Banner */}
         <div className="text-center mb-8">
@@ -1475,7 +1475,10 @@ const BodhikaLanding = () => {
   const scrollToPricing = () => {
     const pricingSection = document.getElementById('pricing-section');
     if (pricingSection) {
-      pricingSection.scrollIntoView({ behavior: 'smooth' });
+      const headerOffset = 160;
+      const elementPosition = pricingSection.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - headerOffset;
+      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
     }
   };
   
