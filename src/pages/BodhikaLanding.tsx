@@ -1097,7 +1097,7 @@ const PricingSection = ({ onEnrollClick }: PricingSectionProps) => {
   const { t } = useLanguage();
   
   return (
-    <section id="pricing-section" className="py-20 bg-background scroll-mt-40">
+    <section id="pricing-section" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         {/* Scarcity Banner */}
         <div className="text-center mb-8">
@@ -1472,14 +1472,10 @@ const BodhikaLanding = () => {
     setEnrollDialogOpen(true);
   };
 
-  const scrollToPricing = () => {
-    const pricingSection = document.getElementById('pricing-section');
-    if (pricingSection) {
-      const headerOffset = 160;
-      const elementPosition = pricingSection.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - headerOffset;
-      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-    }
+  const handleMobileEnrollClick = () => {
+    // Default to group batch from mobile footer
+    setSelectedBatch('group');
+    setEnrollDialogOpen(true);
   };
   
   return (
@@ -1510,7 +1506,7 @@ const BodhikaLanding = () => {
         <TestimonialsSection />
         <FounderInvitation />
         <FinalCTASection />
-        <StickyMobileFooter onEnrollClick={scrollToPricing} />
+        <StickyMobileFooter onEnrollClick={handleMobileEnrollClick} />
         <ScarcityProgressBar floating />
       </Layout>
 

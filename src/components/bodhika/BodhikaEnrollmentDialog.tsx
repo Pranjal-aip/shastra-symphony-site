@@ -195,11 +195,6 @@ export function BodhikaEnrollmentDialog({
   const onSubmit = async (values: EnrollmentFormValues) => {
     setIsSubmitting(true);
 
-    // Generate enrollment ID client-side to avoid needing SELECT after INSERT
-    const enrollmentId = crypto.randomUUID();
-    const graphyProduct = GRAPHY_PRODUCTS[batchType];
-    const checkoutUrl = `https://learn.shastrakulam.com/courses/${graphyProduct.slug}?email=${encodeURIComponent(values.email)}`;
-
     try {
       // First, find the Bodhika course in the database
       const { data: courseData } = await supabase
@@ -207,66 +202,79 @@ export function BodhikaEnrollmentDialog({
         .select("id")
         .ilike("title_en", "%Bodhika%")
         .limit(1)
-        .maybeSingle();
+        .single();
 
       const courseId = courseData?.id;
 
       if (!courseId) {
+        // If course not found, still proceed with enrollment but without course_id link
         console.warn("Bodhika course not found in database, proceeding without course link");
       }
 
-      // Insert enrollment into database (no .select() to avoid RLS SELECT requirement)
-      const { error: insertError } = await supabase
+      // Insert enrollment into database
+      const { data: enrollment, error: insertError } = await supabase
         .from("course_enrollments")
         .insert({
-          id: enrollmentId,
           student_name: values.studentName,
           email: values.email,
           phone: values.phone || null,
           gender: values.gender,
           age: values.age,
           state: values.state,
-          course_id: courseId || "00000000-0000-0000-0000-000000000000",
+          course_id: courseId || "00000000-0000-0000-0000-000000000000", // Fallback UUID
           status: "pending",
           graphy_sync_status: "pending",
-        });
+        })
+        .select()
+        .single();
 
       if (insertError) {
         console.error("Enrollment insert error:", insertError);
         throw new Error(insertError.message);
       }
 
-      // Call graphy-sync edge function (non-blocking)
-      supabase.functions.invoke("graphy-sync", {
-        body: {
-          action: "sync_enrollment",
-          email: values.email,
-          name: values.studentName,
-          mobile: values.phone,
-          productId: graphyProduct.id,
-          enrollmentId: enrollmentId,
-        },
-      }).catch((err) => {
-        console.error("Graphy sync error:", err);
-      });
+      // Call graphy-sync edge function
+      const graphyProduct = GRAPHY_PRODUCTS[batchType];
+      
+      const { data: syncResult, error: syncError } = await supabase.functions.invoke(
+        "graphy-sync",
+        {
+          body: {
+            action: "sync_enrollment",
+            email: values.email,
+            name: values.studentName,
+            mobile: values.phone,
+            productId: graphyProduct.id,
+            enrollmentId: enrollment.id,
+          },
+        }
+      );
+
+      if (syncError) {
+        console.error("Graphy sync error:", syncError);
+        // Don't throw - we still want to redirect even if sync fails
+      }
 
       toast({
         title: t.success,
         description: "Redirecting to payment...",
       });
 
-      // Reset form and close dialog
-      form.reset();
+      // Close dialog and redirect to Graphy checkout
       onOpenChange(false);
       
-      // Redirect in same tab to avoid popup blockers
-      window.location.assign(checkoutUrl);
+      const checkoutUrl = `https://learn.shastrakulam.com/courses/${graphyProduct.slug}?email=${encodeURIComponent(values.email)}`;
+      window.open(checkoutUrl, "_blank");
+
+      // Reset form
+      form.reset();
     } catch (error) {
       console.error("Enrollment error:", error);
       toast({
         title: t.error,
         variant: "destructive",
       });
+    } finally {
       setIsSubmitting(false);
     }
   };
