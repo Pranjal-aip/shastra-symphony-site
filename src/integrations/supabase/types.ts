@@ -228,6 +228,7 @@ export type Database = {
           course_id: string
           created_at: string
           email: string
+          gender: string | null
           graphy_enrolled_at: string | null
           graphy_learner_id: string | null
           graphy_sync_status: string | null
@@ -235,6 +236,7 @@ export type Database = {
           message: string | null
           phone: string | null
           referral_link_id: string | null
+          state: string | null
           status: string
           student_name: string
           updated_at: string
@@ -245,6 +247,7 @@ export type Database = {
           course_id: string
           created_at?: string
           email: string
+          gender?: string | null
           graphy_enrolled_at?: string | null
           graphy_learner_id?: string | null
           graphy_sync_status?: string | null
@@ -252,6 +255,7 @@ export type Database = {
           message?: string | null
           phone?: string | null
           referral_link_id?: string | null
+          state?: string | null
           status?: string
           student_name: string
           updated_at?: string
@@ -262,6 +266,7 @@ export type Database = {
           course_id?: string
           created_at?: string
           email?: string
+          gender?: string | null
           graphy_enrolled_at?: string | null
           graphy_learner_id?: string | null
           graphy_sync_status?: string | null
@@ -269,6 +274,7 @@ export type Database = {
           message?: string | null
           phone?: string | null
           referral_link_id?: string | null
+          state?: string | null
           status?: string
           student_name?: string
           updated_at?: string
