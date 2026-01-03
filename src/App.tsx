@@ -20,7 +20,6 @@ import Programs from "./pages/Programs";
 import Camps from "./pages/Camps";
 import Donate from "./pages/Donate";
 import Bodhika from "./pages/BodhikaLanding";
-import StudentDashboard from "./pages/StudentDashboard";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
@@ -51,7 +50,6 @@ const App = () => (
                   <Route path="/camps" element={<Camps />} />
                   <Route path="/donate" element={<Donate />} />
                   <Route path="/bodhika" element={<Bodhika />} />
-                  <Route path="/my-courses" element={<StudentDashboard />} />
                   <Route path="/admin/login" element={<AdminLogin />} />
                   <Route path="/admin" element={<AdminDashboard />} />
                   <Route path="*" element={<NotFound />} />

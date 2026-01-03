@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Heart, LogIn, LogOut, GraduationCap } from 'lucide-react';
+import { Menu, X, Heart, LogIn, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import CartDrawer from '@/components/CartDrawer';
@@ -15,10 +15,6 @@ const loginTranslations = {
 
 const donateTranslations = {
   donate: { en: 'Donate', hi: 'दान करें', sa: 'दानम्' },
-};
-
-const studentLoginTranslations = {
-  studentLogin: { en: 'My Courses', hi: 'मेरे पाठ्यक्रम', sa: 'मम पाठ्यक्रमाः' },
 };
 
 const Navbar: React.FC = () => {
@@ -91,18 +87,6 @@ const Navbar: React.FC = () => {
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
             <CartDrawer />
-            
-            {/* Student Login - My Courses Dashboard */}
-            <a 
-              href="/my-courses" 
-              className="hidden sm:block"
-            >
-              <Button variant="outline" size="sm" className="gap-2">
-                <GraduationCap className="h-4 w-4" />
-                {t(studentLoginTranslations.studentLogin)}
-              </Button>
-            </a>
-            
             <Link to="/donate" className="hidden md:block">
               <Button variant="maroon-outline" size="sm" className="gap-2">
                 <Heart className="h-4 w-4" />
@@ -110,13 +94,20 @@ const Navbar: React.FC = () => {
               </Button>
             </Link>
             
-            {/* Admin Login/Logout Button */}
+            {/* Login/Logout Button */}
             {user ? (
-              <Button variant="ghost" size="sm" className="gap-2" onClick={() => signOut()}>
+              <Button variant="outline" size="sm" className="gap-2" onClick={() => signOut()}>
                 <LogOut className="h-4 w-4" />
                 {t(loginTranslations.logout)}
               </Button>
-            ) : null}
+            ) : (
+              <Link to="/admin/login" className="hidden sm:block">
+                <Button variant="outline" size="sm" className="gap-2">
+                  <LogIn className="h-4 w-4" />
+                  {t(loginTranslations.login)}
+                </Button>
+              </Link>
+            )}
             
             <Link to="/courses" className="hidden sm:block">
               <Button variant="saffron" size="default">
@@ -166,18 +157,8 @@ const Navbar: React.FC = () => {
                   Donate
                 </Link>
                 
-                {/* Student Dashboard Link */}
-                <a
-                  href="/my-courses"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="px-4 py-3 rounded-lg font-body text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted flex items-center gap-2"
-                >
-                  <GraduationCap className="h-4 w-4" />
-                  {t(studentLoginTranslations.studentLogin)}
-                </a>
-                
-                {/* Admin Logout (only show if logged in) */}
-                {user && (
+                {/* Mobile Login/Logout */}
+                {user ? (
                   <button
                     onClick={() => { signOut(); setIsMobileMenuOpen(false); }}
                     className="px-4 py-3 rounded-lg font-body text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted flex items-center gap-2"
@@ -185,6 +166,15 @@ const Navbar: React.FC = () => {
                     <LogOut className="h-4 w-4" />
                     {t(loginTranslations.logout)}
                   </button>
+                ) : (
+                  <Link
+                    to="/admin/login"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="px-4 py-3 rounded-lg font-body text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted flex items-center gap-2"
+                  >
+                    <LogIn className="h-4 w-4" />
+                    {t(loginTranslations.login)}
+                  </Link>
                 )}
                 
                 <Link
