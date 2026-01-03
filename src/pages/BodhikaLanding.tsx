@@ -80,7 +80,6 @@ import StickyMobileFooter from '@/components/bodhika/StickyMobileFooter';
 import ScarcityNarrative from '@/components/bodhika/ScarcityNarrative';
 import HeroVSL from '@/components/bodhika/HeroVSL';
 import FloatingScarcityBadge from '@/components/bodhika/FloatingScarcityBadge';
-import { BodhikaEnrollmentDialog } from '@/components/bodhika/BodhikaEnrollmentDialog';
 
 // Translations
 const bodhikaTranslations = {
@@ -1089,11 +1088,7 @@ const SanskritSection = () => {
 };
 
 // Pricing Section
-interface PricingSectionProps {
-  onEnrollClick: (batchType: 'group' | 'focused') => void;
-}
-
-const PricingSection = ({ onEnrollClick }: PricingSectionProps) => {
+const PricingSection = () => {
   const { t } = useLanguage();
   
   return (
@@ -1162,7 +1157,7 @@ const PricingSection = ({ onEnrollClick }: PricingSectionProps) => {
               
               <Button 
                 className="w-full bg-saffron hover:bg-saffron/90 text-white"
-                onClick={() => onEnrollClick('group')}
+                onClick={() => window.open('https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-695393a483bcbf4ec9283f27', '_blank')}
               >
                 {t(bodhikaTranslations.enrollGroup)}
               </Button>
@@ -1209,7 +1204,7 @@ const PricingSection = ({ onEnrollClick }: PricingSectionProps) => {
               
               <Button 
                 className="w-full bg-maroon hover:bg-maroon/90 text-white"
-                onClick={() => onEnrollClick('focused')}
+                onClick={() => window.open('https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42', '_blank')}
               >
                 {t(bodhikaTranslations.enrollFocused)}
               </Button>
@@ -1464,19 +1459,6 @@ const StickyEnrollButton = () => {
 // Main Page Component
 const BodhikaLanding = () => {
   const { t } = useLanguage();
-  const [enrollDialogOpen, setEnrollDialogOpen] = useState(false);
-  const [selectedBatch, setSelectedBatch] = useState<'group' | 'focused'>('group');
-
-  const handleEnrollClick = (batchType: 'group' | 'focused') => {
-    setSelectedBatch(batchType);
-    setEnrollDialogOpen(true);
-  };
-
-  const handleMobileEnrollClick = () => {
-    // Default to group batch from mobile footer
-    setSelectedBatch('group');
-    setEnrollDialogOpen(true);
-  };
   
   return (
     <>
@@ -1500,21 +1482,15 @@ const BodhikaLanding = () => {
         <LearningSection />
         <LearningExperienceSection />
         <SanskritSection />
-        <PricingSection onEnrollClick={handleEnrollClick} />
+        <PricingSection />
         <ObjectionCrusherFAQ />
         <TrustSection />
         <TestimonialsSection />
         <FounderInvitation />
         <FinalCTASection />
-        <StickyMobileFooter onEnrollClick={handleMobileEnrollClick} />
+        <StickyMobileFooter />
         <ScarcityProgressBar floating />
       </Layout>
-
-      <BodhikaEnrollmentDialog
-        open={enrollDialogOpen}
-        onOpenChange={setEnrollDialogOpen}
-        batchType={selectedBatch}
-      />
     </>
   );
 };

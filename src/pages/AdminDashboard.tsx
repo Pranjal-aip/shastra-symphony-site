@@ -440,7 +440,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
     showOnHome: false,
     ageMin: '',
     ageMax: '',
-    graphyProductId: '',
   });
 
   const resetForm = () => {
@@ -460,7 +459,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       showOnHome: false,
       ageMin: '',
       ageMax: '',
-      graphyProductId: '',
     });
   };
 
@@ -493,7 +491,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
         showOnHome: formData.showOnHome,
         ageMin: formData.ageMin ? parseInt(formData.ageMin) : undefined,
         ageMax: formData.ageMax ? parseInt(formData.ageMax) : undefined,
-        graphyProductId: formData.graphyProductId || undefined,
       });
       
       setIsAddOpen(false);
@@ -524,7 +521,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       showOnHome: course.showOnHome,
       ageMin: course.ageMin?.toString() || '',
       ageMax: course.ageMax?.toString() || '',
-      graphyProductId: course.graphyProductId || '',
     });
     setIsEditOpen(true);
   };
@@ -557,7 +553,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
         showOnHome: formData.showOnHome,
         ageMin: formData.ageMin ? parseInt(formData.ageMin) : undefined,
         ageMax: formData.ageMax ? parseInt(formData.ageMax) : undefined,
-        graphyProductId: formData.graphyProductId || undefined,
       });
       setIsEditOpen(false);
       setEditingCourse(null);
@@ -656,15 +651,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
         <Input placeholder="Duration (e.g., 12 weeks)" value={formData.duration} onChange={(e) => setFormData({ ...formData, duration: e.target.value })} />
         <Input placeholder="Price (e.g., ₹4,999)" value={formData.price} onChange={(e) => setFormData({ ...formData, price: e.target.value })} />
       </div>
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Graphy Product ID</label>
-        <Input 
-          placeholder="e.g., 64a1b2c3d4e5f6..." 
-          value={formData.graphyProductId} 
-          onChange={(e) => setFormData({ ...formData, graphyProductId: e.target.value })} 
-        />
-        <p className="text-xs text-muted-foreground">Link this course to a Graphy product for automatic enrollment sync</p>
-      </div>
       <div className="flex items-center justify-between">
         <Label htmlFor="popular">Mark as Popular</Label>
         <Switch id="popular" checked={formData.isPopular} onCheckedChange={(checked) => setFormData({ ...formData, isPopular: checked })} />
@@ -738,7 +724,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
               <TableHead>Category</TableHead>
               <TableHead>Level</TableHead>
               <TableHead>Price</TableHead>
-              <TableHead>Graphy</TableHead>
               <TableHead>Popular</TableHead>
               <TableHead>Home Page</TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -756,13 +741,6 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
                 <TableCell><Badge variant="secondary">{course.category}</Badge></TableCell>
                 <TableCell className="font-body text-sm">{course.level}</TableCell>
                 <TableCell className="font-body">{course.price || '-'}</TableCell>
-                <TableCell>
-                  {course.graphyProductId ? (
-                    <Badge className="bg-green-100 text-green-800">Linked</Badge>
-                  ) : (
-                    <Badge variant="outline" className="text-muted-foreground">Not linked</Badge>
-                  )}
-                </TableCell>
                 <TableCell>
                   <button onClick={() => onTogglePopular(course.id)} className="hover:scale-110 transition-transform">
                     {course.isPopular ? (
@@ -1772,7 +1750,6 @@ const EnrollmentsTab: React.FC<EnrollmentsTabProps> = ({ courses, toast }) => {
               <TableHead>Course</TableHead>
               <TableHead>Age</TableHead>
               <TableHead>Referral</TableHead>
-              <TableHead>Graphy</TableHead>
               <TableHead>Date</TableHead>
               <TableHead>Status</TableHead>
               <TableHead className="text-right">Actions</TableHead>
@@ -1804,17 +1781,6 @@ const EnrollmentsTab: React.FC<EnrollmentsTabProps> = ({ courses, toast }) => {
                   )}
                 </TableCell>
                 <TableCell>
-                  {enrollment.graphy_sync_status === 'synced' ? (
-                    <Badge className="bg-green-100 text-green-800">Synced</Badge>
-                  ) : enrollment.graphy_sync_status === 'learner_created' ? (
-                    <Badge className="bg-blue-100 text-blue-800">Learner Only</Badge>
-                  ) : enrollment.graphy_sync_status === 'failed' ? (
-                    <Badge className="bg-red-100 text-red-800">Failed</Badge>
-                  ) : (
-                    <Badge variant="outline" className="text-muted-foreground">Pending</Badge>
-                  )}
-                </TableCell>
-                <TableCell>
                   <span className="font-body text-sm">
                     {new Date(enrollment.created_at).toLocaleDateString()}
                   </span>
@@ -1837,7 +1803,7 @@ const EnrollmentsTab: React.FC<EnrollmentsTabProps> = ({ courses, toast }) => {
             ))}
             {enrollments.length === 0 && (
               <TableRow>
-                <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
+                <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
                   No enrollment requests yet
                 </TableCell>
               </TableRow>
