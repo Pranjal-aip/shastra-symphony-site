@@ -19,9 +19,16 @@ const translations = {
 const FloatingScarcityBadge = () => {
   const { t } = useLanguage();
 
+  const scrollToPricing = () => {
+    const pricingSection = document.getElementById('pricing-section');
+    if (pricingSection) {
+      pricingSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  };
+
   return (
     <motion.div
-      className="fixed z-40 pointer-events-none"
+      className="fixed z-40 cursor-pointer"
       initial={{ x: '-100%', y: '30vh' }}
       animate={{ 
         x: ['calc(-100%)', 'calc(100vw + 100%)'],
@@ -39,6 +46,7 @@ const FloatingScarcityBadge = () => {
           ease: 'easeInOut'
         }
       }}
+      onClick={scrollToPricing}
     >
       <motion.div
         className="relative"
@@ -49,7 +57,7 @@ const FloatingScarcityBadge = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-saffron via-maroon to-saffron rounded-2xl blur-xl opacity-60 scale-110" />
         
         {/* Main badge */}
-        <div className="relative bg-gradient-to-r from-maroon-dark via-maroon to-maroon-dark px-8 py-5 rounded-2xl border-2 border-saffron/50 shadow-2xl">
+        <div className="relative bg-gradient-to-r from-maroon-dark via-maroon to-maroon-dark px-8 py-5 rounded-2xl border-2 border-saffron/50 shadow-2xl hover:scale-105 transition-transform">
           <div className="flex items-center gap-4">
             {/* Animated flame icon */}
             <motion.div
