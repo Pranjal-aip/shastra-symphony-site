@@ -98,18 +98,54 @@ const CourseEnrollmentForm: React.FC<CourseEnrollmentFormProps> = ({
     try {
       const referralLinkId = await getReferralLinkId();
       
-      const { error } = await supabase.from('course_enrollments').insert({
-        course_id: courseId,
-        referral_link_id: referralLinkId,
-        student_name: formData.studentName,
-        email: formData.email,
-        phone: formData.phone || null,
-        age: ageInputType === 'manual' && formData.age ? parseInt(formData.age) : null,
-        age_group: ageInputType === 'select' ? formData.ageGroup : null,
-        message: formData.message || null,
-      });
+      // First, insert enrollment into database
+      const { data: enrollmentData, error } = await supabase
+        .from('course_enrollments')
+        .insert({
+          course_id: courseId,
+          referral_link_id: referralLinkId,
+          student_name: formData.studentName,
+          email: formData.email,
+          phone: formData.phone || null,
+          age: ageInputType === 'manual' && formData.age ? parseInt(formData.age) : null,
+          age_group: ageInputType === 'select' ? formData.ageGroup : null,
+          message: formData.message || null,
+          graphy_sync_status: 'pending',
+        })
+        .select('id')
+        .single();
 
       if (error) throw error;
+
+      // Get course's Graphy product ID
+      const { data: courseData } = await supabase
+        .from('courses')
+        .select('graphy_product_id')
+        .eq('id', courseId)
+        .single();
+
+      // Sync with Graphy in background (don't block user)
+      if (enrollmentData?.id) {
+        supabase.functions
+          .invoke('graphy-sync', {
+            body: {
+              action: 'sync_enrollment',
+              email: formData.email,
+              name: formData.studentName,
+              mobile: formData.phone || undefined,
+              productId: courseData?.graphy_product_id || undefined,
+              enrollmentId: enrollmentData.id,
+            },
+          })
+          .then((res) => {
+            if (res.error) {
+              console.error('Graphy sync error:', res.error);
+            } else {
+              console.log('Graphy sync completed:', res.data);
+            }
+          })
+          .catch((err) => console.error('Graphy sync failed:', err));
+      }
 
       toast({
         title: 'Success!',
