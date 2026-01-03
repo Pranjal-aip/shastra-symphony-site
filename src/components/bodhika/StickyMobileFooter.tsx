@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Flame } from 'lucide-react';
@@ -18,6 +18,10 @@ const translations = {
   }
 };
 
+interface StickyMobileFooterProps {
+  onEnrollClick?: () => void;
+}
+
 const scrollToPricing = () => {
   const pricingSection = document.getElementById('pricing-section');
   if (pricingSection) {
@@ -25,7 +29,7 @@ const scrollToPricing = () => {
   }
 };
 
-const StickyMobileFooter = () => {
+const StickyMobileFooter = ({ onEnrollClick }: StickyMobileFooterProps) => {
   const { t } = useLanguage();
   const isMobile = useIsMobile();
   const [visible, setVisible] = useState(false);
@@ -53,6 +57,14 @@ const StickyMobileFooter = () => {
 
   // Only show on mobile
   if (!isMobile) return null;
+
+  const handleClick = () => {
+    if (onEnrollClick) {
+      onEnrollClick();
+    } else {
+      scrollToPricing();
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -87,7 +99,7 @@ const StickyMobileFooter = () => {
                 <Button
                   size="sm"
                   className="bg-saffron hover:bg-saffron/90 text-white font-semibold px-6 py-2 rounded-full shadow-lg flex-1 max-w-[200px]"
-                  onClick={scrollToPricing}
+                  onClick={handleClick}
                 >
                   <motion.span
                     animate={{ opacity: [1, 0.8, 1] }}
