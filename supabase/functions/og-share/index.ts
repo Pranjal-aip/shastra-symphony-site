@@ -37,7 +37,7 @@ Deno.serve(async (req) => {
   const supabaseKey = Deno.env.get('SUPABASE_ANON_KEY')!
   const supabase = createClient(supabaseUrl, supabaseKey)
 
-  const baseUrl = 'https://shastrakulam.org'
+  const baseUrl = 'https://shastrakulam.com'
   const defaultImage = `${baseUrl}/og-default.jpg`
   
   let title = 'Shastrakulam – Vedic Education'
