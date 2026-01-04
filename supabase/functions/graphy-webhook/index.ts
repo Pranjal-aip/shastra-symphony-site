@@ -6,6 +6,7 @@ const corsHeaders = {
 };
 
 interface GraphyWebhookPayload {
+  // Standard webhook format
   event?: string;
   type?: string;
   data?: {
@@ -36,6 +37,15 @@ interface GraphyWebhookPayload {
   learner_id?: string;
   product_id?: string;
   course_id?: string;
+  // Graphy's actual format with space-separated field names
+  "Learner Name"?: string;
+  "Learner Email"?: string;
+  "Learner Mobile"?: string;
+  "Course Name"?: string;
+  "Course Link"?: string;
+  "Assigned Through"?: string;
+  "Assigned Through Id"?: string;
+  "Course Validity"?: string;
 }
 
 Deno.serve(async (req) => {
@@ -55,9 +65,14 @@ Deno.serve(async (req) => {
     console.log("=== Graphy Webhook Received ===");
     console.log("Full payload:", JSON.stringify(payload, null, 2));
 
+    // Check if this is Graphy's format (has "Learner Email" field)
+    const isGraphyFormat = !!(payload["Learner Email"] || payload["Learner Name"]);
+    
     // Extract event type (Graphy may use different field names)
-    const eventType = payload.event || payload.type || "unknown";
+    // If it's Graphy format with learner data, treat it as an enrollment event
+    const eventType = isGraphyFormat ? "new_enrollment" : (payload.event || payload.type || "unknown");
     console.log("Event type:", eventType);
+    console.log("Is Graphy format:", isGraphyFormat);
 
     // Handle enrollment/payment events
     const enrollmentEvents = [
@@ -78,7 +93,9 @@ Deno.serve(async (req) => {
     }
 
     // Extract email from various possible locations in payload
+    // Support both Graphy's format and standard webhook format
     const learnerEmail = 
+      payload["Learner Email"] ||  // Graphy's actual format
       payload.data?.learner?.email ||
       payload.data?.user?.email ||
       payload.learner_email ||
