@@ -8,3 +8,6 @@ verify_jwt = false
 
 [functions.graphy-sync]
 verify_jwt = false
+
+[functions.graphy-webhook]
+verify_jwt = false
