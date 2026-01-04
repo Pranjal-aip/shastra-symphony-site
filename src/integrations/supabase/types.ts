@@ -212,6 +212,44 @@ export type Database = {
         }
         Relationships: []
       }
+      certificate_downloads: {
+        Row: {
+          certificate_url: string | null
+          course_name: string | null
+          created_at: string
+          downloaded_at: string
+          email: string
+          enrollment_id: string | null
+          id: string
+        }
+        Insert: {
+          certificate_url?: string | null
+          course_name?: string | null
+          created_at?: string
+          downloaded_at?: string
+          email: string
+          enrollment_id?: string | null
+          id?: string
+        }
+        Update: {
+          certificate_url?: string | null
+          course_name?: string | null
+          created_at?: string
+          downloaded_at?: string
+          email?: string
+          enrollment_id?: string | null
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "certificate_downloads_enrollment_id_fkey"
+            columns: ["enrollment_id"]
+            isOneToOne: false
+            referencedRelation: "course_enrollments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       contact_messages: {
         Row: {
           created_at: string
@@ -270,6 +308,7 @@ export type Database = {
         Row: {
           age: number | null
           age_group: string | null
+          certificate_download_count: number | null
           certificate_issued: boolean | null
           certificate_url: string | null
           completed_at: string | null
@@ -292,6 +331,7 @@ export type Database = {
         Insert: {
           age?: number | null
           age_group?: string | null
+          certificate_download_count?: number | null
           certificate_issued?: boolean | null
           certificate_url?: string | null
           completed_at?: string | null
@@ -314,6 +354,7 @@ export type Database = {
         Update: {
           age?: number | null
           age_group?: string | null
+          certificate_download_count?: number | null
           certificate_issued?: boolean | null
           certificate_url?: string | null
           completed_at?: string | null
@@ -466,6 +507,84 @@ export type Database = {
           },
         ]
       }
+      graphy_courses: {
+        Row: {
+          course_link: string | null
+          created_at: string
+          graphy_course_id: string | null
+          id: string
+          is_synced_to_local: boolean | null
+          metadata: Json | null
+          published_at: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          course_link?: string | null
+          created_at?: string
+          graphy_course_id?: string | null
+          id?: string
+          is_synced_to_local?: boolean | null
+          metadata?: Json | null
+          published_at?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          course_link?: string | null
+          created_at?: string
+          graphy_course_id?: string | null
+          id?: string
+          is_synced_to_local?: boolean | null
+          metadata?: Json | null
+          published_at?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      graphy_learners: {
+        Row: {
+          consent_timestamp: string | null
+          created_at: string
+          email: string
+          graphy_learner_id: string | null
+          id: string
+          marketing_consent: boolean | null
+          mobile: string | null
+          name: string | null
+          profile_data: Json | null
+          signup_source: string | null
+          updated_at: string
+        }
+        Insert: {
+          consent_timestamp?: string | null
+          created_at?: string
+          email: string
+          graphy_learner_id?: string | null
+          id?: string
+          marketing_consent?: boolean | null
+          mobile?: string | null
+          name?: string | null
+          profile_data?: Json | null
+          signup_source?: string | null
+          updated_at?: string
+        }
+        Update: {
+          consent_timestamp?: string | null
+          created_at?: string
+          email?: string
+          graphy_learner_id?: string | null
+          id?: string
+          marketing_consent?: boolean | null
+          mobile?: string | null
+          name?: string | null
+          profile_data?: Json | null
+          signup_source?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       graphy_progress: {
         Row: {
           created_at: string
@@ -506,6 +625,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      graphy_subscribers: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          mobile: string | null
+          name: string | null
+          source: string | null
+          subscribed_at: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          mobile?: string | null
+          name?: string | null
+          source?: string | null
+          subscribed_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          mobile?: string | null
+          name?: string | null
+          source?: string | null
+          subscribed_at?: string
+        }
+        Relationships: []
       }
       notification_popup: {
         Row: {
@@ -674,6 +823,36 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      video_processing_logs: {
+        Row: {
+          course_name: string | null
+          created_at: string
+          id: string
+          metadata: Json | null
+          processed_at: string
+          status: string
+          video_id: string | null
+        }
+        Insert: {
+          course_name?: string | null
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          processed_at?: string
+          status?: string
+          video_id?: string | null
+        }
+        Update: {
+          course_name?: string | null
+          created_at?: string
+          id?: string
+          metadata?: Json | null
+          processed_at?: string
+          status?: string
+          video_id?: string | null
         }
         Relationships: []
       }
