@@ -367,6 +367,7 @@ const bodhikaTranslations = {
   benefitCommunityDesc: { en: 'Connect with like-minded families and build lasting friendships rooted in dharma', hi: 'समान विचारधारा वाले परिवारों से जुड़ें और धर्म पर आधारित स्थायी मित्रता बनाएं', sa: 'समानविचाराणां कुटुम्बैः सह संयुज्यध्वं धर्ममूलिकां स्थायिमैत्रीं च निर्मात' },
   benefitLifeSkills: { en: 'Life Skills & Discipline', hi: 'जीवन कौशल और अनुशासन', sa: 'जीवनकौशलम् अनुशासनं च' },
   benefitLifeSkillsDesc: { en: 'Develop self-discipline, time management, and positive daily habits', hi: 'आत्म-अनुशासन, समय प्रबंधन और सकारात्मक दैनिक आदतें विकसित करें', sa: 'आत्मानुशासनं कालप्रबन्धनं सकारात्मकदैनन्दिनाभ्यासांश्च विकसयत' },
+  askOnWhatsApp: { en: 'Ask on WhatsApp', hi: 'WhatsApp पर पूछें', sa: 'WhatsApp इत्यत्र पृच्छतु' },
 };
 
 // WhatsApp Number
@@ -1166,12 +1167,28 @@ const PricingSection = () => {
                 ))}
               </ul>
               
-              <Button 
-                className="w-full bg-saffron hover:bg-saffron/90 text-white"
-                onClick={() => handleEnrollClick('group')}
-              >
-                {t(bodhikaTranslations.enrollGroup)}
-              </Button>
+              <div className="space-y-3">
+                <Button 
+                  className="w-full bg-saffron hover:bg-saffron/90 text-white"
+                  onClick={() => handleEnrollClick('group')}
+                >
+                  {t(bodhikaTranslations.enrollGroup)}
+                </Button>
+                <a 
+                  href="https://wa.me/919810364541?text=Hi%2C%20I%20have%20a%20question%20about%20the%20Bodhika%20Group%20Batch%20course."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Button 
+                    variant="outline"
+                    className="w-full border-green-500 text-green-600 hover:bg-green-50"
+                  >
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                    {t(bodhikaTranslations.askOnWhatsApp)}
+                  </Button>
+                </a>
+              </div>
             </CardContent>
           </Card>
           
@@ -1213,12 +1230,28 @@ const PricingSection = () => {
                 ))}
               </ul>
               
-              <Button 
-                className="w-full bg-maroon hover:bg-maroon/90 text-white"
-                onClick={() => handleEnrollClick('focused')}
-              >
-                {t(bodhikaTranslations.enrollFocused)}
-              </Button>
+              <div className="space-y-3">
+                <Button 
+                  className="w-full bg-maroon hover:bg-maroon/90 text-white"
+                  onClick={() => handleEnrollClick('focused')}
+                >
+                  {t(bodhikaTranslations.enrollFocused)}
+                </Button>
+                <a 
+                  href="https://wa.me/919810364541?text=Hi%2C%20I%20have%20a%20question%20about%20the%20Bodhika%20Focused%20Batch%20course."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Button 
+                    variant="outline"
+                    className="w-full border-green-500 text-green-600 hover:bg-green-50"
+                  >
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                    {t(bodhikaTranslations.askOnWhatsApp)}
+                  </Button>
+                </a>
+              </div>
             </CardContent>
           </Card>
         </div>
