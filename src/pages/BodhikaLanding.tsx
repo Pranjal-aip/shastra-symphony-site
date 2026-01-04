@@ -377,7 +377,7 @@ const bodhikaTranslations = {
   comparisonDoubts: { en: 'Doubt Resolution', hi: 'संदेह समाधान', sa: 'संशयनिवारणम्' },
   comparisonRecordings: { en: 'Class Recordings', hi: 'कक्षा रिकॉर्डिंग', sa: 'कक्षाध्वनिमुद्रणम्' },
   comparisonProgress: { en: 'Progress Tracking', hi: 'प्रगति ट्रैकिंग', sa: 'प्रगतिनिरीक्षणम्' },
-  comparisonGroup20: { en: '15-20 students', hi: '15-20 छात्र', sa: '१५-२० छात्राः' },
+  comparisonGroup20: { en: '60 students', hi: '60 छात्र', sa: '६० छात्राः' },
   comparisonFocused10: { en: '8-10 students', hi: '8-10 छात्र', sa: '८-१० छात्राः' },
   comparisonStandard: { en: 'Standard', hi: 'सामान्य', sa: 'सामान्यम्' },
   comparisonPriority: { en: 'Priority', hi: 'प्राथमिकता', sa: 'प्राथमिकता' },
