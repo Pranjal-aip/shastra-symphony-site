@@ -16,6 +16,7 @@ export interface Course {
   price?: string;
   ageMin?: number;
   ageMax?: number;
+  graphyProductId?: string;
 }
 
 export interface BlogPost {
@@ -109,6 +110,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
           showOnHome: c.show_on_home,
           ageMin: c.age_min || undefined,
           ageMax: c.age_max || undefined,
+          graphyProductId: c.graphy_product_id || undefined,
         })));
       }
 
@@ -243,6 +245,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       show_on_home: course.showOnHome,
       age_min: course.ageMin || null,
       age_max: course.ageMax || null,
+      graphy_product_id: course.graphyProductId || null,
     }).select('id').single();
     if (error) throw error;
     await fetchData();
@@ -276,6 +279,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     if (updates.showOnHome !== undefined) updateData.show_on_home = updates.showOnHome;
     if (updates.ageMin !== undefined) updateData.age_min = updates.ageMin;
     if (updates.ageMax !== undefined) updateData.age_max = updates.ageMax;
+    if (updates.graphyProductId !== undefined) updateData.graphy_product_id = updates.graphyProductId;
 
     const { error } = await supabase.from('courses').update(updateData).eq('id', id);
     if (error) throw error;
