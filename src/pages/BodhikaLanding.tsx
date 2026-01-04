@@ -853,8 +853,47 @@ const VideoSection = () => {
 const LearningSection = () => {
   const { t } = useLanguage();
   
-  // All learning topics in one unified list
+  // All learning topics - arranged by parent value (character & values first, then knowledge)
   const allLearningTopics = [
+    // HIGH VALUE - Character & Life Skills (What parents want most)
+    {
+      icon: Heart,
+      image: ramayanaScene,
+      title: t(bodhikaTranslations.moralValues),
+      description: t(bodhikaTranslations.moralValuesDesc)
+    },
+    {
+      icon: Brain,
+      image: heroMeditation,
+      title: t(bodhikaTranslations.mindfulness),
+      description: t(bodhikaTranslations.mindfulnessDesc)
+    },
+    {
+      icon: Hand,
+      image: sanskarScene,
+      title: t(bodhikaTranslations.respectElders),
+      description: t(bodhikaTranslations.respectDesc)
+    },
+    {
+      icon: Feather,
+      image: mahabharataScene,
+      title: t(bodhikaTranslations.storyWisdom),
+      description: t(bodhikaTranslations.storyWisdomDesc)
+    },
+    // UNIQUE OFFERING - Spoken Sanskrit
+    {
+      icon: Mic,
+      image: heroSanskrit,
+      title: t(bodhikaTranslations.spokenSanskritLearning),
+      description: t(bodhikaTranslations.spokenSanskritDesc)
+    },
+    // CORE SCRIPTURES - Foundation Knowledge
+    {
+      icon: BookOpen,
+      image: gitaScene,
+      title: t(bodhikaTranslations.gita),
+      description: t(bodhikaTranslations.gitaDesc)
+    },
     {
       icon: BookOpen,
       image: ramayanaScene,
@@ -867,24 +906,20 @@ const LearningSection = () => {
       title: t(bodhikaTranslations.mahabharata),
       description: t(bodhikaTranslations.mahabharataDesc)
     },
+    // PRACTICAL SKILLS
     {
-      icon: BookOpen,
-      image: gitaScene,
-      title: t(bodhikaTranslations.gita),
-      description: t(bodhikaTranslations.gitaDesc)
+      icon: Music,
+      image: mantrasScene,
+      title: t(bodhikaTranslations.mantrasShlokas),
+      description: t(bodhikaTranslations.mantrasDesc)
     },
     {
-      icon: Sparkles,
-      image: omDivine,
-      title: t(bodhikaTranslations.godExists),
-      description: t(bodhikaTranslations.godExistsDesc)
+      icon: Leaf,
+      image: heroGurukul,
+      title: t(bodhikaTranslations.yogaBreathing),
+      description: t(bodhikaTranslations.yogaDesc)
     },
-    {
-      icon: BookMarked,
-      image: vedasTexts,
-      title: t(bodhikaTranslations.sacredTexts),
-      description: t(bodhikaTranslations.sacredTextsDesc)
-    },
+    // CULTURAL UNDERSTANDING
     {
       icon: Award,
       image: sanskarScene,
@@ -898,34 +933,23 @@ const LearningSection = () => {
       description: t(bodhikaTranslations.cultureTraditionsDesc)
     },
     {
-      icon: Music,
+      icon: Sun,
       image: mantrasScene,
-      title: t(bodhikaTranslations.mantrasShlokas),
-      description: t(bodhikaTranslations.mantrasDesc)
+      title: t(bodhikaTranslations.festivalCelebrations),
+      description: t(bodhikaTranslations.festivalDesc)
+    },
+    // DEEPER KNOWLEDGE
+    {
+      icon: Sparkles,
+      image: omDivine,
+      title: t(bodhikaTranslations.godExists),
+      description: t(bodhikaTranslations.godExistsDesc)
     },
     {
-      icon: Heart,
-      image: ramayanaScene,
-      title: t(bodhikaTranslations.moralValues),
-      description: t(bodhikaTranslations.moralValuesDesc)
-    },
-    {
-      icon: Feather,
-      image: mahabharataScene,
-      title: t(bodhikaTranslations.storyWisdom),
-      description: t(bodhikaTranslations.storyWisdomDesc)
-    },
-    {
-      icon: Mic,
-      image: heroSanskrit,
-      title: t(bodhikaTranslations.spokenSanskritLearning),
-      description: t(bodhikaTranslations.spokenSanskritDesc)
-    },
-    {
-      icon: Brain,
-      image: heroMeditation,
-      title: t(bodhikaTranslations.mindfulness),
-      description: t(bodhikaTranslations.mindfulnessDesc)
+      icon: BookMarked,
+      image: vedasTexts,
+      title: t(bodhikaTranslations.sacredTexts),
+      description: t(bodhikaTranslations.sacredTextsDesc)
     },
     {
       icon: Lightbulb,
@@ -934,28 +958,10 @@ const LearningSection = () => {
       description: t(bodhikaTranslations.philosophyDesc)
     },
     {
-      icon: Leaf,
-      image: heroGurukul,
-      title: t(bodhikaTranslations.yogaBreathing),
-      description: t(bodhikaTranslations.yogaDesc)
-    },
-    {
       icon: TreePine,
       image: heroCulture,
       title: t(bodhikaTranslations.environmentalValues),
       description: t(bodhikaTranslations.environmentalDesc)
-    },
-    {
-      icon: Hand,
-      image: sanskarScene,
-      title: t(bodhikaTranslations.respectElders),
-      description: t(bodhikaTranslations.respectDesc)
-    },
-    {
-      icon: Sun,
-      image: mantrasScene,
-      title: t(bodhikaTranslations.festivalCelebrations),
-      description: t(bodhikaTranslations.festivalDesc)
     },
   ];
   
