@@ -101,12 +101,12 @@ const Navbar: React.FC = () => {
                 {t(loginTranslations.logout)}
               </Button>
             ) : (
-              <Link to="/admin/login" className="hidden sm:block">
+              <a href="https://learn.shastrakulam.com/t/u/activeCourses" className="hidden sm:block" target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" size="sm" className="gap-2">
                   <LogIn className="h-4 w-4" />
                   {t(loginTranslations.login)}
                 </Button>
-              </Link>
+              </a>
             )}
             
             <Link to="/courses" className="hidden sm:block">
@@ -167,14 +167,16 @@ const Navbar: React.FC = () => {
                     {t(loginTranslations.logout)}
                   </button>
                 ) : (
-                  <Link
-                    to="/admin/login"
+                  <a
+                    href="https://learn.shastrakulam.com/t/u/activeCourses"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="px-4 py-3 rounded-lg font-body text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted flex items-center gap-2"
                   >
                     <LogIn className="h-4 w-4" />
                     {t(loginTranslations.login)}
-                  </Link>
+                  </a>
                 )}
                 
                 <Link
