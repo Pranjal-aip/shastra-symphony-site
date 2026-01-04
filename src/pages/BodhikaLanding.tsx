@@ -368,6 +368,20 @@ const bodhikaTranslations = {
   benefitLifeSkills: { en: 'Life Skills & Discipline', hi: 'जीवन कौशल और अनुशासन', sa: 'जीवनकौशलम् अनुशासनं च' },
   benefitLifeSkillsDesc: { en: 'Develop self-discipline, time management, and positive daily habits', hi: 'आत्म-अनुशासन, समय प्रबंधन और सकारात्मक दैनिक आदतें विकसित करें', sa: 'आत्मानुशासनं कालप्रबन्धनं सकारात्मकदैनन्दिनाभ्यासांश्च विकसयत' },
   askOnWhatsApp: { en: 'Ask on WhatsApp', hi: 'WhatsApp पर पूछें', sa: 'WhatsApp इत्यत्र पृच्छतु' },
+  scholarshipButton: { en: 'Scholarship for Needy Families', hi: 'जरूरतमंद परिवारों के लिए छात्रवृत्ति', sa: 'आवश्यककुटुम्बेभ्यः छात्रवृत्तिः' },
+  comparisonTitle: { en: 'Compare Batches', hi: 'बैच की तुलना करें', sa: 'समूहतुलना' },
+  comparisonFeature: { en: 'Feature', hi: 'विशेषता', sa: 'विशेषता' },
+  comparisonBatchSize: { en: 'Batch Size', hi: 'बैच का आकार', sa: 'समूहमानम्' },
+  comparisonPrice: { en: 'Price', hi: 'मूल्य', sa: 'मूल्यम्' },
+  comparisonAttention: { en: 'Personal Attention', hi: 'व्यक्तिगत ध्यान', sa: 'वैयक्तिकध्यानम्' },
+  comparisonDoubts: { en: 'Doubt Resolution', hi: 'संदेह समाधान', sa: 'संशयनिवारणम्' },
+  comparisonRecordings: { en: 'Class Recordings', hi: 'कक्षा रिकॉर्डिंग', sa: 'कक्षाध्वनिमुद्रणम्' },
+  comparisonProgress: { en: 'Progress Tracking', hi: 'प्रगति ट्रैकिंग', sa: 'प्रगतिनिरीक्षणम्' },
+  comparisonGroup20: { en: '15-20 students', hi: '15-20 छात्र', sa: '१५-२० छात्राः' },
+  comparisonFocused10: { en: '8-10 students', hi: '8-10 छात्र', sa: '८-१० छात्राः' },
+  comparisonStandard: { en: 'Standard', hi: 'सामान्य', sa: 'सामान्यम्' },
+  comparisonPriority: { en: 'Priority', hi: 'प्राथमिकता', sa: 'प्राथमिकता' },
+  comparisonDetailed: { en: 'Detailed', hi: 'विस्तृत', sa: 'विस्तृतम्' },
 };
 
 // WhatsApp Number
@@ -440,6 +454,23 @@ const HeroSection = () => {
                 <Phone className="mr-2 h-5 w-5" />
                 {t(bodhikaTranslations.bookCounseling)}
               </Button>
+            </div>
+            
+            {/* Scholarship Button */}
+            <div className="mt-6">
+              <a 
+                href="https://wa.me/919810364541?text=Hi%2C%20I%20am%20interested%20in%20the%20scholarship%20for%20Bodhika%20course.%20My%20family%20needs%20financial%20assistance."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button 
+                  variant="outline"
+                  className="border-2 border-green-400 text-green-400 hover:bg-green-400/10 font-semibold"
+                >
+                  <Award className="mr-2 h-5 w-5" />
+                  {t(bodhikaTranslations.scholarshipButton)}
+                </Button>
+              </a>
             </div>
           </div>
           
@@ -1256,12 +1287,92 @@ const PricingSection = () => {
           </Card>
         </div>
         
+        {/* Comparison Table */}
+        <div className="max-w-4xl mx-auto mt-12">
+          <Card className="border shadow-card overflow-hidden">
+            <div className="bg-maroon p-4 text-center">
+              <h3 className="font-heading text-xl font-bold text-white">
+                {t(bodhikaTranslations.comparisonTitle)}
+              </h3>
+            </div>
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-muted/50">
+                    <tr>
+                      <th className="text-left p-4 font-heading font-semibold text-foreground">
+                        {t(bodhikaTranslations.comparisonFeature)}
+                      </th>
+                      <th className="text-center p-4 font-heading font-semibold text-foreground">
+                        {t(bodhikaTranslations.groupBatch)}
+                      </th>
+                      <th className="text-center p-4 font-heading font-semibold text-saffron">
+                        {t(bodhikaTranslations.focusedBatch)} ⭐
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    <tr className="hover:bg-muted/30">
+                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonBatchSize)}</td>
+                      <td className="p-4 text-center font-body text-muted-foreground">{t(bodhikaTranslations.comparisonGroup20)}</td>
+                      <td className="p-4 text-center font-body text-foreground font-medium">{t(bodhikaTranslations.comparisonFocused10)}</td>
+                    </tr>
+                    <tr className="hover:bg-muted/30">
+                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonPrice)}</td>
+                      <td className="p-4 text-center font-body text-muted-foreground">₹6,000/year</td>
+                      <td className="p-4 text-center font-body text-foreground font-medium">₹13,000/year</td>
+                    </tr>
+                    <tr className="hover:bg-muted/30">
+                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonAttention)}</td>
+                      <td className="p-4 text-center font-body text-muted-foreground">{t(bodhikaTranslations.comparisonStandard)}</td>
+                      <td className="p-4 text-center font-body text-saffron font-medium">{t(bodhikaTranslations.comparisonPriority)}</td>
+                    </tr>
+                    <tr className="hover:bg-muted/30">
+                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonDoubts)}</td>
+                      <td className="p-4 text-center"><CheckCircle2 className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      <td className="p-4 text-center font-body text-saffron font-medium">{t(bodhikaTranslations.comparisonPriority)}</td>
+                    </tr>
+                    <tr className="hover:bg-muted/30">
+                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonRecordings)}</td>
+                      <td className="p-4 text-center"><CheckCircle2 className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      <td className="p-4 text-center"><CheckCircle2 className="h-5 w-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr className="hover:bg-muted/30">
+                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonProgress)}</td>
+                      <td className="p-4 text-center font-body text-muted-foreground">{t(bodhikaTranslations.comparisonStandard)}</td>
+                      <td className="p-4 text-center font-body text-saffron font-medium">{t(bodhikaTranslations.comparisonDetailed)}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        
         {/* Scholarship Badge */}
         <div className="text-center mt-8">
-          <Badge className="bg-green-100 text-green-700 border-green-200 px-6 py-2">
+          <Badge className="bg-green-100 text-green-700 border-green-200 px-6 py-2 mb-4">
             <Award className="h-4 w-4 mr-2 inline" />
             {t(bodhikaTranslations.scholarshipBadge)}
           </Badge>
+        </div>
+        
+        {/* Scholarship Button */}
+        <div className="text-center mt-4">
+          <a 
+            href="https://wa.me/919810364541?text=Hi%2C%20I%20am%20interested%20in%20the%20scholarship%20for%20Bodhika%20course.%20My%20family%20needs%20financial%20assistance."
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Button 
+              size="lg"
+              className="bg-green-600 hover:bg-green-700 text-white font-semibold"
+            >
+              <Award className="mr-2 h-5 w-5" />
+              {t(bodhikaTranslations.scholarshipButton)}
+              <MessageCircle className="ml-2 h-5 w-5" />
+            </Button>
+          </a>
         </div>
         
         {/* Scarcity Progress Bar */}
