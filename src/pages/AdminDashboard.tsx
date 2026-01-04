@@ -32,6 +32,7 @@ import {
   RefreshCw,
   CloudUpload,
   Users,
+  Database,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -70,11 +71,12 @@ import { useToast } from '@/hooks/use-toast';
 import DeleteConfirmDialog from '@/components/DeleteConfirmDialog';
 import CampsTab from '@/components/admin/CampsTab';
 import TeamManagementTab from '@/components/admin/TeamManagementTab';
+import GraphyDataTab from '@/components/admin/GraphyDataTab';
 
 import { supabase } from '@/integrations/supabase/client';
 import logo from '@/assets/shastrakulam-logo.png';
 
-type Tab = 'dashboard' | 'courses' | 'camps' | 'blogs' | 'categories' | 'referrals' | 'enrollments' | 'messages' | 'notifications' | 'settings' | 'team';
+type Tab = 'dashboard' | 'courses' | 'camps' | 'blogs' | 'categories' | 'referrals' | 'enrollments' | 'messages' | 'notifications' | 'settings' | 'team' | 'graphy';
 
 type AppRole = 'admin' | 'blog_writer' | 'course_manager' | 'enrollment_manager' | 'user';
 
@@ -181,7 +183,7 @@ const AdminDashboard: React.FC = () => {
   const getVisibleTabs = (): Tab[] => {
     if (isAdmin) {
       // Admin sees everything
-      return ['dashboard', 'courses', 'camps', 'blogs', 'categories', 'referrals', 'enrollments', 'messages', 'notifications', 'team', 'settings'];
+      return ['dashboard', 'courses', 'camps', 'blogs', 'categories', 'referrals', 'enrollments', 'graphy', 'messages', 'notifications', 'team', 'settings'];
     }
     
     const tabs: Tab[] = ['dashboard'];
@@ -194,7 +196,7 @@ const AdminDashboard: React.FC = () => {
       if (!tabs.includes('categories')) tabs.push('categories');
     }
     if (hasRole('enrollment_manager')) {
-      tabs.push('enrollments');
+      tabs.push('enrollments', 'graphy');
     }
     
     return tabs;
@@ -210,6 +212,7 @@ const AdminDashboard: React.FC = () => {
     { id: 'categories' as Tab, label: 'Categories', icon: Tag },
     { id: 'referrals' as Tab, label: 'Referral Links', icon: Link2 },
     { id: 'enrollments' as Tab, label: 'Enrollments', icon: UserCheck },
+    { id: 'graphy' as Tab, label: 'Graphy Data', icon: Database },
     { id: 'messages' as Tab, label: 'Messages', icon: Mail },
     { id: 'notifications' as Tab, label: 'Notifications', icon: Bell },
     { id: 'team' as Tab, label: 'Team', icon: Users },
@@ -348,6 +351,7 @@ const AdminDashboard: React.FC = () => {
           )}
           {activeTab === 'referrals' && <ReferralsTab toast={toast} />}
           {activeTab === 'enrollments' && <EnrollmentsTab courses={courses} toast={toast} />}
+          {activeTab === 'graphy' && <GraphyDataTab toast={toast} />}
           {activeTab === 'messages' && <MessagesTab toast={toast} />}
           {activeTab === 'team' && <TeamManagementTab toast={toast} />}
           {activeTab === 'settings' && <SettingsTab />}
