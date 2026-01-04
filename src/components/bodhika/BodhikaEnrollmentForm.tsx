@@ -221,8 +221,8 @@ const BodhikaEnrollmentForm: React.FC<BodhikaEnrollmentFormProps> = ({
         description: getText('successDesc'),
       });
 
-      // Build Graphy course URL with pre-filled data
-      const graphyPaymentUrl = `https://learn.shastrakulam.com/courses/${graphyProductId}?email=${encodeURIComponent(formData.email)}&name=${encodeURIComponent(formData.studentName)}`;
+      // Build Graphy direct payment/checkout URL
+      const graphyPaymentUrl = `https://learn.shastrakulam.com/courses/${graphyProductId}/buy?email=${encodeURIComponent(formData.email)}&name=${encodeURIComponent(formData.studentName)}`;
       
       // Small delay to show toast, then redirect
       setTimeout(() => {
