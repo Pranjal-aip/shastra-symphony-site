@@ -29,6 +29,8 @@ import {
   Mail,
   MailOpen,
   CheckCircle2,
+  RefreshCw,
+  CloudUpload,
   Users,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -440,6 +442,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
     showOnHome: false,
     ageMin: '',
     ageMax: '',
+    graphyProductId: '',
   });
 
   const resetForm = () => {
@@ -459,6 +462,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       showOnHome: false,
       ageMin: '',
       ageMax: '',
+      graphyProductId: '',
     });
   };
 
@@ -491,6 +495,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
         showOnHome: formData.showOnHome,
         ageMin: formData.ageMin ? parseInt(formData.ageMin) : undefined,
         ageMax: formData.ageMax ? parseInt(formData.ageMax) : undefined,
+        graphyProductId: formData.graphyProductId || undefined,
       });
       
       setIsAddOpen(false);
@@ -521,6 +526,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       showOnHome: course.showOnHome,
       ageMin: course.ageMin?.toString() || '',
       ageMax: course.ageMax?.toString() || '',
+      graphyProductId: course.graphyProductId || '',
     });
     setIsEditOpen(true);
   };
@@ -553,6 +559,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
         showOnHome: formData.showOnHome,
         ageMin: formData.ageMin ? parseInt(formData.ageMin) : undefined,
         ageMax: formData.ageMax ? parseInt(formData.ageMax) : undefined,
+        graphyProductId: formData.graphyProductId || undefined,
       });
       setIsEditOpen(false);
       setEditingCourse(null);
@@ -650,6 +657,15 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       <div className="grid grid-cols-2 gap-4">
         <Input placeholder="Duration (e.g., 12 weeks)" value={formData.duration} onChange={(e) => setFormData({ ...formData, duration: e.target.value })} />
         <Input placeholder="Price (e.g., ₹4,999)" value={formData.price} onChange={(e) => setFormData({ ...formData, price: e.target.value })} />
+      </div>
+      <div className="space-y-2 border-t pt-4 mt-2">
+        <label className="text-sm font-medium">Graphy Product ID</label>
+        <Input 
+          placeholder="e.g., prod_abc123xyz" 
+          value={formData.graphyProductId} 
+          onChange={(e) => setFormData({ ...formData, graphyProductId: e.target.value })} 
+        />
+        <p className="text-xs text-muted-foreground">Required for Graphy enrollment sync</p>
       </div>
       <div className="flex items-center justify-between">
         <Label htmlFor="popular">Mark as Popular</Label>
@@ -1682,6 +1698,7 @@ interface EnrollmentsTabProps {
 const EnrollmentsTab: React.FC<EnrollmentsTabProps> = ({ courses, toast }) => {
   const [enrollments, setEnrollments] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [syncingId, setSyncingId] = useState<string | null>(null);
 
   const fetchEnrollments = async () => {
     setIsLoading(true);
@@ -1714,9 +1731,60 @@ const EnrollmentsTab: React.FC<EnrollmentsTabProps> = ({ courses, toast }) => {
     }
   };
 
+  const syncToGraphy = async (enrollmentId: string) => {
+    setSyncingId(enrollmentId);
+    try {
+      const { data, error } = await supabase.functions.invoke('graphy-sync', {
+        body: { enrollment_id: enrollmentId },
+        method: 'POST',
+      });
+
+      // Parse URL params for action
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/graphy-sync?action=enroll`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({ enrollment_id: enrollmentId }),
+        }
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Sync failed');
+      }
+
+      toast({ 
+        title: 'Synced!', 
+        description: `Student enrolled in Graphy (ID: ${result.learner_id})` 
+      });
+      fetchEnrollments();
+    } catch (error: any) {
+      console.error('Graphy sync error:', error);
+      toast({ 
+        title: 'Sync Failed', 
+        description: error.message || 'Failed to sync with Graphy', 
+        variant: 'destructive' 
+      });
+      fetchEnrollments();
+    } finally {
+      setSyncingId(null);
+    }
+  };
+
   const getCourseName = (courseId: string) => {
     const course = courses.find(c => c.id === courseId);
     return course?.title.en || 'Unknown Course';
+  };
+
+  const getCourseHasGraphyId = (courseId: string) => {
+    // We need to check if course has graphy_product_id
+    // Since Course interface doesn't have it, we check enrollments for sync status
+    return true; // Will be validated by backend
   };
 
   const getStatusBadge = (status: string) => {
@@ -1726,6 +1794,23 @@ const EnrollmentsTab: React.FC<EnrollmentsTabProps> = ({ courses, toast }) => {
       case 'contacted': return <Badge className="bg-blue-100 text-blue-800">Contacted</Badge>;
       default: return <Badge variant="secondary">Pending</Badge>;
     }
+  };
+
+  const getGraphySyncBadge = (syncStatus: string | null, learnerId: string | null) => {
+    if (syncStatus === 'synced' && learnerId) {
+      return (
+        <div className="flex items-center gap-1">
+          <Badge className="bg-green-100 text-green-800">
+            <CheckCircle2 className="h-3 w-3 mr-1" />
+            Synced
+          </Badge>
+        </div>
+      );
+    }
+    if (syncStatus === 'failed') {
+      return <Badge variant="destructive">Failed</Badge>;
+    }
+    return <Badge variant="outline">Not Synced</Badge>;
   };
 
   if (isLoading) {
@@ -1740,6 +1825,10 @@ const EnrollmentsTab: React.FC<EnrollmentsTabProps> = ({ courses, toast }) => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <p className="font-body text-muted-foreground">{enrollments.length} enrollment requests</p>
+        <Button variant="outline" size="sm" onClick={fetchEnrollments} className="gap-2">
+          <RefreshCw className="h-4 w-4" />
+          Refresh
+        </Button>
       </div>
 
       <div className="bg-card rounded-xl shadow-card border border-border overflow-hidden">
@@ -1752,6 +1841,7 @@ const EnrollmentsTab: React.FC<EnrollmentsTabProps> = ({ courses, toast }) => {
               <TableHead>Referral</TableHead>
               <TableHead>Date</TableHead>
               <TableHead>Status</TableHead>
+              <TableHead>Graphy</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -1786,24 +1876,52 @@ const EnrollmentsTab: React.FC<EnrollmentsTabProps> = ({ courses, toast }) => {
                   </span>
                 </TableCell>
                 <TableCell>{getStatusBadge(enrollment.status)}</TableCell>
+                <TableCell>
+                  <div className="flex flex-col gap-1">
+                    {getGraphySyncBadge(enrollment.graphy_sync_status, enrollment.graphy_learner_id)}
+                    {enrollment.graphy_learner_id && (
+                      <span className="text-xs text-muted-foreground font-mono">
+                        {enrollment.graphy_learner_id.substring(0, 8)}...
+                      </span>
+                    )}
+                  </div>
+                </TableCell>
                 <TableCell className="text-right">
-                  <Select value={enrollment.status} onValueChange={(v) => updateStatus(enrollment.id, v)}>
-                    <SelectTrigger className="w-28">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="pending">Pending</SelectItem>
-                      <SelectItem value="contacted">Contacted</SelectItem>
-                      <SelectItem value="approved">Approved</SelectItem>
-                      <SelectItem value="rejected">Rejected</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="flex justify-end gap-2 items-center">
+                    {enrollment.status === 'approved' && enrollment.graphy_sync_status !== 'synced' && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => syncToGraphy(enrollment.id)}
+                        disabled={syncingId === enrollment.id}
+                        className="gap-1"
+                      >
+                        {syncingId === enrollment.id ? (
+                          <Loader2 className="h-3 w-3 animate-spin" />
+                        ) : (
+                          <CloudUpload className="h-3 w-3" />
+                        )}
+                        Sync
+                      </Button>
+                    )}
+                    <Select value={enrollment.status} onValueChange={(v) => updateStatus(enrollment.id, v)}>
+                      <SelectTrigger className="w-28">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="pending">Pending</SelectItem>
+                        <SelectItem value="contacted">Contacted</SelectItem>
+                        <SelectItem value="approved">Approved</SelectItem>
+                        <SelectItem value="rejected">Rejected</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </TableCell>
               </TableRow>
             ))}
             {enrollments.length === 0 && (
               <TableRow>
-                <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
+                <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
                   No enrollment requests yet
                 </TableCell>
               </TableRow>
