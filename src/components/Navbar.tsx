@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Heart, LogIn, LogOut } from 'lucide-react';
+import { Menu, X, Heart, LogIn } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import CartDrawer from '@/components/CartDrawer';
 import { useLanguage, translations } from '@/contexts/LanguageContext';
-import { useAuth } from '@/contexts/AuthContext';
 import logo from '@/assets/shastrakulam-logo.png';
 
 const loginTranslations = {
   login: { en: 'Login', hi: 'लॉगिन', sa: 'प्रवेशः' },
-  logout: { en: 'Logout', hi: 'लॉगआउट', sa: 'निर्गमनम्' },
 };
 
 const donateTranslations = {
@@ -21,7 +19,6 @@ const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { t } = useLanguage();
-  const { user, signOut } = useAuth();
   const location = useLocation();
 
   useEffect(() => {
@@ -94,20 +91,13 @@ const Navbar: React.FC = () => {
               </Button>
             </Link>
             
-            {/* Login/Logout Button */}
-            {user ? (
-              <Button variant="outline" size="sm" className="gap-2" onClick={() => signOut()}>
-                <LogOut className="h-4 w-4" />
-                {t(loginTranslations.logout)}
+            {/* Login Button */}
+            <a href="https://learn.shastrakulam.com/t/u/activeCourses" className="hidden sm:block" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" size="sm" className="gap-2">
+                <LogIn className="h-4 w-4" />
+                {t(loginTranslations.login)}
               </Button>
-            ) : (
-              <a href="https://learn.shastrakulam.com/t/u/activeCourses" className="hidden sm:block" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="sm" className="gap-2">
-                  <LogIn className="h-4 w-4" />
-                  {t(loginTranslations.login)}
-                </Button>
-              </a>
-            )}
+            </a>
             
             <Link to="/courses" className="hidden sm:block">
               <Button variant="saffron" size="default">
@@ -157,27 +147,17 @@ const Navbar: React.FC = () => {
                   Donate
                 </Link>
                 
-                {/* Mobile Login/Logout */}
-                {user ? (
-                  <button
-                    onClick={() => { signOut(); setIsMobileMenuOpen(false); }}
-                    className="px-4 py-3 rounded-lg font-body text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted flex items-center gap-2"
-                  >
-                    <LogOut className="h-4 w-4" />
-                    {t(loginTranslations.logout)}
-                  </button>
-                ) : (
-                  <a
-                    href="https://learn.shastrakulam.com/t/u/activeCourses"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="px-4 py-3 rounded-lg font-body text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted flex items-center gap-2"
-                  >
-                    <LogIn className="h-4 w-4" />
-                    {t(loginTranslations.login)}
-                  </a>
-                )}
+                {/* Mobile Login */}
+                <a
+                  href="https://learn.shastrakulam.com/t/u/activeCourses"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="px-4 py-3 rounded-lg font-body text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted flex items-center gap-2"
+                >
+                  <LogIn className="h-4 w-4" />
+                  {t(loginTranslations.login)}
+                </a>
                 
                 <Link
                   to="/courses"
