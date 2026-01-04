@@ -235,7 +235,7 @@ const bodhikaTranslations = {
   chooseBatch: { en: 'Choose Your Batch', hi: 'अपना बैच चुनें', sa: 'स्ववर्गं चिनुत' },
   pricingDesc: { en: 'Two learning options designed for different needs', hi: 'विभिन्न आवश्यकताओं के लिए डिज़ाइन किए गए दो सीखने के विकल्प', sa: 'विभिन्नावश्यकताभ्यः निर्मितौ द्वौ अधिगमविकल्पौ' },
   groupBatch: { en: 'Group Batch', hi: 'ग्रुप बैच', sa: 'समूहवर्गः' },
-  studentsPerBatch: { en: '50-60 students per batch', hi: 'प्रति बैच 50-60 छात्र', sa: 'प्रतिवर्गं ५०-६० छात्राः' },
+  studentsPerBatch: { en: '60 students per batch', hi: 'प्रति बैच 60 छात्र', sa: 'प्रतिवर्गं ६० छात्राः' },
   focusedBatch: { en: 'Focused Batch', hi: 'फोकस्ड बैच', sa: 'केन्द्रितवर्गः' },
   focusedStudents: { en: '12 students per batch', hi: 'प्रति बैच 12 छात्र', sa: 'प्रतिवर्गं १२ छात्राः' },
   recommended: { en: 'Recommended', hi: 'अनुशंसित', sa: 'अनुशंसितम्' },
