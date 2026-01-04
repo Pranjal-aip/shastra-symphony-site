@@ -50,7 +50,7 @@ const ScarcityProgressBar = ({ className = '', floating = false }: ScarcityProgr
   }, [floating, isDismissed]);
 
   const handleEnrollClick = () => {
-    document.getElementById('enrollment-form')?.scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   };
   
   // Floating version
