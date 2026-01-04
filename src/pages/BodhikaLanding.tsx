@@ -1160,6 +1160,68 @@ const PricingSection = () => {
           </p>
         </div>
         
+        {/* Comparison Table - Above Price Cards */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <Card className="border shadow-card overflow-hidden">
+            <div className="bg-maroon p-4 text-center">
+              <h3 className="font-heading text-xl font-bold text-white">
+                {t(bodhikaTranslations.comparisonTitle)}
+              </h3>
+            </div>
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-muted/50">
+                    <tr>
+                      <th className="text-left p-4 font-heading font-semibold text-foreground">
+                        {t(bodhikaTranslations.comparisonFeature)}
+                      </th>
+                      <th className="text-center p-4 font-heading font-semibold text-foreground">
+                        {t(bodhikaTranslations.groupBatch)}
+                      </th>
+                      <th className="text-center p-4 font-heading font-semibold text-saffron">
+                        {t(bodhikaTranslations.focusedBatch)} ⭐
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    <tr className="hover:bg-muted/30">
+                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonBatchSize)}</td>
+                      <td className="p-4 text-center font-body text-muted-foreground">{t(bodhikaTranslations.comparisonGroup20)}</td>
+                      <td className="p-4 text-center font-body text-foreground font-medium">{t(bodhikaTranslations.comparisonFocused10)}</td>
+                    </tr>
+                    <tr className="hover:bg-muted/30">
+                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonPrice)}</td>
+                      <td className="p-4 text-center font-body text-muted-foreground">₹6,000/year</td>
+                      <td className="p-4 text-center font-body text-foreground font-medium">₹13,000/year</td>
+                    </tr>
+                    <tr className="hover:bg-muted/30">
+                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonAttention)}</td>
+                      <td className="p-4 text-center font-body text-muted-foreground">{t(bodhikaTranslations.comparisonStandard)}</td>
+                      <td className="p-4 text-center font-body text-saffron font-medium">{t(bodhikaTranslations.comparisonPriority)}</td>
+                    </tr>
+                    <tr className="hover:bg-muted/30">
+                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonDoubts)}</td>
+                      <td className="p-4 text-center"><CheckCircle2 className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      <td className="p-4 text-center font-body text-saffron font-medium">{t(bodhikaTranslations.comparisonPriority)}</td>
+                    </tr>
+                    <tr className="hover:bg-muted/30">
+                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonRecordings)}</td>
+                      <td className="p-4 text-center"><CheckCircle2 className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      <td className="p-4 text-center"><CheckCircle2 className="h-5 w-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr className="hover:bg-muted/30">
+                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonProgress)}</td>
+                      <td className="p-4 text-center font-body text-muted-foreground">{t(bodhikaTranslations.comparisonStandard)}</td>
+                      <td className="p-4 text-center font-body text-saffron font-medium">{t(bodhikaTranslations.comparisonDetailed)}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+        
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {/* Group Batch */}
           <Card className="border-2 border-border shadow-card hover-lift overflow-hidden relative">
@@ -1282,68 +1344,6 @@ const PricingSection = () => {
                     {t(bodhikaTranslations.askOnWhatsApp)}
                   </Button>
                 </a>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-        
-        {/* Comparison Table */}
-        <div className="max-w-4xl mx-auto mt-12">
-          <Card className="border shadow-card overflow-hidden">
-            <div className="bg-maroon p-4 text-center">
-              <h3 className="font-heading text-xl font-bold text-white">
-                {t(bodhikaTranslations.comparisonTitle)}
-              </h3>
-            </div>
-            <CardContent className="p-0">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="bg-muted/50">
-                    <tr>
-                      <th className="text-left p-4 font-heading font-semibold text-foreground">
-                        {t(bodhikaTranslations.comparisonFeature)}
-                      </th>
-                      <th className="text-center p-4 font-heading font-semibold text-foreground">
-                        {t(bodhikaTranslations.groupBatch)}
-                      </th>
-                      <th className="text-center p-4 font-heading font-semibold text-saffron">
-                        {t(bodhikaTranslations.focusedBatch)} ⭐
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
-                    <tr className="hover:bg-muted/30">
-                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonBatchSize)}</td>
-                      <td className="p-4 text-center font-body text-muted-foreground">{t(bodhikaTranslations.comparisonGroup20)}</td>
-                      <td className="p-4 text-center font-body text-foreground font-medium">{t(bodhikaTranslations.comparisonFocused10)}</td>
-                    </tr>
-                    <tr className="hover:bg-muted/30">
-                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonPrice)}</td>
-                      <td className="p-4 text-center font-body text-muted-foreground">₹6,000/year</td>
-                      <td className="p-4 text-center font-body text-foreground font-medium">₹13,000/year</td>
-                    </tr>
-                    <tr className="hover:bg-muted/30">
-                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonAttention)}</td>
-                      <td className="p-4 text-center font-body text-muted-foreground">{t(bodhikaTranslations.comparisonStandard)}</td>
-                      <td className="p-4 text-center font-body text-saffron font-medium">{t(bodhikaTranslations.comparisonPriority)}</td>
-                    </tr>
-                    <tr className="hover:bg-muted/30">
-                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonDoubts)}</td>
-                      <td className="p-4 text-center"><CheckCircle2 className="h-5 w-5 text-green-500 mx-auto" /></td>
-                      <td className="p-4 text-center font-body text-saffron font-medium">{t(bodhikaTranslations.comparisonPriority)}</td>
-                    </tr>
-                    <tr className="hover:bg-muted/30">
-                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonRecordings)}</td>
-                      <td className="p-4 text-center"><CheckCircle2 className="h-5 w-5 text-green-500 mx-auto" /></td>
-                      <td className="p-4 text-center"><CheckCircle2 className="h-5 w-5 text-green-500 mx-auto" /></td>
-                    </tr>
-                    <tr className="hover:bg-muted/30">
-                      <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonProgress)}</td>
-                      <td className="p-4 text-center font-body text-muted-foreground">{t(bodhikaTranslations.comparisonStandard)}</td>
-                      <td className="p-4 text-center font-body text-saffron font-medium">{t(bodhikaTranslations.comparisonDetailed)}</td>
-                    </tr>
-                  </tbody>
-                </table>
               </div>
             </CardContent>
           </Card>
