@@ -5,8 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
-import BodhikaEnrollmentForm from '@/components/bodhika/BodhikaEnrollmentForm';
-import { 
+import {
   BookOpen, 
   Users, 
   Clock, 
@@ -1088,15 +1087,19 @@ const SanskritSection = () => {
   );
 };
 
+// Graphy Product IDs for direct redirect
+const GRAPHY_PRODUCT_IDS = {
+  group: 'Bodhika--Awakening-Young-Minds-695393a483bcbf4ec9283f27',
+  focused: 'Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42'
+};
+
 // Pricing Section
 const PricingSection = () => {
   const { t } = useLanguage();
-  const [enrollDialogOpen, setEnrollDialogOpen] = useState(false);
-  const [selectedBatch, setSelectedBatch] = useState<'group' | 'focused'>('group');
 
   const handleEnrollClick = (batchType: 'group' | 'focused') => {
-    setSelectedBatch(batchType);
-    setEnrollDialogOpen(true);
+    const graphyProductId = GRAPHY_PRODUCT_IDS[batchType];
+    window.open(`https://learn.shastrakulam.com/courses/${graphyProductId}`, '_blank');
   };
   
   return (
@@ -1238,13 +1241,6 @@ const PricingSection = () => {
           <RiskReversalCard />
         </div>
       </div>
-
-      {/* Enrollment Dialog */}
-      <BodhikaEnrollmentForm 
-        batchType={selectedBatch}
-        open={enrollDialogOpen}
-        onOpenChange={setEnrollDialogOpen}
-      />
     </section>
   );
 };
