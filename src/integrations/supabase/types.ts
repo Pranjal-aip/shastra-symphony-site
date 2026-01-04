@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      abandoned_transactions: {
+        Row: {
+          amount: string | null
+          completed_at: string | null
+          course_name: string | null
+          created_at: string
+          email: string
+          follow_up_sent_at: string | null
+          graphy_transaction_id: string | null
+          id: string
+          initiated_at: string
+          learner_name: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount?: string | null
+          completed_at?: string | null
+          course_name?: string | null
+          created_at?: string
+          email: string
+          follow_up_sent_at?: string | null
+          graphy_transaction_id?: string | null
+          id?: string
+          initiated_at?: string
+          learner_name?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: string | null
+          completed_at?: string | null
+          course_name?: string | null
+          created_at?: string
+          email?: string
+          follow_up_sent_at?: string | null
+          graphy_transaction_id?: string | null
+          id?: string
+          initiated_at?: string
+          learner_name?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       blog_categories: {
         Row: {
           created_at: string
@@ -225,6 +270,9 @@ export type Database = {
         Row: {
           age: number | null
           age_group: string | null
+          certificate_issued: boolean | null
+          certificate_url: string | null
+          completed_at: string | null
           course_id: string
           created_at: string
           email: string
@@ -244,6 +292,9 @@ export type Database = {
         Insert: {
           age?: number | null
           age_group?: string | null
+          certificate_issued?: boolean | null
+          certificate_url?: string | null
+          completed_at?: string | null
           course_id: string
           created_at?: string
           email: string
@@ -263,6 +314,9 @@ export type Database = {
         Update: {
           age?: number | null
           age_group?: string | null
+          certificate_issued?: boolean | null
+          certificate_url?: string | null
+          completed_at?: string | null
           course_id?: string
           created_at?: string
           email?: string
@@ -373,6 +427,44 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      enrollment_milestones: {
+        Row: {
+          achieved_at: string
+          created_at: string
+          enrollment_id: string
+          id: string
+          item_name: string | null
+          milestone_type: string
+          progress_percent: number | null
+        }
+        Insert: {
+          achieved_at?: string
+          created_at?: string
+          enrollment_id: string
+          id?: string
+          item_name?: string | null
+          milestone_type: string
+          progress_percent?: number | null
+        }
+        Update: {
+          achieved_at?: string
+          created_at?: string
+          enrollment_id?: string
+          id?: string
+          item_name?: string | null
+          milestone_type?: string
+          progress_percent?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "enrollment_milestones_enrollment_id_fkey"
+            columns: ["enrollment_id"]
+            isOneToOne: false
+            referencedRelation: "course_enrollments"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       graphy_progress: {
         Row: {
