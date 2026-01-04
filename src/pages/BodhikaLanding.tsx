@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
+import BodhikaEnrollmentForm from '@/components/bodhika/BodhikaEnrollmentForm';
 import { 
   BookOpen, 
   Users, 
@@ -1090,6 +1091,13 @@ const SanskritSection = () => {
 // Pricing Section
 const PricingSection = () => {
   const { t } = useLanguage();
+  const [enrollDialogOpen, setEnrollDialogOpen] = useState(false);
+  const [selectedBatch, setSelectedBatch] = useState<'group' | 'focused'>('group');
+
+  const handleEnrollClick = (batchType: 'group' | 'focused') => {
+    setSelectedBatch(batchType);
+    setEnrollDialogOpen(true);
+  };
   
   return (
     <section id="pricing-section" className="py-20 bg-background">
@@ -1157,7 +1165,7 @@ const PricingSection = () => {
               
               <Button 
                 className="w-full bg-saffron hover:bg-saffron/90 text-white"
-                onClick={() => window.open('https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-695393a483bcbf4ec9283f27', '_blank')}
+                onClick={() => handleEnrollClick('group')}
               >
                 {t(bodhikaTranslations.enrollGroup)}
               </Button>
@@ -1204,7 +1212,7 @@ const PricingSection = () => {
               
               <Button 
                 className="w-full bg-maroon hover:bg-maroon/90 text-white"
-                onClick={() => window.open('https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42', '_blank')}
+                onClick={() => handleEnrollClick('focused')}
               >
                 {t(bodhikaTranslations.enrollFocused)}
               </Button>
@@ -1230,6 +1238,13 @@ const PricingSection = () => {
           <RiskReversalCard />
         </div>
       </div>
+
+      {/* Enrollment Dialog */}
+      <BodhikaEnrollmentForm 
+        batchType={selectedBatch}
+        open={enrollDialogOpen}
+        onOpenChange={setEnrollDialogOpen}
+      />
     </section>
   );
 };
