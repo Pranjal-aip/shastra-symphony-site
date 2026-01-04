@@ -74,8 +74,10 @@ const translations = {
   messagePlaceholder: { en: 'Any questions or special requirements?', hi: 'कोई प्रश्न या विशेष आवश्यकता?', sa: 'कश्चन प्रश्नः विशेषावश्यकता वा?' },
   cancel: { en: 'Cancel', hi: 'रद्द करें', sa: 'रद्धीकुरुत' },
   submitEnrollment: { en: 'Submit Enrollment', hi: 'नामांकन जमा करें', sa: 'नामाङ्कनं प्रेषयत' },
-  successTitle: { en: 'Enrollment Submitted!', hi: 'नामांकन जमा हो गया!', sa: 'नामाङ्कनं प्रेषितम्!' },
-  successDesc: { en: 'We will contact you soon with payment details and next steps.', hi: 'हम जल्द ही भुगतान विवरण और अगले कदमों के साथ आपसे संपर्क करेंगे।', sa: 'वयं शीघ्रमेव भवन्तं सम्पर्कयिष्यामः।' },
+  successTitle: { en: 'Redirecting to Payment...', hi: 'भुगतान पर पुनर्निर्देशित किया जा रहा है...', sa: 'भुगतानं प्रति प्रेष्यते...' },
+  successDesc: { en: 'Please complete your payment on the next page.', hi: 'कृपया अगले पृष्ठ पर अपना भुगतान पूरा करें।', sa: 'कृपया अग्रिमपृष्ठे भवतः भुगतानं पूर्णं कुरुत।' },
+  proceedToPayment: { en: 'Proceed to Payment', hi: 'भुगतान करें', sa: 'भुगतानं कुरुत' },
+  redirecting: { en: 'Redirecting...', hi: 'पुनर्निर्देशित...', sa: 'प्रेष्यते...' },
   errorTitle: { en: 'Error', hi: 'त्रुटि', sa: 'त्रुटिः' },
   requiredFields: { en: 'Please fill in required fields', hi: 'कृपया आवश्यक फ़ील्ड भरें', sa: 'कृपया आवश्यकक्षेत्राणि पूरयत' },
   validAge: { en: 'Please enter a valid age (5-17)', hi: 'कृपया वैध आयु दर्ज करें (5-17)', sa: 'कृपया वैधवयः दीयताम् (५-१७)' },
@@ -199,13 +201,34 @@ const BodhikaEnrollmentForm: React.FC<BodhikaEnrollmentFormProps> = ({
 
       if (error) throw error;
 
+      // Call graphy-sync edge function to create learner in Graphy
+      const { data: syncResult, error: syncError } = await supabase.functions.invoke('graphy-sync', {
+        body: { 
+          action: 'create-learner',
+          name: formData.studentName,
+          email: formData.email,
+          phone: formData.phone || null,
+        }
+      });
+
+      if (syncError) {
+        console.warn('Graphy sync warning:', syncError);
+        // Don't block payment redirect even if Graphy sync fails
+      }
+
       toast({
         title: getText('successTitle'),
         description: getText('successDesc'),
       });
+
+      // Build Graphy payment URL with pre-filled data
+      const graphyPaymentUrl = `https://learn.shastrakulam.com/courses/${graphyProductId}/payment?email=${encodeURIComponent(formData.email)}&name=${encodeURIComponent(formData.studentName)}`;
       
-      resetForm();
-      onOpenChange(false);
+      // Small delay to show toast, then redirect
+      setTimeout(() => {
+        window.location.href = graphyPaymentUrl;
+      }, 500);
+      
     } catch (error: any) {
       console.error('Enrollment error:', error);
       toast({
@@ -332,7 +355,7 @@ const BodhikaEnrollmentForm: React.FC<BodhikaEnrollmentFormProps> = ({
             </Button>
             <Button type="submit" variant="saffron" disabled={isLoading}>
               {isLoading && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
-              {getText('submitEnrollment')}
+              {isLoading ? getText('redirecting') : getText('proceedToPayment')}
             </Button>
           </DialogFooter>
         </form>

@@ -54,6 +54,59 @@ Deno.serve(async (req) => {
     const body = await req.json().catch(() => ({}));
 
     switch (action) {
+      // Create learner only (for pre-payment flow)
+      case 'create-learner': {
+        const { name, email, phone } = body;
+        
+        if (!name || !email) {
+          return new Response(
+            JSON.stringify({ error: 'name and email required' }),
+            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+
+        console.log(`Creating learner in Graphy: ${email}`);
+
+        // Create learner in Graphy
+        const createLearnerResponse = await fetch(`https://api.graphy.com/public/v1/learners`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${graphyApiKey}`,
+            'X-Graphy-MID': graphyMid,
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            phone: phone || undefined,
+          }),
+        });
+
+        const learnerData = await createLearnerResponse.json();
+        console.log('Learner API response:', learnerData);
+
+        // 409 means learner already exists, which is fine
+        if (!createLearnerResponse.ok && createLearnerResponse.status !== 409) {
+          console.error('Failed to create learner:', learnerData);
+          return new Response(
+            JSON.stringify({ error: 'Failed to create learner in Graphy', details: learnerData }),
+            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+
+        const learnerId = learnerData.id || learnerData.learner?.id;
+        console.log(`Learner created/exists with ID: ${learnerId}`);
+
+        return new Response(
+          JSON.stringify({ 
+            success: true, 
+            learner_id: learnerId,
+            message: 'Learner created in Graphy'
+          }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
       case 'enroll': {
         const { enrollment_id } = body;
         
