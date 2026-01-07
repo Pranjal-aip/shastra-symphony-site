@@ -81,6 +81,7 @@ import StickyMobileFooter from '@/components/bodhika/StickyMobileFooter';
 import ScarcityNarrative from '@/components/bodhika/ScarcityNarrative';
 import HeroVSL from '@/components/bodhika/HeroVSL';
 import FloatingScarcityBadge from '@/components/bodhika/FloatingScarcityBadge';
+import BodhikaEnrollmentForm from '@/components/bodhika/BodhikaEnrollmentForm';
 
 // Translations
 const bodhikaTranslations = {
@@ -1142,41 +1143,12 @@ const GRAPHY_COURSE_IDS = {
 const PricingSection = () => {
   const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState<'group' | 'focused' | null>(null);
+  const [enrollmentOpen, setEnrollmentOpen] = useState(false);
+  const [selectedBatch, setSelectedBatch] = useState<'group' | 'focused'>('group');
 
-  const handleEnrollClick = async (batchType: 'group' | 'focused') => {
-    setIsLoading(batchType);
-    
-    try {
-      // Call the auto-checkout edge function
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/auto-checkout`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-          },
-          body: JSON.stringify({ courseType: batchType })
-        }
-      );
-      
-      const data = await response.json();
-      
-      if (data.redirectUrl) {
-        // Redirect to Cashfree payment
-        window.location.href = data.redirectUrl;
-      } else {
-        // Fallback to normal checkout if no redirect URL
-        console.error('No redirect URL received, using fallback');
-        window.open(`https://learn.shastrakulam.com/single-checkout/${GRAPHY_COURSE_IDS[batchType]}`, '_blank');
-      }
-    } catch (error) {
-      console.error('Auto-checkout failed:', error);
-      // Fallback to normal Graphy checkout
-      window.open(`https://learn.shastrakulam.com/single-checkout/${GRAPHY_COURSE_IDS[batchType]}`, '_blank');
-    } finally {
-      setIsLoading(null);
-    }
+  const handleEnrollClick = (batchType: 'group' | 'focused') => {
+    setSelectedBatch(batchType);
+    setEnrollmentOpen(true);
   };
   
   return (
@@ -1438,6 +1410,13 @@ const PricingSection = () => {
           <RiskReversalCard />
         </div>
       </div>
+      
+      {/* Enrollment Form Dialog */}
+      <BodhikaEnrollmentForm
+        batchType={selectedBatch}
+        open={enrollmentOpen}
+        onOpenChange={setEnrollmentOpen}
+      />
     </section>
   );
 };
