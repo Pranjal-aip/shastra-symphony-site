@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Flame, Loader2 } from 'lucide-react';
+import { ArrowRight, Flame } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useIsMobile } from '@/hooks/use-mobile';
 
@@ -18,46 +18,15 @@ const translations = {
   }
 };
 
-// Fallback course ID for group batch
-const FALLBACK_COURSE_ID = '695393a483bcbf4ec9283f27';
+interface StickyMobileFooterProps {
+  onEnrollClick?: () => void;
+}
 
-const handleAutoCheckout = async (setLoading: (val: boolean) => void) => {
-  setLoading(true);
-  
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/auto-checkout`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-        },
-        body: JSON.stringify({ courseType: 'group' })
-      }
-    );
-    
-    const data = await response.json();
-    
-    if (data.redirectUrl) {
-      window.location.href = data.redirectUrl;
-    } else {
-      window.open(`https://learn.shastrakulam.com/single-checkout/${FALLBACK_COURSE_ID}`, '_blank');
-    }
-  } catch (error) {
-    console.error('Auto-checkout failed:', error);
-    window.open(`https://learn.shastrakulam.com/single-checkout/${FALLBACK_COURSE_ID}`, '_blank');
-  } finally {
-    setLoading(false);
-  }
-};
-
-const StickyMobileFooter = () => {
+const StickyMobileFooter = ({ onEnrollClick }: StickyMobileFooterProps) => {
   const { t } = useLanguage();
   const isMobile = useIsMobile();
   const [visible, setVisible] = useState(false);
   const [hiddenNearPricing, setHiddenNearPricing] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,6 +47,18 @@ const StickyMobileFooter = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleClick = () => {
+    if (onEnrollClick) {
+      onEnrollClick();
+    } else {
+      // Fallback: scroll to pricing section
+      const pricingSection = document.getElementById('pricing-section');
+      if (pricingSection) {
+        pricingSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   // Only show on mobile
   if (!isMobile) return null;
@@ -115,21 +96,16 @@ const StickyMobileFooter = () => {
                 <Button
                   size="sm"
                   className="bg-saffron hover:bg-saffron/90 text-white font-semibold px-6 py-2 rounded-full shadow-lg flex-1 max-w-[200px]"
-                  onClick={() => handleAutoCheckout(setIsLoading)}
-                  disabled={isLoading}
+                  onClick={handleClick}
                 >
-                  {isLoading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
-                    <motion.span
-                      animate={{ opacity: [1, 0.8, 1] }}
-                      transition={{ repeat: Infinity, duration: 2 }}
-                      className="flex items-center"
-                    >
-                      {t(translations.secureSeat)}
-                      <ArrowRight className="ml-1 h-4 w-4" />
-                    </motion.span>
-                  )}
+                  <motion.span
+                    animate={{ opacity: [1, 0.8, 1] }}
+                    transition={{ repeat: Infinity, duration: 2 }}
+                    className="flex items-center"
+                  >
+                    {t(translations.secureSeat)}
+                    <ArrowRight className="ml-1 h-4 w-4" />
+                  </motion.span>
                 </Button>
               </motion.div>
             </div>

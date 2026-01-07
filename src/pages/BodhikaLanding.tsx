@@ -1139,16 +1139,20 @@ const GRAPHY_COURSE_IDS = {
   focused: '6953f67fba62d03beeceac42'
 };
 
+interface PricingSectionProps {
+  onEnrollClick: (batchType: 'group' | 'focused') => void;
+  enrollmentOpen: boolean;
+  setEnrollmentOpen: (open: boolean) => void;
+  selectedBatch: 'group' | 'focused';
+}
+
 // Pricing Section
-const PricingSection = () => {
+const PricingSection = ({ onEnrollClick, enrollmentOpen, setEnrollmentOpen, selectedBatch }: PricingSectionProps) => {
   const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState<'group' | 'focused' | null>(null);
-  const [enrollmentOpen, setEnrollmentOpen] = useState(false);
-  const [selectedBatch, setSelectedBatch] = useState<'group' | 'focused'>('group');
 
   const handleEnrollClick = (batchType: 'group' | 'focused') => {
-    setSelectedBatch(batchType);
-    setEnrollmentOpen(true);
+    onEnrollClick(batchType);
   };
   
   return (
@@ -1647,6 +1651,15 @@ const StickyEnrollButton = () => {
 const BodhikaLanding = () => {
   const { t } = useLanguage();
   
+  // Lifted state for enrollment form
+  const [enrollmentOpen, setEnrollmentOpen] = useState(false);
+  const [selectedBatch, setSelectedBatch] = useState<'group' | 'focused'>('group');
+
+  const handleEnrollClick = (batchType: 'group' | 'focused' = 'group') => {
+    setSelectedBatch(batchType);
+    setEnrollmentOpen(true);
+  };
+  
   return (
     <>
       <ScarcityTopBar />
@@ -1669,13 +1682,18 @@ const BodhikaLanding = () => {
         <LearningSection />
         <LearningExperienceSection />
         <SanskritSection />
-        <PricingSection />
+        <PricingSection 
+          onEnrollClick={handleEnrollClick}
+          enrollmentOpen={enrollmentOpen}
+          setEnrollmentOpen={setEnrollmentOpen}
+          selectedBatch={selectedBatch}
+        />
         <ObjectionCrusherFAQ />
         <TrustSection />
         <TestimonialsSection />
         <FounderInvitation />
         <FinalCTASection />
-        <StickyMobileFooter />
+        <StickyMobileFooter onEnrollClick={() => handleEnrollClick('group')} />
         <ScarcityProgressBar floating />
       </Layout>
     </>
