@@ -297,7 +297,7 @@ Deno.serve(async (req) => {
         );
       }
 
-      // Create order via Graphy API and get checkout URL
+      // Create order and redirect to checkout with pre-filled billing
       case 'create-order': {
         const { name, email, phone, productId, productType = 'course' } = body;
         
@@ -308,113 +308,68 @@ Deno.serve(async (req) => {
           );
         }
 
-        console.log(`Creating order for product: ${productId}, user: ${email}`);
+        console.log(`Creating checkout for product: ${productId}, user: ${email}`);
 
-        // Step 1: Create learner in Graphy (so they're pre-registered)
-        const createLearnerResponse = await fetch(`https://api.graphy.com/public/v1/learners`, {
+        // Step 1: Create learner in Graphy using form-urlencoded format
+        const createLearnerResponse = await fetch('https://api.ongraphy.com/public/v1/learners', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${graphyApiKey}`,
-            'X-Graphy-MID': graphyMid,
+            'Content-Type': 'application/x-www-form-urlencoded',
           },
-          body: JSON.stringify({
-            name,
-            email,
-            phone: phone || undefined,
+          body: new URLSearchParams({
+            mid: graphyMid,
+            key: graphyApiKey,
+            email: email,
+            name: name,
+            mobile: phone || '',
+            sendEmail: 'false',
           }),
         });
 
         const learnerData = await createLearnerResponse.json();
         console.log('Learner API response:', learnerData);
 
-        // Get learner ID (409 means already exists)
-        let learnerId = learnerData.id || learnerData.learner?.id;
-        
-        if (!learnerId && createLearnerResponse.status === 409) {
-          // Learner exists, fetch by email
-          console.log('Learner exists, fetching by email...');
-          const fetchLearnerResponse = await fetch(
-            `https://api.graphy.com/public/v1/learners?email=${encodeURIComponent(email)}`,
-            {
-              headers: {
-                'Authorization': `Bearer ${graphyApiKey}`,
-                'X-Graphy-MID': graphyMid,
-              },
-            }
-          );
-          const existingLearner = await fetchLearnerResponse.json();
-          console.log('Existing learner data:', existingLearner);
-          learnerId = existingLearner.data?.[0]?.id || existingLearner.id;
+        // 409 means learner already exists, which is fine
+        if (!createLearnerResponse.ok && createLearnerResponse.status !== 409) {
+          console.error('Failed to create learner:', learnerData);
+          // Continue anyway - we'll still generate the checkout URL
         }
 
-        if (!learnerId) {
-          console.error('Could not get learner ID');
-          return new Response(
-            JSON.stringify({ error: 'Could not create or find learner in Graphy' }),
-            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
-
-        console.log(`Learner ID: ${learnerId}`);
-
-        // Step 2: Create order via Graphy Orders API
-        console.log('Creating order via Graphy API...');
-        const orderPayload = {
-          learner_id: learnerId,
-          product_id: productId,
-          product_type: productType,
-          success_url: 'https://shastrakulam.com/payment-success',
-          cancel_url: 'https://shastrakulam.com/payment-failed',
+        // Generate unique ID for abandoned cart tracking
+        const generateUniqueId = (): string => {
+          const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+          let result = '';
+          for (let i = 0; i < 20; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+          }
+          return result;
         };
+
+        // Step 2: Construct checkout URL with pre-filled billing details
+        const checkoutUrl = new URL(`https://learn.shastrakulam.com/single-checkout/${productId}`);
         
-        console.log('Order payload:', JSON.stringify(orderPayload));
-
-        const orderResponse = await fetch(`https://api.graphy.com/public/v1/orders`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${graphyApiKey}`,
-            'X-Graphy-MID': graphyMid,
-          },
-          body: JSON.stringify(orderPayload),
-        });
-
-        const orderData = await orderResponse.json();
-        console.log('Order API response:', JSON.stringify(orderData));
-
-        if (!orderResponse.ok) {
-          console.error('Failed to create order:', orderData);
-          return new Response(
-            JSON.stringify({ 
-              error: 'Failed to create order in Graphy', 
-              details: orderData 
-            }),
-            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
+        // Add billing prefill parameters
+        checkoutUrl.searchParams.set('name', name);
+        checkoutUrl.searchParams.set('email', email);
+        if (phone) {
+          checkoutUrl.searchParams.set('phone', phone);
         }
-
-        // Extract checkoutUrl from Graphy response
-        const checkoutUrl = orderData.checkout_url || orderData.checkoutUrl || orderData.data?.checkout_url;
         
-        if (!checkoutUrl) {
-          console.error('No checkout URL in response:', orderData);
-          return new Response(
-            JSON.stringify({ 
-              error: 'No checkout URL returned from Graphy',
-              orderData 
-            }),
-            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
+        // Add product parameters
+        checkoutUrl.searchParams.set('pid', 'p1');
+        checkoutUrl.searchParams.set('type', productType);
+        
+        // Add abandoned cart tracking
+        checkoutUrl.searchParams.set('abd', 'true');
+        checkoutUrl.searchParams.set('templateId', 'abandoned_cart_emails_2');
+        checkoutUrl.searchParams.set('abdOrderId', generateUniqueId());
 
-        console.log(`Checkout URL received: ${checkoutUrl}`);
+        console.log(`Generated checkout URL: ${checkoutUrl.toString()}`);
 
         return new Response(
           JSON.stringify({ 
             success: true,
-            checkoutUrl,
-            orderId: orderData.id || orderData.order_id,
+            checkoutUrl: checkoutUrl.toString(),
           }),
           { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
