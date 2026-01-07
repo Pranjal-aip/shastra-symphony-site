@@ -297,7 +297,7 @@ Deno.serve(async (req) => {
         );
       }
 
-      // Create order and get checkout URL
+      // Create order and get checkout URL (simplified direct checkout)
       case 'create-order': {
         const { name, email, phone, productId, productType = 'course' } = body;
         
@@ -308,9 +308,9 @@ Deno.serve(async (req) => {
           );
         }
 
-        console.log(`Creating order for product: ${productId}, user: ${email}`);
+        console.log(`Creating checkout for product: ${productId}, user: ${email}`);
 
-        // Step 1: Create or get learner in Graphy
+        // Step 1: Create learner in Graphy (so they're pre-registered)
         const createLearnerResponse = await fetch(`https://api.graphy.com/public/v1/learners`, {
           method: 'POST',
           headers: {
@@ -328,91 +328,39 @@ Deno.serve(async (req) => {
         const learnerData = await createLearnerResponse.json();
         console.log('Learner API response:', learnerData);
 
-        // Get learner ID (409 means already exists)
-        let learnerId = learnerData.id || learnerData.learner?.id;
-        
-        if (!learnerId && createLearnerResponse.status === 409) {
-          // Fetch existing learner
-          const fetchLearnerResponse = await fetch(
-            `https://api.graphy.com/public/v1/learners?email=${encodeURIComponent(email)}`,
-            {
-              headers: {
-                'Authorization': `Bearer ${graphyApiKey}`,
-                'X-Graphy-MID': graphyMid,
-              },
-            }
-          );
-          const existingLearner = await fetchLearnerResponse.json();
-          learnerId = existingLearner.data?.[0]?.id || existingLearner.id;
+        // 409 means learner already exists, which is fine
+        if (!createLearnerResponse.ok && createLearnerResponse.status !== 409) {
+          console.warn('Failed to create learner (continuing anyway):', learnerData);
         }
 
-        if (!learnerId) {
-          console.error('Could not get learner ID');
-          return new Response(
-            JSON.stringify({ error: 'Could not create or find learner in Graphy' }),
-            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
-
-        console.log(`Learner ID: ${learnerId}`);
-
-        // Step 2: Create order in Graphy
-        const orderPayload = {
-          learner_id: learnerId,
-          product_id: productId,
-          product_type: productType,
-          success_url: 'https://shastrakulam.com/payment-success',
-          failure_url: 'https://shastrakulam.com/payment-failed',
+        // Step 2: Generate unique abandoned cart order ID
+        const generateUniqueId = (): string => {
+          const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+          let result = '';
+          for (let i = 0; i < 20; i++) {
+            result += chars.charAt(Math.floor(Math.random() * chars.length));
+          }
+          return result;
         };
-
-        console.log('Creating order with payload:', orderPayload);
-
-        const orderResponse = await fetch(`https://api.graphy.com/public/v1/orders`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${graphyApiKey}`,
-            'X-Graphy-MID': graphyMid,
-          },
-          body: JSON.stringify(orderPayload),
-        });
-
-        const orderData = await orderResponse.json();
-        console.log('Order API response:', orderData);
-
-        if (!orderResponse.ok) {
-          console.error('Failed to create order:', orderData);
-          return new Response(
-            JSON.stringify({ 
-              error: 'Failed to create order in Graphy', 
-              details: orderData,
-              fallbackUrl: `https://learn.shastrakulam.com/single-checkout/${productId}`
-            }),
-            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
-
-        const checkoutUrl = orderData.checkout_url || orderData.checkoutUrl || orderData.payment_url;
         
-        if (!checkoutUrl) {
-          console.error('No checkout URL in response:', orderData);
-          return new Response(
-            JSON.stringify({ 
-              error: 'No checkout URL returned from Graphy',
-              fallbackUrl: `https://learn.shastrakulam.com/single-checkout/${productId}`
-            }),
-            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
+        const abdOrderId = generateUniqueId();
 
-        console.log(`Order created, checkout URL: ${checkoutUrl}`);
+        // Step 3: Build simple checkout URL
+        const checkoutUrl = `https://learn.shastrakulam.com/single-checkout/${productId}` +
+          `?pid=p1` +
+          `&type=${productType}` +
+          `&plan=null` +
+          `&abd=true` +
+          `&templateId=abandoned_cart_emails_2` +
+          `&abdOrderId=${abdOrderId}`;
+
+        console.log(`Generated checkout URL: ${checkoutUrl}`);
 
         return new Response(
           JSON.stringify({ 
             success: true,
             checkoutUrl,
-            orderId: orderData.id || orderData.order_id,
-            learnerId,
+            abdOrderId,
           }),
           { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
