@@ -201,28 +201,19 @@ const BodhikaEnrollmentForm: React.FC<BodhikaEnrollmentFormProps> = ({
 
       if (error) throw error;
 
-      // Call graphy-sync edge function to create order and get checkout URL
-      const productId = batchType === 'group' 
-        ? '695393a483bcbf4ec9283f27' 
-        : '6953f67fba62d03beeceac42';
-
-      const { data: orderResult, error: orderError } = await supabase.functions.invoke('graphy-sync', {
+      // Call graphy-sync edge function to create learner in Graphy
+      const { data: syncResult, error: syncError } = await supabase.functions.invoke('graphy-sync', {
         body: { 
-          action: 'create-order',
+          action: 'create-learner',
           name: formData.studentName,
           email: formData.email,
           phone: formData.phone || null,
-          productId,
-          productType: 'course',
         }
       });
 
-      if (orderError || !orderResult?.checkoutUrl) {
-        console.error('Order creation failed:', orderError || orderResult);
-        // Fallback to standard checkout
-        const fallbackUrl = orderResult?.fallbackUrl || `https://learn.shastrakulam.com/single-checkout/${productId}`;
-        window.location.href = fallbackUrl;
-        return;
+      if (syncError) {
+        console.warn('Graphy sync warning:', syncError);
+        // Don't block payment redirect even if Graphy sync fails
       }
 
       toast({
@@ -230,8 +221,13 @@ const BodhikaEnrollmentForm: React.FC<BodhikaEnrollmentFormProps> = ({
         description: getText('successDesc'),
       });
 
-      // Redirect to Graphy checkout
-      window.location.href = orderResult.checkoutUrl;
+      // Build Graphy direct payment/checkout URL
+      const graphyPaymentUrl = `https://learn.shastrakulam.com/courses/${graphyProductId}/buy?email=${encodeURIComponent(formData.email)}&name=${encodeURIComponent(formData.studentName)}`;
+      
+      // Small delay to show toast, then redirect
+      setTimeout(() => {
+        window.location.href = graphyPaymentUrl;
+      }, 500);
       
     } catch (error: any) {
       console.error('Enrollment error:', error);

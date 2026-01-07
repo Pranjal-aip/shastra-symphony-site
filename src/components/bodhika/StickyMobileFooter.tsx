@@ -18,11 +18,14 @@ const translations = {
   }
 };
 
-interface StickyMobileFooterProps {
-  onEnrollClick?: () => void;
-}
+const scrollToPricing = () => {
+  const pricingSection = document.getElementById('pricing-section');
+  if (pricingSection) {
+    pricingSection.scrollIntoView({ behavior: 'smooth' });
+  }
+};
 
-const StickyMobileFooter = ({ onEnrollClick }: StickyMobileFooterProps) => {
+const StickyMobileFooter = () => {
   const { t } = useLanguage();
   const isMobile = useIsMobile();
   const [visible, setVisible] = useState(false);
@@ -47,18 +50,6 @@ const StickyMobileFooter = ({ onEnrollClick }: StickyMobileFooterProps) => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleClick = () => {
-    if (onEnrollClick) {
-      onEnrollClick();
-    } else {
-      // Fallback: scroll to pricing section
-      const pricingSection = document.getElementById('pricing-section');
-      if (pricingSection) {
-        pricingSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
 
   // Only show on mobile
   if (!isMobile) return null;
@@ -96,7 +87,7 @@ const StickyMobileFooter = ({ onEnrollClick }: StickyMobileFooterProps) => {
                 <Button
                   size="sm"
                   className="bg-saffron hover:bg-saffron/90 text-white font-semibold px-6 py-2 rounded-full shadow-lg flex-1 max-w-[200px]"
-                  onClick={handleClick}
+                  onClick={scrollToPricing}
                 >
                   <motion.span
                     animate={{ opacity: [1, 0.8, 1] }}

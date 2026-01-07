@@ -46,8 +46,7 @@ import {
   TreePine,
   Zap,
   Footprints,
-  Languages,
-  Loader2
+  Languages
 } from 'lucide-react';
 
 // Import images
@@ -81,7 +80,6 @@ import StickyMobileFooter from '@/components/bodhika/StickyMobileFooter';
 import ScarcityNarrative from '@/components/bodhika/ScarcityNarrative';
 import HeroVSL from '@/components/bodhika/HeroVSL';
 import FloatingScarcityBadge from '@/components/bodhika/FloatingScarcityBadge';
-import BodhikaEnrollmentForm from '@/components/bodhika/BodhikaEnrollmentForm';
 
 // Translations
 const bodhikaTranslations = {
@@ -1133,26 +1131,13 @@ const GRAPHY_PRODUCT_IDS = {
   focused: 'Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42'
 };
 
-// Course IDs for fallback
-const GRAPHY_COURSE_IDS = {
-  group: '695393a483bcbf4ec9283f27',
-  focused: '6953f67fba62d03beeceac42'
-};
-
-interface PricingSectionProps {
-  onEnrollClick: (batchType: 'group' | 'focused') => void;
-  enrollmentOpen: boolean;
-  setEnrollmentOpen: (open: boolean) => void;
-  selectedBatch: 'group' | 'focused';
-}
-
 // Pricing Section
-const PricingSection = ({ onEnrollClick, enrollmentOpen, setEnrollmentOpen, selectedBatch }: PricingSectionProps) => {
+const PricingSection = () => {
   const { t } = useLanguage();
-  const [isLoading, setIsLoading] = useState<'group' | 'focused' | null>(null);
 
   const handleEnrollClick = (batchType: 'group' | 'focused') => {
-    onEnrollClick(batchType);
+    const graphyProductId = GRAPHY_PRODUCT_IDS[batchType];
+    window.open(`https://learn.shastrakulam.com/courses/${graphyProductId}`, '_blank');
   };
   
   return (
@@ -1285,11 +1270,7 @@ const PricingSection = ({ onEnrollClick, enrollmentOpen, setEnrollmentOpen, sele
                 <Button 
                   className="w-full bg-saffron hover:bg-saffron/90 text-white"
                   onClick={() => handleEnrollClick('group')}
-                  disabled={isLoading === 'group'}
                 >
-                  {isLoading === 'group' ? (
-                    <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                  ) : null}
                   {t(bodhikaTranslations.enrollGroup)}
                 </Button>
                 <a 
@@ -1352,11 +1333,7 @@ const PricingSection = ({ onEnrollClick, enrollmentOpen, setEnrollmentOpen, sele
                 <Button 
                   className="w-full bg-maroon hover:bg-maroon/90 text-white"
                   onClick={() => handleEnrollClick('focused')}
-                  disabled={isLoading === 'focused'}
                 >
-                  {isLoading === 'focused' ? (
-                    <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                  ) : null}
                   {t(bodhikaTranslations.enrollFocused)}
                 </Button>
                 <a 
@@ -1414,13 +1391,6 @@ const PricingSection = ({ onEnrollClick, enrollmentOpen, setEnrollmentOpen, sele
           <RiskReversalCard />
         </div>
       </div>
-      
-      {/* Enrollment Form Dialog */}
-      <BodhikaEnrollmentForm
-        batchType={selectedBatch}
-        open={enrollmentOpen}
-        onOpenChange={setEnrollmentOpen}
-      />
     </section>
   );
 };
@@ -1651,15 +1621,6 @@ const StickyEnrollButton = () => {
 const BodhikaLanding = () => {
   const { t } = useLanguage();
   
-  // Lifted state for enrollment form
-  const [enrollmentOpen, setEnrollmentOpen] = useState(false);
-  const [selectedBatch, setSelectedBatch] = useState<'group' | 'focused'>('group');
-
-  const handleEnrollClick = (batchType: 'group' | 'focused' = 'group') => {
-    setSelectedBatch(batchType);
-    setEnrollmentOpen(true);
-  };
-  
   return (
     <>
       <ScarcityTopBar />
@@ -1682,18 +1643,13 @@ const BodhikaLanding = () => {
         <LearningSection />
         <LearningExperienceSection />
         <SanskritSection />
-        <PricingSection 
-          onEnrollClick={handleEnrollClick}
-          enrollmentOpen={enrollmentOpen}
-          setEnrollmentOpen={setEnrollmentOpen}
-          selectedBatch={selectedBatch}
-        />
+        <PricingSection />
         <ObjectionCrusherFAQ />
         <TrustSection />
         <TestimonialsSection />
         <FounderInvitation />
         <FinalCTASection />
-        <StickyMobileFooter onEnrollClick={() => handleEnrollClick('group')} />
+        <StickyMobileFooter />
         <ScarcityProgressBar floating />
       </Layout>
     </>
