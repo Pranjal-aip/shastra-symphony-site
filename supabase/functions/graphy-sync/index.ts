@@ -297,6 +297,127 @@ Deno.serve(async (req) => {
         );
       }
 
+      // Create order and get checkout URL
+      case 'create-order': {
+        const { name, email, phone, productId, productType = 'course' } = body;
+        
+        if (!name || !email || !productId) {
+          return new Response(
+            JSON.stringify({ error: 'name, email, and productId are required' }),
+            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+
+        console.log(`Creating order for product: ${productId}, user: ${email}`);
+
+        // Step 1: Create or get learner in Graphy
+        const createLearnerResponse = await fetch(`https://api.graphy.com/public/v1/learners`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${graphyApiKey}`,
+            'X-Graphy-MID': graphyMid,
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            phone: phone || undefined,
+          }),
+        });
+
+        const learnerData = await createLearnerResponse.json();
+        console.log('Learner API response:', learnerData);
+
+        // Get learner ID (409 means already exists)
+        let learnerId = learnerData.id || learnerData.learner?.id;
+        
+        if (!learnerId && createLearnerResponse.status === 409) {
+          // Fetch existing learner
+          const fetchLearnerResponse = await fetch(
+            `https://api.graphy.com/public/v1/learners?email=${encodeURIComponent(email)}`,
+            {
+              headers: {
+                'Authorization': `Bearer ${graphyApiKey}`,
+                'X-Graphy-MID': graphyMid,
+              },
+            }
+          );
+          const existingLearner = await fetchLearnerResponse.json();
+          learnerId = existingLearner.data?.[0]?.id || existingLearner.id;
+        }
+
+        if (!learnerId) {
+          console.error('Could not get learner ID');
+          return new Response(
+            JSON.stringify({ error: 'Could not create or find learner in Graphy' }),
+            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+
+        console.log(`Learner ID: ${learnerId}`);
+
+        // Step 2: Create order in Graphy
+        const orderPayload = {
+          learner_id: learnerId,
+          product_id: productId,
+          product_type: productType,
+          success_url: 'https://shastrakulam.com/payment-success',
+          failure_url: 'https://shastrakulam.com/payment-failed',
+        };
+
+        console.log('Creating order with payload:', orderPayload);
+
+        const orderResponse = await fetch(`https://api.graphy.com/public/v1/orders`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${graphyApiKey}`,
+            'X-Graphy-MID': graphyMid,
+          },
+          body: JSON.stringify(orderPayload),
+        });
+
+        const orderData = await orderResponse.json();
+        console.log('Order API response:', orderData);
+
+        if (!orderResponse.ok) {
+          console.error('Failed to create order:', orderData);
+          return new Response(
+            JSON.stringify({ 
+              error: 'Failed to create order in Graphy', 
+              details: orderData,
+              fallbackUrl: `https://learn.shastrakulam.com/single-checkout/${productId}`
+            }),
+            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+
+        const checkoutUrl = orderData.checkout_url || orderData.checkoutUrl || orderData.payment_url;
+        
+        if (!checkoutUrl) {
+          console.error('No checkout URL in response:', orderData);
+          return new Response(
+            JSON.stringify({ 
+              error: 'No checkout URL returned from Graphy',
+              fallbackUrl: `https://learn.shastrakulam.com/single-checkout/${productId}`
+            }),
+            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+
+        console.log(`Order created, checkout URL: ${checkoutUrl}`);
+
+        return new Response(
+          JSON.stringify({ 
+            success: true,
+            checkoutUrl,
+            orderId: orderData.id || orderData.order_id,
+            learnerId,
+          }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
+
       case 'get-progress': {
         const { learner_id, enrollment_id } = body;
         
