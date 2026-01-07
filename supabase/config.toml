@@ -11,3 +11,6 @@ verify_jwt = false
 
 [functions.graphy-webhook]
 verify_jwt = false
+
+[functions.auto-checkout]
+verify_jwt = false

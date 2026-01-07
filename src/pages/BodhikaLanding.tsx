@@ -46,7 +46,8 @@ import {
   TreePine,
   Zap,
   Footprints,
-  Languages
+  Languages,
+  Loader2
 } from 'lucide-react';
 
 // Import images
@@ -1131,13 +1132,51 @@ const GRAPHY_PRODUCT_IDS = {
   focused: 'Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42'
 };
 
+// Course IDs for fallback
+const GRAPHY_COURSE_IDS = {
+  group: '695393a483bcbf4ec9283f27',
+  focused: '6953f67fba62d03beeceac42'
+};
+
 // Pricing Section
 const PricingSection = () => {
   const { t } = useLanguage();
+  const [isLoading, setIsLoading] = useState<'group' | 'focused' | null>(null);
 
-  const handleEnrollClick = (batchType: 'group' | 'focused') => {
-    const graphyProductId = GRAPHY_PRODUCT_IDS[batchType];
-    window.open(`https://learn.shastrakulam.com/courses/${graphyProductId}`, '_blank');
+  const handleEnrollClick = async (batchType: 'group' | 'focused') => {
+    setIsLoading(batchType);
+    
+    try {
+      // Call the auto-checkout edge function
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/auto-checkout`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
+          },
+          body: JSON.stringify({ courseType: batchType })
+        }
+      );
+      
+      const data = await response.json();
+      
+      if (data.redirectUrl) {
+        // Redirect to Cashfree payment
+        window.location.href = data.redirectUrl;
+      } else {
+        // Fallback to normal checkout if no redirect URL
+        console.error('No redirect URL received, using fallback');
+        window.open(`https://learn.shastrakulam.com/single-checkout/${GRAPHY_COURSE_IDS[batchType]}`, '_blank');
+      }
+    } catch (error) {
+      console.error('Auto-checkout failed:', error);
+      // Fallback to normal Graphy checkout
+      window.open(`https://learn.shastrakulam.com/single-checkout/${GRAPHY_COURSE_IDS[batchType]}`, '_blank');
+    } finally {
+      setIsLoading(null);
+    }
   };
   
   return (
@@ -1270,7 +1309,11 @@ const PricingSection = () => {
                 <Button 
                   className="w-full bg-saffron hover:bg-saffron/90 text-white"
                   onClick={() => handleEnrollClick('group')}
+                  disabled={isLoading === 'group'}
                 >
+                  {isLoading === 'group' ? (
+                    <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                  ) : null}
                   {t(bodhikaTranslations.enrollGroup)}
                 </Button>
                 <a 
@@ -1333,7 +1376,11 @@ const PricingSection = () => {
                 <Button 
                   className="w-full bg-maroon hover:bg-maroon/90 text-white"
                   onClick={() => handleEnrollClick('focused')}
+                  disabled={isLoading === 'focused'}
                 >
+                  {isLoading === 'focused' ? (
+                    <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                  ) : null}
                   {t(bodhikaTranslations.enrollFocused)}
                 </Button>
                 <a 
