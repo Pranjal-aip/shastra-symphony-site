@@ -2,8 +2,8 @@
  * Cloudflare Worker: Social Media Crawler OG Proxy for Shastrakulam
  * 
  * This worker intercepts requests from social media crawlers (WhatsApp, Facebook, etc.)
- * for blog and course URLs, and serves them pre-rendered HTML with proper OG tags
- * from the og-share edge function.
+ * for blog, course, and bodhika landing page URLs, and serves them pre-rendered HTML 
+ * with proper OG tags from the og-share edge function.
  * 
  * DEPLOYMENT STEPS:
  * 1. Go to https://dash.cloudflare.com
@@ -16,8 +16,10 @@
  * 8. Add these routes:
  *    - shastrakulam.com/blog/*
  *    - shastrakulam.com/courses/*
+ *    - shastrakulam.com/bodhika
  *    - www.shastrakulam.com/blog/*
  *    - www.shastrakulam.com/courses/*
+ *    - www.shastrakulam.com/bodhika
  * 9. Done! Test by sharing a blog URL on WhatsApp.
  */
 
@@ -63,8 +65,14 @@ function isCrawler(userAgent) {
  * Extract type and slug from the URL path
  * /blog/my-post-slug → { type: 'blog', slug: 'my-post-slug' }
  * /courses/my-course → { type: 'courses', slug: 'my-course' }
+ * /bodhika → { type: 'bodhika', slug: null }
  */
 function parseContentPath(pathname) {
+  // Check for bodhika landing page first
+  if (pathname === '/bodhika' || pathname === '/bodhika/') {
+    return { type: 'bodhika', slug: null };
+  }
+  
   const match = pathname.match(/^\/(blog|courses)\/([^\/\?#]+)/);
   if (match) {
     return { type: match[1], slug: match[2] };
@@ -91,7 +99,9 @@ export default {
     // Check if this is a crawler request
     if (isCrawler(userAgent)) {
       // Construct the og-share URL
-      const ogShareUrl = `${OG_SHARE_BASE_URL}/${content.type}/${content.slug}`;
+      const ogShareUrl = content.slug 
+        ? `${OG_SHARE_BASE_URL}/${content.type}/${content.slug}`
+        : `${OG_SHARE_BASE_URL}/${content.type}`;
       
       console.log(`[OG Proxy] Crawler detected: ${userAgent.substring(0, 50)}...`);
       console.log(`[OG Proxy] Proxying to: ${ogShareUrl}`);
