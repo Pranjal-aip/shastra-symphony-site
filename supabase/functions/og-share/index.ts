@@ -21,31 +21,48 @@ Deno.serve(async (req) => {
     userAgent: userAgent.substring(0, 100),
   })
   
-  // Check if this is a special landing page request
-  const lastPart = pathParts.at(-1)
-  const isBodhika = lastPart === 'bodhika'
-  const isHomepage = lastPart === 'homepage' || lastPart === 'og-share'
+  // Parse the path to extract type and slug
+  // Expected paths from Cloudflare Worker:
+  // /og-share/homepage -> homepage
+  // /og-share/bodhika -> bodhika landing page
+  // /og-share/blog/slug-here -> blog post
+  // /og-share/courses/slug-here -> course
   
-  // Use last two segments: /functions/v1/og-share/blog/:slug -> type=blog, slug=:slug
+  // Find the index of 'og-share' in path parts
+  const ogShareIndex = pathParts.findIndex(p => p === 'og-share')
+  
+  // Get parts after 'og-share'
+  const relevantParts = ogShareIndex >= 0 
+    ? pathParts.slice(ogShareIndex + 1) 
+    : pathParts
+  
+  console.log('Relevant parts after og-share:', relevantParts)
+  
   let type: string | undefined
-  let slug: string | undefined | null
+  let slug: string | undefined | null = null
   
-  if (isHomepage) {
+  if (relevantParts.length === 0 || relevantParts[0] === 'homepage') {
+    // /og-share or /og-share/homepage -> homepage
     type = 'homepage'
-    slug = null
-  } else if (isBodhika) {
+  } else if (relevantParts[0] === 'bodhika') {
+    // /og-share/bodhika -> bodhika landing page
     type = 'bodhika'
-    slug = null
-  } else {
-    type = pathParts.at(-2) // 'blog' or 'courses'
-    slug = pathParts.at(-1)
+  } else if (relevantParts[0] === 'blog' && relevantParts[1]) {
+    // /og-share/blog/slug-here -> blog post
+    type = 'blog'
+    slug = relevantParts[1]
+  } else if (relevantParts[0] === 'courses' && relevantParts[1]) {
+    // /og-share/courses/slug-here -> course
+    type = 'courses'
+    slug = relevantParts[1]
   }
 
-  console.log('Parsed:', { type, slug, isBodhika, isHomepage })
+  console.log('Parsed:', { type, slug, relevantParts })
 
   // Validate type and slug
   const validTypes = ['blog', 'courses', 'bodhika', 'homepage']
-  if (!type || (!isBodhika && !isHomepage && !slug) || !validTypes.includes(type)) {
+  const needsSlug = type === 'blog' || type === 'courses'
+  if (!type || (needsSlug && !slug) || !validTypes.includes(type)) {
     console.log('Invalid type or slug, returning 404')
     return new Response('Not found', { status: 404 })
   }
