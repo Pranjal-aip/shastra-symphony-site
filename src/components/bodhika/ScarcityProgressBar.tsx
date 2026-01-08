@@ -101,7 +101,7 @@ const ScarcityProgressBar = ({ className = '', floating = false }: ScarcityProgr
                     <div className="h-3 bg-cream/20 rounded-full overflow-hidden">
                       <motion.div 
                         initial={{ width: 0 }}
-                        animate={{ width: '93%' }}
+                        animate={{ width: '60%' }}
                         transition={{ delay: 0.3, duration: 1, ease: "easeOut" }}
                         className="h-full bg-gradient-to-r from-saffron via-orange-400 to-saffron rounded-full relative"
                       >
@@ -181,7 +181,7 @@ const ScarcityProgressBar = ({ className = '', floating = false }: ScarcityProgr
         <div className="h-4 bg-muted rounded-full overflow-hidden shadow-inner">
           <motion.div 
             initial={{ width: 0 }}
-            whileInView={{ width: '93%' }}
+            whileInView={{ width: '60%' }}
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 1.2, ease: "easeOut" }}
             className="h-full bg-gradient-to-r from-saffron via-orange-400 to-maroon rounded-full relative"
