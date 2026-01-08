@@ -1125,10 +1125,18 @@ const SanskritSection = () => {
   );
 };
 
-// Graphy Product IDs for direct redirect
-const GRAPHY_PRODUCT_IDS = {
-  group: 'Bodhika--Awakening-Young-Minds-695393a483bcbf4ec9283f27',
-  focused: 'Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42'
+// Graphy Product IDs and Course IDs for direct checkout
+const GRAPHY_CHECKOUT_CONFIG = {
+  group: {
+    productId: 'Bodhika--Awakening-Young-Minds-695393a483bcbf4ec9283f27',
+    courseId: '695393a483bcbf4ec9283f27',
+    amount: '6000.0'
+  },
+  focused: {
+    productId: 'Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42',
+    courseId: '6953f67fba62d03beeceac42',
+    amount: '15000.0'
+  }
 };
 
 // Pricing Section
@@ -1136,8 +1144,10 @@ const PricingSection = () => {
   const { t } = useLanguage();
 
   const handleEnrollClick = (batchType: 'group' | 'focused') => {
-    const graphyProductId = GRAPHY_PRODUCT_IDS[batchType];
-    window.open(`https://learn.shastrakulam.com/courses/${graphyProductId}`, '_blank');
+    const config = GRAPHY_CHECKOUT_CONFIG[batchType];
+    const checkoutParams = `/t/public/pre-checkout/single-checkout?courseId=${config.courseId}&pid=null&orderId=ANaml${Date.now()}&courseAmount=${config.amount}&pg=cashfree&currencyCode=INR&transactionId=${config.courseId}`;
+    const checkoutUrl = `https://learn.shastrakulam.com/courses/${config.productId}?page=checkout&rzpCashfreeRedirectToPreCheckoutFlow=true&newCheckoutFlowRedirectIssue=true&newCheckoutFlowParams=${encodeURIComponent(checkoutParams)}`;
+    window.location.href = checkoutUrl;
   };
   
   return (
