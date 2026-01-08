@@ -81,9 +81,9 @@ const translations = {
     sa: 'किम् प्रतिदाननीतिः अस्ति?'
   },
   faq7A: {
-    en: "We offer a 7-day Clarity Guarantee. If you don't see a measurable shift in your child's engagement and clarity within the first 7 days, we'll personally work with you to address any gaps—your transformation is our commitment.",
-    hi: 'हम 7-दिवसीय स्पष्टता गारंटी प्रदान करते हैं। यदि आप पहले 7 दिनों के भीतर अपने बच्चे की व्यस्तता और स्पष्टता में मापनीय बदलाव नहीं देखते हैं, तो हम व्यक्तिगत रूप से किसी भी अंतर को दूर करने के लिए आपके साथ काम करेंगे—आपका परिवर्तन हमारी प्रतिबद्धता है।',
-    sa: 'वयं ७-दिवसीयं स्पष्टताप्रत्याभूतिं प्रयच्छामः। यदि भवान् प्रथमेषु ७ दिनेषु भवतः सन्तानस्य संलग्नतायां स्पष्टतायां च मापनीयं परिवर्तनं न पश्यति, वयं व्यक्तिगतरूपेण भवता सह कार्यं करिष्यामः—भवतः परिवर्तनम् अस्माकं प्रतिबद्धता।'
+    en: "No. The amount paid for Shastrakulam is non-refundable under any circumstances. Once the booking/registration is confirmed, refunds will not be provided.",
+    hi: 'नहीं। शास्त्रकुलम् के लिए भुगतान की गई राशि किसी भी परिस्थिति में वापस नहीं की जाएगी। एक बार बुकिंग/पंजीकरण की पुष्टि हो जाने पर, धनवापसी प्रदान नहीं की जाएगी।',
+    sa: 'न। शास्त्रकुलम् कृते प्रदत्तं धनं कस्मिन्नपि परिस्थितौ प्रत्यर्पणीयं नास्ति। एकवारं आरक्षणं/पञ्जीकरणं पुष्टं भवति चेत्, धनप्रत्यर्पणं न प्रदास्यते।'
   },
   faq8Q: {
     en: 'What technology/device is needed?',
