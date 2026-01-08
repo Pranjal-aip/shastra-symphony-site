@@ -35,14 +35,25 @@ const ScarcityProgressBar = ({ className = '', floating = false }: ScarcityProgr
   const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
+  const [hiddenNearPricing, setHiddenNearPricing] = useState(false);
   
   useEffect(() => {
     if (!floating) return;
     
     const handleScroll = () => {
       const scrollY = window.scrollY;
+      const pricingSection = document.getElementById('pricing-section');
+      
       // Show after scrolling 400px
-      setIsVisible(scrollY > 400 && !isDismissed);
+      const shouldShow = scrollY > 400 && !isDismissed;
+      setIsVisible(shouldShow);
+      
+      // Hide when near pricing section
+      if (pricingSection) {
+        const rect = pricingSection.getBoundingClientRect();
+        const isNearPricing = rect.top < window.innerHeight && rect.bottom > 0;
+        setHiddenNearPricing(isNearPricing);
+      }
     };
     
     window.addEventListener('scroll', handleScroll);
@@ -57,7 +68,7 @@ const ScarcityProgressBar = ({ className = '', floating = false }: ScarcityProgr
   if (floating) {
     return (
       <AnimatePresence>
-        {isVisible && (
+        {isVisible && !hiddenNearPricing && (
           <motion.div 
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}

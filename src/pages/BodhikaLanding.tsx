@@ -1250,69 +1250,7 @@ const PricingSection = () => {
         </div>
         
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Group Batch */}
-          <Card className="border-2 border-border shadow-card hover-lift overflow-hidden relative">
-            {/* Scarcity Tag */}
-            <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-red-500 to-orange-500 text-white text-center py-1 text-xs font-bold z-20">
-              🔥 {t(bodhikaTranslations.limitedSeatsForMarch)}
-            </div>
-            <div className="absolute top-8 right-4 w-20 h-20 opacity-15 rounded-lg overflow-hidden">
-              <img src={heroGurukul} alt="" className="w-full h-full object-cover object-center" />
-            </div>
-            <div className="bg-cream/50 p-6 pt-10 relative z-10">
-              <div className="flex items-center justify-between mb-4">
-                <Badge className="bg-saffron/10 text-saffron">{t(bodhikaTranslations.groupBatch)}</Badge>
-                <Users className="h-6 w-6 text-muted-foreground" />
-              </div>
-              <p className="font-body text-muted-foreground">{t(bodhikaTranslations.studentsPerBatch)}</p>
-            </div>
-            <CardContent className="p-6 relative z-10">
-              <div className="mb-6">
-                <span className="font-heading text-4xl font-bold text-foreground">₹6,000</span>
-                <span className="font-body text-muted-foreground">{t(bodhikaTranslations.yearlyFee)}</span>
-              </div>
-              
-              <ul className="space-y-3 mb-6">
-                {[
-                  t(bodhikaTranslations.weeklyLiveClasses),
-                  t(bodhikaTranslations.peerInteractions),
-                  t(bodhikaTranslations.interactiveActivities),
-                  t(bodhikaTranslations.communityBuilding),
-                  t(bodhikaTranslations.fullRecordings),
-                ].map((feature, idx) => (
-                  <li key={idx} className="flex items-center gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0" />
-                    <span className="font-body text-foreground">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-              
-              <div className="space-y-3">
-                <Button 
-                  className="w-full bg-saffron hover:bg-saffron/90 text-white"
-                  onClick={() => handleEnrollClick('group')}
-                >
-                  {t(bodhikaTranslations.enrollGroup)}
-                </Button>
-                <a 
-                  href="https://wa.me/919810364541?text=Hi%2C%20I%20have%20a%20question%20about%20the%20Bodhika%20Group%20Batch%20course."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <Button 
-                    variant="outline"
-                    className="w-full border-green-500 text-green-600 hover:bg-green-50"
-                  >
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    {t(bodhikaTranslations.askOnWhatsApp)}
-                  </Button>
-                </a>
-              </div>
-            </CardContent>
-          </Card>
-          
-          {/* Focused Batch */}
+          {/* Focused Batch - First */}
           <Card className="border-2 border-saffron shadow-elevated hover-lift overflow-hidden relative">
             <div className="absolute top-4 right-12 w-20 h-20 opacity-15 rounded-lg overflow-hidden">
               <img src={mantrasScene} alt="" className="w-full h-full object-cover object-center" />
@@ -1359,6 +1297,68 @@ const PricingSection = () => {
                 </Button>
                 <a 
                   href="https://wa.me/919810364541?text=Hi%2C%20I%20have%20a%20question%20about%20the%20Bodhika%20Focused%20Batch%20course."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Button 
+                    variant="outline"
+                    className="w-full border-green-500 text-green-600 hover:bg-green-50"
+                  >
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                    {t(bodhikaTranslations.askOnWhatsApp)}
+                  </Button>
+                </a>
+              </div>
+            </CardContent>
+          </Card>
+          
+          {/* Group Batch - Second */}
+          <Card className="border-2 border-border shadow-card hover-lift overflow-hidden relative">
+            {/* Scarcity Tag */}
+            <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-red-500 to-orange-500 text-white text-center py-1 text-xs font-bold z-20">
+              🔥 {t(bodhikaTranslations.limitedSeatsForMarch)}
+            </div>
+            <div className="absolute top-8 right-4 w-20 h-20 opacity-15 rounded-lg overflow-hidden">
+              <img src={heroGurukul} alt="" className="w-full h-full object-cover object-center" />
+            </div>
+            <div className="bg-cream/50 p-6 pt-10 relative z-10">
+              <div className="flex items-center justify-between mb-4">
+                <Badge className="bg-saffron/10 text-saffron">{t(bodhikaTranslations.groupBatch)}</Badge>
+                <Users className="h-6 w-6 text-muted-foreground" />
+              </div>
+              <p className="font-body text-muted-foreground">{t(bodhikaTranslations.studentsPerBatch)}</p>
+            </div>
+            <CardContent className="p-6 relative z-10">
+              <div className="mb-6">
+                <span className="font-heading text-4xl font-bold text-foreground">₹6,000</span>
+                <span className="font-body text-muted-foreground">{t(bodhikaTranslations.yearlyFee)}</span>
+              </div>
+              
+              <ul className="space-y-3 mb-6">
+                {[
+                  t(bodhikaTranslations.weeklyLiveClasses),
+                  t(bodhikaTranslations.peerInteractions),
+                  t(bodhikaTranslations.interactiveActivities),
+                  t(bodhikaTranslations.communityBuilding),
+                  t(bodhikaTranslations.fullRecordings),
+                ].map((feature, idx) => (
+                  <li key={idx} className="flex items-center gap-3">
+                    <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0" />
+                    <span className="font-body text-foreground">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <div className="space-y-3">
+                <Button 
+                  className="w-full bg-saffron hover:bg-saffron/90 text-white"
+                  onClick={() => handleEnrollClick('group')}
+                >
+                  {t(bodhikaTranslations.enrollGroup)}
+                </Button>
+                <a 
+                  href="https://wa.me/919810364541?text=Hi%2C%20I%20have%20a%20question%20about%20the%20Bodhika%20Group%20Batch%20course."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block"
