@@ -2,7 +2,7 @@
  * Cloudflare Worker: Social Media Crawler OG Proxy for Shastrakulam
  * 
  * This worker intercepts requests from social media crawlers (WhatsApp, Facebook, etc.)
- * for blog, course, and bodhika landing page URLs, and serves them pre-rendered HTML 
+ * for blog, course, bodhika, and HOMEPAGE URLs, and serves them pre-rendered HTML 
  * with proper OG tags from the og-share edge function.
  * 
  * DEPLOYMENT STEPS:
@@ -17,10 +17,12 @@
  *    - shastrakulam.com/blog/*
  *    - shastrakulam.com/courses/*
  *    - shastrakulam.com/bodhika
+ *    - shastrakulam.com/  (HOMEPAGE - important!)
  *    - www.shastrakulam.com/blog/*
  *    - www.shastrakulam.com/courses/*
  *    - www.shastrakulam.com/bodhika
- * 9. Done! Test by sharing a blog URL on WhatsApp.
+ *    - www.shastrakulam.com/  (HOMEPAGE - important!)
+ * 9. Done! Test by sharing any URL on WhatsApp.
  */
 
 // Social media crawler User-Agent patterns
@@ -63,16 +65,23 @@ function isCrawler(userAgent) {
 
 /**
  * Extract type and slug from the URL path
+ * / → { type: 'homepage', slug: null }
  * /blog/my-post-slug → { type: 'blog', slug: 'my-post-slug' }
  * /courses/my-course → { type: 'courses', slug: 'my-course' }
  * /bodhika → { type: 'bodhika', slug: null }
  */
 function parseContentPath(pathname) {
-  // Check for bodhika landing page first
+  // Check for homepage first
+  if (pathname === '/' || pathname === '') {
+    return { type: 'homepage', slug: null };
+  }
+  
+  // Check for bodhika landing page
   if (pathname === '/bodhika' || pathname === '/bodhika/') {
     return { type: 'bodhika', slug: null };
   }
   
+  // Check for blog or course pages
   const match = pathname.match(/^\/(blog|courses)\/([^\/\?#]+)/);
   if (match) {
     return { type: match[1], slug: match[2] };
