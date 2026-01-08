@@ -48,7 +48,7 @@ const SEO: React.FC<SEOProps> = ({
   
   // Ensure image URL is absolute for social media platforms
   const getAbsoluteImageUrl = (img: string) => {
-    if (!img) return 'https://lovable.dev/opengraph-image-p98pqg.png';
+    if (!img) return `${baseUrl}/og-default.jpg`;
     if (img.startsWith('http')) return img;
     if (img.startsWith('/')) return `${baseUrl}${img}`;
     return `${baseUrl}/${img}`;
