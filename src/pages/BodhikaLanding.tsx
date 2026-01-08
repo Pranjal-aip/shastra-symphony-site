@@ -253,7 +253,7 @@ const bodhikaTranslations = {
   progressTracking: { en: 'Individual progress tracking', hi: 'व्यक्तिगत प्रगति ट्रैकिंग', sa: 'व्यक्तिगतप्रगतिअनुसरणम्' },
   priorityDoubt: { en: 'Priority doubt resolution', hi: 'प्राथमिकता संदेह समाधान', sa: 'प्राथमिकतासंशयसमाधानम्' },
   enrollGroup: { en: 'Secure My Child\'s Spot', hi: 'अपने बच्चे की सीट सुरक्षित करें', sa: 'स्वसन्तानस्य स्थानं सुरक्षितं कुरुत' },
-  enrollFocused: { en: 'Join the March Batch', hi: 'मार्च बैच में शामिल हों', sa: 'मार्चवर्गे सम्मिलत' },
+  enrollFocused: { en: 'Secure My Child\'s Spot', hi: 'अपने बच्चे की सीट सुरक्षित करें', sa: 'स्वसन्तानस्य स्थानं सुरक्षितं कुरुत' },
   scholarshipBadge: { en: 'Scholarships available for needy families', hi: 'जरूरतमंद परिवारों के लिए छात्रवृत्ति उपलब्ध', sa: 'आवश्यककुटुम्बेभ्यः छात्रवृत्तयः उपलब्धाः' },
 
   // Trust Section
