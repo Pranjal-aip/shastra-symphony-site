@@ -5,9 +5,9 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 const translations = {
   fewSpots: {
-    en: 'Few Spots Left!',
-    hi: 'कुछ स्थान शेष!',
-    sa: 'कानिचित् स्थानानि शेषाणि!'
+    en: 'Seats Filling Fast!',
+    hi: 'सीटें तेज़ी से भर रही हैं!',
+    sa: 'आसनानि शीघ्रं पूर्यन्ते!'
   },
   enrollNow: {
     en: 'Enroll Now',
