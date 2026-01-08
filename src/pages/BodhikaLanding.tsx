@@ -1407,10 +1407,6 @@ const PricingSection = () => {
           <ScarcityProgressBar />
         </div>
         
-        {/* Risk Reversal Card */}
-        <div className="max-w-4xl mx-auto mt-12">
-          <RiskReversalCard />
-        </div>
       </div>
     </section>
   );
