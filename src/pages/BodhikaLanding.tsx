@@ -470,7 +470,7 @@ const HeroSection = () => {
             {/* Scholarship Button */}
             <div className="mt-6">
               <a 
-                href="https://wa.me/919810364541?text=Hi%2C%20I%20am%20interested%20in%20the%20scholarship%20for%20Bodhika%20course.%20My%20family%20needs%20financial%20assistance."
+                href="https://wa.me/919674916567?text=Hi%2C%20I%20am%20interested%20in%20the%20scholarship%20for%20Bodhika%20course.%20My%20family%20needs%20financial%20assistance."
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -1296,7 +1296,7 @@ const PricingSection = () => {
                   {t(bodhikaTranslations.enrollFocused)}
                 </Button>
                 <a 
-                  href="https://wa.me/919810364541?text=Hi%2C%20I%20have%20a%20question%20about%20the%20Bodhika%20Focused%20Batch%20course."
+                  href="https://wa.me/919674916567?text=Hi%2C%20I%20have%20a%20question%20about%20the%20Bodhika%20Focused%20Batch%20course."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block"
@@ -1358,7 +1358,7 @@ const PricingSection = () => {
                   {t(bodhikaTranslations.enrollGroup)}
                 </Button>
                 <a 
-                  href="https://wa.me/919810364541?text=Hi%2C%20I%20have%20a%20question%20about%20the%20Bodhika%20Group%20Batch%20course."
+                  href="https://wa.me/919674916567?text=Hi%2C%20I%20have%20a%20question%20about%20the%20Bodhika%20Group%20Batch%20course."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block"
@@ -1387,7 +1387,7 @@ const PricingSection = () => {
         {/* Scholarship Button */}
         <div className="text-center mt-4">
           <a 
-            href="https://wa.me/919810364541?text=Hi%2C%20I%20am%20interested%20in%20the%20scholarship%20for%20Bodhika%20course.%20My%20family%20needs%20financial%20assistance."
+            href="https://wa.me/919674916567?text=Hi%2C%20I%20am%20interested%20in%20the%20scholarship%20for%20Bodhika%20course.%20My%20family%20needs%20financial%20assistance."
             target="_blank"
             rel="noopener noreferrer"
           >
