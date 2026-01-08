@@ -112,6 +112,8 @@ const bodhikaTranslations = {
   recordedAccess: { en: 'Recorded Access', hi: 'रिकॉर्डेड एक्सेस', sa: 'अभिलिखितप्राप्तिः' },
   childFriendly: { en: 'Child-Friendly', hi: 'बाल-अनुकूल', sa: 'बालोपयुक्तम्' },
   oneYearProgram: { en: '1-Year Program', hi: '1 वर्षीय कार्यक्रम', sa: 'एकवर्षीयकार्यक्रमः' },
+  ageGroup: { en: 'Ages 10-14 Years', hi: '10-14 वर्ष की आयु', sa: '१०-१४ वर्षाणि' },
+  ageGroupNote: { en: '(Extraordinary minds of all ages welcome!)', hi: '(असाधारण प्रतिभाओं का हर उम्र में स्वागत है!)', sa: '(सर्वेषां वयसां असाधारणप्रतिभाः स्वागतम्!)' },
 
   // Scarcity & Urgency
   limitedSeatsForMarch: { en: '🔥 Limited Seats for March Batch', hi: '🔥 मार्च बैच के लिए सीमित सीटें', sa: '🔥 मार्चवर्गाय सीमितासनानि' },
@@ -435,6 +437,15 @@ const HeroSection = () => {
             <p className="font-body text-base text-cream/80 max-w-xl leading-relaxed">
               {t(bodhikaTranslations.heroDesc)}
             </p>
+            
+            {/* Age Group Badge */}
+            <div className="inline-flex flex-col sm:flex-row items-start sm:items-center gap-2 bg-cream/10 backdrop-blur-sm rounded-lg px-4 py-3 border border-cream/20">
+              <div className="flex items-center gap-2">
+                <Users className="h-5 w-5 text-saffron" />
+                <span className="font-body text-base font-semibold text-cream">{t(bodhikaTranslations.ageGroup)}</span>
+              </div>
+              <span className="font-body text-sm text-saffron-light italic">{t(bodhikaTranslations.ageGroupNote)}</span>
+            </div>
             
             <div className="flex flex-wrap gap-4 pt-4">
               <Button 
