@@ -135,7 +135,7 @@ const bodhikaTranslations = {
   academicTermDays: { en: '2 Classes/Week', hi: '2 कक्षाएं/सप्ताह', sa: '२ कक्षाः/सप्ताहम्' },
   academicTermDesc: { en: 'Balanced to complement school work without overwhelming your child', hi: 'स्कूल के काम के साथ संतुलित, बच्चे पर अधिक बोझ नहीं', sa: 'विद्यालयकार्येण सह सन्तुलितं बालकं न अतिभारयति' },
   holidayIntensive: { en: 'During School Holidays', hi: 'स्कूल की छुट्टियों में', sa: 'विद्यालयावकाशेषु' },
-  holidayIntensiveDays: { en: '3-4 Classes/Week', hi: '3-4 कक्षाएं/सप्ताह', sa: '३-४ कक्षाः/सप्ताहम्' },
+  holidayIntensiveDays: { en: '4 Classes/Week', hi: '4 कक्षाएं/सप्ताह', sa: '४ कक्षाः/सप्ताहम्' },
   holidayIntensiveDesc: { en: 'Deep cultural immersion when your child has more time to learn and absorb', hi: 'जब बच्चे के पास सीखने का समय हो, तब गहन सांस्कृतिक अनुभव', sa: 'यदा सन्तानस्य अधिककालः तदा गहनसांस्कृतिकानुभवः' },
   premiumBenefit: { en: '✨ Premium Benefit: Maximize learning during holidays', hi: '✨ विशेष लाभ: छुट्टियों में अधिकतम सीखना', sa: '✨ विशेषलाभः: अवकाशेषु अधिकतमम् अधिगमम्' },
   
