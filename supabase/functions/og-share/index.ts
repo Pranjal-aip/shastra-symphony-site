@@ -21,17 +21,31 @@ Deno.serve(async (req) => {
     userAgent: userAgent.substring(0, 100),
   })
   
-  // Check if this is a bodhika landing page request
-  const isBodhika = pathParts.at(-1) === 'bodhika'
+  // Check if this is a special landing page request
+  const lastPart = pathParts.at(-1)
+  const isBodhika = lastPart === 'bodhika'
+  const isHomepage = lastPart === 'homepage' || lastPart === 'og-share'
   
   // Use last two segments: /functions/v1/og-share/blog/:slug -> type=blog, slug=:slug
-  const type = isBodhika ? 'bodhika' : pathParts.at(-2) // 'blog', 'courses', or 'bodhika'
-  const slug = isBodhika ? null : pathParts.at(-1)
+  let type: string | undefined
+  let slug: string | undefined | null
+  
+  if (isHomepage) {
+    type = 'homepage'
+    slug = null
+  } else if (isBodhika) {
+    type = 'bodhika'
+    slug = null
+  } else {
+    type = pathParts.at(-2) // 'blog' or 'courses'
+    slug = pathParts.at(-1)
+  }
 
-  console.log('Parsed:', { type, slug, isBodhika })
+  console.log('Parsed:', { type, slug, isBodhika, isHomepage })
 
   // Validate type and slug
-  if (!type || (!isBodhika && !slug) || (type !== 'blog' && type !== 'courses' && type !== 'bodhika')) {
+  const validTypes = ['blog', 'courses', 'bodhika', 'homepage']
+  if (!type || (!isBodhika && !isHomepage && !slug) || !validTypes.includes(type)) {
     console.log('Invalid type or slug, returning 404')
     return new Response('Not found', { status: 404 })
   }
@@ -49,7 +63,14 @@ Deno.serve(async (req) => {
   let pageUrl = baseUrl
 
   try {
-    if (type === 'bodhika') {
+    if (type === 'homepage') {
+      // Homepage OG tags
+      title = 'Shastrakulam – Authentic Vedic Education for All Ages'
+      description = 'Discover the timeless wisdom of ancient India through Sanskrit courses, Vedic mathematics, Bhagavad Gita classes, and immersive gurukul experiences. Join thousands of students worldwide.'
+      image = `${baseUrl}/og-default.jpg`
+      pageUrl = baseUrl
+      console.log('Homepage detected')
+    } else if (type === 'bodhika') {
       // Hardcoded values for Bodhika landing page
       title = 'Bodhika – One Year Vedic Certificate Course'
       description = 'A transformative one-year certificate course in Vedic education for children and teens. Sanskrit, Bhagavad Gita, Ramayana, Mahabharata, and more.'
