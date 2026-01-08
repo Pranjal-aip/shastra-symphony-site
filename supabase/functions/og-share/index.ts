@@ -21,14 +21,17 @@ Deno.serve(async (req) => {
     userAgent: userAgent.substring(0, 100),
   })
   
+  // Check if this is a bodhika landing page request
+  const isBodhika = pathParts.at(-1) === 'bodhika'
+  
   // Use last two segments: /functions/v1/og-share/blog/:slug -> type=blog, slug=:slug
-  const type = pathParts.at(-2) // 'blog' or 'courses'
-  const slug = pathParts.at(-1)
+  const type = isBodhika ? 'bodhika' : pathParts.at(-2) // 'blog', 'courses', or 'bodhika'
+  const slug = isBodhika ? null : pathParts.at(-1)
 
-  console.log('Parsed:', { type, slug })
+  console.log('Parsed:', { type, slug, isBodhika })
 
   // Validate type and slug
-  if (!type || !slug || (type !== 'blog' && type !== 'courses')) {
+  if (!type || (!isBodhika && !slug) || (type !== 'blog' && type !== 'courses' && type !== 'bodhika')) {
     console.log('Invalid type or slug, returning 404')
     return new Response('Not found', { status: 404 })
   }
@@ -46,7 +49,14 @@ Deno.serve(async (req) => {
   let pageUrl = baseUrl
 
   try {
-    if (type === 'blog') {
+    if (type === 'bodhika') {
+      // Hardcoded values for Bodhika landing page
+      title = 'Bodhika – One Year Vedic Certificate Course'
+      description = 'A transformative one-year certificate course in Vedic education for children and teens. Sanskrit, Bhagavad Gita, Ramayana, Mahabharata, and more.'
+      image = 'https://i.ibb.co/bj9Jhq3k/Gemini-Generated-Image-p3zfonp3zfonp3zf-1.png'
+      pageUrl = `${baseUrl}/bodhika`
+      console.log('Bodhika landing page detected')
+    } else if (type === 'blog') {
       const { data: post, error } = await supabase
         .from('blog_posts')
         .select('title_en, excerpt_en, thumbnail, slug')
