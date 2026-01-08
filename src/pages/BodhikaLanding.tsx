@@ -113,7 +113,7 @@ const bodhikaTranslations = {
   childFriendly: { en: 'Child-Friendly', hi: 'बाल-अनुकूल', sa: 'बालोपयुक्तम्' },
   oneYearProgram: { en: '1-Year Program', hi: '1 वर्षीय कार्यक्रम', sa: 'एकवर्षीयकार्यक्रमः' },
   ageGroup: { en: 'Ages 10-14 Years', hi: '10-14 वर्ष की आयु', sa: '१०-१४ वर्षाणि' },
-  ageGroupNote: { en: '(Extraordinary minds of all ages welcome!)', hi: '(असाधारण प्रतिभाओं का हर उम्र में स्वागत है!)', sa: '(सर्वेषां वयसां असाधारणप्रतिभाः स्वागतम्!)' },
+  ageGroupNote: { en: 'Younger extraordinary minds are also always welcome!', hi: 'छोटी असाधारण प्रतिभाओं का भी सदा स्वागत है!', sa: 'लघुवयस्काः असाधारणप्रतिभाः अपि सर्वदा स्वागताः!' },
 
   // Scarcity & Urgency
   limitedSeatsForMarch: { en: '🔥 Limited Seats for March Batch', hi: '🔥 मार्च बैच के लिए सीमित सीटें', sa: '🔥 मार्चवर्गाय सीमितासनानि' },
@@ -438,13 +438,13 @@ const HeroSection = () => {
               {t(bodhikaTranslations.heroDesc)}
             </p>
             
-            {/* Age Group Badge */}
-            <div className="inline-flex flex-col sm:flex-row items-start sm:items-center gap-2 bg-cream/10 backdrop-blur-sm rounded-lg px-4 py-3 border border-cream/20">
-              <div className="flex items-center gap-2">
-                <Users className="h-5 w-5 text-saffron" />
-                <span className="font-body text-base font-semibold text-cream">{t(bodhikaTranslations.ageGroup)}</span>
+            {/* Age Group Badge - Large Display */}
+            <div className="flex flex-col gap-2 bg-cream/10 backdrop-blur-sm rounded-xl px-6 py-4 border border-saffron/30">
+              <div className="flex items-center gap-3">
+                <Users className="h-8 w-8 text-saffron" />
+                <span className="font-heading text-2xl md:text-3xl font-bold text-cream">{t(bodhikaTranslations.ageGroup)}</span>
               </div>
-              <span className="font-body text-sm text-saffron-light italic">{t(bodhikaTranslations.ageGroupNote)}</span>
+              <span className="font-body text-base md:text-lg text-saffron-light italic pl-11">{t(bodhikaTranslations.ageGroupNote)}</span>
             </div>
             
             <div className="flex flex-wrap gap-4 pt-4">

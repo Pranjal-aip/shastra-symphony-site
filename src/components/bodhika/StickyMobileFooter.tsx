@@ -12,9 +12,9 @@ const translations = {
     sa: 'स्वस्थानं सुरक्षितं कुरुत'
   },
   seatsLeft: {
-    en: 'Few seats left!',
-    hi: 'कुछ सीटें शेष!',
-    sa: 'कानिचित् आसनानि शेषाणि!'
+    en: 'Seats filling fast!',
+    hi: 'सीटें तेज़ी से भर रही हैं!',
+    sa: 'आसनानि शीघ्रं पूर्यन्ते!'
   }
 };
 

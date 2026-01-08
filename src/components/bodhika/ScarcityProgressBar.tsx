@@ -15,9 +15,9 @@ const translations = {
     sa: 'स्वसन्तानं एतत् परिवर्तनं मा त्यजतु'
   },
   spotsLeft: {
-    en: 'Only 7 spots left!',
-    hi: 'केवल 7 स्थान शेष!',
-    sa: 'केवलं 7 स्थानानि शेषाणि!'
+    en: 'Seats filling fast!',
+    hi: 'सीटें तेज़ी से भर रही हैं!',
+    sa: 'आसनानि शीघ्रं पूर्यन्ते!'
   },
   fillingFast: {
     en: 'Filling fast',
