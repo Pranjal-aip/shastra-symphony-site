@@ -439,86 +439,222 @@ const OutcomesSection = () => {
 };
 
 // ============================================
-// SECTION 6: HOW THE PROGRAM WORKS
+// SECTION 6: WHAT WILL BE TAUGHT AT BODHIKA
 // ============================================
-const HowItWorksSection = () => {
-  const elements = [
+const WhatWillBeTaughtSection = () => {
+  const learningAreas = [
     {
-      icon: Video,
-      title: "Weekly Live Classes",
-      description: "Real-time interaction with trained educators. No pre-recorded content — every class involves questions and engagement.",
-      step: "01"
+      icon: Brain,
+      title: "Training the Mind (Buddhi & Manas)",
+      points: [
+        "Guided to pause before reacting impulsively",
+        "Observing thoughts and emotions with awareness",
+        "Developing clarity over impulse through practice",
+        "Inner discipline rooted in understanding, not fear-based obedience"
+      ],
+      color: "from-indigo-500 to-blue-600"
     },
     {
       icon: BookOpen,
-      title: "Story-Based Learning",
-      description: "Concepts taught through stories from Indian epics. Children absorb values through narrative, not lecture.",
-      step: "02"
+      title: "Learning Through Indian Stories (Itihasa Method)",
+      points: [
+        "Stories from Ramayana and Mahabharata",
+        "Indian historical and cultural narratives",
+        "Stories used as life situations for understanding right vs wrong",
+        "Not taught as religion, but as practical wisdom"
+      ],
+      color: "from-amber-500 to-orange-600"
+    },
+    {
+      icon: Compass,
+      title: "Understanding Dharma in Daily Life",
+      points: [
+        "Dharma as clarity in action, not blind rule-following",
+        "Responsibility in everyday situations",
+        "Conscious decision-making in real-life contexts",
+        "Developing an internal compass for choices"
+      ],
+      color: "from-emerald-500 to-teal-600"
     },
     {
       icon: RefreshCw,
-      title: "Reflection & Habit Formation",
-      description: "Each session includes reflection prompts. Children connect learning with daily life, building habits gradually.",
-      step: "03"
+      title: "Sanskar & Habit Formation",
+      points: [
+        "Discipline through consistent repetition",
+        "Building routine, respect, patience, and self-control",
+        "Habit formation as the foundation of character",
+        "Not moral preaching, but embodied practice"
+      ],
+      color: "from-rose-500 to-pink-600"
     },
     {
-      icon: Users,
-      title: "Parent Alignment Sessions",
-      description: "Occasional sessions for parents to understand what children learn and how to support the process at home.",
-      step: "04"
+      icon: Heart,
+      title: "Cultural Awareness & Rooted Identity",
+      points: [
+        "Introduction to Indian traditions and customs",
+        "Understanding the meaning behind practices",
+        "Building cultural confidence without arrogance",
+        "Connection to heritage with clarity and pride"
+      ],
+      color: "from-purple-500 to-violet-600"
+    },
+    {
+      icon: Eye,
+      title: "Reflection, Stillness & Inner Balance",
+      points: [
+        "Simple reflection practices suited for children",
+        "Quiet observation as a skill",
+        "Comfort with stillness for improved focus",
+        "Emotional balance through inner awareness"
+      ],
+      color: "from-cyan-500 to-sky-600"
     }
   ];
   
+  const differences = [
+    "No passive video consumption — every class is live and interactive",
+    "No exams, grades, or academic pressure",
+    "No moral lectures or religious sermons",
+    "Learning happens through presence, guidance, and long-term discipline"
+  ];
+  
   return (
-    <section className="py-20 bg-gradient-to-br from-cream/40 via-background to-cream/40 relative">
-      <div className="container mx-auto px-4">
+    <section className="py-20 bg-gradient-to-br from-cream/40 via-background to-cream/40 relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-20 right-0 w-96 h-96 bg-saffron/5 rounded-full filter blur-3xl" />
+      <div className="absolute bottom-20 left-0 w-96 h-96 bg-maroon/5 rounded-full filter blur-3xl" />
+      
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={staggerContainer}
-          className="max-w-5xl mx-auto"
+          className="max-w-6xl mx-auto"
         >
-          <motion.div variants={fadeInUp} className="text-center mb-14">
+          {/* Section Header */}
+          <motion.div variants={fadeInUp} className="text-center mb-12">
             <span className="inline-block bg-saffron/10 text-saffron px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
-              Our Method
+              The Gurukul Approach
             </span>
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              How the Program Works
+              What Will Be Taught at Bodhika
             </h2>
-            <p className="font-body text-muted-foreground text-lg">
-              This is guided upbringing support, not content consumption.
+            <p className="font-body text-muted-foreground text-lg italic">
+              Learning in the Tradition of an Online Gurukul
             </p>
           </motion.div>
           
-          <div className="grid md:grid-cols-2 gap-6">
-            {elements.map((element, idx) => (
-              <motion.div key={idx} variants={fadeInUp}>
-                <Card className="border-border bg-background shadow-lg hover:shadow-xl transition-all duration-300 group h-full">
-                  <CardContent className="p-8">
-                    <div className="flex items-start gap-5">
-                      <div className="relative">
-                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-saffron to-saffron/70 flex items-center justify-center shadow-lg">
-                          <element.icon className="h-8 w-8 text-white" />
-                        </div>
-                        <span className="absolute -top-2 -right-2 w-7 h-7 bg-maroon text-white text-xs font-bold rounded-full flex items-center justify-center shadow-md">
-                          {element.step}
-                        </span>
+          {/* Intro Paragraph */}
+          <motion.div variants={fadeInUp} className="max-w-3xl mx-auto mb-16">
+            <Card className="bg-maroon text-white border-0 shadow-2xl shadow-maroon/20">
+              <CardContent className="p-8">
+                <p className="font-body text-cream/90 leading-relaxed text-center">
+                  Bodhika is <strong className="text-saffron">not subject-based learning</strong>. It follows the traditional Gurukul approach where 
+                  education unfolds gradually through <strong className="text-saffron">guidance, discipline, stories, and reflection</strong>. 
+                  There is no syllabus to complete or curriculum to rush through. Instead, children absorb values and develop 
+                  clarity naturally — the way Indian education has always worked.
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
+          
+          {/* Core Learning Areas */}
+          <motion.div variants={fadeInUp} className="mb-16">
+            <h3 className="font-heading text-2xl font-bold text-foreground text-center mb-10">
+              Core Learning Areas
+            </h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {learningAreas.map((area, idx) => (
+                <motion.div key={idx} variants={fadeInUp}>
+                  <Card className="border-border bg-background hover:border-maroon/30 transition-all duration-300 hover:shadow-xl group h-full">
+                    <CardContent className="p-6">
+                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${area.color} flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform`}>
+                        <area.icon className="h-7 w-7 text-white" />
                       </div>
-                      <div className="flex-1">
-                        <h3 className="font-heading text-xl font-bold text-foreground mb-2">
-                          {element.title}
-                        </h3>
-                        <p className="font-body text-muted-foreground text-sm leading-relaxed">
-                          {element.description}
-                        </p>
-                      </div>
+                      <h4 className="font-heading text-lg font-bold text-foreground mb-4">
+                        {area.title}
+                      </h4>
+                      <ul className="space-y-2">
+                        {area.points.map((point, pidx) => (
+                          <li key={pidx} className="flex items-start gap-2">
+                            <CheckCircle2 className="h-4 w-4 text-maroon mt-0.5 shrink-0" />
+                            <span className="font-body text-sm text-muted-foreground">{point}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+          
+          {/* How This Differs Block */}
+          <motion.div variants={fadeInUp} className="mb-16">
+            <Card className="border-2 border-saffron/20 bg-gradient-to-br from-saffron/5 to-background shadow-xl">
+              <CardContent className="p-8 md:p-10">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-saffron flex items-center justify-center shadow-lg">
+                    <Lightbulb className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="font-heading text-xl font-bold text-foreground">
+                    How This Differs from Regular Online Courses
+                  </h3>
+                </div>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {differences.map((diff, idx) => (
+                    <div key={idx} className="flex items-start gap-3 bg-background/50 rounded-lg p-4">
+                      <CheckCircle2 className="h-5 w-5 text-saffron mt-0.5 shrink-0" />
+                      <span className="font-body text-sm text-foreground">{diff}</span>
                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+          
+          {/* Parent Note */}
+          <motion.div variants={fadeInUp} className="mb-12">
+            <Card className="border-maroon/20 bg-cream/50">
+              <CardContent className="p-8">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-maroon/10 flex items-center justify-center shrink-0 mt-1">
+                    <MessageCircle className="h-5 w-5 text-maroon" />
+                  </div>
+                  <div>
+                    <h4 className="font-heading text-lg font-bold text-foreground mb-2">
+                      A Note for Parents
+                    </h4>
+                    <p className="font-body text-muted-foreground leading-relaxed">
+                      This learning <strong className="text-foreground">cannot be rushed</strong>. It cannot be reduced to a syllabus or measured by tests. 
+                      Like in traditional Gurukuls, knowledge and values unfold slowly over time through consistent exposure, 
+                      guided reflection, and gradual habit formation. If you seek quick results, this is not the right program. 
+                      But if you value depth over speed, Bodhika is designed for you.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+          
+          {/* Closing CTA */}
+          <motion.div variants={fadeInUp} className="text-center">
+            <p className="font-body text-foreground mb-6 text-lg">
+              To understand how this is delivered practically, attend the Free Parent Orientation.
+            </p>
+            <Button 
+              size="lg" 
+              className="bg-saffron text-white hover:bg-saffron/90 font-semibold px-8 py-6 text-base shadow-xl shadow-saffron/20 rounded-xl group"
+              onClick={() => window.open(`https://wa.me/919674916567?text=Hi! I want to attend the free parent orientation for Bodhika.`, '_blank')}
+            >
+              Attend the Free Parent Orientation
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </Button>
+            <p className="font-body text-muted-foreground text-sm mt-4">
+              The orientation explains structure and expectations. Enrollment is optional.
+            </p>
+          </motion.div>
         </motion.div>
       </div>
     </section>
@@ -934,7 +1070,7 @@ const BodhikaLanding = () => {
         <FilteringSection />
         <ProblemSection />
         <OutcomesSection />
-        <HowItWorksSection />
+        <WhatWillBeTaughtSection />
         <BatchComparisonSection />
         <WhyOneYearSection />
         <VisionSection />
