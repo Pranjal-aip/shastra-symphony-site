@@ -1150,10 +1150,16 @@ const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <div className="text-white space-y-6 animate-fade-in">
-            {/* Scarcity Badge */}
-            <div className="inline-flex items-center gap-2 bg-saffron/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg animate-pulse">
-              <Flame className="h-4 w-4" />
-              <span className="font-body text-sm font-semibold">{t(bodhikaTranslations.limitedSeatsForMarch)}</span>
+            {/* Date + Scarcity Badge */}
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="inline-flex items-center gap-2 bg-cream text-maroon rounded-full px-4 py-2 shadow-lg border-2 border-saffron">
+                <Calendar className="h-4 w-4" />
+                <span className="font-body text-sm font-bold">{t(bodhikaTranslations.marchStart)}</span>
+              </div>
+              <div className="inline-flex items-center gap-2 bg-saffron/90 backdrop-blur-sm rounded-full px-4 py-2 shadow-lg animate-pulse">
+                <Flame className="h-4 w-4" />
+                <span className="font-body text-sm font-semibold">{t(bodhikaTranslations.limitedSeatsForMarch)}</span>
+              </div>
             </div>
             
             <div className="border-l-4 border-saffron pl-6">
@@ -1228,6 +1234,10 @@ const HighlightStrip = () => {
   } = useLanguage();
   const highlights = [{
     icon: Calendar,
+    label: t(bodhikaTranslations.marchStart),
+    highlight: true
+  }, {
+    icon: Clock,
     label: t(bodhikaTranslations.monthsLearning)
   }, {
     icon: Video,
@@ -1248,11 +1258,11 @@ const HighlightStrip = () => {
   return <section className="py-8 bg-maroon">
       <div className="container mx-auto px-4">
         <div className="flex flex-wrap justify-center gap-8 md:gap-12">
-          {highlights.map((item, idx) => <div key={idx} className="flex items-center gap-3 text-cream">
-              <div className="w-12 h-12 rounded-full bg-saffron/20 flex items-center justify-center">
+          {highlights.map((item, idx) => <div key={idx} className={`flex items-center gap-3 ${item.highlight ? 'text-saffron bg-cream/10 rounded-full px-4 py-2 border border-saffron/30' : 'text-cream'}`}>
+              <div className={`w-12 h-12 rounded-full ${item.highlight ? 'bg-saffron' : 'bg-saffron/20'} flex items-center justify-center`}>
                 <item.icon className="h-6 w-6" />
               </div>
-              <span className="font-body font-medium">{item.label}</span>
+              <span className={`font-body ${item.highlight ? 'font-bold' : 'font-medium'}`}>{item.label}</span>
             </div>)}
         </div>
       </div>
@@ -1521,11 +1531,7 @@ const BenefitsSection = () => {
 
 // Video Section Component  
 const VideoSection = () => {
-  const {
-    t
-  } = useLanguage();
-  const [isPlaying, setIsPlaying] = useState(false);
-  return;
+  return null;
 };
 
 // Learning Outcomes Section (unified)
