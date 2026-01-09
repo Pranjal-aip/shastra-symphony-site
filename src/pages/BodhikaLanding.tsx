@@ -5,6 +5,7 @@ import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import {
   BookOpen, 
   Users, 
@@ -867,9 +868,40 @@ const WhatYourChildWillLearnSection = () => {
 };
 
 // ============================================
-// SECTION 7: TWO-BATCH COMPARISON
+// SECTION 7: TWO-BATCH COMPARISON (with translations)
 // ============================================
+const batchTranslations = {
+  badge: { en: 'Choose Your Batch', hi: 'अपना बैच चुनें', sa: 'स्वबैचं चिनुत' },
+  title: { en: 'Two Batch Options', hi: 'दो बैच विकल्प', sa: 'द्वौ बैचविकल्पौ' },
+  subtitle: { en: 'The ideology and curriculum are the same in both batches. Only the depth of interaction differs.', hi: 'दोनों बैचों में विचारधारा और पाठ्यक्रम समान हैं। केवल बातचीत की गहराई भिन्न है।', sa: 'द्वयोः बैचयोः विचारधारा पाठ्यक्रमश्च समानौ। परस्परक्रियायाः गहनता एव भिद्यते।' },
+  groupTitle: { en: 'Group Live Batch', hi: 'सामूहिक लाइव बैच', sa: 'सामूहिकप्रत्यक्षबैचः' },
+  groupDesc: { en: 'For parents seeking value-based education at accessible pricing', hi: 'सुलभ मूल्य पर मूल्य-आधारित शिक्षा चाहने वाले माता-पिता के लिए', sa: 'सुलभमूल्येन मूल्याधारितशिक्षाम् इच्छद्भ्यः पितृभ्यः' },
+  groupFeatures: [
+    { en: 'Larger group sessions', hi: 'बड़े समूह सत्र', sa: 'विशालसमूहसत्राणि' },
+    { en: 'Weekly live classes', hi: 'साप्ताहिक लाइव कक्षाएँ', sa: 'साप्ताहिकप्रत्यक्षकक्षाः' },
+    { en: 'Story-based curriculum', hi: 'कथा-आधारित पाठ्यक्रम', sa: 'कथाधारितपाठ्यक्रमः' },
+    { en: 'Standard parent updates', hi: 'मानक अभिभावक अपडेट', sa: 'मानकपितृअद्यतनानि' },
+    { en: 'Group-based doubt resolution', hi: 'समूह-आधारित संदेह समाधान', sa: 'समूहाधारितसंशयसमाधानम्' }
+  ],
+  groupCTA: { en: 'Enroll in Group Batch', hi: 'सामूहिक बैच में नामांकन करें', sa: 'सामूहिकबैचे नामाङ्कनं कुरुत' },
+  focusedTitle: { en: 'Focused Live Batch', hi: 'केंद्रित लाइव बैच', sa: 'केन्द्रितप्रत्यक्षबैचः' },
+  focusedDesc: { en: 'For parents wanting personalized attention and deeper engagement', hi: 'व्यक्तिगत ध्यान और गहरी भागीदारी चाहने वाले माता-पिता के लिए', sa: 'वैयक्तिकध्यानं गहनतरभागित्वं च इच्छद्भ्यः पितृभ्यः' },
+  focusedFeatures: [
+    { en: 'Small group (12 students max)', hi: 'छोटा समूह (अधिकतम 12 छात्र)', sa: 'लघुसमूहः (अधिकतम् १२ छात्राः)' },
+    { en: 'High interaction & personalization', hi: 'उच्च बातचीत और वैयक्तिकरण', sa: 'उच्चपरस्परक्रिया वैयक्तिकरणं च' },
+    { en: 'Detailed parent guidance sessions', hi: 'विस्तृत अभिभावक मार्गदर्शन सत्र', sa: 'विस्तृतपितृमार्गदर्शनसत्राणि' },
+    { en: 'Priority doubt resolution', hi: 'प्राथमिकता संदेह समाधान', sa: 'प्राथमिकतासंशयसमाधानम्' },
+    { en: 'Individual progress tracking', hi: 'व्यक्तिगत प्रगति ट्रैकिंग', sa: 'वैयक्तिकप्रगतिअनुसरणम्' }
+  ],
+  focusedCTA: { en: 'Enroll in Focused Batch', hi: 'केंद्रित बैच में नामांकन करें', sa: 'केन्द्रितबैचे नामाङ्कनं कुरुत' },
+  recommended: { en: 'RECOMMENDED', hi: 'अनुशंसित', sa: 'अनुशंसितम्' },
+  directPayment: { en: 'Or proceed directly to payment:', hi: 'या सीधे भुगतान करें:', sa: 'अथवा साक्षात् भुगतानं कुरुत:' },
+  directGroup: { en: 'Direct Payment – Group (₹6,000)', hi: 'सीधा भुगतान – सामूहिक (₹6,000)', sa: 'साक्षात्भुगतानम् – सामूहिकम् (₹६,०००)' },
+  directFocused: { en: 'Direct Payment – Focused (₹15,000)', hi: 'सीधा भुगतान – केंद्रित (₹15,000)', sa: 'साक्षात्भुगतानम् – केन्द्रितम् (₹१५,०००)' }
+};
+
 const BatchComparisonSection = () => {
+  const { t } = useLanguage();
   const [enrollFormOpen, setEnrollFormOpen] = useState(false);
   const [selectedBatch, setSelectedBatch] = useState<'group' | 'focused'>('group');
 
@@ -879,7 +911,7 @@ const BatchComparisonSection = () => {
   };
 
   return (
-    <section id="pricing-section" className="py-20 bg-background">
+    <section id="pricing-section" className="py-12 md:py-20 bg-background">
       <div className="container mx-auto px-4">
         <motion.div 
           initial="hidden"
@@ -888,56 +920,50 @@ const BatchComparisonSection = () => {
           variants={staggerContainer}
           className="max-w-5xl mx-auto"
         >
-          <motion.div variants={fadeInUp} className="text-center mb-14">
-            <span className="inline-block bg-maroon/10 text-maroon px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
-              Choose Your Batch
+          <motion.div variants={fadeInUp} className="text-center mb-10 md:mb-14">
+            <span className="inline-block bg-maroon/10 text-maroon px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold mb-4">
+              {t(batchTranslations.badge)}
             </span>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Two Batch Options
+            <h2 className="font-heading text-2xl md:text-4xl font-bold text-foreground mb-3 md:mb-4">
+              {t(batchTranslations.title)}
             </h2>
-            <p className="font-body text-muted-foreground text-lg max-w-2xl mx-auto">
-              The ideology and curriculum are the same in both batches. Only the depth of interaction differs.
+            <p className="font-body text-muted-foreground text-sm md:text-lg max-w-2xl mx-auto px-4">
+              {t(batchTranslations.subtitle)}
             </p>
           </motion.div>
           
           {/* Pricing Cards */}
-          <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-8 mb-12">
+          <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-4 md:gap-8 mb-8 md:mb-12">
             {/* Group Batch */}
             <Card className="border-2 border-maroon/20 shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden group">
               <div className="absolute top-0 left-0 right-0 h-2 bg-maroon" />
-              <CardContent className="p-8">
-                <div className="mb-6">
-                  <h3 className="font-heading text-2xl font-bold text-foreground mb-2">Group Live Batch</h3>
-                  <p className="font-body text-muted-foreground text-sm">For parents seeking value-based education at accessible pricing</p>
+              <CardContent className="p-5 md:p-8">
+                <div className="mb-4 md:mb-6">
+                  <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-2">{t(batchTranslations.groupTitle)}</h3>
+                  <p className="font-body text-muted-foreground text-xs md:text-sm">{t(batchTranslations.groupDesc)}</p>
                 </div>
                 
-                <div className="mb-8">
-                  <span className="font-heading text-5xl font-bold text-maroon">₹6,000</span>
-                  <span className="font-body text-muted-foreground">/year</span>
+                <div className="mb-6 md:mb-8">
+                  <span className="font-heading text-4xl md:text-5xl font-bold text-maroon">₹6,000</span>
+                  <span className="font-body text-muted-foreground text-sm">/year</span>
                 </div>
                 
-                <ul className="space-y-4 mb-8">
-                  {[
-                    'Larger group sessions',
-                    'Weekly live classes',
-                    'Story-based curriculum',
-                    'Standard parent updates',
-                    'Group-based doubt resolution'
-                  ].map((item, idx) => (
-                    <li key={idx} className="flex items-center gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-maroon shrink-0" />
-                      <span className="font-body text-sm text-foreground">{item}</span>
+                <ul className="space-y-3 md:space-y-4 mb-6 md:mb-8">
+                  {batchTranslations.groupFeatures.map((item, idx) => (
+                    <li key={idx} className="flex items-center gap-2 md:gap-3">
+                      <CheckCircle2 className="h-4 w-4 md:h-5 md:w-5 text-maroon shrink-0" />
+                      <span className="font-body text-xs md:text-sm text-foreground">{t(item)}</span>
                     </li>
                   ))}
                 </ul>
                 
                 <Button 
                   size="lg" 
-                  className="w-full bg-maroon hover:bg-maroon/90 text-white font-semibold py-6 rounded-xl shadow-lg group-hover:shadow-xl transition-all"
+                  className="w-full bg-maroon hover:bg-maroon/90 text-white font-semibold py-5 md:py-6 rounded-xl shadow-lg group-hover:shadow-xl transition-all text-sm md:text-base"
                   onClick={() => handleEnrollClick('group')}
                 >
-                  Enroll in Group Batch
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  {t(batchTranslations.groupCTA)}
+                  <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
                 </Button>
               </CardContent>
             </Card>
@@ -945,44 +971,38 @@ const BatchComparisonSection = () => {
             {/* Focused Batch */}
             <Card className="border-2 border-saffron/30 shadow-xl hover:shadow-2xl transition-all duration-300 relative overflow-hidden group bg-gradient-to-br from-saffron/5 to-background">
               <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-saffron to-saffron/70" />
-              <div className="absolute top-6 right-6">
-                <span className="bg-saffron text-white text-xs font-bold px-3 py-1.5 rounded-full flex items-center gap-1">
-                  <Star className="h-3 w-3" /> RECOMMENDED
+              <div className="absolute top-4 md:top-6 right-4 md:right-6">
+                <span className="bg-saffron text-white text-xs font-bold px-2 md:px-3 py-1 md:py-1.5 rounded-full flex items-center gap-1">
+                  <Star className="h-3 w-3" /> {t(batchTranslations.recommended)}
                 </span>
               </div>
-              <CardContent className="p-8 pt-14">
-                <div className="mb-6">
-                  <h3 className="font-heading text-2xl font-bold text-foreground mb-2">Focused Live Batch</h3>
-                  <p className="font-body text-muted-foreground text-sm">For parents wanting personalized attention and deeper engagement</p>
+              <CardContent className="p-5 md:p-8 pt-12 md:pt-14">
+                <div className="mb-4 md:mb-6">
+                  <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-2">{t(batchTranslations.focusedTitle)}</h3>
+                  <p className="font-body text-muted-foreground text-xs md:text-sm">{t(batchTranslations.focusedDesc)}</p>
                 </div>
                 
-                <div className="mb-8">
-                  <span className="font-heading text-5xl font-bold text-saffron">₹15,000</span>
-                  <span className="font-body text-muted-foreground">/year</span>
+                <div className="mb-6 md:mb-8">
+                  <span className="font-heading text-4xl md:text-5xl font-bold text-saffron">₹15,000</span>
+                  <span className="font-body text-muted-foreground text-sm">/year</span>
                 </div>
                 
-                <ul className="space-y-4 mb-8">
-                  {[
-                    'Small group (12 students max)',
-                    'High interaction & personalization',
-                    'Detailed parent guidance sessions',
-                    'Priority doubt resolution',
-                    'Individual progress tracking'
-                  ].map((item, idx) => (
-                    <li key={idx} className="flex items-center gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-saffron shrink-0" />
-                      <span className="font-body text-sm text-foreground">{item}</span>
+                <ul className="space-y-3 md:space-y-4 mb-6 md:mb-8">
+                  {batchTranslations.focusedFeatures.map((item, idx) => (
+                    <li key={idx} className="flex items-center gap-2 md:gap-3">
+                      <CheckCircle2 className="h-4 w-4 md:h-5 md:w-5 text-saffron shrink-0" />
+                      <span className="font-body text-xs md:text-sm text-foreground">{t(item)}</span>
                     </li>
                   ))}
                 </ul>
                 
                 <Button 
                   size="lg" 
-                  className="w-full bg-saffron hover:bg-saffron/90 text-white font-semibold py-6 rounded-xl shadow-lg shadow-saffron/20 group-hover:shadow-xl transition-all"
+                  className="w-full bg-saffron hover:bg-saffron/90 text-white font-semibold py-5 md:py-6 rounded-xl shadow-lg shadow-saffron/20 group-hover:shadow-xl transition-all text-sm md:text-base"
                   onClick={() => handleEnrollClick('focused')}
                 >
-                  Enroll in Focused Batch
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  {t(batchTranslations.focusedCTA)}
+                  <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
                 </Button>
               </CardContent>
             </Card>
@@ -990,27 +1010,27 @@ const BatchComparisonSection = () => {
 
           {/* Direct Payment Links */}
           <motion.div variants={fadeInUp} className="text-center">
-            <p className="font-body text-muted-foreground text-sm mb-4">
-              Or proceed directly to payment:
+            <p className="font-body text-muted-foreground text-xs md:text-sm mb-3 md:mb-4">
+              {t(batchTranslations.directPayment)}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
               <Button 
                 variant="outline"
-                className="border-maroon text-maroon hover:bg-maroon/5"
+                className="border-maroon text-maroon hover:bg-maroon/5 text-xs md:text-sm"
                 onClick={() => {
                   window.location.href = `https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-695393a483bcbf4ec9283f27?page=checkout`;
                 }}
               >
-                Direct Payment – Group (₹6,000)
+                {t(batchTranslations.directGroup)}
               </Button>
               <Button 
                 variant="outline"
-                className="border-saffron text-saffron hover:bg-saffron/5"
+                className="border-saffron text-saffron hover:bg-saffron/5 text-xs md:text-sm"
                 onClick={() => {
                   window.location.href = `https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42?page=checkout`;
                 }}
               >
-                Direct Payment – Focused (₹15,000)
+                {t(batchTranslations.directFocused)}
               </Button>
             </div>
           </motion.div>
@@ -1028,34 +1048,44 @@ const BatchComparisonSection = () => {
 };
 
 // ============================================
-// SECTION 8: WHY 1-YEAR PROGRAM
+// SECTION 8: WHY 1-YEAR PROGRAM (with translations)
 // ============================================
-const WhyOneYearSection = () => {
-  const reasons = [
+const whyOneYearTranslations = {
+  badge: { en: 'The Long View', hi: 'दीर्घकालिक दृष्टिकोण', sa: 'दीर्घकालिकदृष्टिः' },
+  title: { en: 'Why This Is a 1-Year Program', hi: 'यह 1-वर्षीय कार्यक्रम क्यों है', sa: 'एतत् एकवर्षीयकार्यक्रमः किमर्थम्' },
+  reasons: [
     {
-      icon: RefreshCw,
-      title: "Sanskar forms slowly",
-      description: "Values and character cannot be downloaded. They develop through repeated exposure and practice over extended periods."
+      icon: 'RefreshCw',
+      title: { en: 'Sanskar forms slowly', hi: 'संस्कार धीरे-धीरे बनते हैं', sa: 'संस्काराः मन्दं मन्दं निर्मीयन्ते' },
+      description: { en: 'Values and character cannot be downloaded. They develop through repeated exposure and practice over extended periods.', hi: 'मूल्य और चरित्र डाउनलोड नहीं किए जा सकते। वे विस्तारित अवधियों में बार-बार संपर्क और अभ्यास के माध्यम से विकसित होते हैं।', sa: 'मूल्यानि चरित्रं च अवतारयितुं न शक्यन्ते। तानि दीर्घकालेन पुनःपुनः सम्पर्केण अभ्यासेन च विकसन्ते।' }
     },
     {
-      icon: Zap,
-      title: "Habits require repetition",
-      description: "A child cannot develop emotional discipline from a few sessions. These capacities grow through consistent practice."
+      icon: 'Zap',
+      title: { en: 'Habits require repetition', hi: 'आदतों को पुनरावृत्ति की आवश्यकता होती है', sa: 'आदतयः पुनरावृत्तिम् अपेक्षन्ते' },
+      description: { en: 'A child cannot develop emotional discipline from a few sessions. These capacities grow through consistent practice.', hi: 'एक बच्चा कुछ सत्रों से भावनात्मक अनुशासन विकसित नहीं कर सकता। ये क्षमताएं निरंतर अभ्यास से बढ़ती हैं।', sa: 'बालकः कतिपयसत्रैः भावनात्मकानुशासनं विकसयितुं न शक्नोति। एताः क्षमताः सातत्येन अभ्यासेन वर्धन्ते।' }
     },
     {
-      icon: GraduationCap,
-      title: "Traditional wisdom",
-      description: "The gurukul model understood that real learning takes time. We honor this by committing to a year-long journey."
+      icon: 'GraduationCap',
+      title: { en: 'Traditional wisdom', hi: 'पारंपरिक ज्ञान', sa: 'पारम्परिकप्रज्ञा' },
+      description: { en: 'The gurukul model understood that real learning takes time. We honor this by committing to a year-long journey.', hi: 'गुरुकुल मॉडल समझता था कि वास्तविक शिक्षा में समय लगता है। हम वर्ष-भर की यात्रा के लिए प्रतिबद्ध होकर इसका सम्मान करते हैं।', sa: 'गुरुकुलप्रतिमा अवगच्छत् यत् वास्तविकशिक्षणं कालम् अपेक्षते। वयं वर्षपर्यन्तयात्रायै प्रतिबद्धाः भूत्वा एतत् सम्मानयामः।' }
     },
     {
-      icon: Heart,
-      title: "Trust builds gradually",
-      description: "Children open up and engage deeply only when they feel safe. This trust develops over months, not days."
+      icon: 'Heart',
+      title: { en: 'Trust builds gradually', hi: 'विश्वास धीरे-धीरे बनता है', sa: 'विश्वासः क्रमशः निर्मीयते' },
+      description: { en: 'Children open up and engage deeply only when they feel safe. This trust develops over months, not days.', hi: 'बच्चे तभी खुलते हैं और गहराई से जुड़ते हैं जब वे सुरक्षित महसूस करते हैं। यह विश्वास दिनों में नहीं, महीनों में विकसित होता है।', sa: 'बालकाः तदैव उद्घाटयन्ति गहनतया संलग्नाः भवन्ति च यदा ते सुरक्षितानुभवं कुर्वन्ति। एषः विश्वासः दिनैः न अपितु मासैः विकसति।' }
     }
-  ];
+  ]
+};
+
+const iconMapReasons: { [key: string]: React.ComponentType<{ className?: string }> } = {
+  RefreshCw, Zap, GraduationCap, Heart
+};
+
+const WhyOneYearSection = () => {
+  const { t } = useLanguage();
 
   return (
-    <section className="py-20 bg-cream/40">
+    <section className="py-12 md:py-20 bg-cream/40">
       <div className="container mx-auto px-4">
         <motion.div 
           initial="hidden"
@@ -1064,37 +1094,40 @@ const WhyOneYearSection = () => {
           variants={staggerContainer}
           className="max-w-5xl mx-auto"
         >
-          <motion.div variants={fadeInUp} className="text-center mb-14">
-            <span className="inline-block bg-maroon/10 text-maroon px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
-              The Long View
+          <motion.div variants={fadeInUp} className="text-center mb-10 md:mb-14">
+            <span className="inline-block bg-maroon/10 text-maroon px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold mb-4">
+              {t(whyOneYearTranslations.badge)}
             </span>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">
-              Why This Is a 1-Year Program
+            <h2 className="font-heading text-2xl md:text-4xl font-bold text-foreground">
+              {t(whyOneYearTranslations.title)}
             </h2>
           </motion.div>
           
-          <div className="grid md:grid-cols-2 gap-6">
-            {reasons.map((reason, idx) => (
-              <motion.div key={idx} variants={fadeInUp}>
-                <Card className="border-border bg-background/80 backdrop-blur-sm shadow-md h-full">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-maroon/10 flex items-center justify-center shrink-0">
-                        <reason.icon className="h-6 w-6 text-maroon" />
+          <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+            {whyOneYearTranslations.reasons.map((reason, idx) => {
+              const IconComponent = iconMapReasons[reason.icon];
+              return (
+                <motion.div key={idx} variants={fadeInUp}>
+                  <Card className="border-border bg-background/80 backdrop-blur-sm shadow-md h-full">
+                    <CardContent className="p-5 md:p-6">
+                      <div className="flex items-start gap-3 md:gap-4">
+                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-maroon/10 flex items-center justify-center shrink-0">
+                          {IconComponent && <IconComponent className="h-5 w-5 md:h-6 md:w-6 text-maroon" />}
+                        </div>
+                        <div>
+                          <h3 className="font-heading text-base md:text-lg font-bold text-foreground mb-2">
+                            {t(reason.title)}
+                          </h3>
+                          <p className="font-body text-muted-foreground text-xs md:text-sm leading-relaxed">
+                            {t(reason.description)}
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <h3 className="font-heading text-lg font-bold text-foreground mb-2">
-                          {reason.title}
-                        </h3>
-                        <p className="font-body text-muted-foreground text-sm leading-relaxed">
-                          {reason.description}
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </div>
@@ -1103,13 +1136,27 @@ const WhyOneYearSection = () => {
 };
 
 // ============================================
-// SECTION 9: ABOUT THE VISION
+// SECTION 9: ABOUT THE VISION (with translations)
 // ============================================
+const visionTranslations = {
+  badge: { en: 'Our Philosophy', hi: 'हमारा दर्शन', sa: 'अस्माकं दर्शनम्' },
+  title: { en: "About Shastrakulam's Vision", hi: 'शास्त्रकुलम् की दृष्टि के बारे में', sa: 'शास्त्रकुलस्य दृष्टेः विषये' },
+  para1: { en: 'Shastrakulam exists to offer education that develops the', hi: 'शास्त्रकुलम् ऐसी शिक्षा प्रदान करने के लिए है जो विकसित करे', sa: 'शास्त्रकुलं विद्यते यत् शिक्षां प्रदातुं या विकासयति' },
+  wholePerson: { en: 'whole person', hi: 'संपूर्ण व्यक्ति', sa: 'सम्पूर्णव्यक्तिम्' },
+  para1End: { en: ' — not just skills, but clarity; not just knowledge, but wisdom.', hi: ' — केवल कौशल नहीं, बल्कि स्पष्टता; केवल ज्ञान नहीं, बल्कि प्रज्ञा।', sa: ' — न केवलं कौशलानि अपितु स्पष्टता; न केवलं ज्ञानम् अपितु प्रज्ञा।' },
+  para2: { en: 'We are not interested in religious conversion. We focus on the', hi: 'हम धार्मिक परिवर्तन में रुचि नहीं रखते। हम ध्यान केंद्रित करते हैं', sa: 'वयं धार्मिकपरिवर्तने न रुचिं धारयामः। वयं केन्द्रीकुर्मः' },
+  developmental: { en: 'developmental aspects', hi: 'विकासात्मक पहलुओं', sa: 'विकासात्मकपक्षेषु' },
+  para2End: { en: ' of Indian knowledge systems — how they can help children think clearly, feel deeply, and act rightly.', hi: ' भारतीय ज्ञान प्रणालियों पर — वे बच्चों को स्पष्ट सोचने, गहराई से महसूस करने और सही कार्य करने में कैसे मदद कर सकते हैं।', sa: ' भारतीयज्ञानप्रणालीनाम् — ताः बालकान् स्पष्टं चिन्तयितुं गहनं अनुभवितुं सम्यक् कर्तुं च कथं साहाय्यं कर्तुं शक्नुवन्ति।' },
+  para3: { en: 'Our approach is long-term. We believe that when children are rooted in values, they become better students, friends, and eventually, better citizens.', hi: 'हमारा दृष्टिकोण दीर्घकालिक है। हम मानते हैं कि जब बच्चे मूल्यों में निहित होते हैं, तो वे बेहतर छात्र, मित्र और अंततः बेहतर नागरिक बनते हैं।', sa: 'अस्माकं दृष्टिकोणः दीर्घकालिकः। वयं मन्यामहे यत् यदा बालकाः मूल्येषु निहिताः भवन्ति तदा ते उत्तमछात्राः मित्राणि अन्ततः उत्तमनागरिकाः च भवन्ति।' }
+};
+
 const VisionSection = () => {
+  const { t } = useLanguage();
+  
   return (
-    <section className="py-20 bg-background relative overflow-hidden">
-      <div className="absolute top-0 left-0 w-96 h-96 bg-saffron/5 rounded-full filter blur-3xl" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-maroon/5 rounded-full filter blur-3xl" />
+    <section className="py-12 md:py-20 bg-background relative overflow-hidden">
+      <div className="absolute top-0 left-0 w-64 md:w-96 h-64 md:h-96 bg-saffron/5 rounded-full filter blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-64 md:w-96 h-64 md:h-96 bg-maroon/5 rounded-full filter blur-3xl" />
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 
@@ -1119,30 +1166,30 @@ const VisionSection = () => {
           variants={staggerContainer}
           className="max-w-4xl mx-auto"
         >
-          <motion.div variants={fadeInUp} className="text-center mb-12">
-            <span className="inline-block bg-saffron/10 text-saffron px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
-              Our Philosophy
+          <motion.div variants={fadeInUp} className="text-center mb-8 md:mb-12">
+            <span className="inline-block bg-saffron/10 text-saffron px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold mb-4">
+              {t(visionTranslations.badge)}
             </span>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground">
-              About Shastrakulam's Vision
+            <h2 className="font-heading text-2xl md:text-4xl font-bold text-foreground">
+              {t(visionTranslations.title)}
             </h2>
           </motion.div>
           
-          <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-8 items-center">
+          <motion.div variants={fadeInUp} className="grid md:grid-cols-2 gap-6 md:gap-8 items-center">
             <img 
               src={heroMeditation} 
               alt="Meditation and inner peace"
-              className="rounded-2xl shadow-2xl w-full h-72 object-cover"
+              className="rounded-2xl shadow-2xl w-full h-48 md:h-72 object-cover"
             />
-            <div className="space-y-5">
-              <p className="font-body text-muted-foreground leading-relaxed">
-                Shastrakulam exists to offer education that develops the <strong className="text-foreground">whole person</strong> — not just skills, but clarity; not just knowledge, but wisdom.
+            <div className="space-y-4 md:space-y-5">
+              <p className="font-body text-muted-foreground text-sm md:text-base leading-relaxed">
+                {t(visionTranslations.para1)} <strong className="text-foreground">{t(visionTranslations.wholePerson)}</strong>{t(visionTranslations.para1End)}
               </p>
-              <p className="font-body text-muted-foreground leading-relaxed">
-                We are not interested in religious conversion. We focus on the <strong className="text-foreground">developmental aspects</strong> of Indian knowledge systems — how they can help children think clearly, feel deeply, and act rightly.
+              <p className="font-body text-muted-foreground text-sm md:text-base leading-relaxed">
+                {t(visionTranslations.para2)} <strong className="text-foreground">{t(visionTranslations.developmental)}</strong>{t(visionTranslations.para2End)}
               </p>
-              <p className="font-body text-muted-foreground leading-relaxed">
-                Our approach is long-term. We believe that when children are rooted in values, they become better students, friends, and eventually, better citizens.
+              <p className="font-body text-muted-foreground text-sm md:text-base leading-relaxed">
+                {t(visionTranslations.para3)}
               </p>
             </div>
           </motion.div>
@@ -1153,15 +1200,107 @@ const VisionSection = () => {
 };
 
 // ============================================
-// SECTION 10: FINAL CTA
+// SECTION 10: FAQ SECTION
 // ============================================
-const FinalCTASection = () => {
+const faqTranslations = {
+  badge: { en: 'Common Questions', hi: 'सामान्य प्रश्न', sa: 'सामान्यप्रश्नाः' },
+  title: { en: 'Frequently Asked Questions', hi: 'अक्सर पूछे जाने वाले प्रश्न', sa: 'बहुधा पृच्छ्यमानाः प्रश्नाः' },
+  faqs: [
+    {
+      question: { en: 'What age group is Bodhika designed for?', hi: 'बोधिका किस आयु वर्ग के लिए है?', sa: 'बोधिका कस्यै आयुवर्गाय निर्मिता?' },
+      answer: { en: 'Bodhika is designed for children aged 6 to 12 years. The curriculum and teaching approach are age-appropriate and gradually adapted based on the child\'s developmental stage.', hi: 'बोधिका 6 से 12 वर्ष की आयु के बच्चों के लिए बनाई गई है। पाठ्यक्रम और शिक्षण दृष्टिकोण आयु-उपयुक्त हैं और बच्चे के विकास चरण के आधार पर धीरे-धीरे अनुकूलित किए जाते हैं।', sa: 'बोधिका ६ तः १२ वर्षीयबालकेभ्यः निर्मिता। पाठ्यक्रमः शिक्षणपद्धतिश्च आयुयोग्याः बालकस्य विकासस्तरानुसारं क्रमशः अनुकूल्यन्ते।' }
+    },
+    {
+      question: { en: 'Is this a religious program?', hi: 'क्या यह एक धार्मिक कार्यक्रम है?', sa: 'किम् एषः धार्मिककार्यक्रमः अस्ति?' },
+      answer: { en: 'No. Bodhika uses Indian wisdom traditions (Ramayana, Mahabharata, Gita) as tools for character development and life understanding — not religious conversion. Stories are taught as life situations to help children develop clarity and values.', hi: 'नहीं। बोधिका भारतीय ज्ञान परंपराओं (रामायण, महाभारत, गीता) का उपयोग चरित्र विकास और जीवन समझ के लिए करती है — धार्मिक परिवर्तन के लिए नहीं। कथाएँ जीवन स्थितियों के रूप में सिखाई जाती हैं ताकि बच्चों में स्पष्टता और मूल्य विकसित हों।', sa: 'न। बोधिका भारतीयज्ञानपरम्पराणाम् (रामायणं महाभारतं गीता च) उपयोगं चरित्रविकासाय जीवनबोधाय च करोति — धार्मिकपरिवर्तनाय न। कथाः जीवनस्थितिरूपेण शिक्ष्यन्ते यथा बालकेषु स्पष्टता मूल्यानि च विकसेयुः।' }
+    },
+    {
+      question: { en: 'How are the classes conducted?', hi: 'कक्षाएँ कैसे संचालित की जाती हैं?', sa: 'कक्षाः कथं संचाल्यन्ते?' },
+      answer: { en: 'All classes are conducted live online every week. There are no pre-recorded videos. Every session is interactive with direct engagement between the teacher and students.', hi: 'सभी कक्षाएँ हर सप्ताह ऑनलाइन लाइव संचालित की जाती हैं। कोई पूर्व-रिकॉर्ड किए गए वीडियो नहीं हैं। हर सत्र शिक्षक और छात्रों के बीच सीधी भागीदारी के साथ इंटरैक्टिव होता है।', sa: 'सर्वाः कक्षाः प्रतिसप्ताहं प्रत्यक्षतया अन्तर्जाले संचाल्यन्ते। न कानिचित् पूर्वाङ्किताचलचित्राणि सन्ति। प्रत्येकं सत्रं शिक्षकछात्रयोः मध्ये प्रत्यक्षसंलग्नतया परस्परक्रियात्मकं भवति।' }
+    },
+    {
+      question: { en: 'What is the difference between Group and Focused batches?', hi: 'समूह और केंद्रित बैच में क्या अंतर है?', sa: 'सामूहिककेन्द्रितबैचयोः मध्ये कः भेदः?' },
+      answer: { en: 'Both batches follow the same curriculum and philosophy. The Group batch has more students with standard interaction. The Focused batch has only 12 students maximum, offering personalized attention, deeper engagement, and detailed parent guidance.', hi: 'दोनों बैच एक ही पाठ्यक्रम और दर्शन का पालन करते हैं। समूह बैच में मानक बातचीत के साथ अधिक छात्र होते हैं। केंद्रित बैच में अधिकतम केवल 12 छात्र होते हैं, जो व्यक्तिगत ध्यान, गहरी भागीदारी और विस्तृत अभिभावक मार्गदर्शन प्रदान करता है।', sa: 'उभौ बैचौ समानपाठ्यक्रमं दर्शनं च अनुसरतः। सामूहिकबैचे मानकपरस्परक्रियया अधिकाः छात्राः भवन्ति। केन्द्रितबैचे अधिकतम् १२ छात्राः एव भवन्ति यत् वैयक्तिकध्यानं गहनतरसंलग्नतां विस्तृतपितृमार्गदर्शनं च प्रददाति।' }
+    },
+    {
+      question: { en: 'Can I get a refund if my child doesn\'t like it?', hi: 'अगर मेरे बच्चे को यह पसंद नहीं आता तो क्या मुझे रिफंड मिल सकता है?', sa: 'यदि मम बालकाय एतत् न रोचते तर्हि किं मह्यं धनप्रत्यर्पणं लभ्यते?' },
+      answer: { en: 'We recommend attending the free parent orientation first to understand the program fully before enrolling. This helps ensure alignment with your expectations. For refund policies after enrollment, please connect with us on WhatsApp.', hi: 'हम अनुशंसा करते हैं कि नामांकन से पहले कार्यक्रम को पूरी तरह समझने के लिए पहले मुफ्त अभिभावक उन्मुखीकरण में भाग लें। यह आपकी अपेक्षाओं के साथ संरेखण सुनिश्चित करने में मदद करता है। नामांकन के बाद रिफंड नीतियों के लिए, कृपया व्हाट्सएप पर हमसे संपर्क करें।', sa: 'वयम् अनुशंसामः यत् नामाङ्कनात् पूर्वं कार्यक्रमं सम्पूर्णतया अवगन्तुं प्रथमं निःशुल्कपितृउन्मुखीकरणे भागं गृह्णातु। एतत् भवतः अपेक्षाभिः सह संरेखणं सुनिश्चितं कर्तुं साहाय्यं करोति। नामाङ्कनानन्तरं धनप्रत्यर्पणनीतिभ्यः कृपया व्हाट्सएप्द्वारा अस्माभिः सह सम्पर्कं कुरुत।' }
+    },
+    {
+      question: { en: 'What if we miss a class?', hi: 'अगर हम एक कक्षा छूट जाए तो क्या होगा?', sa: 'यदि वयं एकां कक्षां त्यजामः तर्हि किं भवति?' },
+      answer: { en: 'Class recordings are made available for review. However, since the learning approach is based on live interaction and gradual exposure, consistent attendance is strongly encouraged for best results.', hi: 'समीक्षा के लिए कक्षा रिकॉर्डिंग उपलब्ध कराई जाती है। हालांकि, चूंकि शिक्षण दृष्टिकोण लाइव बातचीत और क्रमिक संपर्क पर आधारित है, सर्वोत्तम परिणामों के लिए नियमित उपस्थिति दृढ़ता से प्रोत्साहित की जाती है।', sa: 'पुनरवलोकनाय कक्षाङ्कनानि उपलभ्यन्ते। तथापि यतः शिक्षणपद्धतिः प्रत्यक्षपरस्परक्रियायां क्रमिकसम्पर्के च आधारिता अस्ति उत्तमफलेभ्यः सातत्येन उपस्थितिः दृढतया प्रोत्साह्यते।' }
+    },
+    {
+      question: { en: 'Is there any scholarship available?', hi: 'क्या कोई छात्रवृत्ति उपलब्ध है?', sa: 'किं काचित् छात्रवृत्तिः उपलभ्यते?' },
+      answer: { en: 'Yes, we offer scholarships for families who genuinely need financial support. Please reach out to us on WhatsApp to discuss your situation. We believe that no child should miss this opportunity due to financial constraints.', hi: 'हाँ, हम उन परिवारों के लिए छात्रवृत्ति प्रदान करते हैं जिन्हें वास्तव में वित्तीय सहायता की आवश्यकता है। कृपया अपनी स्थिति पर चर्चा करने के लिए व्हाट्सएप पर हमसे संपर्क करें। हम मानते हैं कि किसी भी बच्चे को आर्थिक बाधाओं के कारण इस अवसर से वंचित नहीं रहना चाहिए।', sa: 'आम् वयं तेभ्यः कुटुम्बेभ्यः छात्रवृत्तिं प्रददामः येभ्यः वास्तवतः आर्थिकसाहाय्यस्य आवश्यकता अस्ति। कृपया भवतः स्थितेः विषये चर्चायै व्हाट्सएप्द्वारा अस्माभिः सह सम्पर्कं कुरुत। वयं मन्यामहे यत् न कोऽपि बालकः आर्थिकप्रतिबन्धैः अस्मात् अवसरात् वञ्चितः भवेत्।' }
+    }
+  ]
+};
+
+const FAQSection = () => {
+  const { t } = useLanguage();
+  
   return (
-    <section className="py-24 bg-gradient-to-br from-maroon via-maroon-dark to-[#2a0a0a] text-white relative overflow-hidden">
+    <section className="py-12 md:py-20 bg-cream/30">
+      <div className="container mx-auto px-4">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+          className="max-w-4xl mx-auto"
+        >
+          <motion.div variants={fadeInUp} className="text-center mb-10 md:mb-14">
+            <span className="inline-block bg-maroon/10 text-maroon px-4 py-1.5 rounded-full text-xs md:text-sm font-semibold mb-4">
+              {t(faqTranslations.badge)}
+            </span>
+            <h2 className="font-heading text-2xl md:text-4xl font-bold text-foreground">
+              {t(faqTranslations.title)}
+            </h2>
+          </motion.div>
+          
+          <motion.div variants={fadeInUp}>
+            <Accordion type="single" collapsible className="space-y-3 md:space-y-4">
+              {faqTranslations.faqs.map((faq, idx) => (
+                <AccordionItem 
+                  key={idx} 
+                  value={`faq-${idx}`}
+                  className="bg-background border border-border/50 rounded-xl px-4 md:px-6 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <AccordionTrigger className="text-left font-heading text-sm md:text-base font-semibold text-foreground hover:no-underline py-4 md:py-5">
+                    {t(faq.question)}
+                  </AccordionTrigger>
+                  <AccordionContent className="font-body text-muted-foreground text-xs md:text-sm leading-relaxed pb-4 md:pb-5">
+                    {t(faq.answer)}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+// ============================================
+// SECTION 11: FINAL CTA (with translations)
+// ============================================
+const finalCTATranslations = {
+  title: { en: 'Begin with the Free Parent Orientation', hi: 'नि:शुल्क अभिभावक उन्मुखीकरण से शुरू करें', sa: 'निःशुल्कपितृउन्मुखीकरणेन आरभत' },
+  subtitle: { en: 'This orientation is meant for clarity and alignment. There is no pressure to enroll. Attend, understand our approach, ask your questions, and then decide if this is right for your family.', hi: 'यह उन्मुखीकरण स्पष्टता और संरेखण के लिए है। नामांकन का कोई दबाव नहीं है। भाग लें, हमारे दृष्टिकोण को समझें, अपने प्रश्न पूछें, और फिर तय करें कि यह आपके परिवार के लिए सही है या नहीं।', sa: 'एतत् उन्मुखीकरणं स्पष्टतायै संरेखणाय च अस्ति। नामाङ्कनस्य न कोऽपि दबावः। भागं गृह्णातु अस्माकं दृष्टिकोणम् अवगच्छतु स्वप्रश्नान् पृच्छतु ततः निर्णयं कुरुत यत् एतत् भवतः कुटुम्बाय उचितम् अस्ति वा न वा।' },
+  ctaButton: { en: 'Attend the Free Parent Orientation', hi: 'नि:शुल्क अभिभावक उन्मुखीकरण में भाग लें', sa: 'निःशुल्कपितृउन्मुखीकरणे भागं गृह्णातु' }
+};
+
+const FinalCTASection = () => {
+  const { t } = useLanguage();
+  
+  return (
+    <section className="py-16 md:py-24 bg-gradient-to-br from-maroon via-maroon-dark to-[#2a0a0a] text-white relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-10 left-10 w-64 h-64 bg-saffron rounded-full filter blur-3xl" />
-        <div className="absolute bottom-10 right-10 w-64 h-64 bg-maroon-light rounded-full filter blur-3xl" />
+        <div className="absolute top-10 left-10 w-48 md:w-64 h-48 md:h-64 bg-saffron rounded-full filter blur-3xl" />
+        <div className="absolute bottom-10 right-10 w-48 md:w-64 h-48 md:h-64 bg-maroon-light rounded-full filter blur-3xl" />
       </div>
       
       <div className="container mx-auto px-4 relative z-10">
@@ -1173,32 +1312,32 @@ const FinalCTASection = () => {
           className="max-w-3xl mx-auto text-center"
         >
           <motion.div variants={fadeInUp}>
-            <Award className="h-16 w-16 text-saffron mx-auto mb-6" />
+            <Award className="h-12 w-12 md:h-16 md:w-16 text-saffron mx-auto mb-4 md:mb-6" />
           </motion.div>
           
-          <motion.h2 variants={fadeInUp} className="font-heading text-3xl md:text-5xl font-bold mb-6 text-cream">
-            Begin with the Free Parent Orientation
+          <motion.h2 variants={fadeInUp} className="font-heading text-2xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 text-cream">
+            {t(finalCTATranslations.title)}
           </motion.h2>
           
-          <motion.p variants={fadeInUp} className="font-body text-lg md:text-xl text-cream/80 mb-10 leading-relaxed">
-            This orientation is meant for clarity and alignment. There is no pressure to enroll. Attend, understand our approach, ask your questions, and then decide if this is right for your family.
+          <motion.p variants={fadeInUp} className="font-body text-sm md:text-lg lg:text-xl text-cream/80 mb-8 md:mb-10 leading-relaxed px-4">
+            {t(finalCTATranslations.subtitle)}
           </motion.p>
           
-          <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center mb-6 md:mb-8">
             <Button 
-              size="xl" 
-              className="bg-saffron text-white hover:bg-saffron/90 font-semibold px-12 py-7 text-lg shadow-2xl shadow-saffron/30 rounded-xl group"
+              size="lg" 
+              className="bg-saffron text-white hover:bg-saffron/90 font-semibold px-8 md:px-12 py-6 md:py-7 text-sm md:text-lg shadow-2xl shadow-saffron/30 rounded-xl group"
               onClick={() => window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=Hi! I want to attend the free parent orientation for Bodhika.`, '_blank')}
             >
-              <MessageCircle className="mr-2 h-5 w-5" />
-              Attend the Free Parent Orientation
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <MessageCircle className="mr-2 h-4 w-4 md:h-5 md:w-5" />
+              {t(finalCTATranslations.ctaButton)}
+              <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </motion.div>
           
           <motion.div variants={fadeInUp} className="flex items-center justify-center gap-6 text-cream/70">
-            <a href="tel:+919674916567" className="flex items-center gap-2 hover:text-cream transition-colors">
-              <Phone className="h-5 w-5" />
+            <a href="tel:+919674916567" className="flex items-center gap-2 hover:text-cream transition-colors text-sm md:text-base">
+              <Phone className="h-4 w-4 md:h-5 md:w-5" />
               <span className="font-body">+91 96749 16567</span>
             </a>
           </motion.div>
