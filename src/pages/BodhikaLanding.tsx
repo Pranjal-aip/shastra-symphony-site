@@ -441,173 +441,297 @@ const OutcomesSection = () => {
 // ============================================
 // SECTION 6: WHAT WILL BE TAUGHT AT BODHIKA
 // ============================================
-const WhatWillBeTaughtSection = () => {
-  const learningAreas = [
+
+// Translations for What Will Be Taught section
+const whatWillBeTaughtTranslations = {
+  badge: {
+    en: 'The Gurukul Approach',
+    hi: 'गुरुकुल दृष्टिकोण',
+    sa: 'गुरुकुलपद्धतिः'
+  },
+  title: {
+    en: 'What Will Be Taught at Bodhika',
+    hi: 'बोधिका में क्या सिखाया जाएगा',
+    sa: 'बोधिकायां किम् अध्यापयिष्यते'
+  },
+  subtitle: {
+    en: 'Learning in the Tradition of an Online Gurukul',
+    hi: 'ऑनलाइन गुरुकुल की परंपरा में शिक्षा',
+    sa: 'अन्तर्जालगुरुकुलपरम्परायां शिक्षणम्'
+  },
+  introPara: {
+    en: 'Bodhika is not subject-based learning. It follows the traditional Gurukul approach where education unfolds gradually through guidance, discipline, stories, and reflection. There is no syllabus to complete or curriculum to rush through. Instead, children absorb values and develop clarity naturally — the way Indian education has always worked.',
+    hi: 'बोधिका विषय-आधारित शिक्षा नहीं है। यह पारंपरिक गुरुकुल दृष्टिकोण का अनुसरण करती है जहाँ शिक्षा मार्गदर्शन, अनुशासन, कथाओं और चिंतन के माध्यम से धीरे-धीरे प्रकट होती है। पूरा करने के लिए कोई पाठ्यक्रम या जल्दबाजी में पूरा करने के लिए कोई पाठ्यचर्या नहीं है। इसके बजाय, बच्चे स्वाभाविक रूप से मूल्यों को आत्मसात करते हैं और स्पष्टता विकसित करते हैं।',
+    sa: 'बोधिका विषयाधारितशिक्षणं नास्ति। एषा पारम्परिकगुरुकुलपद्धतिम् अनुसरति यत्र शिक्षणं मार्गदर्शनेन अनुशासनेन कथाभिः चिन्तनेन च क्रमशः प्रकटते। पूर्तिकरणार्थं न कश्चित् पाठ्यक्रमः अस्ति। बालकाः स्वाभाविकतया मूल्यानि आत्मसात् कुर्वन्ति स्पष्टतां च विकसयन्ति।'
+  },
+  notSubjectBased: {
+    en: 'not subject-based learning',
+    hi: 'विषय-आधारित शिक्षा नहीं',
+    sa: 'विषयाधारितशिक्षणं नास्ति'
+  },
+  guidanceHighlight: {
+    en: 'guidance, discipline, stories, and reflection',
+    hi: 'मार्गदर्शन, अनुशासन, कथाएँ और चिंतन',
+    sa: 'मार्गदर्शनं अनुशासनं कथाः चिन्तनं च'
+  },
+  coreLearningTitle: {
+    en: 'Core Learning Areas',
+    hi: 'मुख्य शिक्षण क्षेत्र',
+    sa: 'मुख्यशिक्षणक्षेत्राणि'
+  },
+  learningAreas: [
     {
-      icon: Brain,
-      title: "Training the Mind (Buddhi & Manas)",
+      icon: 'Brain',
+      title: { en: 'Training the Mind (Buddhi & Manas)', hi: 'मन का प्रशिक्षण (बुद्धि और मनस्)', sa: 'मनसः प्रशिक्षणम् (बुद्धिः मनश्च)' },
       points: [
-        "Guided to pause before reacting impulsively",
-        "Observing thoughts and emotions with awareness",
-        "Developing clarity over impulse through practice",
-        "Inner discipline rooted in understanding, not fear-based obedience"
+        { en: 'Guided to pause before reacting impulsively', hi: 'आवेगपूर्ण प्रतिक्रिया से पहले रुकने का मार्गदर्शन', sa: 'आवेगपूर्णप्रतिक्रियायाः पूर्वं विरमितुं मार्गदर्शनम्' },
+        { en: 'Observing thoughts and emotions with awareness', hi: 'जागरूकता से विचारों और भावनाओं का अवलोकन', sa: 'जागरूकतया विचाराणां भावानां च अवलोकनम्' },
+        { en: 'Developing clarity over impulse through practice', hi: 'अभ्यास से आवेग पर स्पष्टता विकसित करना', sa: 'अभ्यासेन आवेगात् स्पष्टतां विकसनम्' },
+        { en: 'Inner discipline rooted in understanding, not fear-based obedience', hi: 'समझ में निहित आंतरिक अनुशासन, भय-आधारित आज्ञाकारिता नहीं', sa: 'बोधे निहितम् आन्तरिकम् अनुशासनं न तु भयाधारितानुवर्तनम्' }
       ],
-      color: "from-indigo-500 to-blue-600"
+      color: 'from-indigo-500 to-blue-600'
     },
     {
-      icon: BookOpen,
-      title: "Learning Through Indian Stories (Itihasa Method)",
+      icon: 'BookOpen',
+      title: { en: 'Learning Through Indian Stories (Itihasa Method)', hi: 'भारतीय कथाओं से सीखना (इतिहास पद्धति)', sa: 'भारतीयकथाभिः शिक्षणम् (इतिहासपद्धतिः)' },
       points: [
-        "Stories from Ramayana and Mahabharata",
-        "Indian historical and cultural narratives",
-        "Stories used as life situations for understanding right vs wrong",
-        "Not taught as religion, but as practical wisdom"
+        { en: 'Stories from Ramayana and Mahabharata', hi: 'रामायण और महाभारत की कथाएँ', sa: 'रामायणमहाभारतयोः कथाः' },
+        { en: 'Indian historical and cultural narratives', hi: 'भारतीय ऐतिहासिक और सांस्कृतिक आख्यान', sa: 'भारतीयैतिहासिकसांस्कृतिकाख्यानानि' },
+        { en: 'Stories used as life situations for understanding right vs wrong', hi: 'सही और गलत को समझने के लिए जीवन स्थितियों के रूप में कथाएँ', sa: 'धर्माधर्मबोधाय जीवनस्थितिरूपेण कथाः' },
+        { en: 'Not taught as religion, but as practical wisdom', hi: 'धर्म के रूप में नहीं, बल्कि व्यावहारिक ज्ञान के रूप में', sa: 'मतरूपेण न तु व्यावहारिकप्रज्ञारूपेण' }
       ],
-      color: "from-amber-500 to-orange-600"
+      color: 'from-amber-500 to-orange-600'
     },
     {
-      icon: Compass,
-      title: "Understanding Dharma in Daily Life",
+      icon: 'Compass',
+      title: { en: 'Understanding Dharma in Daily Life', hi: 'दैनिक जीवन में धर्म को समझना', sa: 'दैनिकजीवने धर्मस्य बोधः' },
       points: [
-        "Dharma as clarity in action, not blind rule-following",
-        "Responsibility in everyday situations",
-        "Conscious decision-making in real-life contexts",
-        "Developing an internal compass for choices"
+        { en: 'Dharma as clarity in action, not blind rule-following', hi: 'धर्म कर्म में स्पष्टता के रूप में, अंधा नियम-पालन नहीं', sa: 'धर्मः कर्मणि स्पष्टतारूपेण न तु अन्धनियमानुसरणम्' },
+        { en: 'Responsibility in everyday situations', hi: 'दैनिक स्थितियों में जिम्मेदारी', sa: 'दैनिकस्थितिषु उत्तरदायित्वम्' },
+        { en: 'Conscious decision-making in real-life contexts', hi: 'वास्तविक जीवन संदर्भों में सचेत निर्णय लेना', sa: 'वास्तविकजीवनसन्दर्भेषु सचेतनिर्णयकरणम्' },
+        { en: 'Developing an internal compass for choices', hi: 'विकल्पों के लिए आंतरिक दिशासूचक विकसित करना', sa: 'विकल्पानां कृते आन्तरिकदिक्सूचकं विकसनम्' }
       ],
-      color: "from-emerald-500 to-teal-600"
+      color: 'from-emerald-500 to-teal-600'
     },
     {
-      icon: RefreshCw,
-      title: "Sanskar & Habit Formation",
+      icon: 'RefreshCw',
+      title: { en: 'Sanskar & Habit Formation', hi: 'संस्कार और आदत निर्माण', sa: 'संस्कारः आदतनिर्माणं च' },
       points: [
-        "Discipline through consistent repetition",
-        "Building routine, respect, patience, and self-control",
-        "Habit formation as the foundation of character",
-        "Not moral preaching, but embodied practice"
+        { en: 'Discipline through consistent repetition', hi: 'निरंतर पुनरावृत्ति के माध्यम से अनुशासन', sa: 'सातत्येन पुनरावृत्त्या अनुशासनम्' },
+        { en: 'Building routine, respect, patience, and self-control', hi: 'दिनचर्या, सम्मान, धैर्य और आत्म-नियंत्रण का निर्माण', sa: 'दिनचर्यायाः सम्मानस्य धैर्यस्य आत्मनियन्त्रणस्य च निर्माणम्' },
+        { en: 'Habit formation as the foundation of character', hi: 'चरित्र की नींव के रूप में आदत निर्माण', sa: 'चरित्रस्य आधाररूपेण आदतनिर्माणम्' },
+        { en: 'Not moral preaching, but embodied practice', hi: 'नैतिक उपदेश नहीं, बल्कि मूर्त अभ्यास', sa: 'नैतिकोपदेशः न तु मूर्तिमत् अभ्यासः' }
       ],
-      color: "from-rose-500 to-pink-600"
+      color: 'from-rose-500 to-pink-600'
     },
     {
-      icon: Heart,
-      title: "Cultural Awareness & Rooted Identity",
+      icon: 'Heart',
+      title: { en: 'Cultural Awareness & Rooted Identity', hi: 'सांस्कृतिक जागरूकता और जड़ित पहचान', sa: 'सांस्कृतिकजागरूकता मूलितपरिचयश्च' },
       points: [
-        "Introduction to Indian traditions and customs",
-        "Understanding the meaning behind practices",
-        "Building cultural confidence without arrogance",
-        "Connection to heritage with clarity and pride"
+        { en: 'Introduction to Indian traditions and customs', hi: 'भारतीय परंपराओं और रीति-रिवाजों का परिचय', sa: 'भारतीयपरम्पराणां रीतिरिवाजानां च परिचयः' },
+        { en: 'Understanding the meaning behind practices', hi: 'प्रथाओं के पीछे के अर्थ को समझना', sa: 'प्रथानां पृष्ठभागे अर्थस्य बोधः' },
+        { en: 'Building cultural confidence without arrogance', hi: 'अहंकार के बिना सांस्कृतिक आत्मविश्वास का निर्माण', sa: 'दर्पं विना सांस्कृतिकआत्मविश्वासस्य निर्माणम्' },
+        { en: 'Connection to heritage with clarity and pride', hi: 'स्पष्टता और गर्व के साथ विरासत से जुड़ाव', sa: 'स्पष्टतया गौरवेण च पैतृकसम्पदा सह सम्बन्धः' }
       ],
-      color: "from-purple-500 to-violet-600"
+      color: 'from-purple-500 to-violet-600'
     },
     {
-      icon: Eye,
-      title: "Reflection, Stillness & Inner Balance",
+      icon: 'Eye',
+      title: { en: 'Reflection, Stillness & Inner Balance', hi: 'चिंतन, स्थिरता और आंतरिक संतुलन', sa: 'चिन्तनं स्थिरता आन्तरिकसन्तुलनं च' },
       points: [
-        "Simple reflection practices suited for children",
-        "Quiet observation as a skill",
-        "Comfort with stillness for improved focus",
-        "Emotional balance through inner awareness"
+        { en: 'Simple reflection practices suited for children', hi: 'बच्चों के लिए उपयुक्त सरल चिंतन अभ्यास', sa: 'बालकानां कृते उपयुक्ताः सरलचिन्तनाभ्यासाः' },
+        { en: 'Quiet observation as a skill', hi: 'कौशल के रूप में शांत अवलोकन', sa: 'कौशलरूपेण शान्तम् अवलोकनम्' },
+        { en: 'Comfort with stillness for improved focus', hi: 'बेहतर एकाग्रता के लिए स्थिरता में आराम', sa: 'उन्नतैकाग्रतायै स्थिरतायां सुखम्' },
+        { en: 'Emotional balance through inner awareness', hi: 'आंतरिक जागरूकता के माध्यम से भावनात्मक संतुलन', sa: 'आन्तरिकजागरूकतया भावनात्मकसन्तुलनम्' }
       ],
-      color: "from-cyan-500 to-sky-600"
+      color: 'from-cyan-500 to-sky-600'
     }
-  ];
-  
-  const differences = [
-    "No passive video consumption — every class is live and interactive",
-    "No exams, grades, or academic pressure",
-    "No moral lectures or religious sermons",
-    "Learning happens through presence, guidance, and long-term discipline"
-  ];
+  ],
+  differenceTitle: {
+    en: 'How This Differs from Regular Online Courses',
+    hi: 'यह सामान्य ऑनलाइन पाठ्यक्रमों से कैसे अलग है',
+    sa: 'एतत् सामान्यान्तर्जालपाठ्यक्रमेभ्यः कथं भिद्यते'
+  },
+  differences: [
+    { en: 'No passive video consumption — every class is live and interactive', hi: 'निष्क्रिय वीडियो उपभोग नहीं — हर कक्षा लाइव और इंटरैक्टिव है', sa: 'निष्क्रियचलचित्रोपभोगः नास्ति — प्रत्येका कक्षा प्रत्यक्षा परस्परक्रियात्मका च' },
+    { en: 'No exams, grades, or academic pressure', hi: 'कोई परीक्षा, ग्रेड या शैक्षणिक दबाव नहीं', sa: 'न परीक्षाः न श्रेण्यः न शैक्षिकदबावः' },
+    { en: 'No moral lectures or religious sermons', hi: 'कोई नैतिक व्याख्यान या धार्मिक प्रवचन नहीं', sa: 'न नैतिकव्याख्यानानि न धार्मिकप्रवचनानि' },
+    { en: 'Learning happens through presence, guidance, and long-term discipline', hi: 'शिक्षण उपस्थिति, मार्गदर्शन और दीर्घकालिक अनुशासन के माध्यम से होता है', sa: 'शिक्षणम् उपस्थित्या मार्गदर्शनेन दीर्घकालिकानुशासनेन च भवति' }
+  ],
+  parentNoteTitle: {
+    en: 'A Note for Parents',
+    hi: 'माता-पिता के लिए एक नोट',
+    sa: 'पितृभ्यः टिप्पणी'
+  },
+  parentNoteText: {
+    en: 'This learning cannot be rushed. It cannot be reduced to a syllabus or measured by tests. Like in traditional Gurukuls, knowledge and values unfold slowly over time through consistent exposure, guided reflection, and gradual habit formation. If you seek quick results, this is not the right program. But if you value depth over speed, Bodhika is designed for you.',
+    hi: 'इस शिक्षा में जल्दबाजी नहीं की जा सकती। इसे पाठ्यक्रम में संक्षिप्त नहीं किया जा सकता या परीक्षाओं से मापा नहीं जा सकता। पारंपरिक गुरुकुलों की तरह, ज्ञान और मूल्य निरंतर संपर्क, निर्देशित चिंतन और क्रमिक आदत निर्माण के माध्यम से धीरे-धीरे प्रकट होते हैं। यदि आप त्वरित परिणाम चाहते हैं, तो यह सही कार्यक्रम नहीं है। लेकिन अगर आप गति से अधिक गहराई को महत्व देते हैं, तो बोधिका आपके लिए बनाई गई है।',
+    sa: 'एतत् शिक्षणं त्वरितं कर्तुं न शक्यते। एतत् पाठ्यक्रमे संक्षिप्तं कर्तुं वा परीक्षाभिः मातुं वा न शक्यते। पारम्परिकगुरुकुलेषु इव ज्ञानं मूल्यानि च सातत्येन सम्पर्केण निर्दिष्टचिन्तनेन क्रमिकादतनिर्माणेन च कालान्तरे मन्दं मन्दं प्रकटन्ते। यदि त्वं त्वरितफलानि इच्छसि तर्हि एषः उचितः कार्यक्रमः नास्ति। किन्तु यदि त्वं गत्यतः गहनतां बहुमन्यसे तर्हि बोधिका तुभ्यम् एव निर्मिता।'
+  },
+  cannotBeRushed: {
+    en: 'cannot be rushed',
+    hi: 'जल्दबाजी नहीं की जा सकती',
+    sa: 'त्वरितं कर्तुं न शक्यते'
+  },
+  closingCTA: {
+    en: 'To understand how this is delivered practically, attend the Free Parent Orientation.',
+    hi: 'यह व्यावहारिक रूप से कैसे दिया जाता है, यह समझने के लिए नि:शुल्क अभिभावक उन्मुखीकरण में भाग लें।',
+    sa: 'एतत् व्यावहारिकरूपेण कथं प्रदीयते इति ज्ञातुं निःशुल्कपितृउन्मुखीकरणे भागं गृह्णातु।'
+  },
+  ctaButton: {
+    en: 'Attend the Free Parent Orientation',
+    hi: 'नि:शुल्क अभिभावक उन्मुखीकरण में भाग लें',
+    sa: 'निःशुल्कपितृउन्मुखीकरणे भागं गृह्णातु'
+  },
+  ctaNote: {
+    en: 'The orientation explains structure and expectations. Enrollment is optional.',
+    hi: 'उन्मुखीकरण संरचना और अपेक्षाओं की व्याख्या करता है। नामांकन वैकल्पिक है।',
+    sa: 'उन्मुखीकरणं संरचनाम् अपेक्षाश्च व्याख्याति। नामाङ्कनं ऐच्छिकम्।'
+  },
+  scholarshipButton: {
+    en: 'Scholarship for Needy Families',
+    hi: 'जरूरतमंद परिवारों के लिए छात्रवृत्ति',
+    sa: 'आवश्यककुटुम्बेभ्यः छात्रवृत्तिः'
+  },
+  scholarshipMessage: {
+    en: 'Hi! I am interested in applying for a scholarship for Bodhika program for my child.',
+    hi: 'नमस्ते! मैं अपने बच्चे के लिए बोधिका कार्यक्रम की छात्रवृत्ति के लिए आवेदन करने में रुचि रखता/रखती हूं।',
+    sa: 'नमस्ते! अहं मम बालकाय बोधिकाकार्यक्रमस्य छात्रवृत्त्यर्थम् आवेदनार्थं इच्छामि।'
+  }
+};
+
+// Icon mapping for dynamic rendering
+const iconMap = {
+  Brain,
+  BookOpen,
+  Compass,
+  RefreshCw,
+  Heart,
+  Eye
+};
+
+const WhatWillBeTaughtSection = () => {
+  const { t } = useLanguage();
   
   return (
-    <section className="py-20 bg-gradient-to-br from-cream/40 via-background to-cream/40 relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-20 right-0 w-96 h-96 bg-saffron/5 rounded-full filter blur-3xl" />
-      <div className="absolute bottom-20 left-0 w-96 h-96 bg-maroon/5 rounded-full filter blur-3xl" />
+    <section className="py-16 md:py-24 bg-gradient-to-br from-cream/40 via-background to-cream/40 relative overflow-hidden">
+      {/* Animated decorative elements */}
+      <div className="absolute top-10 md:top-20 right-0 w-48 md:w-96 h-48 md:h-96 bg-gradient-to-br from-saffron/10 to-saffron/5 rounded-full filter blur-3xl animate-pulse" />
+      <div className="absolute bottom-10 md:bottom-20 left-0 w-48 md:w-96 h-48 md:h-96 bg-gradient-to-br from-maroon/10 to-maroon/5 rounded-full filter blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 md:w-64 h-32 md:h-64 bg-gradient-to-br from-amber-200/10 to-orange-200/5 rounded-full filter blur-3xl" />
       
       <div className="container mx-auto px-4 relative z-10">
         <motion.div 
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           variants={staggerContainer}
           className="max-w-6xl mx-auto"
         >
           {/* Section Header */}
-          <motion.div variants={fadeInUp} className="text-center mb-12">
-            <span className="inline-block bg-saffron/10 text-saffron px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
-              The Gurukul Approach
-            </span>
-            <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">
-              What Will Be Taught at Bodhika
+          <motion.div variants={fadeInUp} className="text-center mb-10 md:mb-14">
+            <motion.span 
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-saffron/20 to-amber-400/20 text-saffron px-4 md:px-5 py-2 rounded-full text-xs md:text-sm font-semibold mb-4 border border-saffron/30 shadow-lg shadow-saffron/10"
+              whileHover={{ scale: 1.05 }}
+            >
+              <Sparkles className="h-3 w-3 md:h-4 md:w-4" />
+              {t(whatWillBeTaughtTranslations.badge)}
+            </motion.span>
+            <h2 className="font-heading text-2xl md:text-4xl lg:text-5xl font-bold text-foreground mb-3 md:mb-4 leading-tight">
+              {t(whatWillBeTaughtTranslations.title)}
             </h2>
-            <p className="font-body text-muted-foreground text-lg italic">
-              Learning in the Tradition of an Online Gurukul
+            <p className="font-body text-muted-foreground text-base md:text-lg italic">
+              {t(whatWillBeTaughtTranslations.subtitle)}
             </p>
           </motion.div>
           
           {/* Intro Paragraph */}
-          <motion.div variants={fadeInUp} className="max-w-3xl mx-auto mb-16">
-            <Card className="bg-maroon text-white border-0 shadow-2xl shadow-maroon/20">
-              <CardContent className="p-8">
-                <p className="font-body text-cream/90 leading-relaxed text-center">
-                  Bodhika is <strong className="text-saffron">not subject-based learning</strong>. It follows the traditional Gurukul approach where 
-                  education unfolds gradually through <strong className="text-saffron">guidance, discipline, stories, and reflection</strong>. 
-                  There is no syllabus to complete or curriculum to rush through. Instead, children absorb values and develop 
-                  clarity naturally — the way Indian education has always worked.
-                </p>
+          <motion.div variants={fadeInUp} className="max-w-4xl mx-auto mb-12 md:mb-16">
+            <Card className="bg-gradient-to-br from-maroon via-maroon-dark to-[#3a0a0a] text-white border-0 shadow-2xl shadow-maroon/30 overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-saffron/10 rounded-full filter blur-2xl" />
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-saffron/5 rounded-full filter blur-xl" />
+              <CardContent className="p-6 md:p-10 relative">
+                <div className="flex items-start gap-3 md:gap-4">
+                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-saffron/20 flex items-center justify-center shrink-0">
+                    <GraduationCap className="h-5 w-5 md:h-6 md:w-6 text-saffron" />
+                  </div>
+                  <p className="font-body text-cream/90 leading-relaxed text-sm md:text-base lg:text-lg">
+                    {t(whatWillBeTaughtTranslations.introPara)}
+                  </p>
+                </div>
               </CardContent>
             </Card>
           </motion.div>
           
           {/* Core Learning Areas */}
-          <motion.div variants={fadeInUp} className="mb-16">
-            <h3 className="font-heading text-2xl font-bold text-foreground text-center mb-10">
-              Core Learning Areas
-            </h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {learningAreas.map((area, idx) => (
-                <motion.div key={idx} variants={fadeInUp}>
-                  <Card className="border-border bg-background hover:border-maroon/30 transition-all duration-300 hover:shadow-xl group h-full">
-                    <CardContent className="p-6">
-                      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${area.color} flex items-center justify-center mb-5 shadow-lg group-hover:scale-110 transition-transform`}>
-                        <area.icon className="h-7 w-7 text-white" />
-                      </div>
-                      <h4 className="font-heading text-lg font-bold text-foreground mb-4">
-                        {area.title}
-                      </h4>
-                      <ul className="space-y-2">
-                        {area.points.map((point, pidx) => (
-                          <li key={pidx} className="flex items-start gap-2">
-                            <CheckCircle2 className="h-4 w-4 text-maroon mt-0.5 shrink-0" />
-                            <span className="font-body text-sm text-muted-foreground">{point}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
+          <motion.div variants={fadeInUp} className="mb-12 md:mb-16">
+            <div className="flex items-center justify-center gap-3 mb-8 md:mb-10">
+              <div className="h-px flex-1 max-w-16 md:max-w-24 bg-gradient-to-r from-transparent to-maroon/30" />
+              <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground text-center">
+                {t(whatWillBeTaughtTranslations.coreLearningTitle)}
+              </h3>
+              <div className="h-px flex-1 max-w-16 md:max-w-24 bg-gradient-to-l from-transparent to-maroon/30" />
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {whatWillBeTaughtTranslations.learningAreas.map((area, idx) => {
+                const IconComponent = iconMap[area.icon as keyof typeof iconMap];
+                return (
+                  <motion.div 
+                    key={idx} 
+                    variants={fadeInUp}
+                    whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  >
+                    <Card className="border border-border/50 bg-background/80 backdrop-blur-sm hover:border-maroon/40 transition-all duration-300 hover:shadow-2xl hover:shadow-maroon/10 group h-full">
+                      <CardContent className="p-5 md:p-6">
+                        <div className={`w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br ${area.color} flex items-center justify-center mb-4 md:mb-5 shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+                          <IconComponent className="h-6 w-6 md:h-7 md:w-7 text-white" />
+                        </div>
+                        <h4 className="font-heading text-base md:text-lg font-bold text-foreground mb-3 md:mb-4 leading-tight">
+                          {t(area.title)}
+                        </h4>
+                        <ul className="space-y-2 md:space-y-2.5">
+                          {area.points.map((point, pidx) => (
+                            <li key={pidx} className="flex items-start gap-2">
+                              <CheckCircle2 className="h-4 w-4 text-maroon mt-0.5 shrink-0" />
+                              <span className="font-body text-xs md:text-sm text-muted-foreground leading-relaxed">{t(point)}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
           
           {/* How This Differs Block */}
-          <motion.div variants={fadeInUp} className="mb-16">
-            <Card className="border-2 border-saffron/20 bg-gradient-to-br from-saffron/5 to-background shadow-xl">
-              <CardContent className="p-8 md:p-10">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-full bg-saffron flex items-center justify-center shadow-lg">
-                    <Lightbulb className="h-6 w-6 text-white" />
-                  </div>
-                  <h3 className="font-heading text-xl font-bold text-foreground">
-                    How This Differs from Regular Online Courses
+          <motion.div variants={fadeInUp} className="mb-12 md:mb-16">
+            <Card className="border-2 border-saffron/30 bg-gradient-to-br from-saffron/5 via-amber-50/50 to-background shadow-xl shadow-saffron/10 overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-saffron/5 rounded-full filter blur-2xl" />
+              <CardContent className="p-6 md:p-10 relative">
+                <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6 md:mb-8">
+                  <motion.div 
+                    className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-br from-saffron to-amber-500 flex items-center justify-center shadow-lg shadow-saffron/30"
+                    whileHover={{ rotate: 180, transition: { duration: 0.5 } }}
+                  >
+                    <Lightbulb className="h-6 w-6 md:h-7 md:w-7 text-white" />
+                  </motion.div>
+                  <h3 className="font-heading text-lg md:text-xl lg:text-2xl font-bold text-foreground">
+                    {t(whatWillBeTaughtTranslations.differenceTitle)}
                   </h3>
                 </div>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {differences.map((diff, idx) => (
-                    <div key={idx} className="flex items-start gap-3 bg-background/50 rounded-lg p-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                  {whatWillBeTaughtTranslations.differences.map((diff, idx) => (
+                    <motion.div 
+                      key={idx} 
+                      className="flex items-start gap-3 bg-background/70 backdrop-blur-sm rounded-xl p-4 border border-border/50 hover:border-saffron/30 transition-colors"
+                      whileHover={{ scale: 1.02 }}
+                    >
                       <CheckCircle2 className="h-5 w-5 text-saffron mt-0.5 shrink-0" />
-                      <span className="font-body text-sm text-foreground">{diff}</span>
-                    </div>
+                      <span className="font-body text-xs md:text-sm text-foreground leading-relaxed">{t(diff)}</span>
+                    </motion.div>
                   ))}
                 </div>
               </CardContent>
@@ -615,22 +739,20 @@ const WhatWillBeTaughtSection = () => {
           </motion.div>
           
           {/* Parent Note */}
-          <motion.div variants={fadeInUp} className="mb-12">
-            <Card className="border-maroon/20 bg-cream/50">
-              <CardContent className="p-8">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-maroon/10 flex items-center justify-center shrink-0 mt-1">
-                    <MessageCircle className="h-5 w-5 text-maroon" />
+          <motion.div variants={fadeInUp} className="mb-10 md:mb-14">
+            <Card className="border border-maroon/20 bg-gradient-to-br from-cream/70 via-cream/50 to-background shadow-lg overflow-hidden relative">
+              <div className="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-maroon via-maroon/70 to-maroon/40" />
+              <CardContent className="p-6 md:p-8 pl-6 md:pl-10">
+                <div className="flex flex-col md:flex-row md:items-start gap-4">
+                  <div className="w-12 h-12 rounded-full bg-maroon/10 flex items-center justify-center shrink-0">
+                    <MessageCircle className="h-6 w-6 text-maroon" />
                   </div>
                   <div>
-                    <h4 className="font-heading text-lg font-bold text-foreground mb-2">
-                      A Note for Parents
+                    <h4 className="font-heading text-lg md:text-xl font-bold text-foreground mb-3">
+                      {t(whatWillBeTaughtTranslations.parentNoteTitle)}
                     </h4>
-                    <p className="font-body text-muted-foreground leading-relaxed">
-                      This learning <strong className="text-foreground">cannot be rushed</strong>. It cannot be reduced to a syllabus or measured by tests. 
-                      Like in traditional Gurukuls, knowledge and values unfold slowly over time through consistent exposure, 
-                      guided reflection, and gradual habit formation. If you seek quick results, this is not the right program. 
-                      But if you value depth over speed, Bodhika is designed for you.
+                    <p className="font-body text-muted-foreground text-sm md:text-base leading-relaxed">
+                      {t(whatWillBeTaughtTranslations.parentNoteText)}
                     </p>
                   </div>
                 </div>
@@ -639,20 +761,40 @@ const WhatWillBeTaughtSection = () => {
           </motion.div>
           
           {/* Closing CTA */}
-          <motion.div variants={fadeInUp} className="text-center">
-            <p className="font-body text-foreground mb-6 text-lg">
-              To understand how this is delivered practically, attend the Free Parent Orientation.
+          <motion.div variants={fadeInUp} className="text-center space-y-6">
+            <p className="font-body text-foreground text-base md:text-lg max-w-2xl mx-auto">
+              {t(whatWillBeTaughtTranslations.closingCTA)}
             </p>
-            <Button 
-              size="lg" 
-              className="bg-saffron text-white hover:bg-saffron/90 font-semibold px-8 py-6 text-base shadow-xl shadow-saffron/20 rounded-xl group"
-              onClick={() => window.open(`https://wa.me/919674916567?text=Hi! I want to attend the free parent orientation for Bodhika.`, '_blank')}
-            >
-              Attend the Free Parent Orientation
-              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <p className="font-body text-muted-foreground text-sm mt-4">
-              The orientation explains structure and expectations. Enrollment is optional.
+            
+            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center">
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-saffron to-amber-500 text-white hover:from-saffron/90 hover:to-amber-500/90 font-semibold px-6 md:px-10 py-5 md:py-7 text-sm md:text-base shadow-xl shadow-saffron/25 rounded-xl group w-full sm:w-auto"
+                  onClick={() => window.open(`https://wa.me/919674916567?text=Hi! I want to attend the free parent orientation for Bodhika.`, '_blank')}
+                >
+                  <MessageCircle className="mr-2 h-4 w-4 md:h-5 md:w-5" />
+                  {t(whatWillBeTaughtTranslations.ctaButton)}
+                  <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </motion.div>
+              
+              {/* Scholarship Button */}
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+                <Button 
+                  variant="outline"
+                  size="lg" 
+                  className="border-2 border-maroon/50 text-maroon hover:bg-maroon/5 font-semibold px-6 md:px-8 py-5 md:py-7 text-sm md:text-base rounded-xl group w-full sm:w-auto"
+                  onClick={() => window.open(`https://wa.me/919674916567?text=${encodeURIComponent(t(whatWillBeTaughtTranslations.scholarshipMessage))}`, '_blank')}
+                >
+                  <Heart className="mr-2 h-4 w-4 md:h-5 md:w-5 text-maroon" />
+                  {t(whatWillBeTaughtTranslations.scholarshipButton)}
+                </Button>
+              </motion.div>
+            </div>
+            
+            <p className="font-body text-muted-foreground text-xs md:text-sm">
+              {t(whatWillBeTaughtTranslations.ctaNote)}
             </p>
           </motion.div>
         </motion.div>
