@@ -1220,7 +1220,7 @@ const PricingSection = () => {
                     <tr className="hover:bg-muted/30">
                       <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonPrice)}</td>
                       <td className="p-4 text-center font-body text-muted-foreground">₹6,000/year</td>
-                      <td className="p-4 text-center font-body text-foreground font-medium">₹13,000/year</td>
+                      <td className="p-4 text-center font-body text-foreground font-medium">₹15,000/year</td>
                     </tr>
                     <tr className="hover:bg-muted/30">
                       <td className="p-4 font-body text-foreground">{t(bodhikaTranslations.comparisonAttention)}</td>
@@ -1267,7 +1267,7 @@ const PricingSection = () => {
             </div>
             <CardContent className="p-6 relative z-10">
               <div className="mb-6">
-                <span className="font-heading text-4xl font-bold text-foreground">₹13,000</span>
+                <span className="font-heading text-4xl font-bold text-foreground">₹15,000</span>
                 <span className="font-body text-muted-foreground">{t(bodhikaTranslations.yearlyFee)}</span>
               </div>
               
