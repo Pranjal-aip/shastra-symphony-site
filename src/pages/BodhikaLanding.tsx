@@ -112,7 +112,7 @@ const bodhikaTranslations = {
   recordedAccess: { en: 'Recorded Access', hi: 'रिकॉर्डेड एक्सेस', sa: 'अभिलिखितप्राप्तिः' },
   childFriendly: { en: 'Child-Friendly', hi: 'बाल-अनुकूल', sa: 'बालोपयुक्तम्' },
   oneYearProgram: { en: '1-Year Program', hi: '1 वर्षीय कार्यक्रम', sa: 'एकवर्षीयकार्यक्रमः' },
-  ageGroup: { en: 'Ages 10-14 Years', hi: '10-14 वर्ष की आयु', sa: '१०-१४ वर्षाणि' },
+  ageGroup: { en: 'Ages 06-12 Years', hi: '06-12 वर्ष की आयु', sa: '०६-१२ वर्षाणि' },
   ageGroupNote: { en: 'Bright and curious younger learners are welcome too!', hi: 'उज्ज्वल और जिज्ञासु छोटे शिक्षार्थियों का भी स्वागत है!', sa: 'तेजस्विनः जिज्ञासवः लघुशिक्षार्थिनः अपि स्वागताः!' },
 
   // Scarcity & Urgency
