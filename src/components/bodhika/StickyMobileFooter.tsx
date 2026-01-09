@@ -11,10 +11,10 @@ const translations = {
     hi: 'अपनी सीट सुरक्षित करें',
     sa: 'स्वस्थानं सुरक्षितं कुरुत'
   },
-  seatsLeft: {
-    en: 'Seats filling fast!',
-    hi: 'सीटें तेज़ी से भर रही हैं!',
-    sa: 'आसनानि शीघ्रं पूर्यन्ते!'
+  startDate: {
+    en: '7 March 2026',
+    hi: '7 मार्च 2026',
+    sa: '७ मार्च २०२६'
   }
 };
 
@@ -66,19 +66,10 @@ const StickyMobileFooter = () => {
         >
           <div className="container mx-auto">
             <div className="flex items-center justify-between gap-3">
-              <motion.div 
-                animate={{ x: [0, 5, 0] }}
-                transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-                className="flex items-center gap-2"
-              >
-                <motion.div
-                  animate={{ scale: [1, 1.3, 1], rotate: [0, 10, -10, 0] }}
-                  transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-                >
-                  <Flame className="h-4 w-4 text-saffron" />
-                </motion.div>
-                <span className="text-cream text-xs font-body">{t(translations.seatsLeft)}</span>
-              </motion.div>
+              <div className="flex items-center gap-2 bg-cream/10 rounded-full px-3 py-1 border border-saffron/30">
+                <Flame className="h-3 w-3 text-saffron" />
+                <span className="text-saffron text-xs font-body font-bold">{t(translations.startDate)}</span>
+              </div>
               
               <motion.div
                 whileHover={{ scale: 1.05 }}

@@ -1,13 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { AlertTriangle, Flame } from 'lucide-react';
+import { Calendar, Flame } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 const translations = {
-  fewSpots: {
-    en: 'Seats Filling Fast!',
-    hi: 'सीटें तेज़ी से भर रही हैं!',
-    sa: 'आसनानि शीघ्रं पूर्यन्ते!'
+  classesStart: {
+    en: 'Classes Start 7 March 2026',
+    hi: '7 मार्च 2026 से कक्षाएं',
+    sa: '७ मार्च २०२६ तः कक्षाः'
   },
   enrollNow: {
     en: 'Enroll Now',
@@ -82,9 +82,9 @@ const FloatingScarcityBadge = () => {
                 transition={{ duration: 1.5, repeat: Infinity }}
                 className="flex items-center gap-2"
               >
-                <AlertTriangle className="h-6 w-6 text-saffron" />
+                <Calendar className="h-6 w-6 text-saffron" />
                 <span className="text-2xl md:text-3xl font-heading font-bold text-cream">
-                  {t(translations.fewSpots)}
+                  {t(translations.classesStart)}
                 </span>
               </motion.div>
               <p className="text-saffron font-body text-sm mt-1">
