@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { motion } from 'framer-motion';
 import { 
   CheckCircle2, 
   MessageCircle, 
@@ -28,7 +29,9 @@ import {
   Check,
   Phone,
   Leaf,
-  Music
+  Music,
+  Play,
+  ChevronRight
 } from 'lucide-react';
 
 // Import images
@@ -39,6 +42,30 @@ import founderImage from '@/assets/bodhika/founder-yogesh.jpg';
 // WhatsApp number for counselor
 const WHATSAPP_NUMBER = '919674916567';
 const WHATSAPP_COUNSELOR_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=Hi%2C%20I%20want%20to%20know%20more%20about%20the%20Bodhika%20program%20for%20my%20child.`;
+
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+};
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.5 } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
+  }
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.9 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
+};
 
 // Translations
 const translations = {
@@ -501,22 +528,17 @@ const testimonials = [
     },
     name: 'Rajesh Kumar',
     location: 'Bangalore'
+  },
+  {
+    quote: {
+      en: 'My son has become more focused and respectful. The transformation is visible.',
+      hi: 'मेरा बेटा अधिक एकाग्र और सम्मानजनक हो गया है। परिवर्तन दिखाई दे रहा है।',
+      sa: 'मम पुत्रः अधिकं एकाग्रः आदरशीलश्च अभवत्। परिवर्तनं दृश्यते।'
+    },
+    name: 'Anita Desai',
+    location: 'Delhi'
   }
 ];
-
-// Graphy checkout config
-const GRAPHY_CHECKOUT_CONFIG = {
-  group: {
-    productId: 'Bodhika--Awakening-Young-Minds-695393a483bcbf4ec9283f27',
-    courseId: '695393a483bcbf4ec9283f27',
-    amount: '6000.0'
-  },
-  focused: {
-    productId: 'Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42',
-    courseId: '6953f67fba62d03beeceac42',
-    amount: '15000.0'
-  }
-};
 
 // ===============================
 // SECTION 1: HERO
@@ -526,84 +548,162 @@ const HeroSection = () => {
   const t = (obj: Record<string, string>) => obj[language] || obj.en;
 
   return (
-    <section className="relative bg-gradient-to-br from-saffron/20 via-cream to-background py-12 md:py-20 overflow-hidden">
-      <div className="container mx-auto px-4">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+    <section className="relative min-h-[90vh] md:min-h-screen flex items-center overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-saffron/30 via-cream to-background" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-saffron/20 via-transparent to-transparent" />
+      
+      {/* Decorative Elements */}
+      <div className="absolute top-20 right-10 w-72 h-72 bg-saffron/10 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-20 left-10 w-96 h-96 bg-maroon/5 rounded-full blur-3xl" />
+      
+      <div className="container mx-auto px-4 py-8 md:py-16 relative z-10">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left: Text Content */}
-          <div className="order-2 lg:order-1">
+          <motion.div 
+            className="order-2 lg:order-1"
+            initial="hidden"
+            animate="visible"
+            variants={staggerContainer}
+          >
+            {/* Age Badge */}
+            <motion.div variants={fadeInUp}>
+              <Badge className="mb-4 md:mb-6 bg-gradient-to-r from-saffron to-saffron-light text-white border-0 px-4 py-2 text-sm font-medium shadow-lg">
+                <Sparkles className="h-4 w-4 mr-2" />
+                Ages 6–12 Years
+              </Badge>
+            </motion.div>
+
             {/* Headline */}
-            <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-6">
+            <motion.h1 
+              variants={fadeInUp}
+              className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-[1.1] mb-4 md:mb-6"
+            >
               {t(translations.heroHeadline)}
-            </h1>
+            </motion.h1>
 
             {/* Sub-headline */}
-            <p className="font-body text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
+            <motion.p 
+              variants={fadeInUp}
+              className="font-body text-base sm:text-lg md:text-xl text-muted-foreground mb-6 md:mb-8 leading-relaxed"
+            >
               {t(translations.heroSubheadline)}
-            </p>
+            </motion.p>
 
             {/* Core Outcomes */}
-            <div className="space-y-3 mb-8">
+            <motion.div variants={staggerContainer} className="space-y-3 md:space-y-4 mb-6 md:mb-8">
               {[translations.heroOutcome1, translations.heroOutcome2, translations.heroOutcome3].map((outcome, idx) => (
-                <div key={idx} className="flex items-start gap-3">
-                  <CheckCircle2 className="h-6 w-6 text-green-600 shrink-0 mt-0.5" />
-                  <span className="font-body text-foreground font-medium">{t(outcome)}</span>
-                </div>
+                <motion.div 
+                  key={idx} 
+                  variants={fadeInUp}
+                  className="flex items-start gap-3 bg-white/60 backdrop-blur-sm rounded-xl p-3 md:p-4 border border-green-100 shadow-sm"
+                >
+                  <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shrink-0">
+                    <CheckCircle2 className="h-4 w-4 md:h-5 md:w-5 text-white" />
+                  </div>
+                  <span className="font-body text-foreground font-medium text-sm md:text-base">{t(outcome)}</span>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Urgency Badge */}
-            <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-8">
-              <div className="flex items-center gap-2 mb-1">
-                <Calendar className="h-5 w-5 text-red-600" />
-                <span className="font-heading font-bold text-red-700">{t(translations.heroUrgency)}</span>
+            <motion.div 
+              variants={scaleIn}
+              className="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-200 rounded-2xl p-4 md:p-5 mb-6 md:mb-8 shadow-lg"
+            >
+              <div className="flex items-center gap-2 md:gap-3 mb-2">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center">
+                  <Calendar className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                </div>
+                <div>
+                  <span className="font-heading font-bold text-red-700 text-lg md:text-xl block">{t(translations.heroUrgency)}</span>
+                  <p className="font-body text-sm text-red-600">{t(translations.heroUrgencySubtext)}</p>
+                </div>
               </div>
-              <p className="font-body text-sm text-red-600">{t(translations.heroUrgencySubtext)}</p>
-            </div>
+            </motion.div>
 
             {/* Primary CTA */}
-            <div className="space-y-3">
+            <motion.div variants={fadeInUp} className="space-y-3 md:space-y-4">
               <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                <Button size="lg" className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-semibold text-lg px-8 py-6">
-                  <MessageCircle className="h-5 w-5 mr-2" />
+                <Button 
+                  size="lg" 
+                  className="w-full sm:w-auto bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold text-base md:text-lg px-6 md:px-10 py-6 md:py-7 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+                >
+                  <MessageCircle className="h-5 w-5 md:h-6 md:w-6 mr-2 md:mr-3" />
                   {t(translations.heroCTA)}
+                  <ChevronRight className="h-5 w-5 ml-2" />
                 </Button>
               </a>
-              <p className="font-body text-sm text-muted-foreground">{t(translations.heroCTASubtext)}</p>
-            </div>
-          </div>
+              <p className="font-body text-xs md:text-sm text-muted-foreground text-center sm:text-left">{t(translations.heroCTASubtext)}</p>
+            </motion.div>
+          </motion.div>
 
           {/* Right: Image */}
-          <div className="order-1 lg:order-2 relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img 
-                src={onlineLearning} 
-                alt="Mentor teaching children online" 
-                className="w-full h-auto object-cover"
-              />
-              {/* Age Badge */}
-              <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg">
-                <span className="font-heading font-bold text-maroon">Ages 6–12</span>
+          <motion.div 
+            className="order-1 lg:order-2 relative"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="relative">
+              {/* Decorative frame */}
+              <div className="absolute -inset-2 md:-inset-4 bg-gradient-to-br from-saffron/30 to-maroon/20 rounded-3xl blur-xl" />
+              
+              <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-4 border-white/50">
+                <img 
+                  src={onlineLearning} 
+                  alt="Mentor teaching children online" 
+                  className="w-full h-[280px] sm:h-[350px] md:h-[450px] lg:h-[500px] object-cover"
+                />
+                
+                {/* Overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                
+                {/* Floating Stats Card */}
+                <motion.div 
+                  className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-auto bg-white/95 backdrop-blur-md rounded-xl md:rounded-2xl p-3 md:p-4 shadow-xl border border-white/50"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.8, duration: 0.5 }}
+                >
+                  <div className="flex items-center gap-3 md:gap-4">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-saffron to-maroon flex items-center justify-center">
+                      <Play className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                    </div>
+                    <div>
+                      <p className="font-heading font-bold text-foreground text-sm md:text-base">100% Live Classes</p>
+                      <p className="font-body text-xs md:text-sm text-muted-foreground">With recordings for revision</p>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Trust Strip */}
-        <div className="mt-12 pt-8 border-t border-border">
-          <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+        <motion.div 
+          className="mt-10 md:mt-16 pt-6 md:pt-8 border-t border-border/50"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.5 }}
+        >
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-6">
             {[
-              { icon: Video, text: translations.trustLive },
-              { icon: Download, text: translations.trustRecordings },
-              { icon: Shield, text: translations.trustSafe },
-              { icon: Star, text: translations.trustTrusted }
+              { icon: Video, text: translations.trustLive, color: 'from-blue-500 to-blue-600' },
+              { icon: Download, text: translations.trustRecordings, color: 'from-purple-500 to-purple-600' },
+              { icon: Shield, text: translations.trustSafe, color: 'from-green-500 to-green-600' },
+              { icon: Star, text: translations.trustTrusted, color: 'from-saffron to-saffron-dark' }
             ].map((item, idx) => (
-              <div key={idx} className="flex items-center gap-2">
-                <item.icon className="h-5 w-5 text-green-600" />
-                <span className="font-body text-sm text-foreground">{t(item.text)}</span>
+              <div key={idx} className="flex items-center gap-2 md:gap-3 bg-white/80 backdrop-blur-sm rounded-xl p-3 md:p-4 shadow-sm border border-white/50">
+                <div className={`w-8 h-8 md:w-10 md:h-10 rounded-lg bg-gradient-to-br ${item.color} flex items-center justify-center shrink-0`}>
+                  <item.icon className="h-4 w-4 md:h-5 md:w-5 text-white" />
+                </div>
+                <span className="font-body text-xs md:text-sm font-medium text-foreground">{t(item.text)}</span>
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -617,39 +717,65 @@ const ParentPainSection = () => {
   const t = (obj: Record<string, string>) => obj[language] || obj.en;
 
   const painPoints = [
-    translations.painPoint1,
-    translations.painPoint2,
-    translations.painPoint3,
-    translations.painPoint4,
-    translations.painPoint5
+    { text: translations.painPoint1, icon: Phone },
+    { text: translations.painPoint2, icon: Brain },
+    { text: translations.painPoint3, icon: Clock },
+    { text: translations.painPoint4, icon: Heart },
+    { text: translations.painPoint5, icon: MessageCircle }
   ];
 
   return (
-    <section className="py-16 md:py-20 bg-background">
+    <section className="py-12 md:py-20 bg-background relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-red-200 to-transparent" />
+      
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-10">
-            {t(translations.painHeadline)}
-          </h2>
+        <motion.div 
+          className="max-w-4xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeInUp} className="text-center mb-8 md:mb-12">
+            <Badge className="mb-4 bg-red-100 text-red-700 border-red-200 px-4 py-2">
+              For Parents
+            </Badge>
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+              {t(translations.painHeadline)}
+            </h2>
+          </motion.div>
 
-          <div className="space-y-4 mb-10 text-left">
+          <motion.div variants={staggerContainer} className="space-y-3 md:space-y-4 mb-8 md:mb-12">
             {painPoints.map((point, idx) => (
-              <div key={idx} className="flex items-start gap-4 p-4 bg-red-50/50 rounded-xl border border-red-100">
-                <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center shrink-0">
-                  <span className="text-red-600 font-bold">!</span>
+              <motion.div 
+                key={idx} 
+                variants={fadeInUp}
+                className="flex items-start gap-3 md:gap-4 p-4 md:p-5 bg-gradient-to-r from-red-50 to-orange-50 rounded-xl md:rounded-2xl border border-red-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              >
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-red-400 to-red-500 flex items-center justify-center shrink-0 shadow-md">
+                  <point.icon className="h-5 w-5 md:h-6 md:w-6 text-white" />
                 </div>
-                <p className="font-body text-foreground">{t(point)}</p>
-              </div>
+                <p className="font-body text-foreground text-sm md:text-base lg:text-lg pt-2">{t(point.text)}</p>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Transition Line */}
-          <div className="bg-cream rounded-xl p-6 border border-saffron/20">
-            <p className="font-body text-lg text-foreground italic">
-              {t(translations.painTransition)}
-            </p>
-          </div>
-        </div>
+          <motion.div 
+            variants={scaleIn}
+            className="bg-gradient-to-br from-cream to-saffron/10 rounded-2xl md:rounded-3xl p-6 md:p-8 border-2 border-saffron/20 shadow-xl"
+          >
+            <div className="flex items-start gap-4">
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-gradient-to-br from-saffron to-maroon flex items-center justify-center shrink-0">
+                <Sparkles className="h-6 w-6 md:h-7 md:w-7 text-white" />
+              </div>
+              <p className="font-body text-base md:text-lg lg:text-xl text-foreground leading-relaxed">
+                {t(translations.painTransition)}
+              </p>
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
@@ -670,65 +796,112 @@ const WhatIsBodhikaSection = () => {
   ];
 
   const quickFacts = [
-    { icon: Calendar, text: translations.quickFact1 },
-    { icon: Video, text: translations.quickFact2 },
-    { icon: Users, text: translations.quickFact3 },
-    { icon: GraduationCap, text: translations.quickFact4 }
+    { icon: Calendar, text: translations.quickFact1, color: 'from-blue-500 to-blue-600' },
+    { icon: Video, text: translations.quickFact2, color: 'from-purple-500 to-purple-600' },
+    { icon: Users, text: translations.quickFact3, color: 'from-green-500 to-green-600' },
+    { icon: GraduationCap, text: translations.quickFact4, color: 'from-saffron to-maroon' }
   ];
 
   return (
-    <section className="py-16 md:py-20 bg-cream/50">
+    <section className="py-12 md:py-20 bg-gradient-to-b from-cream/50 to-background relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute top-20 right-0 w-80 h-80 bg-saffron/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-0 w-64 h-64 bg-maroon/5 rounded-full blur-3xl" />
+      
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
+        <motion.div 
+          className="max-w-6xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Image */}
-            <div className="relative">
-              <img 
-                src={heroGurukul} 
-                alt="Children learning in traditional setting" 
-                className="w-full rounded-2xl shadow-xl"
-              />
-            </div>
+            <motion.div variants={scaleIn} className="relative order-2 lg:order-1">
+              <div className="absolute -inset-4 bg-gradient-to-br from-saffron/20 to-maroon/10 rounded-3xl blur-2xl" />
+              <div className="relative rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl border-4 border-white/50">
+                <img 
+                  src={heroGurukul} 
+                  alt="Children learning in traditional setting" 
+                  className="w-full h-[300px] sm:h-[350px] md:h-[400px] object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+              </div>
+            </motion.div>
 
             {/* Content */}
-            <div>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-6">
+            <motion.div variants={staggerContainer} className="order-1 lg:order-2">
+              <motion.div variants={fadeInUp}>
+                <Badge className="mb-4 bg-saffron/10 text-saffron border-saffron/30 px-4 py-2">
+                  About the Program
+                </Badge>
+              </motion.div>
+              
+              <motion.h2 
+                variants={fadeInUp}
+                className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4 md:mb-6"
+              >
                 {t(translations.whatIsHeadline)}
-              </h2>
+              </motion.h2>
 
-              <p className="font-body text-lg text-foreground font-medium mb-4">
+              <motion.p 
+                variants={fadeInUp}
+                className="font-body text-lg md:text-xl text-maroon font-semibold mb-3 md:mb-4"
+              >
                 {t(translations.whatIsIntro)}
-              </p>
+              </motion.p>
 
-              <p className="font-body text-muted-foreground mb-6">
+              <motion.p 
+                variants={fadeInUp}
+                className="font-body text-muted-foreground mb-4 md:mb-6 text-sm md:text-base"
+              >
                 {t(translations.whatIsBody)}
-              </p>
+              </motion.p>
 
-              <ul className="space-y-3 mb-6">
+              <motion.ul variants={staggerContainer} className="space-y-2 md:space-y-3 mb-4 md:mb-6">
                 {points.map((point, idx) => (
-                  <li key={idx} className="flex items-center gap-3">
-                    <CheckCircle2 className="h-5 w-5 text-saffron shrink-0" />
-                    <span className="font-body text-foreground">{t(point)}</span>
-                  </li>
+                  <motion.li 
+                    key={idx} 
+                    variants={fadeInUp}
+                    className="flex items-center gap-3 p-3 bg-white/80 rounded-xl border border-saffron/10 shadow-sm"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-saffron to-saffron-dark flex items-center justify-center shrink-0">
+                      <CheckCircle2 className="h-4 w-4 text-white" />
+                    </div>
+                    <span className="font-body text-foreground text-sm md:text-base">{t(point)}</span>
+                  </motion.li>
                 ))}
-              </ul>
+              </motion.ul>
 
-              <p className="font-body text-muted-foreground text-sm">
+              <motion.p 
+                variants={fadeInUp}
+                className="font-body text-muted-foreground text-xs md:text-sm italic"
+              >
                 {t(translations.whatIsClosing)}
-              </p>
-            </div>
+              </motion.p>
+            </motion.div>
           </div>
 
           {/* Quick Fact Strip */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
+          <motion.div 
+            variants={staggerContainer}
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mt-10 md:mt-16"
+          >
             {quickFacts.map((fact, idx) => (
-              <div key={idx} className="bg-white rounded-xl p-4 text-center shadow-sm border border-border">
-                <fact.icon className="h-6 w-6 text-maroon mx-auto mb-2" />
-                <span className="font-body text-sm font-medium text-foreground">{t(fact.text)}</span>
-              </div>
+              <motion.div 
+                key={idx} 
+                variants={fadeInUp}
+                className="bg-white rounded-xl md:rounded-2xl p-4 md:p-6 text-center shadow-lg border border-border/50 hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+              >
+                <div className={`w-12 h-12 md:w-14 md:h-14 rounded-xl bg-gradient-to-br ${fact.color} flex items-center justify-center mx-auto mb-3`}>
+                  <fact.icon className="h-6 w-6 md:h-7 md:w-7 text-white" />
+                </div>
+                <span className="font-body text-xs md:text-sm font-semibold text-foreground">{t(fact.text)}</span>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
@@ -749,45 +922,77 @@ const TransformationSection = () => {
   ];
 
   return (
-    <section className="py-16 md:py-20 bg-background">
+    <section className="py-12 md:py-20 bg-background">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground text-center mb-12">
-            {t(translations.transformHeadline)}
-          </h2>
+        <motion.div 
+          className="max-w-5xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeInUp} className="text-center mb-8 md:mb-12">
+            <Badge className="mb-4 bg-gradient-to-r from-red-100 to-green-100 text-foreground border-0 px-4 py-2">
+              Real Results
+            </Badge>
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+              {t(translations.transformHeadline)}
+            </h2>
+          </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-4 md:gap-8">
             {/* Before */}
-            <Card className="border-2 border-red-200 bg-red-50/30">
-              <CardContent className="p-6">
-                <h3 className="font-heading font-bold text-red-700 mb-6 text-center">{t(translations.beforeTitle)}</h3>
-                <div className="space-y-4">
-                  {transformations.map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-3">
-                      <X className="h-5 w-5 text-red-500 shrink-0" />
-                      <span className="font-body text-foreground">{t(item.before)}</span>
+            <motion.div variants={scaleIn}>
+              <Card className="border-2 border-red-200 bg-gradient-to-br from-red-50 to-orange-50 shadow-xl overflow-hidden h-full">
+                <div className="h-2 bg-gradient-to-r from-red-400 to-red-500" />
+                <CardContent className="p-5 md:p-8">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-red-400 to-red-500 flex items-center justify-center">
+                      <X className="h-5 w-5 md:h-6 md:w-6 text-white" />
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                    <h3 className="font-heading font-bold text-red-700 text-lg md:text-xl">{t(translations.beforeTitle)}</h3>
+                  </div>
+                  <div className="space-y-3 md:space-y-4">
+                    {transformations.map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-3 p-3 bg-white/60 rounded-xl">
+                        <X className="h-5 w-5 text-red-500 shrink-0" />
+                        <span className="font-body text-foreground text-sm md:text-base">{t(item.before)}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
 
             {/* After */}
-            <Card className="border-2 border-green-200 bg-green-50/30">
-              <CardContent className="p-6">
-                <h3 className="font-heading font-bold text-green-700 mb-6 text-center">{t(translations.afterTitle)}</h3>
-                <div className="space-y-4">
-                  {transformations.map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-3">
-                      <Check className="h-5 w-5 text-green-600 shrink-0" />
-                      <span className="font-body text-foreground">{t(item.after)}</span>
+            <motion.div variants={scaleIn}>
+              <Card className="border-2 border-green-200 bg-gradient-to-br from-green-50 to-emerald-50 shadow-xl overflow-hidden h-full">
+                <div className="h-2 bg-gradient-to-r from-green-400 to-green-500" />
+                <CardContent className="p-5 md:p-8">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-green-400 to-green-500 flex items-center justify-center">
+                      <Check className="h-5 w-5 md:h-6 md:w-6 text-white" />
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+                    <h3 className="font-heading font-bold text-green-700 text-lg md:text-xl">{t(translations.afterTitle)}</h3>
+                  </div>
+                  <div className="space-y-3 md:space-y-4">
+                    {transformations.map((item, idx) => (
+                      <div key={idx} className="flex items-center gap-3 p-3 bg-white/60 rounded-xl">
+                        <Check className="h-5 w-5 text-green-600 shrink-0" />
+                        <span className="font-body text-foreground text-sm md:text-base">{t(item.after)}</span>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
-        </div>
+
+          {/* Arrow indicator for mobile */}
+          <div className="flex justify-center my-4 md:hidden">
+            <ArrowRight className="h-8 w-8 text-saffron rotate-90" />
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -801,41 +1006,65 @@ const LearningSection = () => {
   const t = (obj: Record<string, string>) => obj[language] || obj.en;
 
   const learningItems = [
-    { icon: Brain, title: translations.learn1Title },
-    { icon: MessageCircle, title: translations.learn2Title },
-    { icon: Book, title: translations.learn3Title },
-    { icon: Heart, title: translations.learn4Title },
-    { icon: Leaf, title: translations.learn5Title },
-    { icon: Sparkles, title: translations.learn6Title }
+    { icon: Brain, title: translations.learn1Title, color: 'from-purple-500 to-purple-600' },
+    { icon: MessageCircle, title: translations.learn2Title, color: 'from-blue-500 to-blue-600' },
+    { icon: Book, title: translations.learn3Title, color: 'from-amber-500 to-amber-600' },
+    { icon: Heart, title: translations.learn4Title, color: 'from-pink-500 to-pink-600' },
+    { icon: Leaf, title: translations.learn5Title, color: 'from-green-500 to-green-600' },
+    { icon: Sparkles, title: translations.learn6Title, color: 'from-saffron to-maroon' }
   ];
 
   return (
-    <section className="py-16 md:py-20 bg-cream/50">
-      <div className="container mx-auto px-4">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground text-center mb-12">
-            {t(translations.learnHeadline)}
-          </h2>
+    <section className="py-12 md:py-20 bg-gradient-to-b from-cream/50 to-background relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-saffron/5 via-transparent to-transparent" />
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div 
+          className="max-w-6xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeInUp} className="text-center mb-8 md:mb-12">
+            <Badge className="mb-4 bg-saffron/10 text-saffron border-saffron/30 px-4 py-2">
+              Curriculum Highlights
+            </Badge>
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+              {t(translations.learnHeadline)}
+            </h2>
+          </motion.div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-8">
+          <motion.div 
+            variants={staggerContainer}
+            className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 mb-6 md:mb-8"
+          >
             {learningItems.map((item, idx) => (
-              <Card key={idx} className="border bg-white hover:shadow-lg transition-shadow">
-                <CardContent className="p-6 text-center">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-saffron to-maroon flex items-center justify-center mx-auto mb-4">
-                    <item.icon className="h-7 w-7 text-white" />
-                  </div>
-                  <h3 className="font-heading font-semibold text-foreground text-sm md:text-base">
-                    {t(item.title)}
-                  </h3>
-                </CardContent>
-              </Card>
+              <motion.div 
+                key={idx}
+                variants={fadeInUp}
+              >
+                <Card className="border bg-white hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full group">
+                  <CardContent className="p-4 md:p-6 text-center">
+                    <div className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br ${item.color} flex items-center justify-center mx-auto mb-3 md:mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                      <item.icon className="h-7 w-7 md:h-8 md:w-8 text-white" />
+                    </div>
+                    <h3 className="font-heading font-semibold text-foreground text-sm md:text-base lg:text-lg">
+                      {t(item.title)}
+                    </h3>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
-          <p className="text-center font-body text-muted-foreground">
+          <motion.p 
+            variants={fadeIn}
+            className="text-center font-body text-muted-foreground text-sm md:text-base bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-border/50"
+          >
             {t(translations.learnNote)}
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </div>
     </section>
   );
@@ -849,30 +1078,50 @@ const LearningExperienceSection = () => {
   const t = (obj: Record<string, string>) => obj[language] || obj.en;
 
   const experiences = [
-    translations.exp1,
-    translations.exp2,
-    translations.exp3,
-    translations.exp4,
-    translations.exp5
+    { text: translations.exp1, icon: Video },
+    { text: translations.exp2, icon: MessageCircle },
+    { text: translations.exp3, icon: Download },
+    { text: translations.exp4, icon: Smile },
+    { text: translations.exp5, icon: Award }
   ];
 
   return (
-    <section className="py-16 md:py-20 bg-background">
+    <section className="py-12 md:py-20 bg-background">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground text-center mb-10">
-            {t(translations.expHeadline)}
-          </h2>
+        <motion.div 
+          className="max-w-4xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeInUp} className="text-center mb-8 md:mb-12">
+            <Badge className="mb-4 bg-green-100 text-green-700 border-green-200 px-4 py-2">
+              Learning Format
+            </Badge>
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+              {t(translations.expHeadline)}
+            </h2>
+          </motion.div>
 
-          <div className="grid sm:grid-cols-2 gap-4">
+          <motion.div 
+            variants={staggerContainer}
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4"
+          >
             {experiences.map((exp, idx) => (
-              <div key={idx} className="flex items-center gap-3 p-4 bg-cream/50 rounded-xl">
-                <CheckCircle2 className="h-5 w-5 text-green-600 shrink-0" />
-                <span className="font-body text-foreground">{t(exp)}</span>
-              </div>
+              <motion.div 
+                key={idx} 
+                variants={fadeInUp}
+                className="flex items-center gap-3 p-4 md:p-5 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl md:rounded-2xl border border-green-100 shadow-sm hover:shadow-lg transition-all duration-300"
+              >
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center shrink-0">
+                  <exp.icon className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                </div>
+                <span className="font-body text-foreground text-sm md:text-base font-medium">{t(exp.text)}</span>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
@@ -886,93 +1135,127 @@ const PricingSection = () => {
   const t = (obj: Record<string, string>) => obj[language] || obj.en;
 
   return (
-    <section id="pricing-section" className="py-16 md:py-20 bg-cream/50">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground text-center mb-12">
-            {t(translations.pricingHeadline)}
-          </h2>
+    <section id="pricing-section" className="py-12 md:py-20 bg-gradient-to-b from-cream/50 to-background relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-saffron/10 via-transparent to-transparent" />
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div 
+          className="max-w-5xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeInUp} className="text-center mb-8 md:mb-12">
+            <Badge className="mb-4 bg-maroon/10 text-maroon border-maroon/30 px-4 py-2">
+              Pricing Plans
+            </Badge>
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+              {t(translations.pricingHeadline)}
+            </h2>
+          </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid md:grid-cols-2 gap-4 md:gap-8">
             {/* Focused Batch - Recommended */}
-            <Card className="border-2 border-saffron shadow-xl relative overflow-hidden">
-              <div className="absolute top-4 right-4">
-                <Badge className="bg-saffron text-white border-0">
-                  <Star className="h-3 w-3 mr-1" />
-                  {t(translations.focusedRecommended)}
-                </Badge>
-              </div>
-              <CardContent className="p-6 pt-8">
-                <h3 className="font-heading text-xl font-bold text-maroon mb-2">
-                  {t(translations.focusedBatch)}
-                </h3>
-                <p className="font-body text-sm text-muted-foreground mb-4">{t(translations.focusedStudents)}</p>
-                
-                <ul className="space-y-3 mb-6">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-saffron" />
-                    <span className="font-body text-sm text-foreground">{t(translations.focusedFeature1)}</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-saffron" />
-                    <span className="font-body text-sm text-foreground">{t(translations.focusedFeature2)}</span>
-                  </li>
-                </ul>
-
-                <div className="mb-6">
-                  <span className="font-heading text-3xl font-bold text-foreground">{t(translations.focusedPrice)}</span>
-                  <span className="font-body text-muted-foreground">{t(translations.perYear)}</span>
+            <motion.div variants={scaleIn}>
+              <Card className="border-2 border-saffron shadow-2xl relative overflow-hidden h-full bg-white">
+                {/* Recommended ribbon */}
+                <div className="absolute top-0 right-0">
+                  <div className="bg-gradient-to-r from-saffron to-saffron-dark text-white text-xs font-bold px-6 py-2 transform rotate-0 rounded-bl-xl shadow-lg">
+                    <Star className="h-3 w-3 inline mr-1" />
+                    {t(translations.focusedRecommended)}
+                  </div>
                 </div>
+                
+                <div className="h-2 bg-gradient-to-r from-saffron to-maroon" />
+                
+                <CardContent className="p-5 md:p-8 pt-10 md:pt-12">
+                  <h3 className="font-heading text-xl md:text-2xl font-bold text-maroon mb-2">
+                    {t(translations.focusedBatch)}
+                  </h3>
+                  <p className="font-body text-sm text-muted-foreground mb-4 md:mb-6">{t(translations.focusedStudents)}</p>
+                  
+                  <ul className="space-y-3 md:space-y-4 mb-6 md:mb-8">
+                    <li className="flex items-center gap-3 p-3 bg-saffron/10 rounded-xl">
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-saffron to-saffron-dark flex items-center justify-center">
+                        <CheckCircle2 className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="font-body text-sm md:text-base text-foreground">{t(translations.focusedFeature1)}</span>
+                    </li>
+                    <li className="flex items-center gap-3 p-3 bg-saffron/10 rounded-xl">
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-saffron to-saffron-dark flex items-center justify-center">
+                        <CheckCircle2 className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="font-body text-sm md:text-base text-foreground">{t(translations.focusedFeature2)}</span>
+                    </li>
+                  </ul>
 
-                <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                  <Button className="w-full bg-maroon hover:bg-maroon/90 text-white">
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    {t(translations.talkToCounselor)}
-                  </Button>
-                </a>
-              </CardContent>
-            </Card>
+                  <div className="mb-6 md:mb-8 text-center">
+                    <span className="font-heading text-4xl md:text-5xl font-bold text-maroon">{t(translations.focusedPrice)}</span>
+                    <span className="font-body text-muted-foreground text-lg">{t(translations.perYear)}</span>
+                  </div>
+
+                  <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
+                    <Button className="w-full bg-gradient-to-r from-maroon to-maroon-dark hover:from-maroon-dark hover:to-maroon text-white py-5 md:py-6 text-base md:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all">
+                      <MessageCircle className="h-5 w-5 mr-2" />
+                      {t(translations.talkToCounselor)}
+                    </Button>
+                  </a>
+                </CardContent>
+              </Card>
+            </motion.div>
 
             {/* Group Batch */}
-            <Card className="border shadow-lg">
-              <CardContent className="p-6 pt-8">
-                <h3 className="font-heading text-xl font-bold text-foreground mb-2">
-                  {t(translations.groupBatch)}
-                </h3>
-                <p className="font-body text-sm text-muted-foreground mb-4">{t(translations.groupFeature1)}</p>
+            <motion.div variants={scaleIn}>
+              <Card className="border shadow-xl h-full bg-white">
+                <div className="h-2 bg-gradient-to-r from-green-400 to-green-500" />
                 
-                <ul className="space-y-3 mb-6">
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-green-600" />
-                    <span className="font-body text-sm text-foreground">{t(translations.groupFeature2)}</span>
-                  </li>
-                  <li className="flex items-center gap-2">
-                    <CheckCircle2 className="h-4 w-4 text-green-600" />
-                    <span className="font-body text-sm text-foreground">{t(translations.groupFeature3)}</span>
-                  </li>
-                </ul>
+                <CardContent className="p-5 md:p-8">
+                  <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-2">
+                    {t(translations.groupBatch)}
+                  </h3>
+                  <p className="font-body text-sm text-muted-foreground mb-4 md:mb-6">{t(translations.groupFeature1)}</p>
+                  
+                  <ul className="space-y-3 md:space-y-4 mb-6 md:mb-8">
+                    <li className="flex items-center gap-3 p-3 bg-green-50 rounded-xl">
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                        <CheckCircle2 className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="font-body text-sm md:text-base text-foreground">{t(translations.groupFeature2)}</span>
+                    </li>
+                    <li className="flex items-center gap-3 p-3 bg-green-50 rounded-xl">
+                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center">
+                        <CheckCircle2 className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="font-body text-sm md:text-base text-foreground">{t(translations.groupFeature3)}</span>
+                    </li>
+                  </ul>
 
-                <div className="mb-6">
-                  <span className="font-heading text-3xl font-bold text-foreground">{t(translations.groupPrice)}</span>
-                  <span className="font-body text-muted-foreground">{t(translations.perYear)}</span>
-                </div>
+                  <div className="mb-6 md:mb-8 text-center">
+                    <span className="font-heading text-4xl md:text-5xl font-bold text-foreground">{t(translations.groupPrice)}</span>
+                    <span className="font-body text-muted-foreground text-lg">{t(translations.perYear)}</span>
+                  </div>
 
-                <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                  <Button className="w-full bg-saffron hover:bg-saffron/90 text-white">
-                    <MessageCircle className="h-4 w-4 mr-2" />
-                    {t(translations.talkToCounselor)}
-                  </Button>
-                </a>
-              </CardContent>
-            </Card>
+                  <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
+                    <Button className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white py-5 md:py-6 text-base md:text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all">
+                      <MessageCircle className="h-5 w-5 mr-2" />
+                      {t(translations.talkToCounselor)}
+                    </Button>
+                  </a>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
 
           {/* Scholarship Note */}
-          <div className="text-center mt-8">
-            <p className="font-body text-green-700 font-medium">{t(translations.scholarshipNote)}</p>
+          <motion.div 
+            variants={fadeInUp}
+            className="text-center mt-6 md:mt-10 bg-white rounded-2xl p-5 md:p-6 border border-border shadow-lg"
+          >
+            <p className="font-body text-green-700 font-semibold text-base md:text-lg mb-1">{t(translations.scholarshipNote)}</p>
             <p className="font-body text-sm text-muted-foreground">{t(translations.scholarshipSubnote)}</p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
@@ -986,35 +1269,53 @@ const TestimonialsSection = () => {
   const t = (obj: Record<string, string>) => obj[language] || obj.en;
 
   return (
-    <section className="py-16 md:py-20 bg-background">
+    <section className="py-12 md:py-20 bg-background">
       <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground text-center mb-12">
-            {t(translations.testimonialsHeadline)}
-          </h2>
+        <motion.div 
+          className="max-w-5xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeInUp} className="text-center mb-8 md:mb-12">
+            <Badge className="mb-4 bg-purple-100 text-purple-700 border-purple-200 px-4 py-2">
+              Parent Testimonials
+            </Badge>
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+              {t(translations.testimonialsHeadline)}
+            </h2>
+          </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <motion.div 
+            variants={staggerContainer}
+            className="grid md:grid-cols-3 gap-4 md:gap-6"
+          >
             {testimonials.map((testimonial, idx) => (
-              <Card key={idx} className="border bg-cream/30">
-                <CardContent className="p-6">
-                  <Quote className="h-8 w-8 text-saffron/30 mb-4" />
-                  <p className="font-body text-foreground italic mb-4">
-                    "{t(testimonial.quote)}"
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-maroon flex items-center justify-center text-white font-bold">
-                      {testimonial.name[0]}
+              <motion.div key={idx} variants={fadeInUp}>
+                <Card className="border bg-gradient-to-br from-cream/50 to-white shadow-lg hover:shadow-xl transition-all duration-300 h-full">
+                  <CardContent className="p-5 md:p-6">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-saffron/20 to-maroon/20 flex items-center justify-center mb-4">
+                      <Quote className="h-5 w-5 md:h-6 md:w-6 text-saffron" />
                     </div>
-                    <div>
-                      <p className="font-heading font-semibold text-foreground text-sm">{testimonial.name}</p>
-                      <p className="font-body text-xs text-muted-foreground">{testimonial.location}</p>
+                    <p className="font-body text-foreground italic mb-4 md:mb-6 text-sm md:text-base leading-relaxed">
+                      "{t(testimonial.quote)}"
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-gradient-to-br from-maroon to-maroon-dark flex items-center justify-center text-white font-bold text-lg">
+                        {testimonial.name[0]}
+                      </div>
+                      <div>
+                        <p className="font-heading font-semibold text-foreground text-sm md:text-base">{testimonial.name}</p>
+                        <p className="font-body text-xs md:text-sm text-muted-foreground">{testimonial.location}</p>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
@@ -1028,36 +1329,50 @@ const FounderSection = () => {
   const t = (obj: Record<string, string>) => obj[language] || obj.en;
 
   return (
-    <section className="py-16 md:py-20 bg-cream/50">
+    <section className="py-12 md:py-20 bg-gradient-to-b from-cream/50 to-background">
       <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground text-center mb-10">
-            {t(translations.founderHeadline)}
-          </h2>
+        <motion.div 
+          className="max-w-4xl mx-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeInUp} className="text-center mb-8 md:mb-10">
+            <Badge className="mb-4 bg-maroon/10 text-maroon border-maroon/30 px-4 py-2">
+              From Our Founder
+            </Badge>
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-foreground">
+              {t(translations.founderHeadline)}
+            </h2>
+          </motion.div>
 
-          <Card className="border-0 shadow-xl bg-white">
-            <CardContent className="p-8">
-              <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="shrink-0">
-                  <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-saffron/30">
-                    <img 
-                      src={founderImage} 
-                      alt="Yogesh Bhardwaj" 
-                      className="w-full h-full object-cover object-top"
-                    />
+          <motion.div variants={scaleIn}>
+            <Card className="border-0 shadow-2xl bg-white overflow-hidden">
+              <div className="h-2 bg-gradient-to-r from-saffron via-maroon to-saffron" />
+              <CardContent className="p-6 md:p-10">
+                <div className="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                  <div className="shrink-0">
+                    <div className="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-4 border-saffron/30 shadow-xl">
+                      <img 
+                        src={founderImage} 
+                        alt="Yogesh Bhardwaj" 
+                        className="w-full h-full object-cover object-top"
+                      />
+                    </div>
+                  </div>
+                  <div className="text-center md:text-left">
+                    <p className="font-body text-foreground italic text-base md:text-lg lg:text-xl leading-relaxed mb-4 md:mb-6">
+                      {t(translations.founderMessage)}
+                    </p>
+                    <p className="font-heading font-bold text-maroon text-lg">{t(translations.founderName)}</p>
+                    <p className="font-body text-sm text-muted-foreground">{t(translations.founderRole)}</p>
                   </div>
                 </div>
-                <div>
-                  <p className="font-body text-foreground italic text-lg leading-relaxed mb-4">
-                    {t(translations.founderMessage)}
-                  </p>
-                  <p className="font-heading font-bold text-maroon">{t(translations.founderName)}</p>
-                  <p className="font-body text-sm text-muted-foreground">{t(translations.founderRole)}</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
@@ -1071,26 +1386,53 @@ const FinalCTASection = () => {
   const t = (obj: Record<string, string>) => obj[language] || obj.en;
 
   return (
-    <section className="py-16 md:py-20 bg-gradient-to-br from-maroon to-maroon-dark text-white">
-      <div className="container mx-auto px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-            {t(translations.finalHeadline)}
-          </h2>
+    <section className="py-16 md:py-24 bg-gradient-to-br from-maroon via-maroon-dark to-maroon text-white relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-saffron/20 via-transparent to-transparent" />
+      <div className="absolute top-0 left-0 w-96 h-96 bg-saffron/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-saffron/10 rounded-full blur-3xl" />
+      
+      <div className="container mx-auto px-4 relative z-10">
+        <motion.div 
+          className="max-w-3xl mx-auto text-center"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeInUp}>
+            <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight">
+              {t(translations.finalHeadline)}
+            </h2>
+          </motion.div>
 
-          <p className="font-body text-lg text-cream/90 mb-8 whitespace-pre-line">
+          <motion.p 
+            variants={fadeInUp}
+            className="font-body text-base md:text-lg lg:text-xl text-cream/90 mb-8 md:mb-10 whitespace-pre-line leading-relaxed"
+          >
             {t(translations.finalBody)}
-          </p>
+          </motion.p>
 
-          <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white font-semibold text-lg px-8 py-6">
-              <MessageCircle className="h-5 w-5 mr-2" />
-              {t(translations.heroCTA)}
-            </Button>
-          </a>
+          <motion.div variants={scaleIn}>
+            <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer">
+              <Button 
+                size="lg" 
+                className="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold text-base md:text-lg px-8 md:px-12 py-6 md:py-8 rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 hover:-translate-y-1"
+              >
+                <MessageCircle className="h-5 w-5 md:h-6 md:w-6 mr-2 md:mr-3" />
+                {t(translations.heroCTA)}
+                <ChevronRight className="h-5 w-5 ml-2" />
+              </Button>
+            </a>
+          </motion.div>
 
-          <p className="font-body text-sm text-cream/70 mt-4">{t(translations.finalCTASubtext)}</p>
-        </div>
+          <motion.p 
+            variants={fadeIn}
+            className="font-body text-sm text-cream/70 mt-4 md:mt-6"
+          >
+            {t(translations.finalCTASubtext)}
+          </motion.p>
+        </motion.div>
       </div>
     </section>
   );
@@ -1123,14 +1465,20 @@ const StickyMobileFooter = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg z-50 p-3 md:hidden">
+    <motion.div 
+      className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-lg border-t shadow-2xl z-50 p-3 md:hidden"
+      initial={{ y: 100 }}
+      animate={{ y: 0 }}
+      exit={{ y: 100 }}
+      transition={{ duration: 0.3 }}
+    >
       <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
-        <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold">
-          <MessageCircle className="h-4 w-4 mr-2" />
+        <Button className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-4 rounded-xl shadow-lg">
+          <MessageCircle className="h-5 w-5 mr-2" />
           {t(translations.heroCTA)}
         </Button>
       </a>
-    </div>
+    </motion.div>
   );
 };
 
@@ -1148,19 +1496,22 @@ const BodhikaLanding = () => {
         <meta name="description" content={t(translations.metaDescription)} />
         <meta property="og:title" content={t(translations.metaTitle)} />
         <meta property="og:description" content={t(translations.metaDescription)} />
+        <meta property="og:type" content="website" />
       </Helmet>
 
-      <HeroSection />
-      <ParentPainSection />
-      <WhatIsBodhikaSection />
-      <TransformationSection />
-      <LearningSection />
-      <LearningExperienceSection />
-      <PricingSection />
-      <TestimonialsSection />
-      <FounderSection />
-      <FinalCTASection />
-      <StickyMobileFooter />
+      <main className="overflow-hidden">
+        <HeroSection />
+        <ParentPainSection />
+        <WhatIsBodhikaSection />
+        <TransformationSection />
+        <LearningSection />
+        <LearningExperienceSection />
+        <PricingSection />
+        <TestimonialsSection />
+        <FounderSection />
+        <FinalCTASection />
+        <StickyMobileFooter />
+      </main>
     </Layout>
   );
 };
