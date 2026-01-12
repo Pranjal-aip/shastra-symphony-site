@@ -8,6 +8,7 @@ export interface Course {
   shortDescription: { en: string; hi: string; sa: string };
   fullDescription?: { en: string; hi: string; sa: string };
   thumbnail: string;
+  ogImage?: string;
   category: string;
   level: 'Kids' | 'Teens' | 'Adults' | 'Gurukul' | 'All Ages';
   duration: string;
@@ -26,6 +27,7 @@ export interface BlogPost {
   excerpt: { en: string; hi: string; sa: string };
   content?: { en: string; hi: string; sa: string };
   thumbnail: string;
+  ogImage?: string;
   category: string;
   author: string;
   date: string;
@@ -102,6 +104,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
           shortDescription: { en: c.short_description_en || '', hi: c.short_description_hi || '', sa: c.short_description_sa || '' },
           fullDescription: { en: c.full_description_en || '', hi: c.full_description_hi || '', sa: c.full_description_sa || '' },
           thumbnail: c.thumbnail || '/placeholder.svg',
+          ogImage: (c as Record<string, unknown>).og_image as string || undefined,
           category: c.category,
           level: c.level as Course['level'],
           duration: c.duration || '',
@@ -124,6 +127,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
           excerpt: { en: b.excerpt_en || '', hi: b.excerpt_hi || '', sa: b.excerpt_sa || '' },
           content: { en: b.content_en || '', hi: b.content_hi || '', sa: b.content_sa || '' },
           thumbnail: b.thumbnail || '/placeholder.svg',
+          ogImage: (b as Record<string, unknown>).og_image as string || undefined,
           category: b.category,
           author: b.author,
           date: b.date,
@@ -237,6 +241,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       full_description_hi: course.fullDescription?.hi || '',
       full_description_sa: course.fullDescription?.sa || '',
       thumbnail: course.thumbnail,
+      og_image: course.ogImage || null,
       category: course.category,
       level: course.level,
       duration: course.duration,
@@ -280,6 +285,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     if (updates.ageMin !== undefined) updateData.age_min = updates.ageMin;
     if (updates.ageMax !== undefined) updateData.age_max = updates.ageMax;
     if (updates.graphyProductId !== undefined) updateData.graphy_product_id = updates.graphyProductId;
+    if (updates.ogImage !== undefined) updateData.og_image = updates.ogImage;
 
     const { error } = await supabase.from('courses').update(updateData).eq('id', id);
     if (error) throw error;
@@ -322,6 +328,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       content_hi: post.content?.hi || '',
       content_sa: post.content?.sa || '',
       thumbnail: post.thumbnail,
+      og_image: post.ogImage || null,
       category: post.category,
       author: post.author,
       date: post.date,
@@ -350,6 +357,7 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       updateData.content_sa = updates.content.sa;
     }
     if (updates.thumbnail) updateData.thumbnail = updates.thumbnail;
+    if (updates.ogImage !== undefined) updateData.og_image = updates.ogImage;
     if (updates.category) updateData.category = updates.category;
     if (updates.author) updateData.author = updates.author;
     if (updates.showOnHome !== undefined) updateData.show_on_home = updates.showOnHome;
