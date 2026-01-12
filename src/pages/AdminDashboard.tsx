@@ -442,6 +442,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
     duration: '',
     price: '',
     thumbnail: '/placeholder.svg',
+    ogImage: '',
     isPopular: false,
     showOnHome: false,
     ageMin: '',
@@ -462,6 +463,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       duration: '',
       price: '',
       thumbnail: '/placeholder.svg',
+      ogImage: '',
       isPopular: false,
       showOnHome: false,
       ageMin: '',
@@ -491,6 +493,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
           sa: formData.descriptionSa || formData.description 
         },
         thumbnail: formData.thumbnail,
+        ogImage: formData.ogImage || undefined,
         category: formData.category,
         level: formData.level,
         duration: formData.duration,
@@ -526,6 +529,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
       duration: course.duration,
       price: course.price || '',
       thumbnail: course.thumbnail,
+      ogImage: course.ogImage || '',
       isPopular: course.isPopular,
       showOnHome: course.showOnHome,
       ageMin: course.ageMin?.toString() || '',
@@ -555,6 +559,7 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
           sa: formData.descriptionSa || formData.description 
         },
         thumbnail: formData.thumbnail,
+        ogImage: formData.ogImage || undefined,
         category: formData.category,
         level: formData.level,
         duration: formData.duration,
@@ -670,6 +675,18 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
           onChange={(e) => setFormData({ ...formData, graphyProductId: e.target.value })} 
         />
         <p className="text-xs text-muted-foreground">Required for Graphy enrollment sync</p>
+      </div>
+      <div className="space-y-2 border-t pt-4 mt-2">
+        <label className="text-sm font-medium flex items-center gap-2">
+          OG Image URL for Social Sharing
+          <span className="text-xs text-primary font-normal">(Required)</span>
+        </label>
+        <Input 
+          placeholder="https://example.com/og-image.jpg" 
+          value={formData.ogImage} 
+          onChange={(e) => setFormData({ ...formData, ogImage: e.target.value })} 
+        />
+        <p className="text-xs text-muted-foreground">This image appears when sharing the course link on social media (1200x630px recommended)</p>
       </div>
       <div className="flex items-center justify-between">
         <Label htmlFor="popular">Mark as Popular</Label>
@@ -834,6 +851,7 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
     category: '',
     author: '',
     thumbnail: '/placeholder.svg',
+    ogImage: '',
     showOnHome: false,
   });
 
@@ -851,6 +869,7 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
       category: '',
       author: '',
       thumbnail: '/placeholder.svg',
+      ogImage: '',
       showOnHome: false,
     });
   };
@@ -881,6 +900,7 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
           sa: formData.contentSa || formData.content 
         },
         thumbnail: formData.thumbnail,
+        ogImage: formData.ogImage || undefined,
         category: formData.category,
         author: formData.author || 'Shastrakulam Team',
         date: new Date().toISOString().split('T')[0],
@@ -911,6 +931,7 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
       category: post.category,
       author: post.author,
       thumbnail: post.thumbnail,
+      ogImage: post.ogImage || '',
       showOnHome: post.showOnHome,
     });
     setIsEditOpen(true);
@@ -941,6 +962,7 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
           sa: formData.contentSa || formData.content 
         },
         thumbnail: formData.thumbnail,
+        ogImage: formData.ogImage || undefined,
         category: formData.category,
         author: formData.author,
         showOnHome: formData.showOnHome,
@@ -1033,6 +1055,15 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
         </SelectContent>
       </Select>
       <Input placeholder="Author Name" value={formData.author} onChange={(e) => setFormData({ ...formData, author: e.target.value })} />
+      <div className="space-y-2 border-t pt-4 mt-2">
+        <label className="text-sm font-medium">OG Image URL for Social Sharing</label>
+        <Input 
+          placeholder="https://example.com/og-image.jpg (leave empty to use featured image)" 
+          value={formData.ogImage} 
+          onChange={(e) => setFormData({ ...formData, ogImage: e.target.value })} 
+        />
+        <p className="text-xs text-muted-foreground">Custom image for social media sharing (1200x630px recommended). If empty, the featured image will be used.</p>
+      </div>
       <div className="flex items-center justify-between">
         <Label htmlFor="blogShowOnHome">Show on Home Page</Label>
         <Switch id="blogShowOnHome" checked={formData.showOnHome} onCheckedChange={(checked) => setFormData({ ...formData, showOnHome: checked })} />

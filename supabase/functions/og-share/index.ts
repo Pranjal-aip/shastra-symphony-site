@@ -97,7 +97,7 @@ Deno.serve(async (req) => {
     } else if (type === 'blog') {
       const { data: post, error } = await supabase
         .from('blog_posts')
-        .select('title_en, excerpt_en, thumbnail, slug')
+        .select('title_en, excerpt_en, thumbnail, og_image, slug')
         .eq('slug', slug)
         .single()
 
@@ -106,17 +106,19 @@ Deno.serve(async (req) => {
       if (post) {
         title = post.title_en || title
         description = post.excerpt_en || description
-        image = post.thumbnail && post.thumbnail.startsWith('http') 
-          ? post.thumbnail 
-          : post.thumbnail 
-            ? `${baseUrl}${post.thumbnail.startsWith('/') ? '' : '/'}${post.thumbnail}`
+        // Prioritize og_image, then fallback to thumbnail
+        const imageSource = post.og_image || post.thumbnail
+        image = imageSource && imageSource.startsWith('http') 
+          ? imageSource 
+          : imageSource 
+            ? `${baseUrl}${imageSource.startsWith('/') ? '' : '/'}${imageSource}`
             : defaultImage
         pageUrl = `${baseUrl}/blog/${slug}`
       }
     } else if (type === 'courses') {
       const { data: course, error } = await supabase
         .from('courses')
-        .select('title_en, short_description_en, thumbnail, slug')
+        .select('title_en, short_description_en, thumbnail, og_image, slug')
         .eq('slug', slug)
         .single()
 
@@ -125,10 +127,12 @@ Deno.serve(async (req) => {
       if (course) {
         title = course.title_en || title
         description = course.short_description_en || description
-        image = course.thumbnail && course.thumbnail.startsWith('http') 
-          ? course.thumbnail 
-          : course.thumbnail 
-            ? `${baseUrl}${course.thumbnail.startsWith('/') ? '' : '/'}${course.thumbnail}`
+        // Prioritize og_image, then fallback to thumbnail
+        const imageSource = course.og_image || course.thumbnail
+        image = imageSource && imageSource.startsWith('http') 
+          ? imageSource 
+          : imageSource 
+            ? `${baseUrl}${imageSource.startsWith('/') ? '' : '/'}${imageSource}`
             : defaultImage
         pageUrl = `${baseUrl}/courses/${slug}`
       }

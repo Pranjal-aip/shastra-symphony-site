@@ -96,6 +96,7 @@ export type Database = {
           excerpt_hi: string | null
           excerpt_sa: string | null
           id: string
+          og_image: string | null
           show_on_home: boolean
           slug: string
           thumbnail: string | null
@@ -116,6 +117,7 @@ export type Database = {
           excerpt_hi?: string | null
           excerpt_sa?: string | null
           id?: string
+          og_image?: string | null
           show_on_home?: boolean
           slug: string
           thumbnail?: string | null
@@ -136,6 +138,7 @@ export type Database = {
           excerpt_hi?: string | null
           excerpt_sa?: string | null
           id?: string
+          og_image?: string | null
           show_on_home?: boolean
           slug?: string
           thumbnail?: string | null
@@ -405,6 +408,7 @@ export type Database = {
           id: string
           is_popular: boolean
           level: string
+          og_image: string | null
           price: string | null
           short_description_en: string | null
           short_description_hi: string | null
@@ -430,6 +434,7 @@ export type Database = {
           id?: string
           is_popular?: boolean
           level?: string
+          og_image?: string | null
           price?: string | null
           short_description_en?: string | null
           short_description_hi?: string | null
@@ -455,6 +460,7 @@ export type Database = {
           id?: string
           is_popular?: boolean
           level?: string
+          og_image?: string | null
           price?: string | null
           short_description_en?: string | null
           short_description_hi?: string | null
