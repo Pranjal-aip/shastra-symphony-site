@@ -11,14 +11,14 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 const seoData = {
   title: {
-    en: 'Donate - Support Vedic Education',
-    hi: 'दान करें - वैदिक शिक्षा का समर्थन करें',
-    sa: 'दानं कुरुत - वैदिकशिक्षां समर्थयत'
+    en: 'Donate to Shastrakulam | Support Vedic Education (80G Tax Benefit)',
+    hi: 'शास्त्रकुलम को दान करें | वैदिक शिक्षा का समर्थन करें (80G कर लाभ)',
+    sa: 'शास्त्रकुलाय दानं कुरुत | वैदिकशिक्षां समर्थयत (80G करलाभः)'
   },
   description: {
-    en: 'Support Shastrakulam\'s mission to preserve Vedic wisdom. Your tax-deductible donation (80G) helps provide Sanskrit education to children across India.',
-    hi: 'वैदिक ज्ञान को संरक्षित करने के शास्त्रकुलम के मिशन का समर्थन करें। आपका कर-कटौती योग्य दान (80G) भारत भर के बच्चों को संस्कृत शिक्षा प्रदान करने में मदद करता है।',
-    sa: 'वैदिकज्ञानं संरक्षितुं शास्त्रकुलस्य लक्ष्यं समर्थयत। भवतां करकटौतीयोग्यं दानं (80G) भारतस्य बालकेभ्यः संस्कृतशिक्षां प्रदातुं साहाय्यं करोति।'
+    en: 'Support Shastrakulam\'s mission to preserve Vedic wisdom. Your 80G tax-deductible donation helps provide free Sanskrit education to underprivileged children across India.',
+    hi: 'वैदिक ज्ञान को संरक्षित करने के शास्त्रकुलम के मिशन का समर्थन करें। आपका 80G कर-कटौती योग्य दान भारत भर के वंचित बच्चों को मुफ्त संस्कृत शिक्षा प्रदान करता है।',
+    sa: 'वैदिकज्ञानं संरक्षितुं शास्त्रकुलस्य लक्ष्यं समर्थयत। भवतां 80G करकटौतीयोग्यं दानं भारतस्य वञ्चितबालकेभ्यः निःशुल्कं संस्कृतशिक्षां प्रददाति।'
   }
 };
 

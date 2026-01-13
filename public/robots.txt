@@ -1,8 +1,17 @@
+# Shastrakulam - Vedic Education Platform
+# https://shastrakulam.com
+
+# Allow all crawlers full access
 User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Googlebot-Image
 Allow: /
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 2
 
 User-agent: Twitterbot
 Allow: /
@@ -10,7 +19,27 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
+User-agent: LinkedInBot
 Allow: /
 
+User-agent: WhatsApp
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: *
+Allow: /
+Crawl-delay: 5
+
+# Disallow admin and private areas
+Disallow: /admin
+Disallow: /admin-login
+Disallow: /api/
+
+# Sitemaps
+Sitemap: https://shastrakulam.com/sitemap.xml
 Sitemap: https://qqvirwqrecpzbldjyiua.supabase.co/functions/v1/sitemap
+
+# Host
+Host: https://shastrakulam.com

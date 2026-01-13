@@ -9,14 +9,14 @@ import { Loader2 } from 'lucide-react';
 
 const seoData = {
   title: {
-    en: 'Wisdom Blog - Insights & Stories',
-    hi: 'ज्ञान ब्लॉग - अंतर्दृष्टि और कहानियाँ',
-    sa: 'ज्ञानपत्रिका - अन्तर्दृष्टयः कथाश्च'
+    en: 'Vedic Wisdom Blog | Sanskrit, Spirituality & Indian Culture',
+    hi: 'वैदिक ज्ञान ब्लॉग | संस्कृत, आध्यात्मिकता और भारतीय संस्कृति',
+    sa: 'वैदिकज्ञानपत्रिका | संस्कृतं आध्यात्मिकता भारतीयसंस्कृतिश्च'
   },
   description: {
-    en: 'Explore articles on Sanskrit, Vedic wisdom, parenting with Indian values, spiritual guidance, and stories from ancient scriptures.',
-    hi: 'संस्कृत, वैदिक ज्ञान, भारतीय मूल्यों के साथ पालन-पोषण, आध्यात्मिक मार्गदर्शन और प्राचीन शास्त्रों की कहानियों पर लेख पढ़ें।',
-    sa: 'संस्कृतविषये वैदिकज्ञानविषये भारतीयमूल्यैः सह पोषणविषये आध्यात्मिकमार्गदर्शनविषये प्राचीनशास्त्राणां कथासु च लेखान् पठत।'
+    en: 'Explore insightful articles on Sanskrit learning, Vedic wisdom, parenting with Indian values, Ramayana & Mahabharata stories, and spiritual guidance for modern life.',
+    hi: 'संस्कृत सीखने, वैदिक ज्ञान, भारतीय मूल्यों के साथ पालन-पोषण, रामायण और महाभारत की कहानियों और आधुनिक जीवन के लिए आध्यात्मिक मार्गदर्शन पर लेख पढ़ें।',
+    sa: 'संस्कृतशिक्षणविषये वैदिकज्ञानविषये भारतीयमूल्यैः सह पोषणविषये रामायणमहाभारतकथासु आधुनिकजीवनार्थम् आध्यात्मिकमार्गदर्शने च लेखान् पठत।'
   }
 };
 
@@ -44,13 +44,19 @@ const Blog: React.FC = () => {
 
   const t = (obj: { en: string; hi: string; sa: string }) => obj[language] || obj.en;
 
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'Blog', url: '/blog' }
+  ];
+
   return (
     <Layout>
       <SEO 
         title={seoData.title}
         description={seoData.description}
-        keywords="Sanskrit blog, Vedic wisdom articles, parenting Indian values, spiritual guidance, Ramayana stories, Bhagavad Gita lessons"
+        keywords="Sanskrit blog, Vedic wisdom articles, parenting Indian values, spiritual guidance, Ramayana stories, Bhagavad Gita lessons, Mahabharata teachings, Hindu philosophy, Sanatan Dharma blog, Indian culture articles, Sanskrit learning tips"
         url="/blog"
+        breadcrumbs={breadcrumbs}
       />
       <section className="py-12 bg-hero-pattern">
         <div className="container mx-auto px-4">

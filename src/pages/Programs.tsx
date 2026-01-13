@@ -9,14 +9,14 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 const seoData = {
   title: {
-    en: 'Programs - Gurukul, Online Courses & Camps',
-    hi: 'कार्यक्रम - गुरुकुल, ऑनलाइन पाठ्यक्रम और शिविर',
-    sa: 'कार्यक्रमाः - गुरुकुलम् अन्तर्जालपाठ्यक्रमाः शिविराणि च'
+    en: 'Programs | Gurukul, Online Sanskrit Courses & Vedic Camps',
+    hi: 'कार्यक्रम | गुरुकुल, ऑनलाइन संस्कृत पाठ्यक्रम और वैदिक शिविर',
+    sa: 'कार्यक्रमाः | गुरुकुलम् अन्तर्जालसंस्कृतपाठ्यक्रमाः वैदिकशिविराणि च'
   },
   description: {
-    en: 'Explore Shastrakulam\'s full-time gurukul schooling, online Sanskrit courses, and seasonal camps. Holistic Vedic education for all ages.',
-    hi: 'शास्त्रकुलम के पूर्णकालिक गुरुकुल, ऑनलाइन संस्कृत पाठ्यक्रम और मौसमी शिविरों का अन्वेषण करें। सभी आयु के लिए समग्र वैदिक शिक्षा।',
-    sa: 'शास्त्रकुलस्य पूर्णकालिकगुरुकुलम् अन्तर्जालसंस्कृतपाठ्यक्रमान् ऋतुशिविराणि च अन्वेषयत। सर्ववयस्कानां कृते समग्रवैदिकशिक्षा।'
+    en: 'Discover Shastrakulam\'s educational programs: residential gurukul schooling in Uttar Pradesh, online Sanskrit courses, and seasonal Vedic camps for children aged 6-16.',
+    hi: 'शास्त्रकुलम के शैक्षिक कार्यक्रमों की खोज करें: उत्तर प्रदेश में आवासीय गुरुकुल, ऑनलाइन संस्कृत पाठ्यक्रम, और 6-16 वर्ष के बच्चों के लिए मौसमी वैदिक शिविर।',
+    sa: 'शास्त्रकुलस्य शैक्षिककार्यक्रमान् अन्वेषयत: उत्तरप्रदेशे आवासीयगुरुकुलम्, अन्तर्जालसंस्कृतपाठ्यक्रमाः, ६-१६ वर्षीयबालकानां कृते ऋतुवैदिकशिविराणि च।'
   }
 };
 
