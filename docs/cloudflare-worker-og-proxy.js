@@ -67,26 +67,33 @@ export default {
     const ua = request.headers.get('User-Agent') || '';
     const content = parseContent(url.pathname);
     
+    // Extract language parameter (default: en)
+    const lang = url.searchParams.get('lang') || 'en';
+    
     console.log('[OG Worker] Request:', {
       host: url.hostname,
       path: url.pathname,
       type: content.type,
       slug: content.slug,
+      lang: lang,
       userAgent: ua.substring(0, 60),
       isCrawler: isCrawler(ua)
     });
     
-    // ALWAYS redirect regular users to main site
+    // ALWAYS redirect regular users to main site (preserve language in URL if needed)
     if (!isCrawler(ua)) {
       const redirectUrl = `${MAIN_SITE}${url.pathname}`;
       console.log('[OG Worker] Regular user, redirecting to:', redirectUrl);
       return Response.redirect(redirectUrl, 301);
     }
     
-    // Build og-share URL
-    const ogUrl = content.slug 
+    // Build og-share URL with language parameter
+    let ogUrl = content.slug 
       ? `${OG_SHARE_URL}/${content.type}/${content.slug}`
       : `${OG_SHARE_URL}/${content.type}`;
+    
+    // Append language parameter
+    ogUrl += `?lang=${lang}`;
     
     console.log('[OG Worker] Crawler detected, fetching:', ogUrl);
     
