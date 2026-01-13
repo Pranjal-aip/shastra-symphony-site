@@ -103,11 +103,6 @@ const translations = {
     hi: 'बोधिका एक 1 वर्षीय लाइव सनातन धर्म कार्यक्रम है जो 6-12 वर्ष के बच्चों में संस्कार, आत्म-अनुशासन, भावनात्मक संतुलन और सांस्कृतिक आत्मविश्वास का निर्माण करता है — प्रामाणिक शास्त्रीय ज्ञान के माध्यम से जो बाल-अनुकूल, आधुनिक तरीके से पढ़ाया जाता है।',
     sa: 'बोधिका एकवर्षीयं जीवन्तसनातनधर्मकार्यक्रमम् अस्ति यत् ६-१२ वर्षीयेषु बालकेषु संस्कारम् आत्मानुशासनं भावनात्मकसन्तुलनं सांस्कृतिकात्मविश्वासं च निर्माति — प्रामाणिकशास्त्रीयज्ञानेन यत् बालोपयुक्तआधुनिकप्रकारेण शिक्ष्यते।'
   },
-  heroTransformationLine: {
-    en: 'Watch your child grow into a calm, respectful, and rooted individual — guided by the timeless wisdom of Sanatan Dharma.',
-    hi: 'अपने बच्चे को एक शांत, सम्मानशील और जड़ों से जुड़े व्यक्ति के रूप में विकसित होते देखें — सनातन धर्म की शाश्वत बुद्धि द्वारा निर्देशित।',
-    sa: 'स्वसन्तानं शान्तं आदरशीलं मूलयुक्तं च व्यक्तित्वरूपेण वर्धमानं पश्यत — सनातनधर्मस्य शाश्वतज्ञानेन निर्देशितम्।'
-  },
   heroOutcome1: {
     en: 'Sanskar deeply rooted in Sanatan Dharma',
     hi: 'सनातन धर्म में गहराई से निहित संस्कार',
@@ -269,11 +264,6 @@ const translations = {
     hi: 'कहानियों, चिंतन, चर्चा और दैनिक अभ्यास के माध्यम से।',
     sa: 'कथाभिः चिन्तनेन चर्चया दैनिकाभ्यासेन च।'
   },
-  whatIsGentleness: {
-    en: 'In the authentic Sanatan way, learning happens through gentleness and understanding — not pressure. The goal is visible change in behaviour, not just information.',
-    hi: 'प्रामाणिक सनातन तरीके में, सीखना कोमलता और समझ के माध्यम से होता है — दबाव से नहीं। लक्ष्य व्यवहार में दृश्यमान परिवर्तन है, केवल जानकारी नहीं।',
-    sa: 'प्रामाणिकसनातनमार्गे शिक्षणं मृदुतया अवबोधनेन च भवति — न दबावेन। लक्ष्यं व्यवहारे दृश्यमानपरिवर्तनम् अस्ति, न केवलं सूचना।'
-  },
   quickFact1: {
     en: '12-Month Live Program',
     hi: '12 महीने का लाइव कार्यक्रम',
@@ -301,11 +291,6 @@ const translations = {
     hi: 'सनातन परिवर्तन जो माता-पिता देखते हैं',
     sa: 'सनातनपरिवर्तनं यत् पितरः पश्यन्ति'
   },
-  transformSubtext: {
-    en: 'No rote chanting. No rigid pressure. Just gentle, visible change in how your child thinks, speaks, and behaves.',
-    hi: 'कोई रटंत जाप नहीं। कोई कठोर दबाव नहीं। बस आपके बच्चे की सोच, बोलने और व्यवहार में धीरे-धीरे, दृश्यमान परिवर्तन।',
-    sa: 'न कण्ठस्थजपम्। न कठोरदबावः। केवलं भवतः सन्तानस्य चिन्तने वचने व्यवहारे च मृदु दृश्यमानपरिवर्तनम्।'
-  },
   beforeTitle: {
     en: 'BEFORE',
     hi: 'पहले',
@@ -317,44 +302,44 @@ const translations = {
     sa: 'अनन्तरम्'
   },
   before1: {
-    en: 'Easily distracted, restless at home',
-    hi: 'आसानी से विचलित, घर पर बेचैन',
-    sa: 'सुलभं विचलितः, गृहे अशान्तः'
+    en: 'Restless mind',
+    hi: 'बेचैन मन',
+    sa: 'अशान्तमनः'
   },
   after1: {
-    en: 'Sits calmly, focuses better on tasks',
-    hi: 'शांति से बैठता है, कार्यों पर बेहतर ध्यान देता है',
-    sa: 'शान्त्या तिष्ठति, कार्येषु उत्तमं ध्यानं ददाति'
+    en: 'Calm, grounded behaviour',
+    hi: 'शांत, स्थिर व्यवहार',
+    sa: 'शान्तः स्थिरव्यवहारः'
   },
   before2: {
-    en: 'No morning routine or grounding habit',
-    hi: 'कोई सुबह की दिनचर्या या स्थिर आदत नहीं',
-    sa: 'न प्रातःदिनचर्या न स्थिराभ्यासः'
+    en: 'No daily discipline',
+    hi: 'कोई दैनिक अनुशासन नहीं',
+    sa: 'न दैनिकानुशासनम्'
   },
   after2: {
-    en: 'Starts day with a meaningful shloka (willingly)',
-    hi: 'दिन की शुरुआत एक सार्थक श्लोक से करता है (स्वेच्छा से)',
-    sa: 'दिनं सार्थकश्लोकेन आरभते (स्वेच्छया)'
+    en: 'Daily mantra & shloka practice',
+    hi: 'दैनिक मंत्र और श्लोक अभ्यास',
+    sa: 'दैनिकमन्त्रश्लोकाभ्यासः'
   },
   before3: {
-    en: 'Talks back, argues with parents',
-    hi: 'पलटकर जवाब देता है, माता-पिता से बहस करता है',
-    sa: 'प्रतिवदति, पितृभिः सह विवदते'
+    en: 'Weak respect for elders',
+    hi: 'बड़ों के प्रति कमजोर सम्मान',
+    sa: 'वृद्धेषु दुर्बलादरः'
   },
   after3: {
-    en: 'Speaks with respect, listens before reacting',
-    hi: 'सम्मान से बोलता है, प्रतिक्रिया से पहले सुनता है',
-    sa: 'आदरेण वदति, प्रतिक्रियातः पूर्वं शृणोति'
+    en: 'Respectful actions rooted in Sanskar',
+    hi: 'संस्कार में निहित सम्मानजनक कार्य',
+    sa: 'संस्कारमूलितआदरपूर्णक्रियाः'
   },
   before4: {
-    en: 'No sense of right/wrong beyond rules',
-    hi: 'नियमों के परे सही/गलत की कोई समझ नहीं',
-    sa: 'नियमान् अतीत्य सम्यक्/असम्यक् इति बोधः न अस्ति'
+    en: 'Disconnection from culture',
+    hi: 'संस्कृति से कटाव',
+    sa: 'संस्कृतेः विच्छेदः'
   },
   after4: {
-    en: 'Understands Dharma as a guide for daily choices',
-    hi: 'दैनिक निर्णयों के लिए मार्गदर्शक के रूप में धर्म को समझता है',
-    sa: 'दैनिकनिर्णयेषु मार्गदर्शकरूपेण धर्मं जानाति'
+    en: 'Clear understanding of Dharma',
+    hi: 'धर्म की स्पष्ट समझ',
+    sa: 'धर्मस्य स्पष्टज्ञानम्'
   },
 
   // Learning Section
@@ -441,11 +426,6 @@ const translations = {
     en: 'Choose the Right Batch for Your Child',
     hi: 'अपने बच्चे के लिए सही बैच चुनें',
     sa: 'स्वसन्ताने समुचितवर्गं चिनुत'
-  },
-  pricingReassurance: {
-    en: 'Not sure which batch is right? Talk to our counselor first — there is no pressure to decide immediately.',
-    hi: 'कौन सा बैच सही है, निश्चित नहीं? पहले हमारे परामर्शदाता से बात करें — तुरंत निर्णय लेने का कोई दबाव नहीं है।',
-    sa: 'कः वर्गः उचितः इति निश्चितं नास्ति? प्रथमं अस्माकं परामर्शकेन सह वदत — तत्क्षणं निर्णेतुं दबावः नास्ति।'
   },
   focusedBatch: {
     en: '⭐ FOCUSED SANATAN BATCH',
@@ -549,58 +529,14 @@ const translations = {
     sa: 'स्वसन्तानाय दृढसनातनमूलानि ददातु — संसारः तान् रूपयेत् पूर्वम्'
   },
   finalBody: {
-    en: 'We keep batches small (12 students) to give each child the attention they deserve at this age.\nOnly 70 seats available for March 2026.',
-    hi: 'हम बैच छोटे रखते हैं (12 छात्र) ताकि इस उम्र में हर बच्चे को वह ध्यान मिले जिसके वे हकदार हैं।\nमार्च 2026 के लिए केवल 70 सीटें उपलब्ध हैं।',
-    sa: 'वयं वर्गान् लघून् रक्षामः (१२ छात्राः) यथा एतस्मिन् वयसि प्रत्येकं बालकाय तत् ध्यानं मिलेत् यस्य ते योग्याः।\nमार्च २०२६ कृते केवलं ७० आसनानि उपलब्धानि।'
+    en: 'March 2026 batch is filling fast.\nLimited seats • Small groups • Authentic Sanatan foundation',
+    hi: 'मार्च 2026 बैच तेजी से भर रहा है।\nसीमित सीटें • छोटे समूह • प्रामाणिक सनातन आधार',
+    sa: 'मार्च २०२६ वर्गः शीघ्रं पूर्यते।\nसीमितासनानि • लघुसमूहाः • प्रामाणिकसनातनाधारः'
   },
   finalCTASubtext: {
-    en: 'Free guidance • No pressure • Personal attention guaranteed',
-    hi: 'निःशुल्क मार्गदर्शन • कोई दबाव नहीं • व्यक्तिगत ध्यान की गारंटी',
-    sa: 'निःशुल्कमार्गदर्शनम् • न दबावः • व्यक्तिगतध्यानं निश्चितम्'
-  },
-
-  // Learning Outcomes Section (NEW)
-  outcomesHeadline: {
-    en: 'Sanatan-Guided Learning Outcomes',
-    hi: 'सनातन-निर्देशित शिक्षण परिणाम',
-    sa: 'सनातननिर्देशितशिक्षणफलानि'
-  },
-  outcomesSubtext: {
-    en: 'What you will actually see in your child — not topics, but real behavioural and emotional shifts.',
-    hi: 'आप वास्तव में अपने बच्चे में क्या देखेंगे — विषय नहीं, बल्कि वास्तविक व्यवहारिक और भावनात्मक परिवर्तन।',
-    sa: 'भवन्तः वस्तुतः स्वसन्ताने किं द्रक्ष्यन्ति — विषयाः न, किन्तु वास्तविकव्यावहारिकभावनात्मकपरिवर्तनानि।'
-  },
-  outcome1: {
-    en: 'Calm and disciplined behaviour — at home and outside',
-    hi: 'शांत और अनुशासित व्यवहार — घर पर और बाहर',
-    sa: 'शान्तम् अनुशासितं च व्यवहारम् — गृहे बहिश्च'
-  },
-  outcome2: {
-    en: 'Genuine respect for parents, elders, and teachers',
-    hi: 'माता-पिता, बड़ों और शिक्षकों के प्रति सच्चा सम्मान',
-    sa: 'पितृवृद्धशिक्षकेषु सत्य आदरः'
-  },
-  outcome3: {
-    en: 'Clear understanding of right and wrong (Dharma)',
-    hi: 'सही और गलत (धर्म) की स्पष्ट समझ',
-    sa: 'सम्यक् असम्यक् (धर्मस्य) च स्पष्टं ज्ञानम्'
-  },
-  outcome4: {
-    en: 'Daily grounding through shlokas/mantras — without compulsion',
-    hi: 'श्लोकों/मंत्रों के माध्यम से दैनिक स्थिरता — बिना किसी दबाव के',
-    sa: 'श्लोकैः/मन्त्रैः दैनिकस्थिरता — बलात्कारं विना'
-  },
-  outcomesReassurance: {
-    en: '✓ No exams   ✓ No force   ✓ No fear-based teaching',
-    hi: '✓ कोई परीक्षा नहीं   ✓ कोई दबाव नहीं   ✓ भय-आधारित शिक्षण नहीं',
-    sa: '✓ न परीक्षा   ✓ न बलः   ✓ न भयाधारितशिक्षणम्'
-  },
-
-  // SOP Statement
-  sopStatement: {
-    en: 'Sanatan Dharma is not just what children study here — it is the operating principle that guides how they learn, think, and behave.',
-    hi: 'सनातन धर्म केवल वह नहीं है जो बच्चे यहाँ पढ़ते हैं — यह वह संचालन सिद्धांत है जो मार्गदर्शन करता है कि वे कैसे सीखते हैं, सोचते हैं और व्यवहार करते हैं।',
-    sa: 'सनातनधर्मः केवलं तत् नास्ति यत् बालकाः अत्र पठन्ति — एतत् तत् संचालनसूत्रम् अस्ति यत् मार्गयति ते कथं शिक्षन्ते चिन्तयन्ति व्यवहरन्ति च।'
+    en: 'Free guidance • Limited seats',
+    hi: 'निःशुल्क मार्गदर्शन • सीमित सीटें',
+    sa: 'निःशुल्कमार्गदर्शनम् • सीमितासनानि'
   }
 };
 
@@ -686,17 +622,9 @@ const HeroSection = () => {
             {/* Sub-headline */}
             <motion.p 
               variants={fadeInUp}
-              className="font-body text-sm sm:text-base md:text-lg text-muted-foreground mb-3 sm:mb-4 leading-relaxed"
+              className="font-body text-sm sm:text-base md:text-lg text-muted-foreground mb-5 sm:mb-6 leading-relaxed"
             >
               {t(translations.heroSubheadline)}
-            </motion.p>
-
-            {/* Aspirational Transformation Line */}
-            <motion.p 
-              variants={fadeInUp}
-              className="font-body text-sm sm:text-base md:text-lg text-emerald-700 font-medium mb-5 sm:mb-6 leading-relaxed bg-gradient-to-r from-emerald-50 to-green-50 rounded-xl p-3 sm:p-4 border border-emerald-200"
-            >
-              {t(translations.heroTransformationLine)}
             </motion.p>
 
             {/* Core Outcomes - Compact on mobile */}
@@ -910,90 +838,6 @@ const ParentPainSection = () => {
 };
 
 // ===============================
-// SECTION 2.5: LEARNING OUTCOMES (NEW)
-// ===============================
-const LearningOutcomesSection = () => {
-  const { language } = useLanguage();
-  const t = (obj: Record<string, string>) => obj[language] || obj.en;
-
-  const outcomes = [
-    { text: translations.outcome1, icon: Heart },
-    { text: translations.outcome2, icon: Users },
-    { text: translations.outcome3, icon: Shield },
-    { text: translations.outcome4, icon: Music }
-  ];
-
-  return (
-    <section className="py-10 sm:py-14 md:py-20 bg-gradient-to-b from-cream/50 to-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-50/50 via-transparent to-transparent" />
-      
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        <motion.div 
-          className="max-w-4xl mx-auto"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={staggerContainer}
-        >
-          <motion.div variants={fadeInUp} className="text-center mb-6 sm:mb-8">
-            <Badge className="mb-3 sm:mb-4 bg-emerald-50 text-emerald-700 border-emerald-200 px-3 sm:px-4 py-1.5">
-              What You'll See in Your Child
-            </Badge>
-            <h2 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-2 sm:mb-3">
-              {t(translations.outcomesHeadline)}
-            </h2>
-            <p className="font-body text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
-              {t(translations.outcomesSubtext)}
-            </p>
-          </motion.div>
-
-          {/* Outcomes Grid */}
-          <motion.div 
-            variants={staggerContainer}
-            className="grid sm:grid-cols-2 gap-3 sm:gap-4 mb-5 sm:mb-6"
-          >
-            {outcomes.map((outcome, idx) => (
-              <motion.div 
-                key={idx}
-                variants={fadeInUp}
-                className="flex items-start gap-3 p-4 sm:p-5 bg-white rounded-xl border border-emerald-100 shadow-md hover:shadow-lg transition-shadow"
-              >
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shrink-0 shadow-md">
-                  <outcome.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
-                </div>
-                <span className="font-body text-foreground font-medium text-sm sm:text-base leading-relaxed pt-1">
-                  {t(outcome.text)}
-                </span>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Reassurance strip */}
-          <motion.div 
-            variants={fadeInUp}
-            className="text-center bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-amber-200/60 shadow-sm"
-          >
-            <p className="font-body text-amber-800 font-semibold text-sm sm:text-base">
-              {t(translations.outcomesReassurance)}
-            </p>
-          </motion.div>
-
-          {/* SOP Statement */}
-          <motion.div 
-            variants={fadeInUp}
-            className="mt-5 sm:mt-6 text-center"
-          >
-            <p className="font-body text-muted-foreground italic text-xs sm:text-sm max-w-2xl mx-auto bg-white/80 rounded-lg px-4 py-3 border border-border/50">
-              {t(translations.sopStatement)}
-            </p>
-          </motion.div>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
-
-// ===============================
 // SECTION 3: WHAT IS BODHIKA - Enhanced
 // ===============================
 const WhatIsBodhikaSection = () => {
@@ -1090,19 +934,9 @@ const WhatIsBodhikaSection = () => {
                 ))}
               </motion.div>
 
-              <motion.p variants={fadeIn} className="font-body text-muted-foreground italic text-sm sm:text-base mb-4">
+              <motion.p variants={fadeIn} className="font-body text-muted-foreground italic text-sm sm:text-base">
                 {t(translations.whatIsClosing)}
               </motion.p>
-
-              {/* Gentleness clarification */}
-              <motion.div 
-                variants={fadeInUp}
-                className="bg-gradient-to-r from-emerald-50/80 to-green-50/80 rounded-xl p-3 sm:p-4 border border-emerald-200/60"
-              >
-                <p className="font-body text-emerald-800 text-xs sm:text-sm leading-relaxed">
-                  {t(translations.whatIsGentleness)}
-                </p>
-              </motion.div>
             </motion.div>
           </div>
 
@@ -1156,12 +990,9 @@ const TransformationSection = () => {
             <Badge className="mb-3 sm:mb-4 bg-gradient-to-r from-saffron/10 to-maroon/10 text-maroon border-maroon/20 px-3 sm:px-4 py-1.5">
               Real Results
             </Badge>
-            <h2 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-2 sm:mb-3">
+            <h2 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
               {t(translations.transformHeadline)}
             </h2>
-            <p className="font-body text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
-              {t(translations.transformSubtext)}
-            </p>
           </motion.div>
 
           {/* Mobile: Stacked cards, Desktop: Side by side */}
@@ -1394,13 +1225,9 @@ const PricingSection = () => {
             <Badge className="mb-3 sm:mb-4 bg-maroon/10 text-maroon border-maroon/30 px-3 sm:px-4 py-1.5">
               Pricing Plans
             </Badge>
-            <h2 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3">
+            <h2 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
               {t(translations.pricingHeadline)}
             </h2>
-            {/* Reassurance line */}
-            <p className="font-body text-sm sm:text-base text-muted-foreground max-w-xl mx-auto bg-amber-50/50 rounded-lg px-4 py-2 border border-amber-200/50">
-              {t(translations.pricingReassurance)}
-            </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
@@ -1755,7 +1582,6 @@ const BodhikaLanding = () => {
       <main className="overflow-hidden">
         <HeroSection />
         <ParentPainSection />
-        <LearningOutcomesSection />
         <WhatIsBodhikaSection />
         <TransformationSection />
         <LearningSection />
