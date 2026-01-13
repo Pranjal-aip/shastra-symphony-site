@@ -2,6 +2,28 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '@/contexts/LanguageContext';
 
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface CourseSchema {
+  name: string;
+  description: string;
+  provider?: string;
+  duration?: string;
+  price?: string;
+  currency?: string;
+  image?: string;
+  level?: string;
+  language?: string[];
+}
+
 interface SEOProps {
   title: {
     en: string;
@@ -16,13 +38,16 @@ interface SEOProps {
   keywords?: string;
   image?: string;
   url?: string;
-  type?: 'website' | 'article' | 'product';
+  type?: 'website' | 'article' | 'product' | 'course';
   article?: {
     publishedTime?: string;
     modifiedTime?: string;
     author?: string;
     section?: string;
   };
+  course?: CourseSchema;
+  breadcrumbs?: BreadcrumbItem[];
+  faq?: FAQItem[];
   structuredData?: object;
   noindex?: boolean;
 }
@@ -35,6 +60,9 @@ const SEO: React.FC<SEOProps> = ({
   url,
   type = 'website',
   article,
+  course,
+  breadcrumbs,
+  faq,
   structuredData,
   noindex = false,
 }) => {
@@ -65,6 +93,43 @@ const SEO: React.FC<SEOProps> = ({
     "url": baseUrl,
     "logo": "https://storage.googleapis.com/gpt-engineer-file-uploads/q7GFho7FFRXCbUcp2yLkc2QG3Kq2/uploads/1766976733180-logo_final-removebg-preview.png",
     "description": "Authentic Vedic education through Sanskrit courses, full-time gurukul schooling, and immersive camps for children and seekers.",
+    "foundingDate": "2020",
+    "numberOfEmployees": {
+      "@type": "QuantitativeValue",
+      "minValue": 10,
+      "maxValue": 50
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "India"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Vedic Education Courses",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Course",
+            "name": "Sanskrit Language Courses"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Course",
+            "name": "Bhagavad Gita Studies"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Course",
+            "name": "Vedic Mathematics"
+          }
+        }
+      ]
+    },
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "NH334, Badheri",
@@ -72,6 +137,11 @@ const SEO: React.FC<SEOProps> = ({
       "addressRegion": "Uttar Pradesh",
       "postalCode": "251307",
       "addressCountry": "IN"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "29.0588",
+      "longitude": "77.7006"
     },
     "contactPoint": {
       "@type": "ContactPoint",
@@ -86,6 +156,69 @@ const SEO: React.FC<SEOProps> = ({
       "https://www.facebook.com/shastrakulam"
     ]
   };
+
+  // Course structured data
+  const courseSchema = course ? {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": course.name,
+    "description": course.description,
+    "provider": {
+      "@type": "Organization",
+      "name": course.provider || "Shastrakulam",
+      "sameAs": baseUrl
+    },
+    "image": course.image ? getAbsoluteImageUrl(course.image) : absoluteImageUrl,
+    "courseMode": "Online",
+    "isAccessibleForFree": false,
+    "offers": course.price ? {
+      "@type": "Offer",
+      "price": course.price.replace(/[^0-9]/g, ''),
+      "priceCurrency": course.currency || "INR",
+      "availability": "https://schema.org/InStock"
+    } : undefined,
+    "educationalLevel": course.level || "Beginner",
+    "inLanguage": course.language || ["en", "hi", "sa"],
+    "hasCourseInstance": {
+      "@type": "CourseInstance",
+      "courseMode": "Online",
+      "duration": course.duration
+    }
+  } : null;
+
+  // Breadcrumb structured data
+  const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": breadcrumbs.map((item, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": item.name,
+      "item": `${baseUrl}${item.url}`
+    }))
+  } : null;
+
+  // FAQ structured data
+  const faqSchema = faq && faq.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faq.map(item => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  } : null;
+
+  // Combine all structured data
+  const allSchemas = [
+    structuredData || organizationSchema,
+    courseSchema,
+    breadcrumbSchema,
+    faqSchema
+  ].filter(Boolean);
 
   return (
     <Helmet>
@@ -104,6 +237,9 @@ const SEO: React.FC<SEOProps> = ({
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
       )}
       
+      {/* Google Site Verification - Add your verification code */}
+      <meta name="google-site-verification" content="your-verification-code" />
+      
       {/* Mobile Optimization */}
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
       <meta name="theme-color" content="#7A2639" />
@@ -112,7 +248,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="format-detection" content="telephone=no" />
       
       {/* Open Graph */}
-      <meta property="og:type" content={type} />
+      <meta property="og:type" content={type === 'course' ? 'website' : type} />
       <meta property="og:site_name" content="Shastrakulam" />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={currentDescription} />
@@ -120,8 +256,11 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:type" content="image/jpeg" />
+      <meta property="og:image:alt" content={currentTitle} />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:locale" content={language === 'en' ? 'en_US' : language === 'hi' ? 'hi_IN' : 'sa_IN'} />
+      <meta property="og:locale:alternate" content="en_US" />
+      <meta property="og:locale:alternate" content="hi_IN" />
       
       {/* Article-specific Open Graph */}
       {type === 'article' && article && (
@@ -130,6 +269,7 @@ const SEO: React.FC<SEOProps> = ({
           {article.modifiedTime && <meta property="article:modified_time" content={article.modifiedTime} />}
           {article.author && <meta property="article:author" content={article.author} />}
           {article.section && <meta property="article:section" content={article.section} />}
+          <meta property="article:publisher" content="https://www.facebook.com/shastrakulam" />
         </>
       )}
       
@@ -140,11 +280,14 @@ const SEO: React.FC<SEOProps> = ({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={currentDescription} />
       <meta name="twitter:image" content={absoluteImageUrl} />
+      <meta name="twitter:image:alt" content={currentTitle} />
       
-      {/* Structured Data */}
-      <script type="application/ld+json">
-        {JSON.stringify(structuredData || organizationSchema)}
-      </script>
+      {/* Structured Data - Multiple schemas */}
+      {allSchemas.map((schema, index) => (
+        <script key={index} type="application/ld+json">
+          {JSON.stringify(schema)}
+        </script>
+      ))}
     </Helmet>
   );
 };

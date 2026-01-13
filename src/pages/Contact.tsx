@@ -12,14 +12,14 @@ import { useToast } from '@/hooks/use-toast';
 
 const seoData = {
   title: {
-    en: 'Contact Us - Get in Touch',
-    hi: 'संपर्क करें - हमसे जुड़ें',
-    sa: 'सम्पर्कं कुरुत - अस्माभिः सह युज्यध्वम्'
+    en: 'Contact Shastrakulam | Inquiries, Admissions & Support',
+    hi: 'शास्त्रकुलम से संपर्क करें | पूछताछ, प्रवेश और सहायता',
+    sa: 'शास्त्रकुलं सम्पर्कयत | पृच्छा प्रवेशः साहाय्यं च'
   },
   description: {
-    en: 'Contact Shastrakulam for inquiries about Sanskrit courses, gurukul admission, camps, or donations. Reach us via WhatsApp, email, or visit our campus.',
-    hi: 'संस्कृत पाठ्यक्रम, गुरुकुल प्रवेश, शिविर या दान के बारे में पूछताछ के लिए शास्त्रकुलम से संपर्क करें।',
-    sa: 'संस्कृतपाठ्यक्रमाणां गुरुकुलप्रवेशस्य शिविराणां दानस्य वा विषये पृच्छार्थं शास्त्रकुलं सम्पर्कयत।'
+    en: 'Contact Shastrakulam for course inquiries, gurukul admissions, camp registrations, or donations. Call +91-96749-16567, email info@shastrakulam.com, or visit our campus.',
+    hi: 'पाठ्यक्रम पूछताछ, गुरुकुल प्रवेश, शिविर पंजीकरण या दान के लिए शास्त्रकुलम से संपर्क करें। +91-96749-16567 पर कॉल करें।',
+    sa: 'पाठ्यक्रमपृच्छायै गुरुकुलप्रवेशाय शिविरपञ्जीकरणाय दानाय वा शास्त्रकुलं सम्पर्कयत।'
   }
 };
 

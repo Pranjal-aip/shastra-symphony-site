@@ -9,14 +9,14 @@ import { BookOpen, Globe, Heart, Users, Calendar, Sparkles, Target, Eye, Award, 
 
 const seoData = {
   title: {
-    en: 'About Shastrakulam - Our Mission & Vision',
-    hi: 'शास्त्रकुलम् के बारे में - हमारा मिशन और विजन',
-    sa: 'शास्त्रकुलम् विषये - अस्माकं लक्ष्यं दृष्टिश्च'
+    en: 'About Shastrakulam | Our Mission, Vision & Story',
+    hi: 'शास्त्रकुलम् के बारे में | हमारा मिशन, विजन और कहानी',
+    sa: 'शास्त्रकुलम् विषये | अस्माकं लक्ष्यं दृष्टिः कथा च'
   },
   description: {
-    en: 'Learn about Shastrakulam\'s journey, mission to make authentic Sanatan education accessible, and our vision for Bharat 2047. Founded by Acharya Yogesh Bhardwaj.',
-    hi: 'शास्त्रकुलम की यात्रा, प्रामाणिक सनातन शिक्षा को सुलभ बनाने के मिशन और भारत 2047 के लिए हमारी दृष्टि के बारे में जानें।',
-    sa: 'शास्त्रकुलस्य यात्राम्, प्रामाणिकसनातनशिक्षां सुलभां कर्तुं लक्ष्यम्, भारतस्य २०४७ कृते अस्माकं दृष्टिं च जानीत।'
+    en: 'Discover Shastrakulam\'s journey from 2019 to becoming India\'s leading Vedic education platform. Founded by Acharya Yogesh Bhardwaj with a vision for Bharat 2047.',
+    hi: '2019 से भारत के अग्रणी वैदिक शिक्षा मंच बनने तक शास्त्रकुलम की यात्रा की खोज करें। भारत 2047 की दृष्टि के साथ आचार्य योगेश भारद्वाज द्वारा स्थापित।',
+    sa: '2019 तः भारतस्य अग्रणी वैदिकशिक्षामञ्चं भवितुं शास्त्रकुलस्य यात्रां अन्वेषयत। भारतस्य 2047 दृष्ट्या आचार्ययोगेशभारद्वाजेन स्थापितम्।'
   }
 };
 
@@ -200,13 +200,35 @@ const About: React.FC = () => {
     { value: aboutTranslations.stats4, label: aboutTranslations.stats4Label, icon: BookOpen },
   ];
 
+  const breadcrumbs = [
+    { name: 'Home', url: '/' },
+    { name: 'About', url: '/about' }
+  ];
+
+  const aboutFAQs = [
+    {
+      question: 'Who founded Shastrakulam?',
+      answer: 'Shastrakulam was founded by Acharya Yogesh Bhardwaj in 2019 with a mission to make authentic Sanatan education accessible to every family worldwide.'
+    },
+    {
+      question: 'Where is Shastrakulam located?',
+      answer: 'Our main campus is located at NH334, Badheri, Uttar Pradesh, India (PIN: 251307). We also offer online courses accessible worldwide.'
+    },
+    {
+      question: 'What makes Shastrakulam different from other Sanskrit schools?',
+      answer: 'Shastrakulam combines authentic Vedic traditions with modern pedagogical excellence, offering live interactive classes with expert Acharyas, age-appropriate curricula, and a holistic approach to spiritual and practical education.'
+    }
+  ];
+
   return (
     <Layout>
       <SEO 
         title={seoData.title}
         description={seoData.description}
-        keywords="About Shastrakulam, Vedic education mission, Acharya Yogesh Bhardwaj, Sanskrit school India, Bharat 2047"
+        keywords="About Shastrakulam, Vedic education mission, Acharya Yogesh Bhardwaj, Sanskrit school India, Bharat 2047, gurukul history, Sanatan Dharma education, Indian education platform, Vedic learning center"
         url="/about"
+        breadcrumbs={breadcrumbs}
+        faq={aboutFAQs}
       />
       {/* Hero Section with enhanced design */}
       <section className="relative py-20 bg-hero-pattern overflow-hidden">
