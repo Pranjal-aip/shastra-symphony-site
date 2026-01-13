@@ -1,31 +1,19 @@
 /**
- * Cloudflare Worker: Social Media Crawler OG Proxy for Shastrakulam
- * 
- * This worker intercepts requests from social media crawlers (WhatsApp, Facebook, etc.)
- * for blog, course, bodhika, and HOMEPAGE URLs, and serves them pre-rendered HTML 
- * with proper OG tags from the og-share edge function.
+ * Cloudflare Worker for share.shastrakulam.com
+ * Handles OG tags for social media sharing
  * 
  * DEPLOYMENT STEPS:
  * 1. Go to https://dash.cloudflare.com
  * 2. Select your domain (shastrakulam.com)
- * 3. Go to Workers & Pages → Create Application → Create Worker
- * 4. Name it "og-proxy" and click Deploy
- * 5. Click "Edit code" and paste this entire script
+ * 3. Go to Workers & Pages → og-proxy (or create new)
+ * 4. Click "Quick Edit" or "Edit code"
+ * 5. Replace ALL code with this script
  * 6. Click "Save and Deploy"
- * 7. Go to Workers & Pages → og-proxy → Triggers → Add Route
- * 8. Add these routes:
- *    - shastrakulam.com/blog/*
- *    - shastrakulam.com/courses/*
- *    - shastrakulam.com/bodhika
- *    - shastrakulam.com/  (HOMEPAGE - important!)
- *    - www.shastrakulam.com/blog/*
- *    - www.shastrakulam.com/courses/*
- *    - www.shastrakulam.com/bodhika
- *    - www.shastrakulam.com/  (HOMEPAGE - important!)
- * 9. Done! Test by sharing any URL on WhatsApp.
+ * 7. Go to Triggers → Routes
+ * 8. Add route: share.shastrakulam.com/*
+ * 9. Done! Test by sharing share.shastrakulam.com/bodhika on WhatsApp
  */
 
-// Social media crawler User-Agent patterns
 const CRAWLER_PATTERNS = [
   /facebookexternalhit/i,
   /Facebot/i,
@@ -37,121 +25,99 @@ const CRAWLER_PATTERNS = [
   /Pinterest/i,
   /Discordbot/i,
   /Embedly/i,
-  /Quora Link Preview/i,
-  /Showyoubot/i,
-  /outbrain/i,
-  /vkShare/i,
-  /W3C_Validator/i,
   /redditbot/i,
   /Applebot/i,
-  /Baiduspider/i,
-  /bingbot/i,
-  /Googlebot/i,
 ];
 
-// Your Supabase edge function URL for OG share
-const OG_SHARE_BASE_URL = 'https://qqvirwqrecpzbldjyiua.supabase.co/functions/v1/og-share';
+const OG_SHARE_URL = 'https://qqvirwqrecpzbldjyiua.supabase.co/functions/v1/og-share';
+const MAIN_SITE = 'https://shastrakulam.com';
 
-// Your actual website origin (where the SPA is hosted)
-const WEBSITE_ORIGIN = 'https://shastrakulam.com';
-
-/**
- * Check if the request is from a social media crawler
- */
-function isCrawler(userAgent) {
-  if (!userAgent) return false;
-  return CRAWLER_PATTERNS.some(pattern => pattern.test(userAgent));
+function isCrawler(ua) {
+  if (!ua) return false;
+  return CRAWLER_PATTERNS.some(p => p.test(ua));
 }
 
-/**
- * Extract type and slug from the URL path
- * / → { type: 'homepage', slug: null }
- * /blog/my-post-slug → { type: 'blog', slug: 'my-post-slug' }
- * /courses/my-course → { type: 'courses', slug: 'my-course' }
- * /bodhika → { type: 'bodhika', slug: null }
- */
-function parseContentPath(pathname) {
-  // Check for homepage first
-  if (pathname === '/' || pathname === '') {
+function parseContent(path) {
+  // Remove leading/trailing slashes and normalize
+  const cleanPath = path.replace(/^\/+|\/+$/g, '');
+  
+  // Homepage
+  if (cleanPath === '' || cleanPath === '/') {
     return { type: 'homepage', slug: null };
   }
   
-  // Check for bodhika landing page
-  if (pathname === '/bodhika' || pathname === '/bodhika/') {
+  // Bodhika landing page
+  if (cleanPath === 'bodhika') {
     return { type: 'bodhika', slug: null };
   }
   
-  // Check for blog or course pages
-  const match = pathname.match(/^\/(blog|courses)\/([^\/\?#]+)/);
+  // Blog or courses
+  const match = cleanPath.match(/^(blog|courses)\/(.+)$/);
   if (match) {
     return { type: match[1], slug: match[2] };
   }
-  return null;
+  
+  // Default to homepage for unknown paths
+  return { type: 'homepage', slug: null };
 }
 
-/**
- * Main worker handler
- */
 export default {
-  async fetch(request, env, ctx) {
+  async fetch(request) {
     const url = new URL(request.url);
-    const userAgent = request.headers.get('User-Agent') || '';
+    const ua = request.headers.get('User-Agent') || '';
+    const content = parseContent(url.pathname);
     
-    // Parse the content path
-    const content = parseContentPath(url.pathname);
+    console.log('[OG Worker] Request:', {
+      host: url.hostname,
+      path: url.pathname,
+      type: content.type,
+      slug: content.slug,
+      userAgent: ua.substring(0, 60),
+      isCrawler: isCrawler(ua)
+    });
     
-    // If this is not a blog/course URL, pass through to origin
-    if (!content) {
-      return fetch(request);
+    // ALWAYS redirect regular users to main site
+    if (!isCrawler(ua)) {
+      const redirectUrl = `${MAIN_SITE}${url.pathname}`;
+      console.log('[OG Worker] Regular user, redirecting to:', redirectUrl);
+      return Response.redirect(redirectUrl, 301);
     }
     
-    // Check if this is a crawler request
-    if (isCrawler(userAgent)) {
-      // Construct the og-share URL
-      const ogShareUrl = content.slug 
-        ? `${OG_SHARE_BASE_URL}/${content.type}/${content.slug}`
-        : `${OG_SHARE_BASE_URL}/${content.type}`;
-      
-      console.log(`[OG Proxy] Crawler detected: ${userAgent.substring(0, 50)}...`);
-      console.log(`[OG Proxy] Proxying to: ${ogShareUrl}`);
-      
-      try {
-        // Fetch from the og-share edge function
-        const ogResponse = await fetch(ogShareUrl, {
-          method: 'GET',
-          headers: {
-            'User-Agent': userAgent,
-            'Accept': 'text/html',
-          },
-        });
-        
-        // If og-share returns an error, fall back to origin
-        if (!ogResponse.ok) {
-          console.log(`[OG Proxy] og-share returned ${ogResponse.status}, falling back to origin`);
-          return fetch(request);
+    // Build og-share URL
+    const ogUrl = content.slug 
+      ? `${OG_SHARE_URL}/${content.type}/${content.slug}`
+      : `${OG_SHARE_URL}/${content.type}`;
+    
+    console.log('[OG Worker] Crawler detected, fetching:', ogUrl);
+    
+    try {
+      const res = await fetch(ogUrl, {
+        headers: { 
+          'User-Agent': ua,
+          'Accept': 'text/html'
         }
-        
-        // Return the OG-enriched HTML response
-        const html = await ogResponse.text();
-        
-        return new Response(html, {
-          status: 200,
-          headers: {
-            'Content-Type': 'text/html; charset=utf-8',
-            'Cache-Control': 'public, max-age=600, s-maxage=3600',
-            'Vary': 'User-Agent',
-            'X-OG-Proxy': 'true',
-          },
-        });
-      } catch (error) {
-        console.error(`[OG Proxy] Error fetching og-share: ${error.message}`);
-        // Fall back to origin on error
-        return fetch(request);
+      });
+      
+      if (!res.ok) {
+        console.log('[OG Worker] Edge function returned', res.status);
+        return Response.redirect(`${MAIN_SITE}${url.pathname}`, 301);
       }
+      
+      const html = await res.text();
+      console.log('[OG Worker] Success, returning OG HTML');
+      
+      return new Response(html, {
+        status: 200,
+        headers: {
+          'Content-Type': 'text/html; charset=utf-8',
+          'Cache-Control': 'public, max-age=3600, s-maxage=86400',
+          'X-OG-Proxy': 'true',
+          'X-Robots-Tag': 'noindex',
+        }
+      });
+    } catch (err) {
+      console.log('[OG Worker] Error:', err.message);
+      return Response.redirect(`${MAIN_SITE}${url.pathname}`, 301);
     }
-    
-    // For regular users, pass through to the origin website
-    console.log(`[OG Proxy] Regular user, passing through to origin`);
-    return fetch(request);
-  },
+  }
 };
