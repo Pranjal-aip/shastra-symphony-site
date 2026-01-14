@@ -70,6 +70,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import DeleteConfirmDialog from '@/components/DeleteConfirmDialog';
 import CampsTab from '@/components/admin/CampsTab';
+import ImageUpload from '@/components/admin/ImageUpload';
 import TeamManagementTab from '@/components/admin/TeamManagementTab';
 import GraphyDataTab from '@/components/admin/GraphyDataTab';
 
@@ -597,21 +598,13 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
 
   const courseFormFieldsJSX = (
     <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto">
-      {/* Image URL Input */}
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Course Image URL</label>
-        <div className="flex items-start gap-4">
-          <img src={formData.thumbnail || '/placeholder.svg'} alt="" className="w-20 h-20 rounded-lg object-cover flex-shrink-0" />
-          <div className="flex-1">
-            <Input 
-              placeholder="Paste image URL here (e.g., https://...)" 
-              value={formData.thumbnail} 
-              onChange={(e) => setFormData({ ...formData, thumbnail: e.target.value })} 
-            />
-            <p className="text-xs text-muted-foreground mt-1">Paste a direct link to an image</p>
-          </div>
-        </div>
-      </div>
+      {/* Image Upload */}
+      <ImageUpload
+        value={formData.thumbnail}
+        onChange={(url) => setFormData({ ...formData, thumbnail: url || '/placeholder.svg' })}
+        label="Course Image"
+        hint="Upload an image for the course card"
+      />
       
       <div className="space-y-2">
         <label className="text-sm font-medium">Title (English) *</label>
@@ -676,17 +669,13 @@ const CoursesTab: React.FC<CoursesTabProps> = ({
         />
         <p className="text-xs text-muted-foreground">Required for Graphy enrollment sync</p>
       </div>
-      <div className="space-y-2 border-t pt-4 mt-2">
-        <label className="text-sm font-medium flex items-center gap-2">
-          OG Image URL for Social Sharing
-          <span className="text-xs text-primary font-normal">(Required)</span>
-        </label>
-        <Input 
-          placeholder="https://example.com/og-image.jpg" 
-          value={formData.ogImage} 
-          onChange={(e) => setFormData({ ...formData, ogImage: e.target.value })} 
+      <div className="border-t pt-4 mt-2">
+        <ImageUpload
+          value={formData.ogImage}
+          onChange={(url) => setFormData({ ...formData, ogImage: url })}
+          label="OG Image for Social Sharing"
+          hint="This image appears when sharing the course link on social media (1200x630px recommended)"
         />
-        <p className="text-xs text-muted-foreground">This image appears when sharing the course link on social media (1200x630px recommended)</p>
       </div>
       <div className="flex items-center justify-between">
         <Label htmlFor="popular">Mark as Popular</Label>
@@ -994,21 +983,13 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
 
   const blogFormFieldsJSX = (
     <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto">
-      {/* Image URL Input */}
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Featured Image URL</label>
-        <div className="flex items-start gap-4">
-          <img src={formData.thumbnail || '/placeholder.svg'} alt="" className="w-20 h-20 rounded-lg object-cover flex-shrink-0" />
-          <div className="flex-1">
-            <Input 
-              placeholder="Paste image URL here (e.g., https://...)" 
-              value={formData.thumbnail} 
-              onChange={(e) => setFormData({ ...formData, thumbnail: e.target.value })} 
-            />
-            <p className="text-xs text-muted-foreground mt-1">Paste a direct link to an image</p>
-          </div>
-        </div>
-      </div>
+      {/* Image Upload */}
+      <ImageUpload
+        value={formData.thumbnail}
+        onChange={(url) => setFormData({ ...formData, thumbnail: url || '/placeholder.svg' })}
+        label="Featured Image"
+        hint="Upload an image for the blog post"
+      />
       
       <div className="space-y-2">
         <label className="text-sm font-medium">Title (English) *</label>
@@ -1055,14 +1036,13 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
         </SelectContent>
       </Select>
       <Input placeholder="Author Name" value={formData.author} onChange={(e) => setFormData({ ...formData, author: e.target.value })} />
-      <div className="space-y-2 border-t pt-4 mt-2">
-        <label className="text-sm font-medium">OG Image URL for Social Sharing</label>
-        <Input 
-          placeholder="https://example.com/og-image.jpg (leave empty to use featured image)" 
-          value={formData.ogImage} 
-          onChange={(e) => setFormData({ ...formData, ogImage: e.target.value })} 
+      <div className="border-t pt-4 mt-2">
+        <ImageUpload
+          value={formData.ogImage}
+          onChange={(url) => setFormData({ ...formData, ogImage: url })}
+          label="OG Image for Social Sharing"
+          hint="Custom image for social media sharing (1200x630px recommended). If empty, the featured image will be used."
         />
-        <p className="text-xs text-muted-foreground">Custom image for social media sharing (1200x630px recommended). If empty, the featured image will be used.</p>
       </div>
       <div className="flex items-center justify-between">
         <Label htmlFor="blogShowOnHome">Show on Home Page</Label>
