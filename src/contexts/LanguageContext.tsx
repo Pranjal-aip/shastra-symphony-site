@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 export type Language = 'en' | 'hi' | 'sa';
 
@@ -22,16 +23,46 @@ export const languageLabels: Record<Language, string> = {
   sa: 'संस्कृतम्',
 };
 
+const getInitialLanguage = (urlLang: string | null): Language => {
+  // Priority: URL param > localStorage > default 'en'
+  if (urlLang && ['en', 'hi', 'sa'].includes(urlLang)) {
+    return urlLang as Language;
+  }
+  const stored = localStorage.getItem('shastrakulam-language');
+  if (stored && ['en', 'hi', 'sa'].includes(stored)) {
+    return stored as Language;
+  }
+  return 'en';
+};
+
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>(() => {
-    const stored = localStorage.getItem('shastrakulam-language');
-    return (stored as Language) || 'en';
-  });
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlLang = searchParams.get('lang');
+  
+  const [language, setLanguageState] = useState<Language>(() => getInitialLanguage(urlLang));
+
+  // Sync URL to state on mount and when URL changes externally
+  useEffect(() => {
+    const newLang = getInitialLanguage(urlLang);
+    if (newLang !== language) {
+      setLanguageState(newLang);
+      localStorage.setItem('shastrakulam-language', newLang);
+    }
+  }, [urlLang]);
 
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
     localStorage.setItem('shastrakulam-language', lang);
-  }, []);
+    
+    // Update URL with new language
+    const newParams = new URLSearchParams(searchParams);
+    if (lang === 'en') {
+      newParams.delete('lang'); // Remove param for English (default)
+    } else {
+      newParams.set('lang', lang);
+    }
+    setSearchParams(newParams, { replace: true });
+  }, [searchParams, setSearchParams]);
 
   const t = useCallback((translations: Translations): string => {
     return translations[language] || translations.en;

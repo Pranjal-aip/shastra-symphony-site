@@ -30,35 +30,34 @@ const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <LanguageProvider>
-          <AdminProvider>
-            <CartProvider>
-              <TooltipProvider>
-                <Toaster />
-              <Sonner />
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/courses" element={<Courses />} />
-                  <Route path="/courses/:slug" element={<CourseDetail />} />
-                  
-                  <Route path="/blog" element={<Blog />} />
-                  <Route path="/blog/:slug" element={<BlogDetail />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/contact" element={<Contact />} />
-                  <Route path="/programs" element={<Programs />} />
-                  <Route path="/camps" element={<Camps />} />
-                  <Route path="/donate" element={<Donate />} />
-                  <Route path="/bodhika" element={<Bodhika />} />
-                  <Route path="/admin/login" element={<AdminLogin />} />
-                  <Route path="/admin" element={<AdminDashboard />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-                </BrowserRouter>
-              </TooltipProvider>
-            </CartProvider>
-          </AdminProvider>
-        </LanguageProvider>
+        <BrowserRouter>
+          <LanguageProvider>
+            <AdminProvider>
+              <CartProvider>
+                <TooltipProvider>
+                  <Toaster />
+                  <Sonner />
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/courses" element={<Courses />} />
+                    <Route path="/courses/:slug" element={<CourseDetail />} />
+                    <Route path="/blog" element={<Blog />} />
+                    <Route path="/blog/:slug" element={<BlogDetail />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/programs" element={<Programs />} />
+                    <Route path="/camps" element={<Camps />} />
+                    <Route path="/donate" element={<Donate />} />
+                    <Route path="/bodhika" element={<Bodhika />} />
+                    <Route path="/admin/login" element={<AdminLogin />} />
+                    <Route path="/admin" element={<AdminDashboard />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </TooltipProvider>
+              </CartProvider>
+            </AdminProvider>
+          </LanguageProvider>
+        </BrowserRouter>
       </AuthProvider>
     </QueryClientProvider>
   </HelmetProvider>
