@@ -19,6 +19,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
         <img
           src={post.thumbnail || '/placeholder.svg'}
           alt={t(post.title)}
+          loading="lazy"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           onError={(e) => {
             (e.target as HTMLImageElement).src = '/placeholder.svg';

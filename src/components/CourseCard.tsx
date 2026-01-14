@@ -49,6 +49,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
           <img
             src={course.thumbnail || '/placeholder.svg'}
             alt={t(course.title)}
+            loading="lazy"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             onError={(e) => {
               (e.target as HTMLImageElement).src = '/placeholder.svg';
