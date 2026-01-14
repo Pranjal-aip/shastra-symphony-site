@@ -17,11 +17,6 @@ const NotificationPopup: React.FC<NotificationPopupProps> = ({ currentPath = '/'
   useEffect(() => {
     if (!notificationPopup?.isEnabled) return;
 
-    // Create a unique dismissal key based on popup id and content
-    const dismissalKey = `notification-popup-${notificationPopup.id}`;
-    const dismissed = sessionStorage.getItem(dismissalKey);
-    if (dismissed) return;
-
     // Check date range
     const now = new Date();
     if (notificationPopup.startDate && new Date(notificationPopup.startDate) > now) return;
@@ -30,7 +25,7 @@ const NotificationPopup: React.FC<NotificationPopupProps> = ({ currentPath = '/'
     // Check if should show on current page
     if (!notificationPopup.showOnAllPages && currentPath !== '/') return;
 
-    // Show popup after a short delay
+    // Show popup after a short delay on every page visit
     const timer = setTimeout(() => {
       setIsOpen(true);
     }, 1000);
@@ -40,9 +35,6 @@ const NotificationPopup: React.FC<NotificationPopupProps> = ({ currentPath = '/'
 
   const handleClose = () => {
     setIsOpen(false);
-    if (notificationPopup?.id) {
-      sessionStorage.setItem(`notification-popup-${notificationPopup.id}`, 'true');
-    }
   };
 
   const handleButtonClick = () => {
