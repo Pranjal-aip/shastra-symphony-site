@@ -1389,23 +1389,13 @@ const NotificationsTab: React.FC<NotificationsTabProps> = ({ popup, onUpdate, to
           </div>
         </div>
 
-        {/* Image URL Input */}
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Poster Image URL (Optional)</label>
-          <div className="flex items-start gap-4">
-            {formData.imageUrl && (
-              <img src={formData.imageUrl} alt="" className="w-24 h-16 rounded-lg object-cover flex-shrink-0" />
-            )}
-            <div className="flex-1">
-              <Input 
-                placeholder="Paste image URL here (e.g., https://...)" 
-                value={formData.imageUrl} 
-                onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })} 
-              />
-              <p className="text-xs text-muted-foreground mt-1">Paste a direct link to an image</p>
-            </div>
-          </div>
-        </div>
+        {/* Image Upload */}
+        <ImageUpload
+          value={formData.imageUrl}
+          onChange={(url) => setFormData({ ...formData, imageUrl: url })}
+          label="Poster Image (Optional)"
+          hint="Upload an image for the notification popup"
+        />
 
         <div className="space-y-4">
           <div className="space-y-2">

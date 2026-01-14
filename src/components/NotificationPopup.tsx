@@ -89,6 +89,7 @@ const NotificationPopup: React.FC<NotificationPopupProps> = ({ currentPath = '/'
             <img
               src={notificationPopup.imageUrl}
               alt=""
+              loading="lazy"
               className="w-full h-full object-cover"
             />
           </div>
