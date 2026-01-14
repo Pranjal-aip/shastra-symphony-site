@@ -14,25 +14,29 @@ import heroIllustration from '@/assets/hero-illustration.jpg';
 
 const seoData = {
   title: {
-    en: 'Learn Sanskrit Online | Vedic Education for Kids & Adults',
-    hi: 'ऑनलाइन संस्कृत सीखें | बच्चों और वयस्कों के लिए वैदिक शिक्षा',
-    sa: 'अन्तर्जाले संस्कृतं अधिगच्छत | बालकेभ्यः वयस्केभ्यश्च वैदिकशिक्षा'
+    en: 'Learn Sanskrit Online | Bhagavad Gita, Upanishads & Vedic Education',
+    hi: 'ऑनलाइन संस्कृत सीखें | भगवद्गीता, उपनिषद और वैदिक शिक्षा',
+    sa: 'अन्तर्जाले संस्कृतं अधिगच्छत | भगवद्गीता उपनिषदः वैदिकशिक्षा च'
   },
   description: {
-    en: 'India\'s leading Vedic education platform. Learn Sanskrit online, Bhagavad Gita, Vedic Mathematics, Yoga & meditation. Live classes by expert Acharyas for children aged 6-16.',
-    hi: 'भारत का अग्रणी वैदिक शिक्षा मंच। ऑनलाइन संस्कृत, भगवद्गीता, वैदिक गणित, योग और ध्यान सीखें। 6-16 वर्ष के बच्चों के लिए विशेषज्ञ आचार्यों द्वारा लाइव कक्षाएं।',
-    sa: 'भारतस्य अग्रणी वैदिकशिक्षामञ्चः। अन्तर्जाले संस्कृतं भगवद्गीतां वैदिकगणितं योगं ध्यानं च अधिगच्छत।'
+    en: 'India\'s #1 Vedic education platform. Learn Sanskrit, Bhagavad Gita, Upanishads, Vedas, Puranas & Indian philosophy online. Live classes by expert Acharyas for kids & adults.',
+    hi: 'भारत का #1 वैदिक शिक्षा मंच। संस्कृत, भगवद्गीता, उपनिषद, वेद, पुराण और भारतीय दर्शन ऑनलाइन सीखें। बच्चों और वयस्कों के लिए विशेषज्ञ आचार्यों द्वारा लाइव कक्षाएं।',
+    sa: 'भारतस्य प्रथमः वैदिकशिक्षामञ्चः। संस्कृतं भगवद्गीतां उपनिषदः वेदान् पुराणानि भारतीयदर्शनं च अन्तर्जाले अधिगच्छत।'
   }
 };
 
 const homeFAQs = [
   {
     question: 'What is Shastrakulam?',
-    answer: 'Shastrakulam is India\'s leading Vedic education platform offering authentic Sanskrit courses, Bhagavad Gita classes, Vedic mathematics, and yoga for children and adults through live online classes with expert Acharyas.'
+    answer: 'Shastrakulam is India\'s #1 Vedic education platform offering authentic Sanskrit courses, Bhagavad Gita classes, Upanishad studies, Vedas learning, Puranas, Indian philosophy, Vedic mathematics, and yoga for children and adults through live online classes with expert Acharyas.'
   },
   {
     question: 'What courses does Shastrakulam offer?',
-    answer: 'We offer Sanskrit language courses for all levels, Bhagavad Gita studies, Vedic Mathematics, Yoga & Meditation, Sanatan Dharma education, and our flagship 1-year Bodhika program for children aged 6-12.'
+    answer: 'We offer Sanskrit language courses for all levels, Bhagavad Gita studies, Upanishad classes, Vedas learning, Purana stories, Indian philosophy, Vedic Mathematics, Yoga & Meditation, Sanatan Dharma education, and our flagship 1-year Bodhika program for children aged 8-17.'
+  },
+  {
+    question: 'Can I learn Bhagavad Gita and Upanishads online?',
+    answer: 'Yes! Shastrakulam offers comprehensive online courses on Bhagavad Gita, Upanishads, Vedas, and Puranas. Our live interactive classes are taught by experienced Acharyas in English, Hindi, and Sanskrit.'
   },
   {
     question: 'Are classes conducted online or offline?',
@@ -40,7 +44,11 @@ const homeFAQs = [
   },
   {
     question: 'What age groups do you teach?',
-    answer: 'Our programs cater to children aged 6-16 and adults. We have specially designed courses for different age groups with age-appropriate teaching methods.'
+    answer: 'Our programs cater to children aged 6-17 and adults. We have specially designed courses for different age groups with age-appropriate teaching methods for Sanskrit, Gita, Vedas, and Indian philosophy.'
+  },
+  {
+    question: 'How is Shastrakulam different from other Sanskrit learning platforms?',
+    answer: 'Shastrakulam provides authentic Gurukul-style education with expert Acharyas, covering complete Vedic wisdom including Sanskrit, Bhagavad Gita, Upanishads, Vedas, Puranas, and practical philosophy - not just language learning.'
   }
 ];
 
@@ -78,7 +86,7 @@ const Index: React.FC = () => {
       <SEO 
         title={seoData.title}
         description={seoData.description}
-        keywords="learn Sanskrit online, Sanskrit courses India, Vedic education, Bhagavad Gita classes online, Vedic mathematics, yoga for kids, gurukul education, Sanatan Dharma, Sanskrit language learning, online Sanskrit classes, Indian culture courses, Sanskrit for beginners, Sanskrit for children"
+        keywords="learn Sanskrit online, Sanskrit courses India, Vedic education, Bhagavad Gita classes online, Upanishad classes online, Vedas learning, Purana stories for children, Indian philosophy courses, Vedic mathematics, yoga for kids, gurukul education, Sanatan Dharma school, Sanskrit language learning, online Sanskrit classes, Indian culture courses, Sanskrit for beginners, Sanskrit for children, Sanskrit shloka learning, dharmic education, Ramayana Mahabharata stories, Vedic wisdom, Sanskrit mantras, learn Gita online, Upanishad course, Vedic scripture classes"
         url="/"
         structuredData={homeSchema}
         faq={homeFAQs}

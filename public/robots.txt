@@ -37,9 +37,24 @@ Disallow: /admin
 Disallow: /admin-login
 Disallow: /api/
 
-# Sitemaps
+# Sitemaps - Primary static sitemap first
 Sitemap: https://shastrakulam.com/sitemap.xml
+
+# Dynamic sitemap for courses and blog posts
 Sitemap: https://qqvirwqrecpzbldjyiua.supabase.co/functions/v1/sitemap
 
 # Host
 Host: https://shastrakulam.com
+
+# Allow specific important pages
+Allow: /courses
+Allow: /blog
+Allow: /bodhika
+Allow: /programs
+Allow: /about
+Allow: /contact
+Allow: /donate
+Allow: /camps
+Allow: /learn-sanskrit
+Allow: /bhagavad-gita-classes
+Allow: /vedic-education

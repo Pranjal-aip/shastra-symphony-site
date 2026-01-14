@@ -9,33 +9,41 @@ import { Loader2 } from 'lucide-react';
 
 const seoData = {
   title: {
-    en: 'Sanskrit & Vedic Courses Online | Learn from Expert Acharyas',
-    hi: 'ऑनलाइन संस्कृत और वैदिक पाठ्यक्रम | विशेषज्ञ आचार्यों से सीखें',
-    sa: 'अन्तर्जाले संस्कृतवैदिकपाठ्यक्रमाः | विशेषज्ञाचार्येभ्यः अधिगच्छत'
+    en: 'Sanskrit & Vedic Courses Online | Bhagavad Gita, Upanishads, Vedas Classes',
+    hi: 'ऑनलाइन संस्कृत और वैदिक पाठ्यक्रम | भगवद्गीता, उपनिषद, वेद कक्षाएं',
+    sa: 'अन्तर्जाले संस्कृतवैदिकपाठ्यक्रमाः | भगवद्गीता उपनिषदः वेदकक्षाः'
   },
   description: {
-    en: 'Explore authentic Sanskrit courses, Bhagavad Gita classes, Vedic mathematics, yoga for kids & adults. Live interactive sessions with certified Acharyas. Enroll now!',
-    hi: 'प्रामाणिक संस्कृत पाठ्यक्रम, भगवद्गीता कक्षाएं, वैदिक गणित, बच्चों और वयस्कों के लिए योग। प्रमाणित आचार्यों के साथ लाइव इंटरैक्टिव सत्र। अभी नामांकन करें!',
-    sa: 'प्रामाणिकसंस्कृतपाठ्यक्रमान्, भगवद्गीताकक्षाः, वैदिकगणितम्, बालकेभ्यः वयस्केभ्यश्च योगम् अन्वेषयत। प्रमाणिताचार्यैः सह जीवन्तपरस्परक्रियासत्राणि।'
+    en: 'Learn Sanskrit, Bhagavad Gita, Upanishads, Vedas, Puranas & Indian philosophy online. Live classes with expert Acharyas for kids & adults. Certificate courses available!',
+    hi: 'संस्कृत, भगवद्गीता, उपनिषद, वेद, पुराण और भारतीय दर्शन ऑनलाइन सीखें। बच्चों और वयस्कों के लिए विशेषज्ञ आचार्यों के साथ लाइव कक्षाएं।',
+    sa: 'संस्कृतं भगवद्गीतां उपनिषदः वेदान् पुराणानि भारतीयदर्शनं च अन्तर्जाले अधिगच्छत। प्रमाणिताचार्यैः सह जीवन्तकक्षाः।'
   }
 };
 
 const courseFAQs = [
   {
     question: 'What age groups are your Sanskrit courses suitable for?',
-    answer: 'Our courses are designed for children aged 6-16 and adults. We have beginner, intermediate, and advanced levels to suit all learners.'
+    answer: 'Our courses are designed for children aged 6-17 and adults. We have beginner, intermediate, and advanced levels to suit all learners for Sanskrit, Bhagavad Gita, Upanishads, and Vedic studies.'
+  },
+  {
+    question: 'Can I learn Bhagavad Gita and Upanishads online?',
+    answer: 'Yes! We offer comprehensive courses on Bhagavad Gita, Upanishads, Vedas, and Puranas. All classes are live with expert Acharyas and include shloka learning, meaning, and practical application.'
   },
   {
     question: 'Are the classes live or pre-recorded?',
     answer: 'All our classes are 100% live with expert Acharyas. Recordings are provided for revision after each session.'
   },
   {
-    question: 'What is the duration of Sanskrit courses?',
-    answer: 'Course duration varies from 3 months to 1 year depending on the program. Our flagship Bodhika program is a comprehensive 1-year course.'
+    question: 'What is the duration of Sanskrit and Vedic courses?',
+    answer: 'Course duration varies from 3 months to 1 year. Our flagship Bodhika program is a comprehensive 1-year course covering Sanskrit, Bhagavad Gita, Upanishads, Vedas, Puranas, and Indian philosophy.'
   },
   {
     question: 'Do you provide certificates after course completion?',
-    answer: 'Yes, all students receive a certificate upon successful completion of their course from Shastrakulam.'
+    answer: 'Yes, all students receive a certificate upon successful completion of their course from Shastrakulam, recognized for authentic Vedic education.'
+  },
+  {
+    question: 'What topics are covered in Indian philosophy courses?',
+    answer: 'Our courses cover Sanatan Dharma, Bhagavad Gita teachings, Upanishadic wisdom, Vedic mantras, Purana stories, dharmic values, and practical application of ancient wisdom in modern life.'
   }
 ];
 
@@ -66,7 +74,7 @@ const Courses: React.FC = () => {
       <SEO 
         title={seoData.title}
         description={seoData.description}
-        keywords="Sanskrit courses online, learn Sanskrit online India, Vedic education courses, Bhagavad Gita classes online, Vedic mathematics course, yoga classes for kids, Sanskrit for beginners, online gurukul, Sanatan Dharma courses, Indian culture education"
+        keywords="Sanskrit courses online, learn Sanskrit online India, Vedic education courses, Bhagavad Gita classes online, Upanishad course online, Vedas classes, Purana education, Indian philosophy for kids, Vedic mathematics course, yoga classes for kids, Sanskrit for beginners, online gurukul, Sanatan Dharma courses, Indian culture education, Gita shloka learning, Sanskrit grammar course, Vedic scripture classes, learn Upanishads, Vedas for children, dharmic values course"
         url="/courses"
         breadcrumbs={breadcrumbs}
         faq={courseFAQs}

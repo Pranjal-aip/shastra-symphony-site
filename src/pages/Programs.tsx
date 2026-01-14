@@ -14,9 +14,9 @@ const seoData = {
     sa: 'कार्यक्रमाः | गुरुकुलम् अन्तर्जालसंस्कृतपाठ्यक्रमाः वैदिकशिविराणि च'
   },
   description: {
-    en: 'Discover Shastrakulam\'s educational programs: residential gurukul schooling in Uttar Pradesh, online Sanskrit courses, and seasonal Vedic camps for children aged 6-16.',
-    hi: 'शास्त्रकुलम के शैक्षिक कार्यक्रमों की खोज करें: उत्तर प्रदेश में आवासीय गुरुकुल, ऑनलाइन संस्कृत पाठ्यक्रम, और 6-16 वर्ष के बच्चों के लिए मौसमी वैदिक शिविर।',
-    sa: 'शास्त्रकुलस्य शैक्षिककार्यक्रमान् अन्वेषयत: उत्तरप्रदेशे आवासीयगुरुकुलम्, अन्तर्जालसंस्कृतपाठ्यक्रमाः, ६-१६ वर्षीयबालकानां कृते ऋतुवैदिकशिविराणि च।'
+    en: 'Discover Shastrakulam\'s educational programs: residential gurukul in Uttar Pradesh, online Sanskrit & Bhagavad Gita courses, Upanishad classes, and Vedic camps for children aged 6-17.',
+    hi: 'शास्त्रकुलम के शैक्षिक कार्यक्रमों की खोज करें: उत्तर प्रदेश में आवासीय गुरुकुल, ऑनलाइन संस्कृत और भगवद्गीता पाठ्यक्रम, उपनिषद कक्षाएं, और 6-17 वर्ष के बच्चों के लिए वैदिक शिविर।',
+    sa: 'शास्त्रकुलस्य शैक्षिककार्यक्रमान् अन्वेषयत: उत्तरप्रदेशे आवासीयगुरुकुलम्, अन्तर्जालसंस्कृतभगवद्गीतापाठ्यक्रमाः, उपनिषद्कक्षाः, ६-१७ वर्षीयबालकानां कृते वैदिकशिविराणि च।'
   }
 };
 
@@ -116,8 +116,12 @@ const Programs: React.FC = () => {
       <SEO 
         title={seoData.title}
         description={seoData.description}
-        keywords="gurukul schooling India, residential Sanskrit school, online Vedic courses, seasonal camps"
+        keywords="gurukul schooling India, residential Sanskrit school, online Vedic courses, Bhagavad Gita classes, Upanishad course, Vedas learning, seasonal camps, Indian philosophy education"
         url="/programs"
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Programs', url: '/programs' }
+        ]}
       />
       <section className="py-12 bg-hero-pattern">
         <div className="container mx-auto px-4">

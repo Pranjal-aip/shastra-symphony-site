@@ -73,19 +73,35 @@ const CourseDetail: React.FC = () => {
     <Layout>
       <SEO 
         title={{
-          en: course.title.en,
+          en: `${course.title.en} | Learn Online at Shastrakulam`,
           hi: course.title.hi || course.title.en,
           sa: course.title.sa || course.title.en
         }}
         description={{
-          en: course.shortDescription.en || '',
+          en: course.shortDescription.en || `Learn ${course.title.en} online with expert Acharyas. Live interactive classes for ${course.level}. Enroll now at Shastrakulam!`,
           hi: course.shortDescription.hi || course.shortDescription.en || '',
           sa: course.shortDescription.sa || course.shortDescription.en || ''
         }}
         image={course.thumbnail || ''}
         url={`/courses/${slug}`}
-        type="product"
-        keywords={`${course.category}, ${course.level}, Sanskrit course, Vedic education, Shastrakulam`}
+        type="course"
+        course={{
+          name: course.title.en,
+          description: course.shortDescription.en || '',
+          provider: 'Shastrakulam',
+          duration: course.duration || undefined,
+          price: course.price || undefined,
+          currency: 'INR',
+          image: course.thumbnail || undefined,
+          level: course.level,
+          language: ['en', 'hi', 'sa']
+        }}
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Courses', url: '/courses' },
+          { name: course.title.en, url: `/courses/${slug}` }
+        ]}
+        keywords={`${course.title.en}, ${course.category} course, ${course.level} Sanskrit course, learn ${course.category} online, Vedic education, Shastrakulam, online gurukul`}
       />
       {/* Hero Section */}
       <section className="py-12 bg-hero-pattern">
