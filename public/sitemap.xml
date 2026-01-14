@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://shastrakulam.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shastrakulam.com/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shastrakulam.com/?lang=hi"/>
+    <xhtml:link rel="alternate" hreflang="sa" href="https://shastrakulam.com/?lang=sa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shastrakulam.com/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://storage.googleapis.com/gpt-engineer-file-uploads/FzL0PaBamTXvYL6XV7cKccr0EmP2/social-images/social-1767879374773-Gemini_Generated_Image_hb4rh5hb4rh5hb4r.png</image:loc>
+      <image:title>Shastrakulam - Learn Sanskrit Online</image:title>
+    </image:image>
+  </url>
+
+  <!-- Courses -->
+  <url>
+    <loc>https://shastrakulam.com/courses</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shastrakulam.com/courses?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shastrakulam.com/courses?lang=hi"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Bodhika Program -->
+  <url>
+    <loc>https://shastrakulam.com/bodhika</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shastrakulam.com/bodhika?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shastrakulam.com/bodhika?lang=hi"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Blog -->
+  <url>
+    <loc>https://shastrakulam.com/blog</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shastrakulam.com/blog?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shastrakulam.com/blog?lang=hi"/>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Programs -->
+  <url>
+    <loc>https://shastrakulam.com/programs</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shastrakulam.com/programs?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shastrakulam.com/programs?lang=hi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- About -->
+  <url>
+    <loc>https://shastrakulam.com/about</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shastrakulam.com/about?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shastrakulam.com/about?lang=hi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Camps -->
+  <url>
+    <loc>https://shastrakulam.com/camps</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shastrakulam.com/camps?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shastrakulam.com/camps?lang=hi"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Contact -->
+  <url>
+    <loc>https://shastrakulam.com/contact</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shastrakulam.com/contact?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shastrakulam.com/contact?lang=hi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Donate -->
+  <url>
+    <loc>https://shastrakulam.com/donate</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shastrakulam.com/donate?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="hi" href="https://shastrakulam.com/donate?lang=hi"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Landing Pages for SEO -->
+  <url>
+    <loc>https://shastrakulam.com/learn-sanskrit</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://shastrakulam.com/bhagavad-gita-classes</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://shastrakulam.com/vedic-education</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+</urlset>

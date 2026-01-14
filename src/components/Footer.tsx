@@ -13,11 +13,19 @@ const Footer: React.FC = () => {
   const quickLinks = [
     { path: '/', label: translations.nav.home },
     { path: '/courses', label: translations.nav.courses },
+    { path: '/bodhika', label: { en: 'Bodhika Program', hi: 'बोधिका कार्यक्रम', sa: 'बोधिका कार्यक्रमः' } },
     { path: '/programs', label: translations.nav.programs },
     { path: '/camps', label: translations.nav.camps },
     { path: '/blog', label: translations.nav.blog },
     { path: '/about', label: translations.nav.about },
+    { path: '/contact', label: { en: 'Contact', hi: 'संपर्क', sa: 'सम्पर्कः' } },
     { path: '/donate', label: { en: 'Donate', hi: 'दान करें', sa: 'दानं कुरुत' } },
+  ];
+
+  const courseLinks = [
+    { path: '/learn-sanskrit', label: { en: 'Learn Sanskrit', hi: 'संस्कृत सीखें', sa: 'संस्कृतं अधिगच्छत' } },
+    { path: '/bhagavad-gita-classes', label: { en: 'Bhagavad Gita Classes', hi: 'भगवद्गीता कक्षाएं', sa: 'भगवद्गीताकक्षाः' } },
+    { path: '/vedic-education', label: { en: 'Vedic Education', hi: 'वैदिक शिक्षा', sa: 'वैदिकशिक्षा' } },
   ];
 
   const socialLinks = [
@@ -82,6 +90,33 @@ const Footer: React.FC = () => {
                   </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          {/* Popular Courses */}
+          <div>
+            <h4 className="font-heading text-lg font-semibold mb-6">
+              {t({ en: 'Popular Courses', hi: 'लोकप्रिय पाठ्यक्रम', sa: 'लोकप्रियपाठ्यक्रमाः' })}
+            </h4>
+            <ul className="space-y-3">
+              {courseLinks.map((link) => (
+                <li key={link.path}>
+                  <Link
+                    to={link.path}
+                    className="font-body text-primary-foreground/80 hover:text-accent transition-colors duration-200"
+                  >
+                    {t(link.label)}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link
+                  to="/courses"
+                  className="font-body text-accent hover:text-accent/80 transition-colors duration-200 font-semibold"
+                >
+                  {t({ en: 'View All Courses →', hi: 'सभी पाठ्यक्रम देखें →', sa: 'सर्वान् पाठ्यक्रमान् पश्यत →' })}
+                </Link>
+              </li>
             </ul>
           </div>
 

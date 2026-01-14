@@ -246,8 +246,12 @@ const Donate: React.FC = () => {
       <SEO 
         title={seoData.title}
         description={seoData.description}
-        keywords="donate Shastrakulam, support Vedic education, 80G donation India, sponsor Sanskrit student"
+        keywords="donate Shastrakulam, support Vedic education, 80G donation India, sponsor Sanskrit student, support Bhagavad Gita education, donate for gurukul"
         url="/donate"
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Donate', url: '/donate' }
+        ]}
       />
       {/* Hero Section */}
       <section className="py-16 bg-gradient-to-br from-accent/10 via-background to-primary/10">

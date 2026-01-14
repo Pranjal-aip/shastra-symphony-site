@@ -154,8 +154,12 @@ const Contact: React.FC = () => {
       <SEO 
         title={seoData.title}
         description={seoData.description}
-        keywords="contact Shastrakulam, Sanskrit school contact, gurukul inquiry, Vedic education help"
+        keywords="contact Shastrakulam, Sanskrit school contact, gurukul inquiry, Vedic education help, Sanskrit course inquiry, Bhagavad Gita classes inquiry, Upanishad course contact"
         url="/contact"
+        breadcrumbs={[
+          { name: 'Home', url: '/' },
+          { name: 'Contact Us', url: '/contact' }
+        ]}
       />
       <section className="py-12 bg-hero-pattern">
         <div className="container mx-auto px-4">
