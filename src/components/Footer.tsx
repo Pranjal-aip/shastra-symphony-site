@@ -23,9 +23,9 @@ const Footer: React.FC = () => {
   ];
 
   const courseLinks = [
-    { path: '/learn-sanskrit', label: { en: 'Learn Sanskrit', hi: 'संस्कृत सीखें', sa: 'संस्कृतं अधिगच्छत' } },
-    { path: '/bhagavad-gita-classes', label: { en: 'Bhagavad Gita Classes', hi: 'भगवद्गीता कक्षाएं', sa: 'भगवद्गीताकक्षाः' } },
-    { path: '/vedic-education', label: { en: 'Vedic Education', hi: 'वैदिक शिक्षा', sa: 'वैदिकशिक्षा' } },
+    { path: '/courses', label: { en: 'Learn Sanskrit', hi: 'संस्कृत सीखें', sa: 'संस्कृतं अधिगच्छत' } },
+    { path: '/courses', label: { en: 'Bhagavad Gita Classes', hi: 'भगवद्गीता कक्षाएं', sa: 'भगवद्गीताकक्षाः' } },
+    { path: '/courses', label: { en: 'Vedic Education', hi: 'वैदिक शिक्षा', sa: 'वैदिकशिक्षा' } },
   ];
 
   const socialLinks = [
