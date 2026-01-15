@@ -250,10 +250,8 @@ const moduleData = [
   }
 ];
 
-// Expandable Value Card for Āryudeśaratnamālā
-const ValueCard = ({ value, language }: { value: typeof aryaValues[0], language: string }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  
+// Simple Value Row for Āryudeśaratnamālā (no click interaction)
+const ValueRow = ({ value, language }: { value: typeof aryaValues[0], language: string }) => {
   const getConcept = () => {
     if (language === 'hi') return value.conceptHi;
     if (language === 'sa') return value.conceptSa;
@@ -267,53 +265,16 @@ const ValueCard = ({ value, language }: { value: typeof aryaValues[0], language:
   };
 
   return (
-    <motion.div 
-      className={`rounded-xl border-2 overflow-hidden transition-all duration-300 cursor-pointer ${
-        isExpanded ? 'border-saffron shadow-lg' : 'border-border/50 hover:border-saffron/50 hover:shadow-md'
-      }`}
-      onClick={() => setIsExpanded(!isExpanded)}
-      whileHover={{ scale: isExpanded ? 1 : 1.02 }}
-    >
-      <div className="p-3 sm:p-4 bg-gradient-to-br from-white to-cream/30">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-saffron to-maroon flex items-center justify-center text-white font-heading font-bold text-sm sm:text-base shadow-md">
-              {getConcept().charAt(0)}
-            </div>
-            <div>
-              <h4 className="font-heading font-semibold text-foreground text-sm sm:text-base">{getConcept()}</h4>
-              <p className="font-body text-xs sm:text-sm text-muted-foreground">{getSkill()}</p>
-            </div>
-          </div>
-          <ChevronRight className={`h-5 w-5 text-muted-foreground transition-transform duration-300 ${isExpanded ? 'rotate-90' : ''}`} />
-        </div>
-        
-        <AnimatePresence>
-          {isExpanded && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden"
-            >
-              <div className="mt-4 pt-4 border-t border-border/50 space-y-3">
-                <div className="bg-saffron/10 rounded-lg p-3">
-                  <p className="font-body text-xs sm:text-sm text-foreground font-medium">
-                    <span className="text-saffron">Meaning:</span> {value.meaning}
-                  </p>
-                </div>
-                <div className="bg-emerald-50 rounded-lg p-3">
-                  <p className="font-body text-xs sm:text-sm text-foreground font-medium">
-                    <span className="text-emerald-600">Example:</span> {value.example}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+    <div className="flex items-center gap-3 p-3 bg-white/80 rounded-lg border border-purple-100">
+      <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-violet-500 flex items-center justify-center text-white font-heading font-bold text-sm shadow-md shrink-0">
+        {getConcept().charAt(0)}
       </div>
-    </motion.div>
+      <div className="flex-1 min-w-0">
+        <span className="font-heading font-semibold text-foreground text-sm">{getConcept()}</span>
+        <span className="text-muted-foreground mx-2">→</span>
+        <span className="font-body text-sm text-muted-foreground">{getSkill()}</span>
+      </div>
+    </div>
   );
 };
 
@@ -449,15 +410,10 @@ const SyllabusSection = () => {
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className={`px-4 sm:px-6 pb-5 bg-gradient-to-br ${moduleData[3].bgColor}`}>
-                  <div className="pt-2">
-                    <p className="font-body text-xs sm:text-sm text-muted-foreground mb-4 italic">
-                      Click on each concept to see its meaning and real-life example
-                    </p>
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      {aryaValues.map((value, idx) => (
-                        <ValueCard key={idx} value={value} language={language} />
-                      ))}
-                    </div>
+                  <div className="pt-2 space-y-2">
+                    {aryaValues.map((value, idx) => (
+                      <ValueRow key={idx} value={value} language={language} />
+                    ))}
                   </div>
                 </AccordionContent>
               </AccordionItem>
