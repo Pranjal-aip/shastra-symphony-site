@@ -119,7 +119,7 @@ Deno.serve(async (req) => {
     } else if (type === 'bodhika') {
       title = bodhikaOG[lang].title
       description = bodhikaOG[lang].description
-      image = 'https://i.ibb.co/bj9Jhq3k/Gemini-Generated-Image-p3zfonp3zfonp3zf-1.png'
+      image = `${baseUrl}/og-bodhika.png`
       pageUrl = `${baseUrl}/bodhika`
       console.log('Bodhika landing page detected, lang:', lang)
     } else if (type === 'blog') {
