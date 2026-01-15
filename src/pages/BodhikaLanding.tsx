@@ -88,8 +88,8 @@ const translations = {
     sa: 'बोधिका - बालकानां कृते षण्मासीयं सनातनधर्मकार्यक्रमम् | शास्त्रकुलम्'
   },
   metaDescription: {
-    en: 'Build Sanskar, self-discipline, emotional balance, and cultural confidence in children aged 6-12 through authentic Shastric wisdom. March 2026 batch - Only 70 seats.',
-    hi: '6-12 वर्ष के बच्चों में संस्कार, आत्म-अनुशासन, भावनात्मक संतुलन और सांस्कृतिक आत्मविश्वास का निर्माण करें। मार्च 2026 बैच - केवल 70 सीटें।',
+    en: 'Build Sanskar, self-discipline, emotional balance, and cultural confidence in children aged 6-12 through authentic Shastric wisdom. March 2026 batch - Limited seats.',
+    hi: '6-12 वर्ष के बच्चों में संस्कार, आत्म-अनुशासन, भावनात्मक संतुलन और सांस्कृतिक आत्मविश्वास का निर्माण करें। मार्च 2026 बैच - सीमित सीटें।',
     sa: '६-१२ वर्षीयेषु बालकेषु संस्कारं आत्मानुशासनं भावनात्मकसन्तुलनं सांस्कृतिकात्मविश्वासं च निर्मातुं प्रामाणिकशास्त्रीयज्ञानेन।'
   },
 
@@ -125,9 +125,9 @@ const translations = {
     sa: 'सार्थकश्लोकमन्त्राणां दैनिकाभ्यासः'
   },
   heroUrgency: {
-    en: 'March 2026 Batch | Only 70 Children',
-    hi: 'मार्च 2026 बैच | केवल 70 बच्चे',
-    sa: 'मार्च २०२६ वर्गः | केवलं ७० बालकाः'
+    en: 'March 2026 Batch | Limited Seats',
+    hi: 'मार्च 2026 बैच | सीमित सीटें',
+    sa: 'मार्च २०२६ वर्गः | सीमितासनानि'
   },
   heroUrgencySubtext: {
     en: 'Small groups • Personal guidance • Admissions close when seats fill',
