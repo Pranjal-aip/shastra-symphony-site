@@ -444,9 +444,9 @@ const translations = {
     sa: 'अनुशंसितः'
   },
   focusedStudents: {
-    en: '12 children only',
-    hi: 'केवल 12 बच्चे',
-    sa: 'केवलं १२ बालकाः'
+    en: '20 children only',
+    hi: 'केवल 20 बच्चे',
+    sa: 'केवलं २० बालकाः'
   },
   focusedFeature1: {
     en: 'Deeper guidance & interaction',
