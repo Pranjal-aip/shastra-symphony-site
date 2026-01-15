@@ -148,6 +148,11 @@ const translations = {
     hi: 'निःशुल्क मार्गदर्शन • कोई बाध्यता नहीं • सीमित सीटें',
     sa: 'निःशुल्कमार्गदर्शनम् • न बाध्यता • सीमितासनानि'
   },
+  enrollNow: {
+    en: 'Enroll Now',
+    hi: 'अभी नामांकन करें',
+    sa: 'अधुना नामाङ्कनं कुरुत'
+  },
 
   // Trust Strip
   trustLive: {
@@ -661,17 +666,29 @@ const HeroSection = () => {
 
             {/* Primary CTA - Large touch target */}
             <motion.div variants={fadeInUp} className="space-y-2.5">
-              <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                <Button 
-                  size="lg" 
-                  className="w-full bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:from-green-600 hover:via-green-700 hover:to-green-800 text-white font-bold text-sm sm:text-base px-4 sm:px-6 py-5 sm:py-6 rounded-xl sm:rounded-2xl shadow-xl shadow-green-600/25 hover:shadow-2xl transition-all duration-300 active:scale-[0.98]"
-                >
-                  <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
-                  <span className="hidden sm:inline">{t(translations.heroCTA)}</span>
-                  <span className="sm:hidden">{t(translations.heroCTAShort)}</span>
-                  <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 ml-1" />
-                </Button>
-              </a>
+              <div className="flex flex-col sm:flex-row gap-2.5">
+                <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block flex-1">
+                  <Button 
+                    size="lg" 
+                    className="w-full bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:from-green-600 hover:via-green-700 hover:to-green-800 text-white font-bold text-sm sm:text-base px-4 sm:px-6 py-5 sm:py-6 rounded-xl sm:rounded-2xl shadow-xl shadow-green-600/25 hover:shadow-2xl transition-all duration-300 active:scale-[0.98]"
+                  >
+                    <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
+                    <span className="hidden sm:inline">{t(translations.heroCTA)}</span>
+                    <span className="sm:hidden">{t(translations.heroCTAShort)}</span>
+                    <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 ml-1" />
+                  </Button>
+                </a>
+                <a href="https://shastrakulam.graphy.com/courses/Bodhika-Sanatan-Dharma-program--674abe9ce4b005b17fcce131" target="_blank" rel="noopener noreferrer" className="block flex-1">
+                  <Button 
+                    size="lg" 
+                    className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold text-sm sm:text-base px-4 sm:px-6 py-5 sm:py-6 rounded-xl sm:rounded-2xl shadow-xl shadow-saffron/25 hover:shadow-2xl transition-all duration-300 active:scale-[0.98]"
+                  >
+                    <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
+                    {t(translations.enrollNow)}
+                    <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 ml-1" />
+                  </Button>
+                </a>
+              </div>
               <p className="font-body text-[11px] sm:text-xs text-muted-foreground text-center">{t(translations.heroCTASubtext)}</p>
             </motion.div>
           </motion.div>
@@ -1269,12 +1286,20 @@ const PricingSection = () => {
                     <span className="font-body text-muted-foreground text-xs sm:text-sm ml-1">{t(translations.perYear)}</span>
                   </div>
                   
-                  <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                    <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 sm:py-5 rounded-xl shadow-lg text-xs sm:text-sm active:scale-[0.98] transition-all">
-                      <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                      {t(translations.talkToCounselor)}
-                    </Button>
-                  </a>
+                  <div className="space-y-2.5">
+                    <a href="https://shastrakulam.graphy.com/courses/Bodhika-Sanatan-Dharma-program--674abe9ce4b005b17fcce131" target="_blank" rel="noopener noreferrer" className="block">
+                      <Button className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold py-4 sm:py-5 rounded-xl shadow-lg text-xs sm:text-sm active:scale-[0.98] transition-all">
+                        <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                        {t(translations.enrollNow)}
+                      </Button>
+                    </a>
+                    <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
+                      <Button variant="outline" className="w-full border-2 border-maroon/30 hover:bg-maroon/5 text-maroon font-bold py-4 sm:py-5 rounded-xl text-xs sm:text-sm active:scale-[0.98] transition-all">
+                        <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                        {t(translations.talkToCounselor)}
+                      </Button>
+                    </a>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
@@ -1309,12 +1334,20 @@ const PricingSection = () => {
                     <span className="font-body text-muted-foreground text-xs sm:text-sm ml-1">{t(translations.perYear)}</span>
                   </div>
                   
-                  <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                    <Button variant="outline" className="w-full border-2 border-foreground/20 hover:bg-muted font-bold py-4 sm:py-5 rounded-xl text-xs sm:text-sm active:scale-[0.98] transition-all">
-                      <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                      {t(translations.talkToCounselor)}
-                    </Button>
-                  </a>
+                  <div className="space-y-2.5">
+                    <a href="https://shastrakulam.graphy.com/courses/Bodhika-Sanatan-Dharma-program--674abe9ce4b005b17fcce131" target="_blank" rel="noopener noreferrer" className="block">
+                      <Button className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold py-4 sm:py-5 rounded-xl shadow-lg text-xs sm:text-sm active:scale-[0.98] transition-all">
+                        <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                        {t(translations.enrollNow)}
+                      </Button>
+                    </a>
+                    <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
+                      <Button variant="outline" className="w-full border-2 border-foreground/20 hover:bg-muted font-bold py-4 sm:py-5 rounded-xl text-xs sm:text-sm active:scale-[0.98] transition-all">
+                        <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                        {t(translations.talkToCounselor)}
+                      </Button>
+                    </a>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
