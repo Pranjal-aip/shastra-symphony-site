@@ -678,16 +678,15 @@ const HeroSection = () => {
                     <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 ml-1" />
                   </Button>
                 </a>
-                <a href="https://shastrakulam.graphy.com/courses/Bodhika-Sanatan-Dharma-program--674abe9ce4b005b17fcce131" target="_blank" rel="noopener noreferrer" className="block flex-1">
-                  <Button 
-                    size="lg" 
-                    className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold text-sm sm:text-base px-4 sm:px-6 py-5 sm:py-6 rounded-xl sm:rounded-2xl shadow-xl shadow-saffron/25 hover:shadow-2xl transition-all duration-300 active:scale-[0.98]"
-                  >
-                    <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
-                    {t(translations.enrollNow)}
-                    <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 ml-1" />
-                  </Button>
-                </a>
+                <Button 
+                  size="lg" 
+                  onClick={() => document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="flex-1 bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold text-sm sm:text-base px-4 sm:px-6 py-5 sm:py-6 rounded-xl sm:rounded-2xl shadow-xl shadow-saffron/25 hover:shadow-2xl transition-all duration-300 active:scale-[0.98]"
+                >
+                  <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
+                  {t(translations.enrollNow)}
+                  <ArrowDown className="h-4 w-4 sm:h-5 sm:w-5 ml-1" />
+                </Button>
               </div>
               <p className="font-body text-[11px] sm:text-xs text-muted-foreground text-center">{t(translations.heroCTASubtext)}</p>
             </motion.div>
