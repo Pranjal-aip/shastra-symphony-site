@@ -17,6 +17,10 @@ const NotificationPopup: React.FC<NotificationPopupProps> = ({ currentPath = '/'
   useEffect(() => {
     if (!notificationPopup?.isEnabled) return;
 
+    // Check if already shown this session
+    const sessionKey = 'notification_popup_shown';
+    if (sessionStorage.getItem(sessionKey)) return;
+
     // Check date range
     const now = new Date();
     if (notificationPopup.startDate && new Date(notificationPopup.startDate) > now) return;
@@ -25,9 +29,10 @@ const NotificationPopup: React.FC<NotificationPopupProps> = ({ currentPath = '/'
     // Check if should show on current page
     if (!notificationPopup.showOnAllPages && currentPath !== '/') return;
 
-    // Show popup after a short delay on every page visit
+    // Show popup after a short delay, only once per session
     const timer = setTimeout(() => {
       setIsOpen(true);
+      sessionStorage.setItem(sessionKey, 'true');
     }, 1000);
 
     return () => clearTimeout(timer);
