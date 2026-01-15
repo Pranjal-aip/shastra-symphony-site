@@ -1286,7 +1286,7 @@ const PricingSection = () => {
                   </div>
                   
                   <div className="space-y-2.5">
-                    <a href="https://shastrakulam.graphy.com/courses/Bodhika-Sanatan-Dharma-program--674abe9ce4b005b17fcce131" target="_blank" rel="noopener noreferrer" className="block">
+                    <a href="https://learn.shastrakulam.com/single-checkout/6953f67fba62d03beeceac42?pid=p1" target="_blank" rel="noopener noreferrer" className="block">
                       <Button className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold py-4 sm:py-5 rounded-xl shadow-lg text-xs sm:text-sm active:scale-[0.98] transition-all">
                         <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                         {t(translations.enrollNow)}
@@ -1334,7 +1334,7 @@ const PricingSection = () => {
                   </div>
                   
                   <div className="space-y-2.5">
-                    <a href="https://shastrakulam.graphy.com/courses/Bodhika-Sanatan-Dharma-program--674abe9ce4b005b17fcce131" target="_blank" rel="noopener noreferrer" className="block">
+                    <a href="https://learn.shastrakulam.com/single-checkout/695393a483bcbf4ec9283f27?pid=p1" target="_blank" rel="noopener noreferrer" className="block">
                       <Button className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold py-4 sm:py-5 rounded-xl shadow-lg text-xs sm:text-sm active:scale-[0.98] transition-all">
                         <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
                         {t(translations.enrollNow)}
