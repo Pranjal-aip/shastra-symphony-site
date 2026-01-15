@@ -38,6 +38,7 @@ import {
 // Import images
 import heroGurukul from '@/assets/bodhika/hero-gurukul.jpg';
 import onlineLearning from '@/assets/bodhika/online-learning.jpg';
+import CountdownTimer from '@/components/bodhika/CountdownTimer';
 import founderImage from '@/assets/bodhika/founder-yogesh.jpg';
 
 // WhatsApp number for counselor
@@ -1240,9 +1241,10 @@ const PricingSection = () => {
             <Badge className="mb-3 sm:mb-4 bg-maroon/10 text-maroon border-maroon/30 px-3 sm:px-4 py-1.5">
               Pricing Plans
             </Badge>
-            <h2 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
+            <h2 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-5 sm:mb-6">
               {t(translations.pricingHeadline)}
             </h2>
+            <CountdownTimer />
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
@@ -1285,16 +1287,16 @@ const PricingSection = () => {
                     <span className="font-body text-muted-foreground text-xs sm:text-sm ml-1">{t(translations.perYear)}</span>
                   </div>
                   
-                  <div className="space-y-2.5">
-                    <a href="https://learn.shastrakulam.com/single-checkout/6953f67fba62d03beeceac42?pid=p1" target="_blank" rel="noopener noreferrer" className="block">
-                      <Button className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold py-4 sm:py-5 rounded-xl shadow-lg text-xs sm:text-sm active:scale-[0.98] transition-all">
-                        <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                  <div className="flex gap-2">
+                    <a href="https://learn.shastrakulam.com/single-checkout/6953f67fba62d03beeceac42?pid=p1" target="_blank" rel="noopener noreferrer" className="flex-1">
+                      <Button className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold py-3 sm:py-4 rounded-xl shadow-lg text-xs sm:text-sm active:scale-[0.98] transition-all">
+                        <GraduationCap className="h-4 w-4 mr-1.5" />
                         {t(translations.enrollNow)}
                       </Button>
                     </a>
-                    <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                      <Button variant="outline" className="w-full border-2 border-maroon/30 hover:bg-maroon/5 text-maroon font-bold py-4 sm:py-5 rounded-xl text-xs sm:text-sm active:scale-[0.98] transition-all">
-                        <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                    <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="flex-1">
+                      <Button variant="outline" className="w-full border-2 border-maroon/30 hover:bg-maroon/5 text-maroon font-bold py-3 sm:py-4 rounded-xl text-xs sm:text-sm active:scale-[0.98] transition-all">
+                        <MessageCircle className="h-4 w-4 mr-1.5" />
                         {t(translations.talkToCounselor)}
                       </Button>
                     </a>
@@ -1333,16 +1335,16 @@ const PricingSection = () => {
                     <span className="font-body text-muted-foreground text-xs sm:text-sm ml-1">{t(translations.perYear)}</span>
                   </div>
                   
-                  <div className="space-y-2.5">
-                    <a href="https://learn.shastrakulam.com/single-checkout/695393a483bcbf4ec9283f27?pid=p1" target="_blank" rel="noopener noreferrer" className="block">
-                      <Button className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold py-4 sm:py-5 rounded-xl shadow-lg text-xs sm:text-sm active:scale-[0.98] transition-all">
-                        <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                  <div className="flex gap-2">
+                    <a href="https://learn.shastrakulam.com/single-checkout/695393a483bcbf4ec9283f27?pid=p1" target="_blank" rel="noopener noreferrer" className="flex-1">
+                      <Button className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold py-3 sm:py-4 rounded-xl shadow-lg text-xs sm:text-sm active:scale-[0.98] transition-all">
+                        <GraduationCap className="h-4 w-4 mr-1.5" />
                         {t(translations.enrollNow)}
                       </Button>
                     </a>
-                    <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
-                      <Button variant="outline" className="w-full border-2 border-foreground/20 hover:bg-muted font-bold py-4 sm:py-5 rounded-xl text-xs sm:text-sm active:scale-[0.98] transition-all">
-                        <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                    <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="flex-1">
+                      <Button variant="outline" className="w-full border-2 border-foreground/20 hover:bg-muted font-bold py-3 sm:py-4 rounded-xl text-xs sm:text-sm active:scale-[0.98] transition-all">
+                        <MessageCircle className="h-4 w-4 mr-1.5" />
                         {t(translations.talkToCounselor)}
                       </Button>
                     </a>
