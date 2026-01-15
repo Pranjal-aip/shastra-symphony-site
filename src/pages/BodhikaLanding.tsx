@@ -1071,7 +1071,6 @@ const LearningSection = () => {
     { icon: Heart, title: translations.learn1Title, color: 'from-saffron to-maroon', symbol: '🕉' },
     { icon: Music, title: translations.learn2Title, subtitle: translations.learn2Subtitle, color: 'from-purple-500 to-purple-600', symbol: '📿' },
     { icon: Book, title: translations.learn3Title, color: 'from-amber-500 to-amber-600', symbol: '📖' },
-    { icon: Leaf, title: translations.learn4Title, color: 'from-emerald-500 to-emerald-600', symbol: '🧘' },
     { icon: Users, title: translations.learn5Title, color: 'from-pink-500 to-pink-600', symbol: '🙏' },
     { icon: Sparkles, title: translations.learn6Title, color: 'from-blue-500 to-blue-600', symbol: '🌱' }
   ];
