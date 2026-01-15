@@ -434,9 +434,9 @@ const translations = {
     sa: 'स्वसन्ताने समुचितवर्गं चिनुत'
   },
   focusedBatch: {
-    en: '⭐ FOCUSED SANATAN BATCH',
-    hi: '⭐ फोकस्ड सनातन बैच',
-    sa: '⭐ केन्द्रितसनातनवर्गः'
+    en: '⭐ FOCUSED BATCH',
+    hi: '⭐ फोकस्ड बैच',
+    sa: '⭐ केन्द्रितवर्गः'
   },
   focusedRecommended: {
     en: 'Recommended',
