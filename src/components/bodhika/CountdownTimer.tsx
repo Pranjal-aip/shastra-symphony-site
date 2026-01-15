@@ -88,23 +88,6 @@ const CountdownTimer = () => {
       </motion.div>
       <span className="font-body text-muted-foreground text-[10px] sm:text-xs mt-1">{label}</span>
     </div>;
-  return (
-    <div className="flex flex-col items-center space-y-3">
-      <div className="flex items-center gap-2 text-muted-foreground">
-        <Clock className="h-4 w-4 sm:h-5 sm:w-5" />
-        <span className="font-body text-xs sm:text-sm font-medium">{t(translations.classesStart)}</span>
-      </div>
-      <div className="flex items-center gap-2 sm:gap-3">
-        <TimeUnit value={timeLeft.days} label={t(translations.days)} />
-        <span className="font-heading text-xl sm:text-2xl text-maroon font-bold">:</span>
-        <TimeUnit value={timeLeft.hours} label={t(translations.hours)} />
-        <span className="font-heading text-xl sm:text-2xl text-maroon font-bold">:</span>
-        <TimeUnit value={timeLeft.minutes} label={t(translations.minutes)} />
-        <span className="font-heading text-xl sm:text-2xl text-maroon font-bold">:</span>
-        <TimeUnit value={timeLeft.seconds} label={t(translations.seconds)} />
-      </div>
-      <p className="font-body text-xs sm:text-sm text-saffron font-medium">{t(translations.enrollBefore)}</p>
-    </div>
-  );
+  return;
 };
 export default CountdownTimer;
