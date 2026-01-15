@@ -464,9 +464,14 @@ const translations = {
     sa: '₹७,०००'
   },
   groupBatch: {
-    en: 'GROUP SANATAN BATCH',
-    hi: 'ग्रुप सनातन बैच',
-    sa: 'समूहसनातनवर्गः'
+    en: 'GROUP BATCH',
+    hi: 'ग्रुप बैच',
+    sa: 'समूहवर्गः'
+  },
+  groupStudents: {
+    en: '60+ students per batch',
+    hi: '60+ छात्र प्रति बैच',
+    sa: '६०+ छात्राः प्रतिवर्गम्'
   },
   groupFeature1: {
     en: 'Larger peer group',
@@ -1309,9 +1314,12 @@ const PricingSection = () => {
                 <div className="h-1.5 bg-gradient-to-r from-slate-300 to-slate-400" />
                 
                 <CardContent className="p-4 sm:p-5 md:p-6">
-                  <h3 className="font-heading text-base sm:text-lg font-bold text-foreground mb-4 sm:mb-5">
+                  <h3 className="font-heading text-base sm:text-lg font-bold text-foreground mb-1">
                     {t(translations.groupBatch)}
                   </h3>
+                  <p className="font-body text-muted-foreground text-xs sm:text-sm mb-4 sm:mb-5">
+                    {t(translations.groupStudents)}
+                  </p>
                   
                   <ul className="space-y-2.5 sm:space-y-3 mb-5 sm:mb-6">
                     <li className="flex items-center gap-2.5 p-2.5 sm:p-3 bg-muted/50 rounded-lg">
