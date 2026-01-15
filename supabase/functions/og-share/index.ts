@@ -199,7 +199,7 @@ Deno.serve(async (req) => {
   <meta property="og:image" content="${image}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:type" content="${image.endsWith('.png') ? 'image/png' : 'image/jpeg'}">
   <meta property="og:url" content="${pageUrl}">
   <meta property="og:locale" content="${locale}">
   
