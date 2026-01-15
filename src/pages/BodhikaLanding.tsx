@@ -82,9 +82,9 @@ const slideInRight = {
 const translations = {
   // Meta
   metaTitle: {
-    en: 'Bodhika - 1-Year Sanatan Dharma Program for Children | Shastrakulam',
-    hi: 'बोधिका - बच्चों के लिए 1 वर्षीय सनातन धर्म कार्यक्रम | शास्त्रकुलम्',
-    sa: 'बोधिका - बालकानां कृते एकवर्षीयं सनातनधर्मकार्यक्रमम् | शास्त्रकुलम्'
+    en: 'Bodhika - 6-Month Sanatan Dharma Program for Children | Shastrakulam',
+    hi: 'बोधिका - बच्चों के लिए 6 माह सनातन धर्म कार्यक्रम | शास्त्रकुलम्',
+    sa: 'बोधिका - बालकानां कृते षण्मासीयं सनातनधर्मकार्यक्रमम् | शास्त्रकुलम्'
   },
   metaDescription: {
     en: 'Build Sanskar, self-discipline, emotional balance, and cultural confidence in children aged 6-12 through authentic Shastric wisdom. March 2026 batch - Only 70 seats.',
@@ -99,9 +99,9 @@ const translations = {
     sa: 'किं भवतः सन्तानः मेधावी अस्ति — किन्तु ध्यानम् अनुशासनं सनातनसंस्कारांश्च त्यजति?'
   },
   heroSubheadline: {
-    en: 'Bodhika is a 1-Year Live Sanatan Dharma program that builds Sanskar, self-discipline, emotional balance, and cultural confidence in children aged 6–12 — through authentic Shastric wisdom taught in a child-friendly, modern way.',
-    hi: 'बोधिका एक 1 वर्षीय लाइव सनातन धर्म कार्यक्रम है जो 6-12 वर्ष के बच्चों में संस्कार, आत्म-अनुशासन, भावनात्मक संतुलन और सांस्कृतिक आत्मविश्वास का निर्माण करता है — प्रामाणिक शास्त्रीय ज्ञान के माध्यम से जो बाल-अनुकूल, आधुनिक तरीके से पढ़ाया जाता है।',
-    sa: 'बोधिका एकवर्षीयं जीवन्तसनातनधर्मकार्यक्रमम् अस्ति यत् ६-१२ वर्षीयेषु बालकेषु संस्कारम् आत्मानुशासनं भावनात्मकसन्तुलनं सांस्कृतिकात्मविश्वासं च निर्माति — प्रामाणिकशास्त्रीयज्ञानेन यत् बालोपयुक्तआधुनिकप्रकारेण शिक्ष्यते।'
+    en: 'Bodhika is a 6-Month Live Sanatan Dharma program that builds Sanskar, self-discipline, emotional balance, and cultural confidence in children aged 6–12 — through authentic Shastric wisdom taught in a child-friendly, modern way.',
+    hi: 'बोधिका एक 6 माह का लाइव सनातन धर्म कार्यक्रम है जो 6-12 वर्ष के बच्चों में संस्कार, आत्म-अनुशासन, भावनात्मक संतुलन और सांस्कृतिक आत्मविश्वास का निर्माण करता है — प्रामाणिक शास्त्रीय ज्ञान के माध्यम से जो बाल-अनुकूल, आधुनिक तरीके से पढ़ाया जाता है।',
+    sa: 'बोधिका षण्मासीयं जीवन्तसनातनधर्मकार्यक्रमम् अस्ति यत् ६-१२ वर्षीयेषु बालकेषु संस्कारम् आत्मानुशासनं भावनात्मकसन्तुलनं सांस्कृतिकात्मविश्वासं च निर्माति — प्रामाणिकशास्त्रीयज्ञानेन यत् बालोपयुक्तआधुनिकप्रकारेण शिक्ष्यते।'
   },
   heroOutcome1: {
     en: 'Sanskar deeply rooted in Sanatan Dharma',
@@ -265,9 +265,9 @@ const translations = {
     sa: 'कथाभिः चिन्तनेन चर्चया दैनिकाभ्यासेन च।'
   },
   quickFact1: {
-    en: '12-Month Live Program',
-    hi: '12 महीने का लाइव कार्यक्रम',
-    sa: '१२-मासजीवन्तकार्यक्रमः'
+    en: '6-Month Live Program',
+    hi: '6 महीने का लाइव कार्यक्रम',
+    sa: '६-मासजीवन्तकार्यक्रमः'
   },
   quickFact2: {
     en: 'Live + Recorded Sessions',
@@ -478,9 +478,9 @@ const translations = {
     sa: '₹६,०००'
   },
   perYear: {
-    en: '/ year',
-    hi: '/ वर्ष',
-    sa: '/ वर्षम्'
+    en: '/ 6 months',
+    hi: '/ 6 माह',
+    sa: '/ षण्मासम्'
   },
   talkToCounselor: {
     en: 'Talk to Counselor',
