@@ -40,6 +40,7 @@ import heroGurukul from '@/assets/bodhika/hero-gurukul.jpg';
 import onlineLearning from '@/assets/bodhika/online-learning.jpg';
 import CountdownTimer from '@/components/bodhika/CountdownTimer';
 import founderImage from '@/assets/bodhika/founder-yogesh.jpg';
+import SyllabusSection from '@/components/bodhika/SyllabusSection';
 
 // WhatsApp number for counselor
 const WHATSAPP_NUMBER = '919674916567';
@@ -1628,6 +1629,7 @@ const BodhikaLanding = () => {
         <ParentPainSection />
         <WhatIsBodhikaSection />
         <TransformationSection />
+        <SyllabusSection />
         <LearningSection />
         <LearningExperienceSection />
         <PricingSection />
