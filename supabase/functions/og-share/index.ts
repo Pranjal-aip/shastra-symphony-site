@@ -9,16 +9,16 @@ type Language = 'en' | 'hi' | 'sa'
 
 const bodhikaOG = {
   en: {
-    title: 'Bodhika – One Year Vedic Certificate Course',
-    description: 'A transformative one-year certificate course in Vedic education for children and teens. Sanskrit, Bhagavad Gita, Ramayana, Mahabharata, and more.',
+    title: 'Bodhika – 6-Month Sanatan Dharma Program for Children',
+    description: 'Learning that keeps children rooted. Sanatan values for growing minds aged 6-12 years. Build Sanskar, self-discipline & cultural confidence.',
   },
   hi: {
-    title: 'बोधिका – एक वर्षीय वैदिक प्रमाणपत्र पाठ्यक्रम',
-    description: 'बच्चों और किशोरों के लिए वैदिक शिक्षा में एक परिवर्तनकारी एक वर्षीय प्रमाणपत्र पाठ्यक्रम। संस्कृत, भगवद्गीता, रामायण, महाभारत और बहुत कुछ।',
+    title: 'बोधिका – बच्चों के लिए 6 माह सनातन धर्म कार्यक्रम',
+    description: 'शिक्षा जो बच्चों को जड़ों से जोड़े। 6-12 वर्ष के बच्चों के लिए सनातन संस्कार। संस्कार, आत्म-अनुशासन और सांस्कृतिक आत्मविश्वास का निर्माण।',
   },
   sa: {
-    title: 'बोधिका – एकवर्षीयं वैदिकप्रमाणपत्रपाठ्यक्रमम्',
-    description: 'बालकानां किशोराणां च कृते वैदिकशिक्षायां परिवर्तनकारी एकवर्षीयं प्रमाणपत्रपाठ्यक्रमम्। संस्कृतं भगवद्गीता रामायणं महाभारतं च।',
+    title: 'बोधिका – बालकानां कृते षण्मासीयं सनातनधर्मकार्यक्रमम्',
+    description: 'शिक्षा या बालकान् मूलेषु स्थापयति। ६-१२ वर्षीयेभ्यः सनातनसंस्काराः। संस्कारं आत्मानुशासनं सांस्कृतिकात्मविश्वासं च।',
   },
 }
 
