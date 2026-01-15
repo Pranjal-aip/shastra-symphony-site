@@ -453,9 +453,9 @@ const translations = {
     sa: 'व्यक्तिगतप्रगतिअनुसरणम्'
   },
   focusedPrice: {
-    en: '₹15,000',
-    hi: '₹15,000',
-    sa: '₹१५,०००'
+    en: '₹6,000',
+    hi: '₹6,000',
+    sa: '₹६,०००'
   },
   groupBatch: {
     en: 'GROUP SANATAN BATCH',
