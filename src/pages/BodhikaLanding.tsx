@@ -473,9 +473,9 @@ const translations = {
     sa: 'सामुदायिकशिक्षणम्'
   },
   groupPrice: {
-    en: '₹6,000',
-    hi: '₹6,000',
-    sa: '₹६,०००'
+    en: '₹3,000',
+    hi: '₹3,000',
+    sa: '₹३,०००'
   },
   perYear: {
     en: '/ 6 months',
