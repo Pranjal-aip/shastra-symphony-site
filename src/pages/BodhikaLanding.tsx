@@ -126,9 +126,9 @@ const translations = {
     sa: 'सार्थकश्लोकमन्त्राणां दैनिकाभ्यासः'
   },
   heroUrgency: {
-    en: 'March 2026 Batch | Limited Seats',
-    hi: 'मार्च 2026 बैच | सीमित सीटें',
-    sa: 'मार्च २०२६ वर्गः | सीमितासनानि'
+    en: '28 March 2026 Batch | Limited Seats',
+    hi: '28 मार्च 2026 बैच | सीमित सीटें',
+    sa: '२८ मार्च २०२६ वर्गः | सीमितासनानि'
   },
   heroUrgencySubtext: {
     en: 'Small groups • Personal guidance • Admissions close when seats fill',
