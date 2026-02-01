@@ -5,9 +5,9 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 const translations = {
   classesStart: {
-    en: 'Classes Start 7 March 2026',
-    hi: '7 मार्च 2026 से कक्षाएं',
-    sa: '७ मार्च २०२६ तः कक्षाः'
+    en: 'Classes Start 28 March · Evening',
+    hi: '28 मार्च से शाम को कक्षाएं',
+    sa: '२८ मार्च तः सायंकाले कक्षाः'
   },
   enrollNow: {
     en: 'Enroll Now',
