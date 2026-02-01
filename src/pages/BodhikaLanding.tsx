@@ -660,14 +660,14 @@ const HeroSection = () => {
               variants={scaleIn}
               className="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300/50 rounded-xl sm:rounded-2xl p-3 sm:p-4 mb-5 sm:mb-6 shadow-lg"
             >
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shrink-0 shadow-md">
-                  <Calendar className="h-5 w-5 sm:h-5.5 sm:w-5.5 text-white" />
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center shrink-0 shadow-md">
+                    <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
+                  </div>
+                  <span className="font-heading font-bold text-red-700 text-sm sm:text-lg leading-tight">{t(translations.heroUrgency)}</span>
                 </div>
-                <div>
-                  <span className="font-heading font-bold text-red-700 text-base sm:text-lg block leading-tight">{t(translations.heroUrgency)}</span>
-                  <p className="font-body text-[11px] sm:text-xs text-red-600/90">{t(translations.heroUrgencySubtext)}</p>
-                </div>
+                <p className="font-body text-[10px] sm:text-xs text-red-600/90 pl-11 sm:pl-0">{t(translations.heroUrgencySubtext)}</p>
               </div>
             </motion.div>
 
