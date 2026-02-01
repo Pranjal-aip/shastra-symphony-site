@@ -45,7 +45,7 @@ const CountdownTimer = () => {
     language
   } = useLanguage();
   const t = (obj: Record<string, string>) => obj[language] || obj.en;
-  const targetDate = new Date('2026-03-07T00:00:00');
+  const targetDate = new Date('2026-03-28T00:00:00');
   const calculateTimeLeft = (): TimeLeft => {
     const difference = targetDate.getTime() - new Date().getTime();
     if (difference <= 0) {
@@ -88,6 +88,35 @@ const CountdownTimer = () => {
       </motion.div>
       <span className="font-body text-muted-foreground text-[10px] sm:text-xs mt-1">{label}</span>
     </div>;
-  return;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="bg-gradient-to-br from-cream/50 to-white/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-saffron/20 shadow-lg"
+    >
+      <div className="flex items-center justify-center gap-2 mb-4">
+        <Clock className="h-5 w-5 text-maroon" />
+        <h3 className="font-heading text-lg sm:text-xl text-maroon font-semibold">
+          {t(translations.classesStart)}
+        </h3>
+      </div>
+      
+      <div className="flex justify-center gap-2 sm:gap-4">
+        <TimeUnit value={timeLeft.days} label={t(translations.days)} />
+        <span className="text-2xl sm:text-3xl text-maroon font-bold self-start mt-3">:</span>
+        <TimeUnit value={timeLeft.hours} label={t(translations.hours)} />
+        <span className="text-2xl sm:text-3xl text-maroon font-bold self-start mt-3">:</span>
+        <TimeUnit value={timeLeft.minutes} label={t(translations.minutes)} />
+        <span className="text-2xl sm:text-3xl text-maroon font-bold self-start mt-3">:</span>
+        <TimeUnit value={timeLeft.seconds} label={t(translations.seconds)} />
+      </div>
+      
+      <p className="text-center mt-4 font-body text-sm text-muted-foreground">
+        {t(translations.enrollBefore)}
+      </p>
+    </motion.div>
+  );
 };
 export default CountdownTimer;

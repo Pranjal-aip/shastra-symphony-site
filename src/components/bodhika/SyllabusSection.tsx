@@ -360,6 +360,184 @@ const SyllabusSection = () => {
     if (language === 'sa') return item.nameSa;
     return item.name;
   };
-  return;
+  return (
+    <section className="py-16 sm:py-20 bg-gradient-to-b from-cream/30 via-white to-cream/30">
+      <div className="container mx-auto px-4 max-w-5xl">
+        {/* Section Header */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+          className="text-center mb-10"
+        >
+          <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-maroon mb-4">
+            {t(syllabusTranslations.sectionTitle)}
+          </h2>
+          <p className="font-body text-muted-foreground max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
+            {t(syllabusTranslations.sectionIntro)}
+          </p>
+        </motion.div>
+
+        {/* Syllabus Accordion */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={staggerContainer}
+        >
+          <Accordion type="single" collapsible className="space-y-3">
+            {/* Module 1: Stories */}
+            <AccordionItem value="stories" className="border-none">
+              <AccordionTrigger className={`px-4 sm:px-6 py-4 rounded-xl bg-gradient-to-r ${moduleData[0].color} text-white hover:no-underline hover:opacity-95 transition-opacity shadow-md`}>
+                <div className="flex items-center gap-3">
+                  <BookOpen className="h-5 w-5" />
+                  <span className="font-heading font-semibold text-sm sm:text-base">{t(syllabusTranslations.module1Title)}</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className={`px-4 sm:px-6 pb-5 bg-gradient-to-br ${moduleData[0].bgColor}`}>
+                <ul className="pt-3 space-y-2">
+                  {[syllabusTranslations.module1Point1, syllabusTranslations.module1Point2, syllabusTranslations.module1Point3].map((point, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
+                      <span className="font-body text-sm text-foreground">{t(point)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Module 2: God, Dharma & Karma */}
+            <AccordionItem value="dharma" className="border-none">
+              <AccordionTrigger className={`px-4 sm:px-6 py-4 rounded-xl bg-gradient-to-r ${moduleData[1].color} text-white hover:no-underline hover:opacity-95 transition-opacity shadow-md`}>
+                <div className="flex items-center gap-3">
+                  <Heart className="h-5 w-5" />
+                  <span className="font-heading font-semibold text-sm sm:text-base">{t(syllabusTranslations.module2Title)}</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className={`px-4 sm:px-6 pb-5 bg-gradient-to-br ${moduleData[1].bgColor}`}>
+                <ul className="pt-3 space-y-2">
+                  {[syllabusTranslations.module2Point1, syllabusTranslations.module2Point2, syllabusTranslations.module2Point3, syllabusTranslations.module2Point4].map((point, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-rose-600 mt-0.5 shrink-0" />
+                      <span className="font-body text-sm text-foreground">{t(point)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Module 3: Etiquette & Nationalism */}
+            <AccordionItem value="etiquette" className="border-none">
+              <AccordionTrigger className={`px-4 sm:px-6 py-4 rounded-xl bg-gradient-to-r ${moduleData[2].color} text-white hover:no-underline hover:opacity-95 transition-opacity shadow-md`}>
+                <div className="flex items-center gap-3">
+                  <Flag className="h-5 w-5" />
+                  <span className="font-heading font-semibold text-sm sm:text-base">{t(syllabusTranslations.module3Title)}</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className={`px-4 sm:px-6 pb-5 bg-gradient-to-br ${moduleData[2].bgColor}`}>
+                <ul className="pt-3 space-y-2">
+                  {[syllabusTranslations.module3Point1, syllabusTranslations.module3Point2, syllabusTranslations.module3Point3].map((point, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-blue-600 mt-0.5 shrink-0" />
+                      <span className="font-body text-sm text-foreground">{t(point)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Module 4: Āryudeśaratnamālā */}
+            <AccordionItem value="arya" className="border-none">
+              <AccordionTrigger className={`px-4 sm:px-6 py-4 rounded-xl bg-gradient-to-r ${moduleData[3].color} text-white hover:no-underline hover:opacity-95 transition-opacity shadow-md`}>
+                <div className="flex items-center gap-3">
+                  <Sparkles className="h-5 w-5" />
+                  <span className="font-heading font-semibold text-sm sm:text-base">{t(syllabusTranslations.module4Title)}</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className={`px-4 sm:px-6 pb-5 bg-gradient-to-br ${moduleData[3].bgColor}`}>
+                <div className="pt-2 space-y-2">
+                  {aryaValues.map((value, idx) => (
+                    <ValueRow key={idx} value={value} language={language} />
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Module 5: Time & Nature */}
+            <AccordionItem value="time" className="border-none">
+              <AccordionTrigger className={`px-4 sm:px-6 py-4 rounded-xl bg-gradient-to-r ${moduleData[4].color} text-white hover:no-underline hover:opacity-95 transition-opacity shadow-md`}>
+                <div className="flex items-center gap-3">
+                  <Calendar className="h-5 w-5" />
+                  <span className="font-heading font-semibold text-sm sm:text-base">{t(syllabusTranslations.module5Title)}</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className={`px-4 sm:px-6 pb-5 bg-gradient-to-br ${moduleData[4].bgColor}`}>
+                <p className="pt-2 text-xs text-muted-foreground italic mb-3">{t(syllabusTranslations.module5Subtitle)}</p>
+                <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
+                  {timeConcepts.map((item, idx) => (
+                    <div key={idx} className="flex flex-col items-center p-2 bg-white/80 rounded-lg border border-emerald-100">
+                      <span className="text-xl mb-1">{item.icon}</span>
+                      <span className="font-body text-xs text-center text-foreground">{getTimeName(item)}</span>
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+
+            {/* Module 6: Vedic Literature */}
+            <AccordionItem value="vedic" className="border-none">
+              <AccordionTrigger className={`px-4 sm:px-6 py-4 rounded-xl bg-gradient-to-r ${moduleData[5].color} text-white hover:no-underline hover:opacity-95 transition-opacity shadow-md`}>
+                <div className="flex items-center gap-3">
+                  <ScrollText className="h-5 w-5" />
+                  <span className="font-heading font-semibold text-sm sm:text-base">{t(syllabusTranslations.module6Title)}</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent className={`px-4 sm:px-6 pb-5 bg-gradient-to-br ${moduleData[5].bgColor}`}>
+                <ul className="pt-3 space-y-2">
+                  {[syllabusTranslations.module6Point1, syllabusTranslations.module6Point2, syllabusTranslations.module6Point3].map((point, idx) => (
+                    <li key={idx} className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-maroon mt-0.5 shrink-0" />
+                      <span className="font-body text-sm text-foreground">{t(point)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </motion.div>
+
+        {/* Teaching Philosophy Box */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="mt-10"
+        >
+          <Card className="bg-gradient-to-br from-saffron/10 via-cream to-maroon/5 border-saffron/30 shadow-lg">
+            <CardContent className="p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-saffron to-maroon flex items-center justify-center">
+                  <Leaf className="h-5 w-5 text-white" />
+                </div>
+                <h3 className="font-heading text-lg font-bold text-maroon">
+                  {t(syllabusTranslations.teachingTitle)}
+                </h3>
+              </div>
+              <div className="grid sm:grid-cols-3 gap-3">
+                {[syllabusTranslations.teachingPoint1, syllabusTranslations.teachingPoint2, syllabusTranslations.teachingPoint3].map((point, idx) => (
+                  <div key={idx} className="flex items-center gap-2 bg-white/60 rounded-lg p-3 border border-saffron/20">
+                    <Star className="h-4 w-4 text-saffron shrink-0" />
+                    <span className="font-body text-sm text-foreground">{t(point)}</span>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
+    </section>
+  );
 };
 export default SyllabusSection;
