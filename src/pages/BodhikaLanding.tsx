@@ -158,9 +158,9 @@ const translations = {
     sa: 'निःशुल्कमार्गदर्शनम् • न बाध्यता • सीमितासनानि'
   },
   reserveSeat: {
-    en: 'Reserve Seat For March Batch',
-    hi: 'मार्च बैच के लिए सीट आरक्षित करें',
-    sa: 'मार्चवर्गाय आसनम् आरक्षयत'
+    en: 'Enroll Now',
+    hi: 'अभी नामांकन करें',
+    sa: 'अधुना नामाङ्कयत'
   },
   bookFreeOrientation: {
     en: 'Book Free Orientation',
