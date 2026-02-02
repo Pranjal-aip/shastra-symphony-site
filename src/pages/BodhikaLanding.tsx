@@ -32,7 +32,8 @@ import {
   Music,
   Play,
   ChevronRight,
-  ArrowDown
+  ArrowDown,
+  Target
 } from 'lucide-react';
 
 // Import images
@@ -41,6 +42,10 @@ import onlineLearning from '@/assets/bodhika/online-learning.jpg';
 import CountdownTimer from '@/components/bodhika/CountdownTimer';
 import founderImage from '@/assets/bodhika/founder-yogesh.jpg';
 import SyllabusSection from '@/components/bodhika/SyllabusSection';
+import ProgramStructureSection from '@/components/bodhika/ProgramStructureSection';
+import ValueStackSection from '@/components/bodhika/ValueStackSection';
+import ClassFormatBlock from '@/components/bodhika/ClassFormatBlock';
+import ObjectionCrusherFAQ from '@/components/bodhika/ObjectionCrusherFAQ';
 
 // WhatsApp number for counselor
 const WHATSAPP_NUMBER = '919674916567';
@@ -80,50 +85,46 @@ const slideInRight = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.5 } }
 };
 
-// Translations - Updated with Sanatan focus
+// Translations - Updated with new content
 const translations = {
   // Meta
   metaTitle: {
-    en: 'Bodhika - 6-Month Sanatan Dharma Program for Children | Shastrakulam',
-    hi: 'बोधिका - बच्चों के लिए 6 माह सनातन धर्म कार्यक्रम | शास्त्रकुलम्',
-    sa: 'बोधिका - बालकानां कृते षण्मासीयं सनातनधर्मकार्यक्रमम् | शास्त्रकुलम्'
+    en: 'Bodhika - 6-Month Character Development Program for Children | Shastrakulam',
+    hi: 'बोधिका - बच्चों के लिए 6 माह चरित्र विकास कार्यक्रम | शास्त्रकुलम्',
+    sa: 'बोधिका - बालकानां कृते षण्मासीयं चरित्रविकासकार्यक्रमम् | शास्त्रकुलम्'
   },
   metaDescription: {
-    en: 'Build Sanskar, self-discipline, emotional balance, and cultural confidence in children aged 6-12 through authentic Shastric wisdom. March 2026 batch - Limited seats.',
-    hi: '6-12 वर्ष के बच्चों में संस्कार, आत्म-अनुशासन, भावनात्मक संतुलन और सांस्कृतिक आत्मविश्वास का निर्माण करें। मार्च 2026 बैच - सीमित सीटें।',
-    sa: '६-१२ वर्षीयेषु बालकेषु संस्कारं आत्मानुशासनं भावनात्मकसन्तुलनं सांस्कृतिकात्मविश्वासं च निर्मातुं प्रामाणिकशास्त्रीयज्ञानेन।'
+    en: 'Build discipline, emotional balance, respect, and moral values in children aged 6-12 through Sanatan life principles. March 2026 batch - Limited seats.',
+    hi: '6-12 वर्ष के बच्चों में अनुशासन, भावनात्मक संतुलन, सम्मान और नैतिक मूल्यों का निर्माण करें। मार्च 2026 बैच - सीमित सीटें।',
+    sa: '६-१२ वर्षीयेषु बालकेषु अनुशासनं भावनात्मकसन्तुलनं आदरं नैतिकमूल्यानि च निर्मातुं।'
   },
 
-  // Hero Section
+  // Hero Section - NEW CONTENT
   heroHeadline: {
-    en: 'Is Your Child Growing Up Smart — But Losing Focus, Discipline & Sanatan Values?',
-    hi: 'क्या आपका बच्चा होशियार तो है — लेकिन ध्यान, अनुशासन और सनातन संस्कार खो रहा है?',
-    sa: 'किं भवतः सन्तानः मेधावी अस्ति — किन्तु ध्यानम् अनुशासनं सनातनसंस्कारांश्च त्यजति?'
+    en: 'Raise a Calm, Disciplined & Value-Rooted Child (Ages 6–12)',
+    hi: 'एक शांत, अनुशासित और मूल्य-निहित बच्चा पालें (आयु 6–12)',
+    sa: 'शान्तं अनुशासितं मूल्यमूलितं च बालकं पालयत (वयः ६–१२)'
   },
   heroSubheadline: {
-    en: 'Bodhika is a 6-Month Live Sanatan Dharma program that builds Sanskar, self-discipline, emotional balance, and cultural confidence in children aged 6–12 — through authentic Shastric wisdom taught in a child-friendly, modern way.',
-    hi: 'बोधिका एक 6 माह का लाइव सनातन धर्म कार्यक्रम है जो 6-12 वर्ष के बच्चों में संस्कार, आत्म-अनुशासन, भावनात्मक संतुलन और सांस्कृतिक आत्मविश्वास का निर्माण करता है — प्रामाणिक शास्त्रीय ज्ञान के माध्यम से जो बाल-अनुकूल, आधुनिक तरीके से पढ़ाया जाता है।',
-    sa: 'बोधिका षण्मासीयं जीवन्तसनातनधर्मकार्यक्रमम् अस्ति यत् ६-१२ वर्षीयेषु बालकेषु संस्कारम् आत्मानुशासनं भावनात्मकसन्तुलनं सांस्कृतिकात्मविश्वासं च निर्माति — प्रामाणिकशास्त्रीयज्ञानेन यत् बालोपयुक्तआधुनिकप्रकारेण शिक्ष्यते।'
+    en: 'Bodhika is a 6-month live character development program that builds discipline, emotional balance, respect, and moral values in children using Sanatan life principles — in a child-friendly modern format.',
+    hi: 'बोधिका 6 माह का लाइव चरित्र विकास कार्यक्रम है जो बच्चों में अनुशासन, भावनात्मक संतुलन, सम्मान और नैतिक मूल्यों का निर्माण करता है — सनातन जीवन सिद्धांतों का उपयोग करते हुए — बाल-अनुकूल आधुनिक प्रारूप में।',
+    sa: 'बोधिका षण्मासीयं जीवन्तचरित्रविकासकार्यक्रमम् अस्ति यत् बालकेषु अनुशासनं भावनात्मकसन्तुलनं आदरं नैतिकमूल्यानि च निर्माति — सनातनजीवनसिद्धान्तैः — बालोपयुक्तआधुनिकप्रारूपेण।'
   },
+  // NEW 3 Benefit Bullets
   heroOutcome1: {
-    en: 'Sanskar deeply rooted in Sanatan Dharma',
-    hi: 'सनातन धर्म में गहराई से निहित संस्कार',
-    sa: 'सनातनधर्मे गहनमूलितसंस्कारः'
+    en: 'Improves focus, discipline & daily behavior',
+    hi: 'ध्यान, अनुशासन और दैनिक व्यवहार में सुधार',
+    sa: 'ध्यानम् अनुशासनं दैनिकव्यवहारं च सुधारयति'
   },
   heroOutcome2: {
-    en: 'Respect for parents, elders & Gurus',
-    hi: 'माता-पिता, बड़ों और गुरुओं के प्रति सम्मान',
-    sa: 'पितृभ्यः वृद्धेभ्यः गुरुभ्यश्च आदरः'
+    en: 'Builds emotional control & respectful habits',
+    hi: 'भावनात्मक नियंत्रण और सम्मानजनक आदतें बनाता है',
+    sa: 'भावनात्मकनियन्त्रणम् आदरपूर्णाभ्यासांश्च निर्माति'
   },
   heroOutcome3: {
-    en: 'Calm, focused, disciplined behaviour',
-    hi: 'शांत, एकाग्र, अनुशासित व्यवहार',
-    sa: 'शान्तः एकाग्रः अनुशासितव्यवहारश्च'
-  },
-  heroOutcome4: {
-    en: 'Daily practice of meaningful Shlokas & Mantras',
-    hi: 'सार्थक श्लोकों और मंत्रों का दैनिक अभ्यास',
-    sa: 'सार्थकश्लोकमन्त्राणां दैनिकाभ्यासः'
+    en: 'Develops strong cultural identity & values',
+    hi: 'मजबूत सांस्कृतिक पहचान और मूल्यों का विकास',
+    sa: 'दृढसांस्कृतिकपरिचयं मूल्यानि च विकासयति'
   },
   heroUrgency: {
     en: '28 March 2026 Batch | Limited Seats',
@@ -135,10 +136,16 @@ const translations = {
     hi: 'छोटे समूह • व्यक्तिगत मार्गदर्शन • सीटें भरने पर प्रवेश बंद',
     sa: 'लघुसमूहाः • व्यक्तिगतमार्गदर्शनम् • आसनपूर्णे प्रवेशः बन्धः'
   },
-  heroCTA: {
-    en: 'Talk to a Sanatan Education Counselor on WhatsApp',
-    hi: 'WhatsApp पर सनातन शिक्षा परामर्शदाता से बात करें',
-    sa: 'WhatsApp-द्वारा सनातनशिक्षापरामर्शकेन सह वदत'
+  // NEW CTA Buttons
+  heroPrimaryCTA: {
+    en: 'Book Free Parent Orientation',
+    hi: 'निःशुल्क अभिभावक ओरिएंटेशन बुक करें',
+    sa: 'निःशुल्कपितृपरिचयं आरक्षयत'
+  },
+  heroSecondaryCTA: {
+    en: 'Talk to Counselor on WhatsApp',
+    hi: 'WhatsApp पर परामर्शदाता से बात करें',
+    sa: 'WhatsApp-द्वारा परामर्शकेन सह वदत'
   },
   heroCTAShort: {
     en: 'Talk to Counselor',
@@ -150,10 +157,15 @@ const translations = {
     hi: 'निःशुल्क मार्गदर्शन • कोई बाध्यता नहीं • सीमित सीटें',
     sa: 'निःशुल्कमार्गदर्शनम् • न बाध्यता • सीमितासनानि'
   },
-  enrollNow: {
-    en: 'Enroll Now',
-    hi: 'अभी नामांकन करें',
-    sa: 'अधुना नामाङ्कनं कुरुत'
+  reserveSeat: {
+    en: 'Reserve Seat For March Batch',
+    hi: 'मार्च बैच के लिए सीट आरक्षित करें',
+    sa: 'मार्चवर्गाय आसनम् आरक्षयत'
+  },
+  bookFreeOrientation: {
+    en: 'Book Free Orientation',
+    hi: 'निःशुल्क ओरिएंटेशन बुक करें',
+    sa: 'निःशुल्कपरिचयं आरक्षयत'
   },
 
   // Trust Strip
@@ -428,11 +440,16 @@ const translations = {
     sa: 'न परीक्षा • न प्रतिस्पर्धा • न बलात्कारः'
   },
 
-  // Pricing Section
+  // Pricing Section - UPDATED
   pricingHeadline: {
-    en: 'Choose the Right Batch for Your Child',
-    hi: 'अपने बच्चे के लिए सही बैच चुनें',
-    sa: 'स्वसन्ताने समुचितवर्गं चिनुत'
+    en: 'Choose The Right Learning Experience For Your Child',
+    hi: 'अपने बच्चे के लिए सही शिक्षण अनुभव चुनें',
+    sa: 'स्वसन्ताने समुचितशिक्षणानुभवं चिनुत'
+  },
+  pricingSubline: {
+    en: 'Same curriculum — Different attention levels',
+    hi: 'समान पाठ्यक्रम — विभिन्न ध्यान स्तर',
+    sa: 'समानपाठ्यक्रमः — विभिन्नावधानस्तराः'
   },
   focusedBatch: {
     en: '⭐ FOCUSED BATCH',
@@ -440,9 +457,9 @@ const translations = {
     sa: '⭐ केन्द्रितवर्गः'
   },
   focusedRecommended: {
-    en: 'Recommended',
-    hi: 'अनुशंसित',
-    sa: 'अनुशंसितः'
+    en: 'MOST RECOMMENDED FOR SERIOUS PARENTS',
+    hi: 'गंभीर माता-पिता के लिए सर्वाधिक अनुशंसित',
+    sa: 'गम्भीरपितृभ्यः सर्वाधिकानुशंसितः'
   },
   focusedStudents: {
     en: '20 children only',
@@ -450,14 +467,19 @@ const translations = {
     sa: 'केवलं २० बालकाः'
   },
   focusedFeature1: {
-    en: 'Deeper guidance & interaction',
-    hi: 'गहन मार्गदर्शन और संवाद',
-    sa: 'गहनमार्गदर्शनं संवादश्च'
-  },
-  focusedFeature2: {
     en: 'Individual progress tracking',
     hi: 'व्यक्तिगत प्रगति ट्रैकिंग',
     sa: 'व्यक्तिगतप्रगतिअनुसरणम्'
+  },
+  focusedFeature2: {
+    en: 'Higher mentor interaction',
+    hi: 'अधिक मेंटर संवाद',
+    sa: 'अधिकगुरुसंवादः'
+  },
+  focusedFeature3: {
+    en: 'Limited seats',
+    hi: 'सीमित सीटें',
+    sa: 'सीमितासनानि'
   },
   focusedPrice: {
     en: '₹7,000',
@@ -507,9 +529,9 @@ const translations = {
 
   // Testimonials Section
   testimonialsHeadline: {
-    en: 'What Sanatan Parents Are Saying',
-    hi: 'सनातन माता-पिता क्या कह रहे हैं',
-    sa: 'सनातनपितरः किं वदन्ति'
+    en: 'What Parents Are Saying',
+    hi: 'माता-पिता क्या कह रहे हैं',
+    sa: 'पितरः किं वदन्ति'
   },
 
   // Founder Section
@@ -534,16 +556,16 @@ const translations = {
     sa: 'संस्थापकः, शास्त्रकुलम्'
   },
 
-  // Final CTA Section
+  // Final CTA Section - UPDATED
   finalHeadline: {
-    en: 'Give Your Child Strong Sanatan Roots — Before the World Shapes Them',
-    hi: 'अपने बच्चे को मजबूत सनातन जड़ें दें — इससे पहले कि दुनिया उन्हें आकार दे',
-    sa: 'स्वसन्तानाय दृढसनातनमूलानि ददातु — संसारः तान् रूपयेत् पूर्वम्'
+    en: 'Give Your Child Strong Values — Before The World Shapes Them',
+    hi: 'अपने बच्चे को मजबूत मूल्य दें — इससे पहले कि दुनिया उन्हें आकार दे',
+    sa: 'स्वसन्तानाय दृढमूल्यानि ददातु — संसारः तान् रूपयेत् पूर्वम्'
   },
   finalBody: {
-    en: 'March 2026 batch is filling fast.\nLimited seats • Small groups • Authentic Sanatan foundation',
-    hi: 'मार्च 2026 बैच तेजी से भर रहा है।\nसीमित सीटें • छोटे समूह • प्रामाणिक सनातन आधार',
-    sa: 'मार्च २०२६ वर्गः शीघ्रं पूर्यते।\nसीमितासनानि • लघुसमूहाः • प्रामाणिकसनातनाधारः'
+    en: 'March 2026 batch filling fast. Limited seats available.',
+    hi: 'मार्च 2026 बैच तेजी से भर रहा है। सीमित सीटें उपलब्ध।',
+    sa: 'मार्च २०२६ वर्गः शीघ्रं पूर्यते। सीमितासनानि उपलभ्यन्ते।'
   },
   finalCTASubtext: {
     en: 'Free guidance • Limited seats',
@@ -552,33 +574,48 @@ const translations = {
   }
 };
 
-// Testimonials data - Updated
+// Testimonials data - UPDATED with specific parents
 const testimonials = [
   {
     quote: {
-      en: 'My child now chants shlokas daily and understands their meaning.',
-      hi: 'मेरा बच्चा अब रोज श्लोक पढ़ता है और उनका अर्थ समझता है।',
-      sa: 'मम सन्तानः इदानीं प्रतिदिनं श्लोकान् पठति तेषाम् अर्थं च जानाति।'
+      en: 'My child now wakes up early, chants shlokas daily and shows calm behavior at home. Discipline has improved a lot.',
+      hi: 'मेरा बच्चा अब जल्दी उठता है, रोज श्लोक पढ़ता है और घर पर शांत व्यवहार दिखाता है। अनुशासन में बहुत सुधार हुआ है।',
+      sa: 'मम सन्तानः इदानीं प्रातः उत्तिष्ठति, प्रतिदिनं श्लोकान् पठति गृहे च शान्तव्यवहारं दर्शयति। अनुशासने बहु सुधारः।'
     },
-    name: 'Parent',
-    location: 'Pune'
-  },
-  {
-    quote: {
-      en: 'There is calmness and discipline at home that wasn\'t there before.',
-      hi: 'घर में एक शांति और अनुशासन है जो पहले नहीं था।',
-      sa: 'गृहे शान्तिः अनुशासनं च अस्ति यत् पूर्वं नासीत्।'
+    name: 'Rajesh Sharma',
+    detail: {
+      en: 'Parent of 9-year-old',
+      hi: '9 वर्षीय के अभिभावक',
+      sa: '९-वर्षीयस्य पिता'
     },
-    name: 'Parent',
     location: 'Delhi'
   },
   {
     quote: {
-      en: 'Finally a program that builds values through Sanatan wisdom.',
-      hi: 'आखिरकार एक कार्यक्रम जो सनातन ज्ञान से मूल्यों का निर्माण करता है।',
-      sa: 'अन्ततः एतादृशं कार्यक्रमं यत् सनातनज्ञानेन मूल्यानि निर्माति।'
+      en: 'Earlier my son was restless. After Bodhika he listens better and respects elders.',
+      hi: 'पहले मेरा बेटा बेचैन था। बोधिका के बाद वह बेहतर सुनता है और बड़ों का सम्मान करता है।',
+      sa: 'पूर्वं मम पुत्रः अशान्तः आसीत्। बोधिकानन्तरं सः श्रेष्ठं शृणोति वृद्धांश्च आदरति।'
     },
-    name: 'Parent',
+    name: 'Anita Verma',
+    detail: {
+      en: 'Parent of 8-year-old',
+      hi: '8 वर्षीय के अभिभावक',
+      sa: '८-वर्षीयस्य माता'
+    },
+    location: 'Pune'
+  },
+  {
+    quote: {
+      en: 'Finally a values-based program that teaches children without fear or pressure.',
+      hi: 'आखिरकार एक मूल्य-आधारित कार्यक्रम जो बच्चों को बिना डर या दबाव के सिखाता है।',
+      sa: 'अन्ततः मूल्याधारितकार्यक्रमं यत् बालकान् भयेन दबावेन वा विना शिक्षयति।'
+    },
+    name: 'Suresh Iyer',
+    detail: {
+      en: 'Parent of 10-year-old',
+      hi: '10 वर्षीय के अभिभावक',
+      sa: '१०-वर्षीयस्य पिता'
+    },
     location: 'Bangalore'
   }
 ];
@@ -639,9 +676,9 @@ const HeroSection = () => {
               {t(translations.heroSubheadline)}
             </motion.p>
 
-            {/* Core Outcomes - Compact on mobile */}
-            <motion.div variants={staggerContainer} className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-2.5 mb-5 sm:mb-6">
-              {[translations.heroOutcome1, translations.heroOutcome2, translations.heroOutcome3, translations.heroOutcome4].map((outcome, idx) => (
+            {/* Core Outcomes - 3 bullets now */}
+            <motion.div variants={staggerContainer} className="grid grid-cols-1 gap-2 sm:gap-2.5 mb-5 sm:mb-6">
+              {[translations.heroOutcome1, translations.heroOutcome2, translations.heroOutcome3].map((outcome, idx) => (
                 <motion.div 
                   key={idx} 
                   variants={fadeInUp}
@@ -671,30 +708,38 @@ const HeroSection = () => {
               </div>
             </motion.div>
 
-            {/* Primary CTA - Large touch target */}
+            {/* Primary CTA - NEW BUTTON TEXT */}
             <motion.div variants={fadeInUp} className="space-y-2.5">
               <Button 
                 size="lg" 
                 onClick={() => document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' })}
                 className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold text-sm sm:text-base px-4 sm:px-6 py-5 sm:py-6 rounded-xl sm:rounded-2xl shadow-xl shadow-saffron/25 hover:shadow-2xl transition-all duration-300 active:scale-[0.98]"
               >
-                <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
-                {t(translations.enrollNow)}
+                <Calendar className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
+                {t(translations.heroPrimaryCTA)}
                 <ArrowDown className="h-4 w-4 sm:h-5 sm:w-5 ml-1" />
               </Button>
-              <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block w-full">
+              
+              {/* Secondary CTA */}
+              <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
                 <Button 
                   size="lg" 
-                  className="w-full bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:from-green-600 hover:via-green-700 hover:to-green-800 text-white font-bold text-sm sm:text-base px-4 sm:px-6 py-5 sm:py-6 rounded-xl sm:rounded-2xl shadow-xl shadow-green-600/25 hover:shadow-2xl transition-all duration-300 active:scale-[0.98]"
+                  variant="outline"
+                  className="w-full border-2 border-green-500 bg-green-50 hover:bg-green-100 text-green-700 font-bold text-sm sm:text-base px-4 sm:px-6 py-4 sm:py-5 rounded-xl sm:rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 active:scale-[0.98]"
                 >
-                  <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
-                  <span className="hidden sm:inline">{t(translations.heroCTA)}</span>
-                  <span className="sm:hidden">{t(translations.heroCTAShort)}</span>
-                  <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 ml-1" />
+                  <MessageCircle className="h-5 w-5 mr-2" />
+                  {t(translations.heroSecondaryCTA)}
                 </Button>
               </a>
-              <p className="font-body text-[11px] sm:text-xs text-muted-foreground text-center">{t(translations.heroCTASubtext)}</p>
             </motion.div>
+
+            {/* CTA Subtext */}
+            <motion.p 
+              variants={fadeIn}
+              className="text-center font-body text-xs sm:text-sm text-muted-foreground mt-3"
+            >
+              {t(translations.heroCTASubtext)}
+            </motion.p>
           </motion.div>
 
           {/* Right: Image - Optimized for mobile */}
@@ -1082,18 +1127,19 @@ const TransformationSection = () => {
 };
 
 // ===============================
-// SECTION 5: WHAT YOUR CHILD WILL LEARN - Enhanced
+// SECTION 5: LEARNING - Enhanced
 // ===============================
 const LearningSection = () => {
   const { language } = useLanguage();
   const t = (obj: Record<string, string>) => obj[language] || obj.en;
 
   const learningItems = [
-    { icon: Heart, title: translations.learn1Title, color: 'from-saffron to-maroon', symbol: '🕉' },
-    { icon: Music, title: translations.learn2Title, subtitle: translations.learn2Subtitle, color: 'from-purple-500 to-purple-600', symbol: '📿' },
-    { icon: Book, title: translations.learn3Title, color: 'from-amber-500 to-amber-600', symbol: '📖' },
-    { icon: Users, title: translations.learn5Title, color: 'from-pink-500 to-pink-600', symbol: '🙏' },
-    { icon: Sparkles, title: translations.learn6Title, color: 'from-blue-500 to-blue-600', symbol: '🌱' }
+    { title: translations.learn1Title, subtitle: null, symbol: '🙏', color: 'from-saffron to-orange-500' },
+    { title: translations.learn2Title, subtitle: translations.learn2Subtitle, symbol: '📿', color: 'from-purple-500 to-purple-600' },
+    { title: translations.learn3Title, subtitle: null, symbol: '📚', color: 'from-blue-500 to-blue-600' },
+    { title: translations.learn4Title, subtitle: null, symbol: '🧘', color: 'from-emerald-500 to-emerald-600' },
+    { title: translations.learn5Title, subtitle: null, symbol: '🙏', color: 'from-pink-500 to-rose-500' },
+    { title: translations.learn6Title, subtitle: null, symbol: '🪔', color: 'from-maroon to-maroon-dark' }
   ];
 
   return (
@@ -1216,6 +1262,9 @@ const LearningExperienceSection = () => {
               </motion.div>
             ))}
           </motion.div>
+
+          {/* Class Format Block */}
+          <ClassFormatBlock />
         </motion.div>
       </div>
     </section>
@@ -1223,7 +1272,7 @@ const LearningExperienceSection = () => {
 };
 
 // ===============================
-// SECTION 7: BATCHES & PRICING - Enhanced
+// SECTION 7: BATCHES & PRICING - UPDATED
 // ===============================
 const PricingSection = () => {
   const { language } = useLanguage();
@@ -1245,21 +1294,25 @@ const PricingSection = () => {
             <Badge className="mb-3 sm:mb-4 bg-maroon/10 text-maroon border-maroon/30 px-3 sm:px-4 py-1.5">
               Pricing Plans
             </Badge>
-            <h2 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-5 sm:mb-6">
+            <h2 className="font-heading text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-2 sm:mb-3">
               {t(translations.pricingHeadline)}
             </h2>
+            <p className="font-body text-muted-foreground text-sm sm:text-base mb-5 sm:mb-6">
+              {t(translations.pricingSubline)}
+            </p>
             <CountdownTimer />
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
-            {/* Focused Batch - Recommended */}
+            {/* Focused Batch - UPDATED with new badge */}
             <motion.div variants={scaleIn}>
               <Card className="border-2 border-saffron shadow-xl relative overflow-hidden h-full bg-white">
-                {/* Recommended ribbon */}
+                {/* MOST RECOMMENDED badge */}
                 <div className="absolute top-3 right-3 z-10">
-                  <Badge className="bg-gradient-to-r from-saffron to-orange-500 text-white border-0 px-2.5 py-1 text-[10px] sm:text-xs font-bold shadow-lg">
-                    <Star className="h-3 w-3 mr-1" />
-                    {t(translations.focusedRecommended)}
+                  <Badge className="bg-gradient-to-r from-saffron to-orange-500 text-white border-0 px-2 py-1 text-[9px] sm:text-[10px] font-bold shadow-lg leading-tight">
+                    <Star className="h-2.5 w-2.5 mr-1" />
+                    <span className="hidden sm:inline">{t(translations.focusedRecommended)}</span>
+                    <span className="sm:hidden">RECOMMENDED</span>
                   </Badge>
                 </div>
                 
@@ -1271,7 +1324,7 @@ const PricingSection = () => {
                   </h3>
                   <p className="font-body text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-5">{t(translations.focusedStudents)}</p>
                   
-                  <ul className="space-y-2.5 sm:space-y-3 mb-5 sm:mb-6">
+                  <ul className="space-y-2 sm:space-y-2.5 mb-5 sm:mb-6">
                     <li className="flex items-center gap-2.5 p-2.5 sm:p-3 bg-saffron/10 rounded-lg">
                       <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-gradient-to-br from-saffron to-saffron-dark flex items-center justify-center shrink-0">
                         <Check className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-white" />
@@ -1284,6 +1337,12 @@ const PricingSection = () => {
                       </div>
                       <span className="font-body text-foreground text-xs sm:text-sm">{t(translations.focusedFeature2)}</span>
                     </li>
+                    <li className="flex items-center gap-2.5 p-2.5 sm:p-3 bg-saffron/10 rounded-lg">
+                      <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-gradient-to-br from-saffron to-saffron-dark flex items-center justify-center shrink-0">
+                        <Check className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-white" />
+                      </div>
+                      <span className="font-body text-foreground text-xs sm:text-sm">{t(translations.focusedFeature3)}</span>
+                    </li>
                   </ul>
                   
                   <div className="text-center mb-5">
@@ -1291,14 +1350,14 @@ const PricingSection = () => {
                     <span className="font-body text-muted-foreground text-xs sm:text-sm ml-1">{t(translations.perYear)}</span>
                   </div>
                   
-                  <div className="flex gap-2">
-                    <a href="https://learn.shastrakulam.com/single-checkout/6953f67fba62d03beeceac42?pid=p1" target="_blank" rel="noopener noreferrer" className="flex-1">
+                  <div className="flex flex-col gap-2">
+                    <a href="https://learn.shastrakulam.com/single-checkout/6953f67fba62d03beeceac42?pid=p1" target="_blank" rel="noopener noreferrer" className="w-full">
                       <Button className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold py-3 sm:py-4 rounded-xl shadow-lg text-xs sm:text-sm active:scale-[0.98] transition-all">
                         <GraduationCap className="h-4 w-4 mr-1.5" />
-                        {t(translations.enrollNow)}
+                        {t(translations.reserveSeat)}
                       </Button>
                     </a>
-                    <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="flex-1">
+                    <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="w-full">
                       <Button variant="outline" className="w-full border-2 border-maroon/30 hover:bg-maroon/5 text-maroon font-bold py-3 sm:py-4 rounded-xl text-xs sm:text-sm active:scale-[0.98] transition-all">
                         <MessageCircle className="h-4 w-4 mr-1.5" />
                         {t(translations.talkToCounselor)}
@@ -1342,14 +1401,14 @@ const PricingSection = () => {
                     <span className="font-body text-muted-foreground text-xs sm:text-sm ml-1">{t(translations.perYear)}</span>
                   </div>
                   
-                  <div className="flex gap-2">
-                    <a href="https://learn.shastrakulam.com/single-checkout/695393a483bcbf4ec9283f27?pid=p1" target="_blank" rel="noopener noreferrer" className="flex-1">
+                  <div className="flex flex-col gap-2">
+                    <a href="https://learn.shastrakulam.com/single-checkout/695393a483bcbf4ec9283f27?pid=p1" target="_blank" rel="noopener noreferrer" className="w-full">
                       <Button className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold py-3 sm:py-4 rounded-xl shadow-lg text-xs sm:text-sm active:scale-[0.98] transition-all">
                         <GraduationCap className="h-4 w-4 mr-1.5" />
-                        {t(translations.enrollNow)}
+                        {t(translations.reserveSeat)}
                       </Button>
                     </a>
-                    <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="flex-1">
+                    <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="w-full">
                       <Button variant="outline" className="w-full border-2 border-foreground/20 hover:bg-muted font-bold py-3 sm:py-4 rounded-xl text-xs sm:text-sm active:scale-[0.98] transition-all">
                         <MessageCircle className="h-4 w-4 mr-1.5" />
                         {t(translations.talkToCounselor)}
@@ -1375,7 +1434,7 @@ const PricingSection = () => {
 };
 
 // ===============================
-// SECTION 8: SOCIAL PROOF - Enhanced
+// SECTION 8: SOCIAL PROOF - UPDATED with specific testimonials
 // ===============================
 const TestimonialsSection = () => {
   const { language } = useLanguage();
@@ -1421,11 +1480,13 @@ const TestimonialsSection = () => {
                     </p>
                     <div className="flex items-center gap-2.5">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-maroon to-maroon-dark flex items-center justify-center text-white font-bold text-sm sm:text-base shadow-md">
-                        {testimonial.name[0]}
+                        {testimonial.name.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>
-                        <p className="font-heading font-semibold text-foreground text-xs sm:text-sm">— {testimonial.name}</p>
-                        <p className="font-body text-[10px] sm:text-xs text-muted-foreground">{testimonial.location}</p>
+                        <p className="font-heading font-semibold text-foreground text-xs sm:text-sm">{testimonial.name}</p>
+                        <p className="font-body text-[10px] sm:text-xs text-muted-foreground">
+                          {t(testimonial.detail)} | {testimonial.location}
+                        </p>
                       </div>
                     </div>
                   </CardContent>
@@ -1497,7 +1558,7 @@ const FounderSection = () => {
 };
 
 // ===============================
-// SECTION 10: FINAL CTA - Enhanced
+// SECTION 10: FINAL CTA - UPDATED
 // ===============================
 const FinalCTASection = () => {
   const { language } = useLanguage();
@@ -1526,21 +1587,29 @@ const FinalCTASection = () => {
 
           <motion.p 
             variants={fadeInUp}
-            className="font-body text-sm sm:text-base md:text-lg text-cream/90 mb-6 sm:mb-8 whitespace-pre-line leading-relaxed"
+            className="font-body text-sm sm:text-base md:text-lg text-cream/90 mb-6 sm:mb-8 leading-relaxed"
           >
             {t(translations.finalBody)}
           </motion.p>
 
-          <motion.div variants={scaleIn}>
+          <motion.div variants={scaleIn} className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Button 
+              size="lg" 
+              onClick={() => document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' })}
+              className="w-full sm:w-auto bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 rounded-xl sm:rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 active:scale-[0.98]"
+            >
+              <Calendar className="h-5 w-5 mr-2" />
+              {t(translations.bookFreeOrientation)}
+              <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 ml-1" />
+            </Button>
+            
             <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer">
               <Button 
                 size="lg" 
-                className="w-full sm:w-auto bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:from-green-500 hover:via-green-600 hover:to-green-700 text-white font-bold text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 rounded-xl sm:rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300 active:scale-[0.98]"
+                className="w-full sm:w-auto bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:from-green-500 hover:via-green-600 hover:to-green-700 text-white font-bold text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 rounded-xl sm:rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 active:scale-[0.98]"
               >
-                <MessageCircle className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
-                <span className="hidden sm:inline">{t(translations.heroCTA)}</span>
-                <span className="sm:hidden">{t(translations.heroCTAShort)}</span>
-                <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 ml-1" />
+                <MessageCircle className="h-5 w-5 mr-2" />
+                {t(translations.heroCTAShort)}
               </Button>
             </a>
           </motion.div>
@@ -1594,7 +1663,7 @@ const StickyMobileFooter = () => {
       <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
         <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3.5 rounded-xl shadow-lg text-sm active:scale-[0.98] transition-all">
           <MessageCircle className="h-5 w-5 mr-2" />
-          Talk to Counselor on WhatsApp
+          {t(translations.heroSecondaryCTA)}
         </Button>
       </a>
     </motion.div>
@@ -1602,7 +1671,7 @@ const StickyMobileFooter = () => {
 };
 
 // ===============================
-// MAIN PAGE COMPONENT
+// MAIN PAGE COMPONENT - UPDATED SECTION ORDER
 // ===============================
 const BodhikaLanding = () => {
   const { language } = useLanguage();
@@ -1630,10 +1699,13 @@ const BodhikaLanding = () => {
         <WhatIsBodhikaSection />
         <TransformationSection />
         <SyllabusSection />
+        <ProgramStructureSection />
         <LearningSection />
         <LearningExperienceSection />
+        <ValueStackSection />
         <PricingSection />
         <TestimonialsSection />
+        <ObjectionCrusherFAQ />
         <FounderSection />
         <FinalCTASection />
         <StickyMobileFooter />
