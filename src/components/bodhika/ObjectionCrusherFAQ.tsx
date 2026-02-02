@@ -65,16 +65,6 @@ const translations = {
     hi: 'हां। बोधिका पूर्ण शुरुआती लोगों के लिए डिज़ाइन की गई है। कोई पूर्व ज्ञान आवश्यक नहीं है।',
     sa: 'आम्। बोधिका पूर्णनवागतानां कृते निर्मिता। न पूर्वज्ञानम् आवश्यकम्।'
   },
-  faq6Q: {
-    en: 'Is there any exam or pressure?',
-    hi: 'क्या कोई परीक्षा या दबाव है?',
-    sa: 'किम् काचित् परीक्षा दबावो वा अस्ति?'
-  },
-  faq6A: {
-    en: 'No exams. No competition. No force. Learning is experience-based.',
-    hi: 'कोई परीक्षा नहीं। कोई प्रतिस्पर्धा नहीं। कोई दबाव नहीं। सीखना अनुभव-आधारित है।',
-    sa: 'न परीक्षा। न प्रतिस्पर्धा। न बलात्कारः। अधिगमः अनुभवाधारितः।'
-  }
 };
 
 const ObjectionCrusherFAQ = () => {
@@ -87,7 +77,6 @@ const ObjectionCrusherFAQ = () => {
     { q: t(translations.faq3Q), a: t(translations.faq3A) },
     { q: t(translations.faq4Q), a: t(translations.faq4A) },
     { q: t(translations.faq5Q), a: t(translations.faq5A) },
-    { q: t(translations.faq6Q), a: t(translations.faq6A) },
   ];
   
   return (
