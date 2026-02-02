@@ -167,6 +167,11 @@ const translations = {
     hi: 'निःशुल्क ओरिएंटेशन बुक करें',
     sa: 'निःशुल्कपरिचयं आरक्षयत'
   },
+  enrollNow: {
+    en: 'Enroll Now',
+    hi: 'अभी नामांकन करें',
+    sa: 'अधुना नामाङ्कयत'
+  },
 
   // Trust Strip
   trustLive: {
@@ -708,19 +713,29 @@ const HeroSection = () => {
               </div>
             </motion.div>
 
-            {/* Primary CTA - NEW BUTTON TEXT */}
+            {/* Primary CTA - Enroll Now */}
             <motion.div variants={fadeInUp} className="space-y-2.5">
               <Button 
                 size="lg" 
                 onClick={() => document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' })}
                 className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold text-sm sm:text-base px-4 sm:px-6 py-5 sm:py-6 rounded-xl sm:rounded-2xl shadow-xl shadow-saffron/25 hover:shadow-2xl transition-all duration-300 active:scale-[0.98]"
               >
-                <Calendar className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
-                {t(translations.heroPrimaryCTA)}
+                <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
+                {t(translations.enrollNow)}
                 <ArrowDown className="h-4 w-4 sm:h-5 sm:w-5 ml-1" />
               </Button>
               
-              {/* Secondary CTA */}
+              {/* Book Free Parent Orientation */}
+              <Button 
+                size="lg" 
+                onClick={() => document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' })}
+                className="w-full bg-gradient-to-r from-maroon to-maroon-dark hover:from-maroon-dark hover:to-maroon text-white font-bold text-sm sm:text-base px-4 sm:px-6 py-4 sm:py-5 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 active:scale-[0.98]"
+              >
+                <Calendar className="h-5 w-5 mr-2" />
+                {t(translations.heroPrimaryCTA)}
+              </Button>
+              
+              {/* Talk to Counselor on WhatsApp */}
               <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
                 <Button 
                   size="lg" 
