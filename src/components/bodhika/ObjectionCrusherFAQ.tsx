@@ -3,7 +3,6 @@ import { Badge } from '@/components/ui/badge';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { cn } from '@/lib/utils';
-
 const translations = {
   sectionTitle: {
     en: 'Frequently Asked Questions',
@@ -76,22 +75,31 @@ const translations = {
     sa: 'न परीक्षा। न प्रतिस्पर्धा। न बलात्कारः। अधिगमः अनुभवाधारितः।'
   }
 };
-
 const ObjectionCrusherFAQ = () => {
-  const { t } = useLanguage();
+  const {
+    t
+  } = useLanguage();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-  
-  const faqs = [
-    { q: t(translations.faq1Q), a: t(translations.faq1A) },
-    { q: t(translations.faq2Q), a: t(translations.faq2A) },
-    { q: t(translations.faq3Q), a: t(translations.faq3A) },
-    { q: t(translations.faq4Q), a: t(translations.faq4A) },
-    { q: t(translations.faq5Q), a: t(translations.faq5A) },
-    { q: t(translations.faq6Q), a: t(translations.faq6A) },
-  ];
-  
-  return (
-    <section className="py-10 sm:py-14 md:py-20 bg-cream/30">
+  const faqs = [{
+    q: t(translations.faq1Q),
+    a: t(translations.faq1A)
+  }, {
+    q: t(translations.faq2Q),
+    a: t(translations.faq2A)
+  }, {
+    q: t(translations.faq3Q),
+    a: t(translations.faq3A)
+  }, {
+    q: t(translations.faq4Q),
+    a: t(translations.faq4A)
+  }, {
+    q: t(translations.faq5Q),
+    a: t(translations.faq5A)
+  }, {
+    q: t(translations.faq6Q),
+    a: t(translations.faq6A)
+  }];
+  return <section className="py-10 sm:py-14 md:py-20 bg-cream/30">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="text-center mb-6 sm:mb-8 md:mb-12">
           <Badge className="bg-saffron/10 text-saffron border-saffron/20 mb-3 sm:mb-4 px-3 sm:px-4 py-1.5">
@@ -107,44 +115,23 @@ const ObjectionCrusherFAQ = () => {
         </div>
         
         <div className="max-w-3xl mx-auto space-y-3 sm:space-y-4">
-          {faqs.map((faq, idx) => (
-            <div
-              key={idx}
-              className="border border-border rounded-xl overflow-hidden bg-card shadow-sm"
-            >
-              <button
-                onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-                className="w-full p-4 sm:p-5 md:p-6 flex items-center justify-between text-left hover:bg-cream/50 transition-colors"
-              >
-                <span className="font-heading font-semibold text-foreground pr-4 text-sm sm:text-base leading-tight">
+          {faqs.map((faq, idx) => <div key={idx} className="border border-border rounded-xl overflow-hidden bg-card shadow-sm">
+              <button onClick={() => setOpenIndex(openIndex === idx ? null : idx)} className="w-full p-4 sm:p-5 md:p-6 flex items-center justify-between text-left hover:bg-cream/50 transition-colors">there any exam or pressure?<span className="font-heading font-semibold text-foreground pr-4 text-sm sm:text-base leading-tight">
                   {faq.q}
                 </span>
-                <ChevronDown 
-                  className={cn(
-                    "h-5 w-5 text-muted-foreground transition-transform shrink-0",
-                    openIndex === idx && "rotate-180"
-                  )} 
-                />
+                <ChevronDown className={cn("h-5 w-5 text-muted-foreground transition-transform shrink-0", openIndex === idx && "rotate-180")} />
               </button>
               
-              <div 
-                className={cn(
-                  "overflow-hidden transition-all duration-300",
-                  openIndex === idx ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                )}
-              >
+              <div className={cn("overflow-hidden transition-all duration-300", openIndex === idx ? "max-h-96 opacity-100" : "max-h-0 opacity-0")}>
                 <div className="px-4 sm:px-5 md:px-6 pb-4 sm:pb-5 md:pb-6 pt-0">
                   <p className="font-body text-muted-foreground leading-relaxed text-sm sm:text-base">
                     {faq.a}
                   </p>
                 </div>
               </div>
-            </div>
-          ))}
+            </div>)}
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
-
 export default ObjectionCrusherFAQ;
