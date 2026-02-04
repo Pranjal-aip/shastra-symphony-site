@@ -726,14 +726,15 @@ const HeroSection = () => {
               </Button>
               
               {/* Book Free Parent Orientation */}
-              <Button 
-                size="lg" 
-                onClick={() => document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' })}
-                className="w-full bg-gradient-to-r from-maroon to-maroon-dark hover:from-maroon-dark hover:to-maroon text-white font-bold text-sm sm:text-base px-4 sm:px-6 py-4 sm:py-5 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 active:scale-[0.98]"
-              >
-                <Calendar className="h-5 w-5 mr-2" />
-                {t(translations.heroPrimaryCTA)}
-              </Button>
+              <a href="https://forms.gle/UKY2otTFrhdG9QrZA" target="_blank" rel="noopener noreferrer" className="block">
+                <Button 
+                  size="lg" 
+                  className="w-full bg-gradient-to-r from-maroon to-maroon-dark hover:from-maroon-dark hover:to-maroon text-white font-bold text-sm sm:text-base px-4 sm:px-6 py-4 sm:py-5 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 active:scale-[0.98]"
+                >
+                  <Calendar className="h-5 w-5 mr-2" />
+                  {t(translations.heroPrimaryCTA)}
+                </Button>
+              </a>
               
               {/* Talk to Counselor on WhatsApp */}
               <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
