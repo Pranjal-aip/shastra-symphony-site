@@ -2241,7 +2241,7 @@ const SettingsTab: React.FC = () => {
         <div className="space-y-4">
           <div>
             <label className="font-body text-sm font-medium mb-2 block">WhatsApp Number</label>
-            <Input placeholder="+91 96749 16567" defaultValue="+91 96749 16567" />
+            <Input placeholder="+91 86794 41338" defaultValue="+91 86794 41338" />
           </div>
           <div>
             <label className="font-body text-sm font-medium mb-2 block">Contact Email</label>
@@ -2249,7 +2249,7 @@ const SettingsTab: React.FC = () => {
           </div>
           <div>
             <label className="font-body text-sm font-medium mb-2 block">Contact Phone</label>
-            <Input placeholder="+91 96749 16567" defaultValue="+91 96749 16567" />
+            <Input placeholder="+91 86794 41338" defaultValue="+91 86794 41338" />
           </div>
           <div>
             <label className="font-body text-sm font-medium mb-2 block">Address</label>

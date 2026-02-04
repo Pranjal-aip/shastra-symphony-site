@@ -188,7 +188,7 @@ const CourseDetail: React.FC = () => {
                     </>
                   )}
                 </Button>
-                <a href="https://wa.me/919674916567" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/918679441338" target="_blank" rel="noopener noreferrer">
                   <Button variant="outline" size="lg">
                     Inquire via WhatsApp
                   </Button>

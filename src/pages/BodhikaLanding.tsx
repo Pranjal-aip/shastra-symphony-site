@@ -48,7 +48,7 @@ import ClassFormatBlock from '@/components/bodhika/ClassFormatBlock';
 import ObjectionCrusherFAQ from '@/components/bodhika/ObjectionCrusherFAQ';
 
 // WhatsApp number for counselor
-const WHATSAPP_NUMBER = '919674916567';
+const WHATSAPP_NUMBER = '918679441338';
 const WHATSAPP_COUNSELOR_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=Hi%2C%20I%20want%20to%20know%20more%20about%20the%20Bodhika%20Sanatan%20Dharma%20program%20for%20my%20child.`;
 
 // Animation variants - Enhanced for smoother mobile experience
