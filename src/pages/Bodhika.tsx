@@ -463,7 +463,7 @@ const Bodhika: React.FC = () => {
     return bodhikaTranslations[key][language as 'en' | 'hi' | 'sa'] || bodhikaTranslations[key].en;
   };
 
-  const whatsappNumber = "919674916567";
+  const whatsappNumber = "918679441338";
   const whatsappMessage = encodeURIComponent(`Hi, I'm interested in the Bodhika course. Please share more details.`);
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`;
 
