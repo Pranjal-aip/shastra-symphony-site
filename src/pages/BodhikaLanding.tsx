@@ -33,7 +33,8 @@ import {
   Play,
   ChevronRight,
   ArrowDown,
-  Target
+  Target,
+  Flame
 } from 'lucide-react';
 
 // Import images
@@ -1644,9 +1645,9 @@ const FinalCTASection = () => {
 };
 
 // ===============================
-// STICKY MOBILE FOOTER - Enhanced
+// FLOATING ENROLL NOW BUTTON
 // ===============================
-const StickyMobileFooter = () => {
+const FloatingEnrollButton = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { language } = useLanguage();
   const t = (obj: Record<string, string>) => obj[language] || obj.en;
@@ -1671,18 +1672,20 @@ const StickyMobileFooter = () => {
 
   return (
     <motion.div 
-      className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-lg border-t border-saffron/20 shadow-2xl z-50 p-3 safe-area-inset-bottom md:hidden"
-      initial={{ y: 100 }}
-      animate={{ y: 0 }}
-      exit={{ y: 100 }}
-      transition={{ duration: 0.25 }}
+      className="fixed bottom-6 right-6 z-50"
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0, opacity: 0 }}
+      transition={{ type: "spring", stiffness: 300, damping: 25 }}
     >
-      <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="block">
-        <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3.5 rounded-xl shadow-lg text-sm active:scale-[0.98] transition-all">
-          <MessageCircle className="h-5 w-5 mr-2" />
-          {t(translations.heroSecondaryCTA)}
-        </Button>
-      </a>
+      <Button 
+        onClick={() => document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' })}
+        className="bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold px-6 py-4 rounded-full shadow-2xl text-sm md:text-base active:scale-[0.98] transition-all"
+      >
+        <Flame className="h-5 w-5 mr-2" />
+        {t(translations.heroPrimaryCTA)}
+        <ArrowRight className="h-4 w-4 ml-1" />
+      </Button>
     </motion.div>
   );
 };
@@ -1725,7 +1728,7 @@ const BodhikaLanding = () => {
         <ObjectionCrusherFAQ />
         <FounderSection />
         <FinalCTASection />
-        <StickyMobileFooter />
+        <FloatingEnrollButton />
       </main>
     </Layout>
   );
