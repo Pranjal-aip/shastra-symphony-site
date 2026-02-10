@@ -1683,7 +1683,7 @@ const FloatingEnrollButton = () => {
         className="bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold px-6 py-4 rounded-full shadow-2xl text-sm md:text-base active:scale-[0.98] transition-all"
       >
         <Flame className="h-5 w-5 mr-2" />
-        {t(translations.heroPrimaryCTA)}
+        {t({ en: 'Enroll Now', hi: 'अभी नामांकन करें', sa: 'नामाङ्कनं कुरुत' })}
       </Button>
     </motion.div>
   );
