@@ -1672,12 +1672,19 @@ const FloatingEnrollButton = () => {
 
   return (
     <motion.div 
-      className="fixed bottom-6 right-6 z-50"
+      className="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-end"
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0, opacity: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
     >
+      <Button 
+        onClick={() => document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' })}
+        className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground font-bold px-5 py-3 rounded-full shadow-xl text-sm active:scale-[0.98] transition-all"
+      >
+        <ArrowDown className="h-4 w-4 mr-1.5" />
+        {t(translations.heroPrimaryCTA)}
+      </Button>
       <a href="https://forms.gle/UKY2otTFrhdG9QrZA" target="_blank" rel="noopener noreferrer">
         <Button 
           className="bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold px-6 py-4 rounded-full shadow-2xl text-sm md:text-base active:scale-[0.98] transition-all"
