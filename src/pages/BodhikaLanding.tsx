@@ -1678,14 +1678,14 @@ const FloatingEnrollButton = () => {
       exit={{ scale: 0, opacity: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
     >
-      <Button 
-        onClick={() => document.getElementById('pricing-section')?.scrollIntoView({ behavior: 'smooth' })}
-        className="bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold px-6 py-4 rounded-full shadow-2xl text-sm md:text-base active:scale-[0.98] transition-all"
-      >
-        <Flame className="h-5 w-5 mr-2" />
-        {t(translations.heroPrimaryCTA)}
-        <ArrowRight className="h-4 w-4 ml-1" />
-      </Button>
+      <a href="https://forms.gle/UKY2otTFrhdG9QrZA" target="_blank" rel="noopener noreferrer">
+        <Button 
+          className="bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold px-6 py-4 rounded-full shadow-2xl text-sm md:text-base active:scale-[0.98] transition-all"
+        >
+          <Flame className="h-5 w-5 mr-2" />
+          {t(translations.heroSecondaryCTA)}
+        </Button>
+      </a>
     </motion.div>
   );
 };
