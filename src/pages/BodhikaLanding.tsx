@@ -1320,7 +1320,7 @@ const PricingSection = () => {
             <CountdownTimer />
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">
+          <div className="max-w-lg mx-auto">
             {/* Focused Batch - UPDATED with new badge */}
             <motion.div variants={scaleIn}>
               <Card className="border-2 border-saffron shadow-xl relative overflow-hidden h-full bg-white">
@@ -1385,56 +1385,6 @@ const PricingSection = () => {
               </Card>
             </motion.div>
 
-            {/* Group Batch */}
-            <motion.div variants={scaleIn}>
-              <Card className="border-2 border-border shadow-lg overflow-hidden h-full bg-white">
-                <div className="h-1.5 bg-gradient-to-r from-slate-300 to-slate-400" />
-                
-                <CardContent className="p-4 sm:p-5 md:p-6">
-                  <h3 className="font-heading text-base sm:text-lg font-bold text-foreground mb-1">
-                    {t(translations.groupBatch)}
-                  </h3>
-                  <p className="font-body text-muted-foreground text-xs sm:text-sm mb-4 sm:mb-5">
-                    {t(translations.groupStudents)}
-                  </p>
-                  
-                  <ul className="space-y-2.5 sm:space-y-3 mb-5 sm:mb-6">
-                    <li className="flex items-center gap-2.5 p-2.5 sm:p-3 bg-muted/50 rounded-lg">
-                      <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-gradient-to-br from-slate-400 to-slate-500 flex items-center justify-center shrink-0">
-                        <Check className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-white" />
-                      </div>
-                      <span className="font-body text-foreground text-xs sm:text-sm">{t(translations.groupFeature1)}</span>
-                    </li>
-                    <li className="flex items-center gap-2.5 p-2.5 sm:p-3 bg-muted/50 rounded-lg">
-                      <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-md bg-gradient-to-br from-slate-400 to-slate-500 flex items-center justify-center shrink-0">
-                        <Check className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-white" />
-                      </div>
-                      <span className="font-body text-foreground text-xs sm:text-sm">{t(translations.groupFeature2)}</span>
-                    </li>
-                  </ul>
-                  
-                  <div className="text-center mb-5">
-                    <span className="font-heading text-3xl sm:text-4xl font-bold text-foreground">{t(translations.groupPrice)}</span>
-                    <span className="font-body text-muted-foreground text-xs sm:text-sm ml-1">{t(translations.perYear)}</span>
-                  </div>
-                  
-                  <div className="flex flex-col gap-2">
-                    <a href="https://learn.shastrakulam.com/single-checkout/695393a483bcbf4ec9283f27?pid=p1" target="_blank" rel="noopener noreferrer" className="w-full">
-                      <Button className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold py-3 sm:py-4 rounded-xl shadow-lg text-xs sm:text-sm active:scale-[0.98] transition-all">
-                        <GraduationCap className="h-4 w-4 mr-1.5" />
-                        {t(translations.reserveSeat)}
-                      </Button>
-                    </a>
-                    <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="w-full">
-                      <Button variant="outline" className="w-full border-2 border-foreground/20 hover:bg-muted font-bold py-3 sm:py-4 rounded-xl text-xs sm:text-sm active:scale-[0.98] transition-all">
-                        <MessageCircle className="h-4 w-4 mr-1.5" />
-                        {t(translations.talkToCounselor)}
-                      </Button>
-                    </a>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
           </div>
 
           {/* Scholarship Note */}
