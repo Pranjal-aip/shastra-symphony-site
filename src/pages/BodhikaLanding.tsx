@@ -727,7 +727,7 @@ const HeroSection = () => {
               </a>
               
               {/* Book Free Parent Orientation */}
-              <a href="https://forms.gle/UKY2otTFrhdG9QrZA" target="_blank" rel="noopener noreferrer" className="block">
+              <a href="https://www.youtube.com/watch?v=n6d3AzIOTDQ" target="_blank" rel="noopener noreferrer" className="block">
                 <Button 
                   size="lg" 
                   className="w-full bg-gradient-to-r from-maroon to-maroon-dark hover:from-maroon-dark hover:to-maroon text-white font-bold text-sm sm:text-base px-4 sm:px-6 py-4 sm:py-5 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 active:scale-[0.98]"
@@ -1560,7 +1560,7 @@ const FinalCTASection = () => {
           </motion.p>
 
           <motion.div variants={scaleIn} className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a href="https://forms.gle/UKY2otTFrhdG9QrZA" target="_blank" rel="noopener noreferrer">
+            <a href="https://www.youtube.com/watch?v=n6d3AzIOTDQ" target="_blank" rel="noopener noreferrer">
               <Button 
                 size="lg" 
                 className="w-full sm:w-auto bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold text-sm sm:text-base px-6 sm:px-8 py-5 sm:py-6 rounded-xl sm:rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 active:scale-[0.98]"
