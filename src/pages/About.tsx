@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { BookOpen, Globe, Heart, Users, Calendar, Sparkles, Target, Eye, Award, GraduationCap } from 'lucide-react';
+import founderAboutImage from '@/assets/founder-yogesh-about.jpg';
 
 const seoData = {
   title: {
@@ -72,9 +73,9 @@ const aboutTranslations = {
     sa: '2047 पर्यन्तं वयं धर्मकेन्द्रितव्यक्तीनां पीढीं कल्पयामः ये सनातनमूल्येषु गम्भीरतया निहिताः तथापि वैश्विकविश्वे नेतृत्वे समर्थाः, भारतीयचिन्तनसंस्कृत्योः पुनर्जागरणं निर्मान्ति।'
   },
   teamTitle: {
-    en: 'Our Founders & Team',
-    hi: 'हमारे संस्थापक और टीम',
-    sa: 'अस्माकं संस्थापकाः दलं च'
+    en: 'Our Founder',
+    hi: 'हमारे संस्थापक',
+    sa: 'अस्माकं संस्थापकः'
   },
   teamSubtitle: {
     en: 'Meet the dedicated souls who bring ancient wisdom to modern learners',
@@ -384,15 +385,14 @@ const About: React.FC = () => {
             </p>
           </div>
           
-          {/* Founders Grid */}
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            {/* Founder Card */}
+          {/* Founder */}
+          <div className="max-w-lg mx-auto">
             <div className="bg-card rounded-3xl p-8 shadow-elevated border border-border/50 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
               
               <div className="relative z-10 flex flex-col items-center text-center">
-                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary via-primary/80 to-accent flex-shrink-0 flex items-center justify-center shadow-lg ring-4 ring-background mb-6">
-                  <Users className="h-16 w-16 text-primary-foreground" />
+                <div className="w-32 h-32 rounded-full overflow-hidden flex-shrink-0 shadow-lg ring-4 ring-background mb-6">
+                  <img src={founderAboutImage} alt="Acharya Yogesh Bhardwaj" className="w-full h-full object-cover" />
                 </div>
                 <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-2">
                   {t(aboutTranslations.founderName)}
@@ -402,26 +402,6 @@ const About: React.FC = () => {
                 </p>
                 <p className="font-body text-muted-foreground">
                   {t(aboutTranslations.founderBio)}
-                </p>
-              </div>
-            </div>
-
-            {/* Co-Founder Card */}
-            <div className="bg-card rounded-3xl p-8 shadow-elevated border border-border/50 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-primary/5" />
-              
-              <div className="relative z-10 flex flex-col items-center text-center">
-                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-accent via-accent/80 to-primary flex-shrink-0 flex items-center justify-center shadow-lg ring-4 ring-background mb-6">
-                  <Users className="h-16 w-16 text-accent-foreground" />
-                </div>
-                <h3 className="font-heading text-xl md:text-2xl font-bold text-foreground mb-2">
-                  {t(aboutTranslations.cofounderName)}
-                </h3>
-                <p className="font-body text-lg text-primary font-semibold mb-4">
-                  {t(aboutTranslations.cofounderRole)}
-                </p>
-                <p className="font-body text-muted-foreground">
-                  {t(aboutTranslations.cofounderBio)}
                 </p>
               </div>
             </div>
