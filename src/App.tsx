@@ -18,6 +18,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Programs from "./pages/Programs";
 import Camps from "./pages/Camps";
+import GurukulCamp2026 from "./pages/GurukulCamp2026";
 import Donate from "./pages/Donate";
 import Bodhika from "./pages/BodhikaLanding";
 import AdminLogin from "./pages/AdminLogin";
