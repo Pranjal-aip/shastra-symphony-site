@@ -358,7 +358,7 @@ const Camps: React.FC = () => {
 
                     {isUpcoming(camp.start_date) && (
                       <Link to={camp.registration_link || '/contact'}>
-                        <Button variant="maroon-outline" className="w-full mt-4">
+                        <Button variant="saffron" className="w-full mt-4">
                           {t(translations.registerInterest)}
                         </Button>
                       </Link>
