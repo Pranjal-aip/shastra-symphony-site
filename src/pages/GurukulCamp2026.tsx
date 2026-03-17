@@ -184,7 +184,7 @@ const faqs = [
 ];
 
 const GurukulCamp2026: React.FC = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const scrollToRegister = () => {
     document.getElementById('register')?.scrollIntoView({ behavior: 'smooth' });
