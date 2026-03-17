@@ -72,88 +72,75 @@ const tx = {
 
 const whyCards = [
   {
-    icon: TreePine,
-    title: { en: 'Cultural Rooting & Identity Formation', hi: 'सांस्कृतिक जड़ें एवं पहचान निर्माण', sa: 'सांस्कृतिकमूलनिर्माणं पहचाननिर्माणं च' } as T3,
+    icon: Shield,
+    title: { en: '🔱 Samskara Nirman (Character Formation)', hi: '🔱 संस्कार निर्माण (चरित्र निर्माण)', sa: '🔱 संस्कारनिर्माणम् (चरित्रनिर्माणम्)' } as T3,
     desc: {
-      en: 'Immerse children in Bharatiya values, Vedic culture, and disciplined living, helping them develop a strong identity and pride in their heritage.',
-      hi: 'बच्चों को भारतीय मूल्यों, वैदिक संस्कृति और अनुशासित जीवन में डुबोएं, जिससे उन्हें अपनी विरासत पर गर्व हो।',
-      sa: 'बालकान् भारतीयमूल्येषु वैदिकसंस्कृतौ अनुशासितजीवने च निमज्जयत, येन ते स्वपरम्परायां गौरवं प्राप्नुवन्ति।'
-    } as T3,
-    gradient: 'from-emerald-500/10 to-green-500/10',
-  },
-  {
-    icon: Brain,
-    title: { en: 'Wisdom-Based Learning', hi: 'ज्ञान-आधारित शिक्षा', sa: 'ज्ञानाधारितशिक्षा' } as T3,
-    desc: {
-      en: 'Vedic knowledge systems — Yoga, Vedic Mathematics, Basic Ayurveda, Dharma & Philosophy — creating a balanced worldview complementing modern education.',
-      hi: 'वैदिक ज्ञान प्रणालियाँ — योग, वैदिक गणित, आयुर्वेद, धर्म और दर्शन — आधुनिक शिक्षा का पूरक संतुलित विश्वदृष्टि।',
-      sa: 'वैदिकज्ञानप्रणाल्यः — योगः, वैदिकगणितम्, आयुर्वेदः, धर्मः दर्शनं च — आधुनिकशिक्षायाः पूरकं सन्तुलितविश्वदृष्टिः।'
+      en: 'Building Discipline (Anushasan), Respect (Maryada), and Duty (Kartavya) as the foundation of a child\'s character.',
+      hi: 'अनुशासन, मर्यादा और कर्तव्य को बच्चे के चरित्र की नींव के रूप में निर्मित करना।',
+      sa: 'अनुशासनं मर्यादा कर्तव्यं च बालकस्य चरित्रस्य आधारत्वेन निर्मातुम्।'
     } as T3,
     gradient: 'from-amber-500/10 to-orange-500/10',
   },
   {
-    icon: Heart,
-    title: { en: 'Balanced Mind & Body', hi: 'संतुलित मन और शरीर', sa: 'सन्तुलितं मनः शरीरं च' } as T3,
+    icon: BookOpen,
+    title: { en: '🧠 Vedic Wisdom for Life', hi: '🧠 जीवन के लिए वैदिक ज्ञान', sa: '🧠 जीवनार्थं वैदिकज्ञानम्' } as T3,
     desc: {
-      en: 'Daily Yoga, Pranayama, and Mantra chanting develop focus, emotional strength, and inner stability in children.',
-      hi: 'दैनिक योग, प्राणायाम और मंत्र जाप से बच्चों में एकाग्रता, भावनात्मक शक्ति और आंतरिक स्थिरता विकसित होती है।',
-      sa: 'दैनिकयोगप्राणायाममन्त्रजपैः बालकेषु एकाग्रता भावनात्मकशक्तिः आन्तरिकस्थिरता च विकसति।'
+      en: 'Children learn foundations of Dharma, Vedic principles of right living, and practical application of values in daily life.',
+      hi: 'बच्चे धर्म की नींव, सम्यक् जीवन के वैदिक सिद्धांत और दैनिक जीवन में मूल्यों का व्यावहारिक अनुप्रयोग सीखते हैं।',
+      sa: 'बालकाः धर्मस्य आधारान् सम्यग्जीवनस्य वैदिकसिद्धान्तान् दैनिकजीवने मूल्यानां प्रायोगिकानुप्रयोगं च शिक्षन्ते।'
+    } as T3,
+    gradient: 'from-emerald-500/10 to-green-500/10',
+  },
+  {
+    icon: Heart,
+    title: { en: '🧘 Sharir + Man + Buddhi Santulan', hi: '🧘 शरीर + मन + बुद्धि संतुलन', sa: '🧘 शरीरमनोबुद्धिसन्तुलनम्' } as T3,
+    desc: {
+      en: 'Balanced development — Body (Sharir) for physical strength, Mind (Man) for emotional stability, Intellect (Buddhi) for right thinking.',
+      hi: 'संतुलित विकास — शरीर (शारीरिक बल), मन (भावनात्मक स्थिरता), बुद्धि (सम्यक् चिंतन)।',
+      sa: 'सन्तुलितविकासः — शरीरं (शारीरिकबलम्), मनः (भावनात्मकस्थिरता), बुद्धिः (सम्यक्चिन्तनम्)।'
     } as T3,
     gradient: 'from-rose-500/10 to-pink-500/10',
   },
   {
-    icon: Users,
-    title: { en: 'Learning Together as a Family', hi: 'परिवार के साथ सीखना', sa: 'कुटुम्बेन सह शिक्षणम्' } as T3,
+    icon: Swords,
+    title: { en: '🏹 Kshatra + Brahma Gunas', hi: '🏹 क्षात्र + ब्रह्म गुण', sa: '🏹 क्षात्रब्रह्मगुणाः' } as T3,
     desc: {
-      en: 'Parents are participants, not observers. Shared activities, joint sessions, and practical parenting insights create stronger bonding.',
-      hi: 'माता-पिता सहभागी हैं, दर्शक नहीं। साझा गतिविधियाँ, संयुक्त सत्र और व्यावहारिक पालन-पोषण अंतर्दृष्टि मजबूत बंधन बनाती हैं।',
-      sa: 'पितरौ सहभागिनौ, न द्रष्टारौ। साझाक्रियाः संयुक्तसत्राणि च दृढबन्धनं निर्मान्ति।'
+      en: 'Development of Courage, Strength, Discipline alongside Knowledge, Logic, and Clarity — the warrior-scholar balance.',
+      hi: 'साहस, बल, अनुशासन के साथ-साथ ज्ञान, तर्क और स्पष्टता का विकास — योद्धा-विद्वान् संतुलन।',
+      sa: 'साहसबलानुशासनैः सह ज्ञानतर्कस्पष्टतानां विकासः — योद्धाविद्वत्सन्तुलनम्।'
     } as T3,
     gradient: 'from-blue-500/10 to-indigo-500/10',
   },
   {
-    icon: Sparkles,
-    title: { en: 'Rooted Yet Aware', hi: 'जड़ों से जुड़े, जागरूक', sa: 'मूलनिष्ठाः तथापि जागरूकाः' } as T3,
+    icon: Globe,
+    title: { en: '🌍 Identity & Cultural Rooting', hi: '🌍 पहचान एवं सांस्कृतिक जड़ें', sa: '🌍 पहचाना सांस्कृतिकमूलनिर्माणं च' } as T3,
     desc: {
-      en: 'Children learn to stay grounded in Dharma, understand responsibilities, and develop clarity in thinking.',
-      hi: 'बच्चे धर्म में स्थिर रहना, उत्तरदायित्व समझना और सोच में स्पष्टता विकसित करना सीखते हैं।',
-      sa: 'बालकाः धर्मे स्थिराः भवितुं उत्तरदायित्वं ज्ञातुं चिन्तनस्पष्टतां च विकसितुं शिक्षन्ते।'
+      en: 'Helping children understand Bharatiya identity, develop pride in their heritage, and live with dharmic awareness.',
+      hi: 'बच्चों को भारतीय पहचान समझने, अपनी विरासत पर गर्व करने और धार्मिक जागरूकता के साथ जीने में सहायता।',
+      sa: 'बालकान् भारतीयपहचानं ज्ञातुं स्वपरम्परायां गौरवं प्राप्तुं धार्मिकजागरूकतया जीवितुं च सहायता।'
     } as T3,
     gradient: 'from-violet-500/10 to-purple-500/10',
   },
-  {
-    icon: Leaf,
-    title: { en: 'Natural & Satvik Living', hi: 'प्राकृतिक एवं सात्विक जीवन', sa: 'प्राकृतिकं सात्त्विकं च जीवनम्' } as T3,
-    desc: {
-      en: 'Peaceful natural environment encouraging digital detox, healthy routines, and connection with nature.',
-      hi: 'शांत प्राकृतिक वातावरण जो डिजिटल डिटॉक्स, स्वस्थ दिनचर्या और प्रकृति से जुड़ाव को प्रोत्साहित करता है।',
-      sa: 'शान्तं प्राकृतिकवातावरणं यत् अंकीयविषमुक्तिं स्वस्थदिनचर्यां प्रकृतिसम्बन्धं च प्रोत्साहयति।'
-    } as T3,
-    gradient: 'from-teal-500/10 to-cyan-500/10',
-  },
 ];
 
-const characterValues = [
-  { en: 'Courage', hi: 'साहस', sa: 'साहसम्' },
-  { en: 'Responsibility', hi: 'उत्तरदायित्व', sa: 'उत्तरदायित्वम्' },
-  { en: 'Leadership', hi: 'नेतृत्व', sa: 'नेतृत्वम्' },
-  { en: 'Self-Discipline', hi: 'आत्म-अनुशासन', sa: 'आत्मानुशासनम्' },
-  { en: 'Empathy', hi: 'सहानुभूति', sa: 'सहानुभूतिः' },
+// Core Gurukul Modules
+const coreModules = [
+  { icon: '🕉️', title: { en: 'Vedic Life Education', hi: 'वैदिक जीवन शिक्षा', sa: 'वैदिकजीवनशिक्षा' } as T3, items: { en: ['Sandhya & Agnihotra practice', 'Mantra uchcharan with meaning', 'Introduction to Vedas & Satyarth Prakash', 'Daily dharmic conduct (Aachar)'], hi: ['सन्ध्या एवं अग्निहोत्र अभ्यास', 'अर्थ सहित मंत्र उच्चारण', 'वेद एवं सत्यार्थ प्रकाश का परिचय', 'दैनिक धार्मिक आचरण (आचार)'], sa: ['सन्ध्याग्निहोत्राभ्यासः', 'अर्थसहितमन्त्रोच्चारणम्', 'वेदसत्यार्थप्रकाशपरिचयः', 'दैनिकधार्मिकाचारः'] } },
+  { icon: '🧠', title: { en: 'Buddhi Vikas (Intellectual Training)', hi: 'बुद्धि विकास (बौद्धिक प्रशिक्षण)', sa: 'बुद्धिविकासः (बौद्धिकप्रशिक्षणम्)' } as T3, items: { en: ['Vedic Mathematics', 'Logic & reasoning games', 'Debate & Shastrarth basics'], hi: ['वैदिक गणित', 'तर्क एवं रीज़निंग खेल', 'शास्त्रार्थ एवं वाद-विवाद की मूल बातें'], sa: ['वैदिकगणितम्', 'तर्कयुक्तिक्रीडाः', 'शास्त्रार्थवादविवादमूलानि'] } },
+  { icon: '🗣️', title: { en: 'Samskritam Sambhashanam', hi: 'संस्कृतम् सम्भाषणम्', sa: 'संस्कृतम् सम्भाषणम्' } as T3, items: { en: ['Learn Sanskrit through games & activities', 'Daily conversational Sanskrit', 'Shloka memorization'], hi: ['खेल एवं गतिविधियों से संस्कृत सीखना', 'दैनिक संस्कृत सम्भाषण', 'श्लोक कण्ठस्थीकरण'], sa: ['क्रीडाक्रियाभिः संस्कृतशिक्षणम्', 'दैनिकसंस्कृतसम्भाषणम्', 'श्लोककण्ठस्थीकरणम्'] } },
 ];
 
-const offerings = [
-  { icon: '🗣️', title: { en: 'Samskritam Sambhashanam', hi: 'संस्कृतम् सम्भाषणम्', sa: 'संस्कृतम् सम्भाषणम्' } as T3, desc: { en: 'Learning Sanskrit through games, songs & daily usage', hi: 'खेल, गीत और दैनिक उपयोग से संस्कृत सीखना', sa: 'क्रीडाभिः गीतैः दैनिकप्रयोगेन च संस्कृतशिक्षणम्' } as T3 },
-  { icon: '🧘', title: { en: 'Yoga & Mantra Sadhana', hi: 'योग एवं मंत्र साधना', sa: 'योगमन्त्रसाधना' } as T3, desc: { en: 'Daily yogabhyasa, pranayama & Vedic chanting with meaning', hi: 'दैनिक योगाभ्यास, प्राणायाम और अर्थ सहित वैदिक पाठ', sa: 'दैनिकयोगाभ्यासः प्राणायामः अर्थसहितवैदिकपाठश्च' } as T3 },
-  { icon: '🏹', title: { en: 'Kshatra Training', hi: 'क्षात्र प्रशिक्षण', sa: 'क्षात्रप्रशिक्षणम्' } as T3, desc: { en: 'Traditional physical drills, Danda practice, discipline & strength', hi: 'पारंपरिक शारीरिक अभ्यास, दंड अभ्यास, अनुशासन एवं बल', sa: 'पारम्परिकशारीरिकाभ्यासः दण्डाभ्यासः अनुशासनं बलं च' } as T3 },
-  { icon: '📖', title: { en: 'Itihasa & Vedic Stories', hi: 'इतिहास एवं वैदिक कथाएँ', sa: 'इतिहासः वैदिककथाश्च' } as T3, desc: { en: 'Ramayan & Mahabharat insights, value-based storytelling', hi: 'रामायण एवं महाभारत की अंतर्दृष्टि, मूल्य-आधारित कथावाचन', sa: 'रामायणमहाभारतयोः अन्तर्दृष्टिः मूल्याधारितकथावाचनं च' } as T3 },
-  { icon: '🧠', title: { en: 'Ganita (Vedic Mathematics)', hi: 'गणित (वैदिक गणित)', sa: 'गणितम् (वैदिकगणितम्)' } as T3, desc: { en: 'Ancient calculation techniques & logical thinking', hi: 'प्राचीन गणना तकनीक और तार्किक सोच', sa: 'प्राचीनगणनातकनीकाः तार्किकचिन्तनं च' } as T3 },
-  { icon: '🌌', title: { en: 'Nakshatra & Nature Awareness', hi: 'नक्षत्र एवं प्रकृति जागरूकता', sa: 'नक्षत्रप्रकृतिजागरूकता' } as T3, desc: { en: 'Stars, time, observation-based learning', hi: 'तारे, समय, अवलोकन-आधारित शिक्षा', sa: 'ताराः कालः अवलोकनाधारितशिक्षा च' } as T3 },
-  { icon: '🧵', title: { en: 'Creative Skills', hi: 'रचनात्मक कौशल', sa: 'सृजनात्मककौशलम्' } as T3, desc: { en: 'Craft, traditional art, puppet making & expression', hi: 'शिल्प, पारंपरिक कला, कठपुतली निर्माण एवं अभिव्यक्ति', sa: 'शिल्पम् पारम्परिककला कठपुतलीनिर्माणम् अभिव्यक्तिश्च' } as T3 },
-  { icon: '🌿', title: { en: 'Ayurveda for Children', hi: 'बच्चों के लिए आयुर्वेद', sa: 'बालकानां कृते आयुर्वेदः' } as T3, desc: { en: 'Simple wellness practices & understanding body', hi: 'सरल स्वास्थ्य अभ्यास एवं शरीर की समझ', sa: 'सरलस्वास्थ्याभ्यासाः शरीरावबोधनं च' } as T3 },
-  { icon: '🐄', title: { en: 'Gau Seva & Farming', hi: 'गौ सेवा एवं कृषि', sa: 'गौसेवा कृषिश्च' } as T3, desc: { en: 'Understanding Gau, basic farming, living close to nature', hi: 'गौ की महत्ता, कृषि और प्रकृति के समीप जीवन', sa: 'गोमहत्त्वम् कृषिः प्रकृतिसमीपजीवनं च' } as T3 },
-  { icon: '🏞️', title: { en: 'Nature Walks & Exploration', hi: 'प्रकृति भ्रमण एवं अन्वेषण', sa: 'प्रकृतिभ्रमणम् अन्वेषणं च' } as T3, desc: { en: 'Mindful observation, outdoor activities', hi: 'सचेतन अवलोकन, बाहरी गतिविधियाँ', sa: 'सचेतनावलोकनम् बाह्यक्रियाः च' } as T3 },
-  { icon: '🪔', title: { en: 'Gurukul Life Experience', hi: 'गुरुकुल जीवन अनुभव', sa: 'गुरुकुलजीवनानुभवः' } as T3, desc: { en: 'Structured daily routine & discipline-based living', hi: 'संरचित दिनचर्या और अनुशासन-आधारित जीवन', sa: 'संरचितदिनचर्या अनुशासनाधारितजीवनं च' } as T3 },
-  { icon: '📿', title: { en: 'Take-Home Practices', hi: 'घर ले जाने योग्य अभ्यास', sa: 'गृहनयनीयाभ्यासाः' } as T3, desc: { en: 'Daily routines, dharmic practices & lifelong habits', hi: 'दैनिक दिनचर्या, धार्मिक अभ्यास एवं आजीवन आदतें', sa: 'दैनिकदिनचर्या धार्मिकाभ्यासाः आजीवनस्वभावाश्च' } as T3 },
+// Physical & Kshatra Training
+const physicalModules = [
+  { icon: '🏹', title: { en: 'Kshatra Vidya', hi: 'क्षात्र विद्या', sa: 'क्षात्रविद्या' } as T3, items: { en: ['Traditional physical drills', 'Danda (stick training)', 'Basic self-defense techniques', 'Strength & stamina building'], hi: ['पारंपरिक शारीरिक अभ्यास', 'दंड (लाठी प्रशिक्षण)', 'बुनियादी आत्मरक्षा तकनीक', 'बल एवं सहनशक्ति निर्माण'], sa: ['पारम्परिकशारीरिकाभ्यासाः', 'दण्डप्रशिक्षणम्', 'मूलभूतात्मरक्षातकनीकाः', 'बलसहनशक्तिनिर्माणम्'] } },
+  { icon: '🧘', title: { en: 'Yogabhyas', hi: 'योगाभ्यास', sa: 'योगाभ्यासः' } as T3, items: { en: ['Asana, Pranayama', 'Dhyaan (age-appropriate)', 'Yogic discipline'], hi: ['आसन, प्राणायाम', 'ध्यान (आयु-उपयुक्त)', 'योगिक अनुशासन'], sa: ['आसनम् प्राणायामः', 'ध्यानम् (वयोनुकूलम्)', 'योगिकानुशासनम्'] } },
+];
+
+// Life Skills
+const lifeSkillModules = [
+  { icon: '🌾', title: { en: 'Practical Living', hi: 'व्यावहारिक जीवन', sa: 'व्यावहारिकजीवनम्' } as T3, items: { en: ['Gau Seva & cow-based ecosystem', 'Basic farming exposure', 'Simple satvik cooking'], hi: ['गौ सेवा एवं गो-आधारित पारिस्थितिकी', 'बुनियादी कृषि परिचय', 'सरल सात्विक पाककला'], sa: ['गौसेवा गोआधारितपारिस्थितिकी', 'मूलभूतकृषिपरिचयः', 'सरलसात्त्विकपाककला'] } },
+  { icon: '🎨', title: { en: 'Creative Expression', hi: 'रचनात्मक अभिव्यक्ति', sa: 'सृजनात्मकाभिव्यक्तिः' } as T3, items: { en: ['Ramayan & Mahabharat storytelling', 'Role play / enactments', 'Bhajan & music', 'Craft (puppet making, traditional arts)'], hi: ['रामायण एवं महाभारत कथावाचन', 'रोल प्ले / अभिनय', 'भजन एवं संगीत', 'शिल्प (कठपुतली निर्माण, पारंपरिक कला)'], sa: ['रामायणमहाभारतकथावाचनम्', 'अभिनयः', 'भजनसंगीतम्', 'शिल्पम् (कठपुतलीनिर्माणम् पारम्परिककलाः)'] } },
+  { icon: '🏞️', title: { en: 'Nature & Heritage', hi: 'प्रकृति एवं विरासत', sa: 'प्रकृतिः परम्परा च' } as T3, items: { en: ['Nature walks & observation', 'Nakshatra & nature awareness', 'Environmental connection'], hi: ['प्रकृति भ्रमण एवं अवलोकन', 'नक्षत्र एवं प्रकृति जागरूकता', 'पर्यावरणीय जुड़ाव'], sa: ['प्रकृतिभ्रमणम् अवलोकनम्', 'नक्षत्रप्रकृतिजागरूकता', 'पर्यावरणसम्बन्धः'] } },
 ];
 
 const parentEngagement = [
