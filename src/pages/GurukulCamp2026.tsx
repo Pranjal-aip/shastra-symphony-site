@@ -39,14 +39,10 @@ const tx = {
     sa: 'स्वबालकाय धर्मानुशासनदिशानां आधारं प्रयच्छत'
   } as T3,
 
-  characterTitle: { en: '🔥 Character & Leadership Development', hi: '🔥 चरित्र एवं नेतृत्व विकास', sa: '🔥 चरित्रनेतृत्वविकासः' } as T3,
-  characterDesc: {
-    en: 'Through stories of great personalities, discipline-based activities, and responsibility-driven routines, children develop:',
-    hi: 'महान व्यक्तित्वों की कहानियों, अनुशासन-आधारित गतिविधियों और उत्तरदायित्व-संचालित दिनचर्या के माध्यम से बच्चे विकसित करते हैं:',
-    sa: 'महापुरुषकथाभिः अनुशासननिष्ठक्रियाभिः उत्तरदायित्वचालितदिनचर्याभिश्च बालकाः विकसन्ति:'
-  } as T3,
-
-  offerTitle: { en: '🪔 What Will the Camp Offer?', hi: '🪔 शिविर में क्या मिलेगा?', sa: '🪔 शिविरे किं प्राप्स्यते?' } as T3,
+  offerTitle: { en: '🔥 What Will the Camp Offer?', hi: '🔥 शिविर में क्या मिलेगा?', sa: '🔥 शिविरे किं प्राप्स्यते?' } as T3,
+  coreModulesTitle: { en: '🪔 Core Gurukul Modules', hi: '🪔 मुख्य गुरुकुल विभाग', sa: '🪔 मुख्यगुरुकुलविभागाः' } as T3,
+  physicalTitle: { en: '⚔️ Physical & Kshatra Training', hi: '⚔️ शारीरिक एवं क्षात्र प्रशिक्षण', sa: '⚔️ शारीरिकक्षात्रप्रशिक्षणम्' } as T3,
+  lifeSkillsTitle: { en: '🌱 Jeevan Kaushal (Life Skills)', hi: '🌱 जीवन कौशल', sa: '🌱 जीवनकौशलम्' } as T3,
 
   parentTitle: { en: '👨‍👩‍👧‍👦 How Will Parents Be Engaged?', hi: '👨‍👩‍👧‍👦 माता-पिता कैसे शामिल होंगे?', sa: '👨‍👩‍👧‍👦 पितरौ कथं सहभागिनौ भविष्यतः?' } as T3,
   parentSubtitle: {
