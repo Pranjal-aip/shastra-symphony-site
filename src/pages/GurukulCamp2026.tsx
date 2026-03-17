@@ -10,7 +10,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import {
   Sun, TreePine, BookOpen, Heart, Users, Calendar, Sparkles, 
   Music, Dumbbell, Brain, Star, Leaf, Paintbrush, Baby,
-  Clock, MapPin, IndianRupee, ArrowRight, ChevronRight, Flame
+  Clock, MapPin, IndianRupee, ArrowRight, ChevronRight, Flame,
+  Shield, Swords, Globe, Scale
 } from 'lucide-react';
 import heroImage from '@/assets/gurukul-camp-2026.jpg';
 
