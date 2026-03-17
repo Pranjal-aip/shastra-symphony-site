@@ -257,34 +257,68 @@ const GurukulCamp2026: React.FC = () => {
         </div>
       </section>
 
-      {/* ===== CHARACTER & LEADERSHIP ===== */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4 text-center max-w-3xl">
-          <h2 className="font-heading text-3xl font-bold text-foreground mb-6">{t(tx.characterTitle)}</h2>
-          <p className="font-body text-muted-foreground mb-8">{t(tx.characterDesc)}</p>
-          <div className="flex flex-wrap justify-center gap-4">
-            {characterValues.map((v, i) => (
-              <Badge key={i} variant="outline" className="text-base px-5 py-2 border-primary/30 text-primary font-semibold">
-                {t(v)}
-              </Badge>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ===== WHAT THE CAMP OFFERS ===== */}
-      <section className="py-20 bg-secondary/20">
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-14">
             <h2 className="font-heading text-3xl md:text-4xl font-bold text-foreground mb-4">{t(tx.offerTitle)}</h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-            {offerings.map((o, i) => (
-              <Card key={i} className="border-border/50 hover:shadow-card transition-shadow">
-                <CardContent className="p-5">
-                  <span className="text-3xl mb-3 block">{o.icon}</span>
-                  <h3 className="font-heading font-bold text-foreground mb-1">{t(o.title)}</h3>
-                  <p className="font-body text-muted-foreground text-sm">{t(o.desc)}</p>
+
+          {/* Core Gurukul Modules */}
+          <h3 className="font-heading text-2xl font-bold text-foreground mb-6 text-center">{t(tx.coreModulesTitle)}</h3>
+          <div className="grid md:grid-cols-3 gap-6 mb-14">
+            {coreModules.map((m, i) => (
+              <Card key={i} className="border-border/50 hover:shadow-elevated transition-all duration-300 hover:-translate-y-1">
+                <CardContent className="p-6">
+                  <span className="text-3xl mb-3 block">{m.icon}</span>
+                  <h4 className="font-heading font-bold text-foreground mb-3">{t(m.title)}</h4>
+                  <ul className="space-y-1.5">
+                    {m.items[language].map((item: string, j: number) => (
+                      <li key={j} className="flex items-start gap-2 font-body text-muted-foreground text-sm">
+                        <ChevronRight className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" /> {item}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Physical & Kshatra Training */}
+          <h3 className="font-heading text-2xl font-bold text-foreground mb-6 text-center">{t(tx.physicalTitle)}</h3>
+          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto mb-14">
+            {physicalModules.map((m, i) => (
+              <Card key={i} className="border-border/50 hover:shadow-elevated transition-all duration-300 hover:-translate-y-1">
+                <CardContent className="p-6">
+                  <span className="text-3xl mb-3 block">{m.icon}</span>
+                  <h4 className="font-heading font-bold text-foreground mb-3">{t(m.title)}</h4>
+                  <ul className="space-y-1.5">
+                    {m.items[language].map((item: string, j: number) => (
+                      <li key={j} className="flex items-start gap-2 font-body text-muted-foreground text-sm">
+                        <ChevronRight className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" /> {item}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+
+          {/* Life Skills */}
+          <h3 className="font-heading text-2xl font-bold text-foreground mb-6 text-center">{t(tx.lifeSkillsTitle)}</h3>
+          <div className="grid md:grid-cols-3 gap-6">
+            {lifeSkillModules.map((m, i) => (
+              <Card key={i} className="border-border/50 hover:shadow-elevated transition-all duration-300 hover:-translate-y-1">
+                <CardContent className="p-6">
+                  <span className="text-3xl mb-3 block">{m.icon}</span>
+                  <h4 className="font-heading font-bold text-foreground mb-3">{t(m.title)}</h4>
+                  <ul className="space-y-1.5">
+                    {m.items[language].map((item: string, j: number) => (
+                      <li key={j} className="flex items-start gap-2 font-body text-muted-foreground text-sm">
+                        <ChevronRight className="h-4 w-4 text-accent flex-shrink-0 mt-0.5" /> {item}
+                      </li>
+                    ))}
+                  </ul>
                 </CardContent>
               </Card>
             ))}
