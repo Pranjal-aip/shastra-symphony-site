@@ -716,7 +716,7 @@ const HeroSection = () => {
 
             {/* Primary CTA - Enroll Now */}
             <motion.div variants={fadeInUp} className="space-y-2.5">
-              <a href="https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42?rzpCashfreeRedirectToPreCheckoutFlow=true&newCheckoutFlowParams=%2Ft%2Fpublic%2Fpre-checkout%2Fsingle-checkout%3FcourseId%3D6953f67fba62d03beeceac42%26pid%3Dp1%26orderId%3DMKglO1771061728124466%26courseAmount%3D7000.0%26pg%3Dcashfree%26currencyCode%3DINR%26transactionId%3D699041e082baa04cc7f70275%26promoCode%3D&page=checkout&reqparams=pid%3Dp1&newCheckoutFlowRedirectIssue=true" target="_blank" rel="noopener noreferrer" className="w-full block">
+              <a href="https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42" target="_blank" rel="noopener noreferrer" className="w-full block">
               <Button 
                 size="lg" 
                 className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold text-sm sm:text-base px-4 sm:px-6 py-5 sm:py-6 rounded-xl sm:rounded-2xl shadow-xl shadow-saffron/25 hover:shadow-2xl transition-all duration-300 active:scale-[0.98]"
@@ -1368,7 +1368,7 @@ const PricingSection = () => {
                   </div>
                   
                   <div className="flex flex-col gap-2">
-                    <a href="https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42?rzpCashfreeRedirectToPreCheckoutFlow=true&newCheckoutFlowParams=%2Ft%2Fpublic%2Fpre-checkout%2Fsingle-checkout%3FcourseId%3D6953f67fba62d03beeceac42%26pid%3Dp1%26orderId%3DMKglO1771061728124466%26courseAmount%3D7000.0%26pg%3Dcashfree%26currencyCode%3DINR%26transactionId%3D699041e082baa04cc7f70275%26promoCode%3D&page=checkout&reqparams=pid%3Dp1&newCheckoutFlowRedirectIssue=true" target="_blank" rel="noopener noreferrer" className="w-full">
+                    <a href="https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42" target="_blank" rel="noopener noreferrer" className="w-full">
                       <Button className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold py-3 sm:py-4 rounded-xl shadow-lg text-xs sm:text-sm active:scale-[0.98] transition-all">
                         <GraduationCap className="h-4 w-4 mr-1.5" />
                         {t(translations.reserveSeat)}
@@ -1628,7 +1628,7 @@ const FloatingEnrollButton = () => {
       exit={{ scale: 0, opacity: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
     >
-      <a href="https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42?rzpCashfreeRedirectToPreCheckoutFlow=true&newCheckoutFlowParams=%2Ft%2Fpublic%2Fpre-checkout%2Fsingle-checkout%3FcourseId%3D6953f67fba62d03beeceac42%26pid%3Dp1%26orderId%3DMKglO1771061728124466%26courseAmount%3D7000.0%26pg%3Dcashfree%26currencyCode%3DINR%26transactionId%3D699041e082baa04cc7f70275%26promoCode%3D&page=checkout&reqparams=pid%3Dp1&newCheckoutFlowRedirectIssue=true" target="_blank" rel="noopener noreferrer">
+      <a href="https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42" target="_blank" rel="noopener noreferrer">
       <Button 
         className="bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold px-6 py-4 rounded-full shadow-2xl text-sm md:text-base active:scale-[0.98] transition-all"
       >
