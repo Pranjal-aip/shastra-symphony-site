@@ -159,9 +159,9 @@ const translations = {
     sa: 'निःशुल्कमार्गदर्शनम् • न बाध्यता • सीमितासनानि'
   },
   reserveSeat: {
-    en: 'Enroll Now',
-    hi: 'अभी नामांकन करें',
-    sa: 'अधुना नामाङ्कयत'
+    en: 'Batch is Closed',
+    hi: 'बैच बंद हो चुका है',
+    sa: 'गणः समाप्तः'
   },
   bookFreeOrientation: {
     en: 'Book Free Orientation',
@@ -169,9 +169,9 @@ const translations = {
     sa: 'निःशुल्कपरिचयं आरक्षयत'
   },
   enrollNow: {
-    en: 'Enroll Now',
-    hi: 'अभी नामांकन करें',
-    sa: 'अधुना नामाङ्कयत'
+    en: 'Batch is Closed',
+    hi: 'बैच बंद हो चुका है',
+    sa: 'गणः समाप्तः'
   },
 
   // Trust Strip
@@ -716,15 +716,14 @@ const HeroSection = () => {
 
             {/* Primary CTA - Enroll Now */}
             <motion.div variants={fadeInUp} className="space-y-2.5">
-              <a href="https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42" target="_blank" rel="noopener noreferrer" className="w-full block">
               <Button 
                 size="lg" 
-                className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold text-sm sm:text-base px-4 sm:px-6 py-5 sm:py-6 rounded-xl sm:rounded-2xl shadow-xl shadow-saffron/25 hover:shadow-2xl transition-all duration-300 active:scale-[0.98]"
+                disabled
+                className="w-full bg-muted text-muted-foreground font-bold text-sm sm:text-base px-4 sm:px-6 py-5 sm:py-6 rounded-xl sm:rounded-2xl shadow-lg cursor-not-allowed opacity-90"
               >
                 <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 mr-2" />
                 {t(translations.enrollNow)}
               </Button>
-              </a>
               
               {/* Book Free Parent Orientation */}
               <a href="https://www.youtube.com/watch?v=n6d3AzIOTDQ" target="_blank" rel="noopener noreferrer" className="block">
@@ -1368,12 +1367,10 @@ const PricingSection = () => {
                   </div>
                   
                   <div className="flex flex-col gap-2">
-                    <a href="https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42" target="_blank" rel="noopener noreferrer" className="w-full">
-                      <Button className="w-full bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold py-3 sm:py-4 rounded-xl shadow-lg text-xs sm:text-sm active:scale-[0.98] transition-all">
-                        <GraduationCap className="h-4 w-4 mr-1.5" />
-                        {t(translations.reserveSeat)}
-                      </Button>
-                    </a>
+                    <Button disabled className="w-full bg-muted text-muted-foreground font-bold py-3 sm:py-4 rounded-xl shadow-md text-xs sm:text-sm cursor-not-allowed opacity-90">
+                      <GraduationCap className="h-4 w-4 mr-1.5" />
+                      {t(translations.reserveSeat)}
+                    </Button>
                     <a href={WHATSAPP_COUNSELOR_LINK} target="_blank" rel="noopener noreferrer" className="w-full">
                       <Button variant="outline" className="w-full border-2 border-maroon/30 hover:bg-maroon/5 text-maroon font-bold py-3 sm:py-4 rounded-xl text-xs sm:text-sm active:scale-[0.98] transition-all">
                         <MessageCircle className="h-4 w-4 mr-1.5" />
@@ -1628,14 +1625,13 @@ const FloatingEnrollButton = () => {
       exit={{ scale: 0, opacity: 0 }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
     >
-      <a href="https://learn.shastrakulam.com/courses/Bodhika--Awakening-Young-Minds-10-students-batch-6953f67fba62d03beeceac42" target="_blank" rel="noopener noreferrer">
       <Button 
-        className="bg-gradient-to-r from-saffron via-orange-500 to-orange-600 hover:from-saffron-dark hover:via-orange-600 hover:to-orange-700 text-white font-bold px-6 py-4 rounded-full shadow-2xl text-sm md:text-base active:scale-[0.98] transition-all"
+        disabled
+        className="bg-muted text-muted-foreground font-bold px-6 py-4 rounded-full shadow-xl text-sm md:text-base cursor-not-allowed opacity-95"
       >
         <Flame className="h-5 w-5 mr-2" />
-        {t({ en: 'Enroll Now', hi: 'अभी नामांकन करें', sa: 'नामाङ्कनं कुरुत' })}
+        {t({ en: 'Batch is Closed', hi: 'बैच बंद हो चुका है', sa: 'गणः समाप्तः' })}
       </Button>
-      </a>
     </motion.div>
   );
 };
