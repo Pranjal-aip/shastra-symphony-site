@@ -159,9 +159,9 @@ const translations = {
     sa: 'निःशुल्कमार्गदर्शनम् • न बाध्यता • सीमितासनानि'
   },
   reserveSeat: {
-    en: 'Enroll Now',
-    hi: 'अभी नामांकन करें',
-    sa: 'अधुना नामाङ्कयत'
+    en: 'Batch is Closed',
+    hi: 'बैच बंद हो चुका है',
+    sa: 'गणः समाप्तः'
   },
   bookFreeOrientation: {
     en: 'Book Free Orientation',
@@ -169,9 +169,9 @@ const translations = {
     sa: 'निःशुल्कपरिचयं आरक्षयत'
   },
   enrollNow: {
-    en: 'Enroll Now',
-    hi: 'अभी नामांकन करें',
-    sa: 'अधुना नामाङ्कयत'
+    en: 'Batch is Closed',
+    hi: 'बैच बंद हो चुका है',
+    sa: 'गणः समाप्तः'
   },
 
   // Trust Strip
