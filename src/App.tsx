@@ -21,6 +21,7 @@ import Camps from "./pages/Camps";
 import GurukulCamp2026 from "./pages/GurukulCamp2026";
 import Donate from "./pages/Donate";
 import Bodhika from "./pages/BodhikaLanding";
+import SambhashanaSanskrit from "./pages/SambhashanaSanskrit";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
@@ -51,6 +52,8 @@ const App = () => (
                     <Route path="/camps/gurukul-2026" element={<GurukulCamp2026 />} />
                     <Route path="/donate" element={<Donate />} />
                     <Route path="/bodhika" element={<Bodhika />} />
+                    <Route path="/courses/spoken-sanskrit" element={<SambhashanaSanskrit />} />
+                    <Route path="/spoken-sanskrit" element={<SambhashanaSanskrit />} />
                     <Route path="/admin/login" element={<AdminLogin />} />
                     <Route path="/admin" element={<AdminDashboard />} />
                     <Route path="*" element={<NotFound />} />
