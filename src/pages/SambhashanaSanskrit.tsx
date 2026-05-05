@@ -609,11 +609,6 @@ const SambhashanaSanskrit: React.FC = () => {
                   <MessageCircle className="mr-2 h-4 w-4" /> {t(tr.submit)}
                 </Button>
               </form>
-              <div className="flex flex-col sm:flex-row gap-3 mt-4">
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="flex-1">
-                  <Button variant="maroon-outline" className="w-full">{t(tr.joinDemo)}</Button>
-                </a>
-              </div>
             </CardContent>
           </Card>
         </div>
