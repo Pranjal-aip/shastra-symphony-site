@@ -346,11 +346,6 @@ const SambhashanaSanskrit: React.FC = () => {
                 <Button size="lg" variant="saffron" onClick={() => scrollTo('lead-form')} className="text-base">
                   {t(tr.enrollNow)} <ArrowRight className="ml-1 h-4 w-4" />
                 </Button>
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" variant="maroon-outline" className="w-full text-base">
-                    <PlayCircle className="mr-2 h-4 w-4" /> {t(tr.joinDemo)}
-                  </Button>
-                </a>
               </div>
 
               <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
@@ -614,11 +609,6 @@ const SambhashanaSanskrit: React.FC = () => {
                   <MessageCircle className="mr-2 h-4 w-4" /> {t(tr.submit)}
                 </Button>
               </form>
-              <div className="flex flex-col sm:flex-row gap-3 mt-4">
-                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="flex-1">
-                  <Button variant="maroon-outline" className="w-full">{t(tr.joinDemo)}</Button>
-                </a>
-              </div>
             </CardContent>
           </Card>
         </div>
