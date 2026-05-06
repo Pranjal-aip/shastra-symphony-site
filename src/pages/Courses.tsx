@@ -3,7 +3,6 @@ import Layout from '@/components/Layout';
 import SEO from '@/components/SEO';
 import SectionHeader from '@/components/SectionHeader';
 import CourseCard from '@/components/CourseCard';
-import SpokenSanskritPromoCard from '@/components/SpokenSanskritPromoCard';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Loader2 } from 'lucide-react';
@@ -96,7 +95,6 @@ const Courses: React.FC = () => {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <SpokenSanskritPromoCard />
               {courses.map((course) => (
                 <CourseCard key={course.id} course={course} />
               ))}
