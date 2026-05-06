@@ -6,7 +6,6 @@ import SEO from '@/components/SEO';
 import { Button } from '@/components/ui/button';
 import SectionHeader from '@/components/SectionHeader';
 import CourseCard from '@/components/CourseCard';
-import SpokenSanskritPromoCard from '@/components/SpokenSanskritPromoCard';
 import BlogCard from '@/components/BlogCard';
 import { useLanguage, translations } from '@/contexts/LanguageContext';
 import { useAdmin } from '@/contexts/AdminContext';
@@ -152,8 +151,7 @@ const Index: React.FC = () => {
               subtitle={t({ en: 'Explore our most loved courses.', hi: 'हमारे सबसे पसंदीदा पाठ्यक्रम।', sa: 'अस्माकं प्रियतमाः पाठ्यक्रमाः।' })}
             />
             <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              <SpokenSanskritPromoCard />
-              {popularCourses.slice(0, 3).map((course) => (
+              {popularCourses.slice(0, 4).map((course) => (
                 <CourseCard key={course.id} course={course} />
               ))}
             </div>

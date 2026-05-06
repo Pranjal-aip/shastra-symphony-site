@@ -38,8 +38,8 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
     return colors[level] || colors['All Ages'];
   };
 
-  // All courses redirect to /bodhika page
-  const courseLink = '/bodhika';
+  // Course-specific landing pages, default to Bodhika
+  const courseLink = course.slug === 'spoken-sanskrit' ? '/spoken-sanskrit' : '/bodhika';
 
   return (
     <div className="group bg-card rounded-2xl overflow-hidden shadow-card hover-lift border border-border/50">
