@@ -343,10 +343,13 @@ const SambhashanaSanskrit: React.FC = () => {
               <Badge className="bg-[hsl(var(--accent))]/15 text-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))]/20 border-[hsl(var(--accent))]/30 mb-4">
                 <Flame className="h-3 w-3 mr-1" /> {t(tr.navBadge)}
               </Badge>
-              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--primary))] leading-tight mb-4">
+              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--primary))] leading-tight mb-3">
                 {t(tr.heroTitle)}
               </h1>
-              <p className="font-body text-base sm:text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed">
+              <p className="font-heading text-lg sm:text-xl md:text-2xl text-[hsl(var(--accent))] font-semibold mb-3">
+                {t(tr.heroTagline)}
+              </p>
+              <p className="font-body text-sm sm:text-base md:text-lg text-muted-foreground mb-6 leading-relaxed">
                 {t(tr.heroSub)}
               </p>
 
