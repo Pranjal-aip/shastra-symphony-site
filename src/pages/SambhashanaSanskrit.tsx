@@ -462,6 +462,57 @@ const SambhashanaSanskrit: React.FC = () => {
         </div>
       </section>
 
+      {/* COURSE EFFORT */}
+      <section className="py-14 md:py-20 bg-gradient-to-b from-white to-[hsl(35_100%_97%)]">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-10">
+            <Badge className="bg-[hsl(var(--accent))]/15 text-[hsl(var(--accent))] border-[hsl(var(--accent))]/30 mb-3">
+              <Clock className="h-3 w-3 mr-1" /> 35–40 hrs
+            </Badge>
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-[hsl(var(--primary))] mb-3">
+              {t(tr.effortTitle)}
+            </h2>
+            <p className="font-body text-muted-foreground max-w-2xl mx-auto">{t(tr.effortSub)}</p>
+          </div>
+
+          <div className="grid sm:grid-cols-3 gap-5 mb-6">
+            {[
+              { icon: PlayCircle, t: tr.effortLectures, v: tr.effortLecturesV, color: 'from-[hsl(var(--accent))] to-[hsl(var(--accent))]/70' },
+              { icon: BookOpen, t: tr.effortSelf, v: tr.effortSelfV, color: 'from-[hsl(var(--primary))] to-[hsl(var(--primary))]/70' },
+              { icon: ShieldCheck, t: tr.effortAssess, v: tr.effortAssessV, color: 'from-emerald-500 to-emerald-600' },
+            ].map((it, i) => {
+              const Icon = it.icon;
+              return (
+                <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
+                  <Card className="border-[hsl(var(--accent))]/20 hover:shadow-lg transition h-full">
+                    <CardContent className="p-6 text-center">
+                      <div className={`w-14 h-14 mx-auto mb-3 rounded-2xl bg-gradient-to-br ${it.color} flex items-center justify-center shadow-md`}>
+                        <Icon className="h-7 w-7 text-white" />
+                      </div>
+                      <h3 className="font-heading font-bold text-lg text-[hsl(var(--primary))]">{t(it.t)}</h3>
+                      <p className="font-heading text-2xl font-bold text-[hsl(var(--accent))] mt-1">{t(it.v)}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <Card className="border-[hsl(var(--accent))]/20 bg-white">
+            <CardContent className="p-5 sm:p-6">
+              <p className="text-sm sm:text-base text-foreground text-center mb-4">{t(tr.effortTotal)}</p>
+              <div className="flex flex-wrap justify-center gap-2">
+                {[tr.effortTag1, tr.effortTag2, tr.effortTag3].map((tag, i) => (
+                  <Badge key={i} variant="secondary" className="bg-[hsl(var(--primary))]/10 text-[hsl(var(--primary))] border-[hsl(var(--primary))]/20 px-3 py-1.5">
+                    <CheckCircle2 className="h-3 w-3 mr-1" /> {t(tag)}
+                  </Badge>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
       {/* ELIGIBILITY + DETAILS */}
       <section className="py-14 md:py-20 bg-[hsl(35_100%_97%)]">
         <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8 max-w-5xl">
