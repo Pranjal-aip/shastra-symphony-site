@@ -37,14 +37,19 @@ const ENROLL_LINK = 'https://learn.shastrakulam.com/courses/Sanskrit-Sambhashan-
 const tr = {
   navBadge: { en: 'New Batch · June 2026', hi: 'नया बैच · जून 2026', sa: 'नूतनः गणः · जून २०२६' },
   heroTitle: {
-    en: 'Fluent Sanskrit Conversations for Every Family',
-    hi: 'हर परिवार के लिए धाराप्रवाह संस्कृत संवाद',
-    sa: 'प्रत्येकं कुटुम्बाय सरला संस्कृतसम्भाषणम्',
+    en: 'Fluent Sanskrit Conversations',
+    hi: 'धाराप्रवाह संस्कृत संवाद',
+    sa: 'प्रवाहिणी संस्कृतसम्भाषणम्',
+  },
+  heroTagline: {
+    en: 'Speak Sanskrit Naturally & Confidently',
+    hi: 'संस्कृत स्वाभाविक रूप से और आत्मविश्वास से बोलें',
+    sa: 'संस्कृतं सहजतया आत्मविश्वासेन च वदत',
   },
   heroSub: {
-    en: 'Learn to speak Sanskrit naturally through simple daily conversations — no grammar stress, perfect for beginners of all ages.',
-    hi: 'सरल दैनिक संवादों के माध्यम से स्वाभाविक रूप से संस्कृत बोलना सीखें — व्याकरण का तनाव नहीं, हर आयु के लिए उपयुक्त।',
-    sa: 'सरलैः दैनिकसंवादैः सहजतया संस्कृतं वक्तुं शिक्षध्वम् — न व्याकरणक्लेशः, सर्वायुर्यानां कृते उत्तमम्।',
+    en: 'No Grammar Burden • Practical Conversations • Beginner Friendly',
+    hi: 'व्याकरण का बोझ नहीं • व्यावहारिक संवाद • शुरुआती के लिए उपयुक्त',
+    sa: 'न व्याकरणभारः • व्यावहारिकसम्भाषणम् • आरम्भकमित्रम्',
   },
   enrollNow: { en: 'Enroll Now', hi: 'अभी नामांकन करें', sa: 'अद्यैव नामाङ्कयत' },
   joinDemo: { en: 'Join Free Demo Class', hi: 'मुफ्त डेमो क्लास में शामिल हों', sa: 'निःशुल्कं प्रदर्शनवर्गं प्राप्नुत' },
@@ -103,30 +108,27 @@ const tr = {
     },
   ],
 
-  materialsTitle: { en: 'Materials & Support', hi: 'सामग्री और सहयोग', sa: 'सामग्री समर्थनं च' },
+  materialsTitle: { en: 'What You Get', hi: 'आपको क्या मिलेगा', sa: 'भवन्तः किं प्राप्स्यन्ति' },
   materials: [
     {
       icon: Video,
-      t: { en: 'Recorded sessions', hi: 'रिकॉर्डेड सत्र', sa: 'अभिलिखितसत्राणि' },
-      d: { en: 'Watch anytime, anywhere.', hi: 'कभी भी, कहीं भी देखें।', sa: 'यदा कुत्र वा पश्यत।' },
+      t: { en: 'Recorded online sessions', hi: 'रिकॉर्डेड ऑनलाइन सत्र', sa: 'अभिलिखितानि सत्राणि' },
+      d: { en: 'Lifetime access to revisit anytime.', hi: 'आजीवन कभी भी पुनः देखें।', sa: 'आजीवनं यदा कदा अपि पश्यत।' },
     },
     {
       icon: BookOpen,
-      t: { en: 'Practice materials', hi: 'अभ्यास सामग्री', sa: 'अभ्याससामग्री' },
-      d: {
-        en: 'Useful phrases and sentence patterns.',
-        hi: 'उपयोगी वाक्यांश और वाक्य पैटर्न।',
-        sa: 'उपयोगि वाक्यानि वाक्यप्रतिमानानि च।',
-      },
+      t: { en: 'Practice materials & sentence patterns', hi: 'अभ्यास सामग्री और वाक्य पैटर्न', sa: 'अभ्याससामग्री वाक्यप्रतिमानानि च' },
+      d: { en: 'Useful phrases for daily practice.', hi: 'दैनिक अभ्यास के लिए उपयोगी वाक्यांश।', sa: 'दैनिकाभ्यासाय उपयोगि वाक्यानि।' },
+    },
+    {
+      icon: MessageCircle,
+      t: { en: 'Guided conversation-building exercises', hi: 'मार्गदर्शित संवाद-निर्माण अभ्यास', sa: 'मार्गदर्शिताः संवादनिर्माणाभ्यासाः' },
+      d: { en: 'Step-by-step practice to build dialogues.', hi: 'संवाद बनाने का चरणबद्ध अभ्यास।', sa: 'संवादनिर्माणस्य क्रमिकाभ्यासः।' },
     },
     {
       icon: GraduationCap,
-      t: { en: 'Teacher guidance', hi: 'शिक्षक मार्गदर्शन', sa: 'आचार्यमार्गदर्शनम्' },
-      d: {
-        en: 'Build and practise real conversations.',
-        hi: 'वास्तविक संवाद बनाएं और अभ्यास करें।',
-        sa: 'वास्तविकसंवादान् निर्मीयताम् अभ्यस्यताम् च।',
-      },
+      t: { en: 'Structured learning support', hi: 'संरचित शिक्षण सहयोग', sa: 'संरचितं शिक्षणसमर्थनम्' },
+      d: { en: 'Clear path from beginner to confident speaker.', hi: 'शुरुआती से आत्मविश्वासी वक्ता तक स्पष्ट मार्ग।', sa: 'आरम्भकात् आत्मविश्वासिवक्तृत्वं प्रति स्पष्टमार्गः।' },
     },
   ],
   materialsNote: {
@@ -134,6 +136,28 @@ const tr = {
     hi: 'सूचना: प्रतिभागियों की अधिक संख्या के कारण, लाइव संवाद के अवसर सीमित हो सकते हैं।',
     sa: 'सूचना: बहूनां सहभागिनां कारणात् सजीवसंवादावसराः सीमिताः स्युः।',
   },
+
+  // Course Effort
+  effortTitle: { en: 'Course Effort', hi: 'पाठ्यक्रम परिश्रम', sa: 'पाठ्यक्रमप्रयासः' },
+  effortSub: {
+    en: '35–40 Hours Total Learning Experience · Live Sessions + Self Study + Assessments',
+    hi: '35–40 घंटे का कुल अनुभव · लाइव सत्र + स्व-अध्ययन + मूल्यांकन',
+    sa: '३५–४० होराः समग्रशिक्षणानुभवः · सजीवसत्राणि + स्वाध्यायः + मूल्याङ्कनम्',
+  },
+  effortLectures: { en: 'Lectures', hi: 'व्याख्यान', sa: 'व्याख्यानानि' },
+  effortLecturesV: { en: '20 hours', hi: '20 घंटे', sa: '२० होराः' },
+  effortSelf: { en: 'Self-Study', hi: 'स्व-अध्ययन', sa: 'स्वाध्यायः' },
+  effortSelfV: { en: '12 hours', hi: '12 घंटे', sa: '१२ होराः' },
+  effortAssess: { en: 'Assessments', hi: 'मूल्यांकन', sa: 'मूल्याङ्कनम्' },
+  effortAssessV: { en: '8 hours', hi: '8 घंटे', sa: '८ होराः' },
+  effortTotal: {
+    en: '~40 hours of learner-effort across live sessions, recorded class material, and prescribed assessments.',
+    hi: 'लगभग 40 घंटे का शिक्षार्थी प्रयास — लाइव सत्र, रिकॉर्डेड सामग्री और निर्धारित मूल्यांकन सहित।',
+    sa: 'प्रायः ४० होराः शिक्षार्थिप्रयासः — सजीवसत्राणि, अभिलिखितसामग्री, निर्दिष्टमूल्याङ्कनं च समाविष्टम्।',
+  },
+  effortTag1: { en: 'Online Live Classes', hi: 'ऑनलाइन लाइव कक्षाएं', sa: 'सजीवाः अन्तर्जालवर्गाः' },
+  effortTag2: { en: 'Suitable for All Age Groups', hi: 'सभी आयु वर्ग के लिए उपयुक्त', sa: 'सर्वायुर्याणां कृते योग्यम्' },
+  effortTag3: { en: 'Limited Interaction Due to Large Participation', hi: 'अधिक प्रतिभागिता के कारण सीमित संवाद', sa: 'अधिकसहभागितायाः कारणात् सीमितः संवादः' },
 
   eligibilityTitle: { en: 'Who Can Join', hi: 'कौन शामिल हो सकता है', sa: 'के सम्मेलितुं शक्नुवन्ति' },
   elig: [
@@ -319,10 +343,13 @@ const SambhashanaSanskrit: React.FC = () => {
               <Badge className="bg-[hsl(var(--accent))]/15 text-[hsl(var(--accent))] hover:bg-[hsl(var(--accent))]/20 border-[hsl(var(--accent))]/30 mb-4">
                 <Flame className="h-3 w-3 mr-1" /> {t(tr.navBadge)}
               </Badge>
-              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--primary))] leading-tight mb-4">
+              <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--primary))] leading-tight mb-3">
                 {t(tr.heroTitle)}
               </h1>
-              <p className="font-body text-base sm:text-lg md:text-xl text-muted-foreground mb-6 leading-relaxed">
+              <p className="font-heading text-lg sm:text-xl md:text-2xl text-[hsl(var(--accent))] font-semibold mb-3">
+                {t(tr.heroTagline)}
+              </p>
+              <p className="font-body text-sm sm:text-base md:text-lg text-muted-foreground mb-6 leading-relaxed">
                 {t(tr.heroSub)}
               </p>
 
@@ -432,6 +459,57 @@ const SambhashanaSanskrit: React.FC = () => {
             })}
           </div>
           <p className="text-xs text-muted-foreground text-center mt-6 italic">{t(tr.materialsNote)}</p>
+        </div>
+      </section>
+
+      {/* COURSE EFFORT */}
+      <section className="py-14 md:py-20 bg-gradient-to-b from-white to-[hsl(35_100%_97%)]">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="text-center mb-10">
+            <Badge className="bg-[hsl(var(--accent))]/15 text-[hsl(var(--accent))] border-[hsl(var(--accent))]/30 mb-3">
+              <Clock className="h-3 w-3 mr-1" /> 35–40 hrs
+            </Badge>
+            <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-[hsl(var(--primary))] mb-3">
+              {t(tr.effortTitle)}
+            </h2>
+            <p className="font-body text-muted-foreground max-w-2xl mx-auto">{t(tr.effortSub)}</p>
+          </div>
+
+          <div className="grid sm:grid-cols-3 gap-5 mb-6">
+            {[
+              { icon: PlayCircle, t: tr.effortLectures, v: tr.effortLecturesV, color: 'from-[hsl(var(--accent))] to-[hsl(var(--accent))]/70' },
+              { icon: BookOpen, t: tr.effortSelf, v: tr.effortSelfV, color: 'from-[hsl(var(--primary))] to-[hsl(var(--primary))]/70' },
+              { icon: ShieldCheck, t: tr.effortAssess, v: tr.effortAssessV, color: 'from-emerald-500 to-emerald-600' },
+            ].map((it, i) => {
+              const Icon = it.icon;
+              return (
+                <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}>
+                  <Card className="border-[hsl(var(--accent))]/20 hover:shadow-lg transition h-full">
+                    <CardContent className="p-6 text-center">
+                      <div className={`w-14 h-14 mx-auto mb-3 rounded-2xl bg-gradient-to-br ${it.color} flex items-center justify-center shadow-md`}>
+                        <Icon className="h-7 w-7 text-white" />
+                      </div>
+                      <h3 className="font-heading font-bold text-lg text-[hsl(var(--primary))]">{t(it.t)}</h3>
+                      <p className="font-heading text-2xl font-bold text-[hsl(var(--accent))] mt-1">{t(it.v)}</p>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          <Card className="border-[hsl(var(--accent))]/20 bg-white">
+            <CardContent className="p-5 sm:p-6">
+              <p className="text-sm sm:text-base text-foreground text-center mb-4">{t(tr.effortTotal)}</p>
+              <div className="flex flex-wrap justify-center gap-2">
+                {[tr.effortTag1, tr.effortTag2, tr.effortTag3].map((tag, i) => (
+                  <Badge key={i} variant="secondary" className="bg-[hsl(var(--primary))]/10 text-[hsl(var(--primary))] border-[hsl(var(--primary))]/20 px-3 py-1.5">
+                    <CheckCircle2 className="h-3 w-3 mr-1" /> {t(tag)}
+                  </Badge>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
