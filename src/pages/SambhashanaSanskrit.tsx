@@ -31,11 +31,7 @@ import {
 } from 'lucide-react';
 import heroImage from '@/assets/sanskrit-course-hero.jpg';
 
-const WHATSAPP_NUMBER = '918679441338';
-const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  "Hi! I'm interested in the Spoken Sanskrit (Sambhashana) course starting in June. Please share details."
-)}`;
-const ENROLL_LINK = WHATSAPP_LINK;
+const ENROLL_LINK = 'https://learn.shastrakulam.com/courses/Sanskrit-Sambhashan-69fdad295f6900c59577d5b0';
 
 // ---------------- translations ----------------
 const tr = {
@@ -153,6 +149,8 @@ const tr = {
   modeValue: { en: 'Live Online + Recordings', hi: 'लाइव ऑनलाइन + रिकॉर्डिंग', sa: 'सजीव ऑनलाइन + अभिलेखाः' },
   audienceLabel: { en: 'For', hi: 'किनके लिए', sa: 'केषां कृते' },
   audienceValue: { en: 'All age groups', hi: 'सभी आयु वर्ग', sa: 'सर्वायुर्याः' },
+  timeLabel: { en: 'Class Time', hi: 'कक्षा समय', sa: 'वर्गसमयः' },
+  timeValue: { en: '8:00 PM (IST) · Starting June 2026', hi: 'रात्रि 8:00 बजे (IST) · जून 2026 से आरंभ', sa: 'रात्रौ ८:०० वादने (IST) · जून २०२६ तः आरम्भः' },
 
   pricingTitle: { en: 'Pay What You Want', hi: 'जो चाहें भुगतान करें', sa: 'यथेच्छं दीयताम्' },
   actualValue: { en: 'Actual Value', hi: 'वास्तविक मूल्य', sa: 'वास्तविकमूल्यम्' },
@@ -288,10 +286,8 @@ const CountdownTo: React.FC<{ target: Date }> = ({ target }) => {
 // ---------------- Page ----------------
 const SambhashanaSanskrit: React.FC = () => {
   const { t, language } = useLanguage();
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
   const [showSticky, setShowSticky] = useState(false);
-  const targetDate = new Date('2026-06-01T08:00:00+05:30');
+  const targetDate = new Date('2026-06-01T20:00:00+05:30');
 
   useEffect(() => {
     const onScroll = () => setShowSticky(window.scrollY > 600);
@@ -299,20 +295,8 @@ const SambhashanaSanskrit: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const submitLead = (e: React.FormEvent) => {
-    e.preventDefault();
-    const cleanName = name.trim().slice(0, 80);
-    const cleanPhone = phone.trim().replace(/[^0-9+]/g, '').slice(0, 20);
-    if (cleanName.length < 2 || cleanPhone.length < 8) {
-      toast({ title: 'Please enter your name and a valid WhatsApp number.' });
-      return;
-    }
-    const msg = `Hi! I'm ${cleanName} (${cleanPhone}). Please reserve my seat in the Spoken Sanskrit course starting June.`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  const goEnroll = () => {
+    window.open(ENROLL_LINK, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -343,7 +327,7 @@ const SambhashanaSanskrit: React.FC = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                <Button size="lg" variant="saffron" onClick={() => scrollTo('lead-form')} className="text-base">
+                <Button size="lg" variant="saffron" onClick={() => goEnroll()} className="text-base">
                   {t(tr.enrollNow)} <ArrowRight className="ml-1 h-4 w-4" />
                 </Button>
               </div>
@@ -478,6 +462,7 @@ const SambhashanaSanskrit: React.FC = () => {
                 <div className="flex items-center gap-3"><Calendar className="h-5 w-5 text-[hsl(var(--accent))]" /><span><strong>{t(tr.startsLabel)}:</strong> {t(tr.startsValue)}</span></div>
                 <div className="flex items-center gap-3"><Video className="h-5 w-5 text-[hsl(var(--accent))]" /><span><strong>{t(tr.modeLabel)}:</strong> {t(tr.modeValue)}</span></div>
                 <div className="flex items-center gap-3"><Globe className="h-5 w-5 text-[hsl(var(--accent))]" /><span><strong>{t(tr.audienceLabel)}:</strong> {t(tr.audienceValue)}</span></div>
+                <div className="flex items-center gap-3"><Clock className="h-5 w-5 text-[hsl(var(--accent))]" /><span><strong>{t(tr.timeLabel)}:</strong> {t(tr.timeValue)}</span></div>
               </div>
             </CardContent>
           </Card>
@@ -491,7 +476,7 @@ const SambhashanaSanskrit: React.FC = () => {
           <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold mb-8">{t(tr.countdownStart)}</h2>
           <CountdownTo target={targetDate} />
           <div className="mt-8">
-            <Button size="lg" variant="saffron" onClick={() => scrollTo('lead-form')}>
+            <Button size="lg" variant="saffron" onClick={() => goEnroll()}>
               {t(tr.secureSeat)} <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
           </div>
@@ -512,7 +497,7 @@ const SambhashanaSanskrit: React.FC = () => {
               <p className="font-body text-base text-foreground mt-6 max-w-lg mx-auto italic">
                 “{t(tr.contributionLine)}”
               </p>
-              <Button size="lg" variant="saffron" className="mt-6" onClick={() => scrollTo('lead-form')}>
+              <Button size="lg" variant="saffron" className="mt-6" onClick={() => goEnroll()}>
                 {t(tr.secureSeat)} <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             </div>
@@ -585,32 +570,14 @@ const SambhashanaSanskrit: React.FC = () => {
         </div>
       </section>
 
-      {/* LEAD FORM + FINAL CTA */}
-      <section id="lead-form" className="py-14 md:py-20 bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--primary))]/90 text-primary-foreground">
-        <div className="container mx-auto px-4 max-w-4xl text-center">
+      {/* FINAL CTA */}
+      <section className="py-14 md:py-20 bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--primary))]/90 text-primary-foreground">
+        <div className="container mx-auto px-4 max-w-3xl text-center">
           <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold mb-4">{t(tr.finalTitle)}</h2>
-          <p className="text-primary-foreground/80 mb-8">{t(tr.formSub)}</p>
-
-          <Card className="bg-white text-foreground max-w-xl mx-auto">
-            <CardContent className="p-6 sm:p-8">
-              <h3 className="font-heading text-xl font-bold text-[hsl(var(--primary))] mb-4 flex items-center justify-center gap-2">
-                <ShieldCheck className="h-5 w-5 text-[hsl(var(--accent))]" /> {t(tr.formTitle)}
-              </h3>
-              <form onSubmit={submitLead} className="space-y-4 text-left">
-                <div>
-                  <Label htmlFor="lead-name">{t(tr.name)}</Label>
-                  <Input id="lead-name" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} required />
-                </div>
-                <div>
-                  <Label htmlFor="lead-phone">{t(tr.whatsapp)}</Label>
-                  <Input id="lead-phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} maxLength={20} required />
-                </div>
-                <Button type="submit" variant="saffron" size="lg" className="w-full">
-                  <MessageCircle className="mr-2 h-4 w-4" /> {t(tr.submit)}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+          <p className="text-primary-foreground/80 mb-8">{t(tr.timeValue)}</p>
+          <Button size="lg" variant="saffron" onClick={goEnroll} className="text-base">
+            {t(tr.enrollNow)} <ArrowRight className="ml-1 h-4 w-4" />
+          </Button>
         </div>
       </section>
 
@@ -628,7 +595,7 @@ const SambhashanaSanskrit: React.FC = () => {
                 <Flame className="inline h-3 w-3 text-[hsl(var(--accent))] mr-1" />
                 {t(tr.urgencyTitle)}
               </div>
-              <Button size="sm" variant="saffron" onClick={() => scrollTo('lead-form')}>
+              <Button size="sm" variant="saffron" onClick={() => goEnroll()}>
                 {t(tr.enrollNow)} <ArrowRight className="ml-1 h-3 w-3" />
               </Button>
             </div>
