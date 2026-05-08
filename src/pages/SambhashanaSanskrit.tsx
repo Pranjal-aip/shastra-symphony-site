@@ -37,14 +37,19 @@ const ENROLL_LINK = 'https://learn.shastrakulam.com/courses/Sanskrit-Sambhashan-
 const tr = {
   navBadge: { en: 'New Batch · June 2026', hi: 'नया बैच · जून 2026', sa: 'नूतनः गणः · जून २०२६' },
   heroTitle: {
-    en: 'Fluent Sanskrit Conversations for Every Family',
-    hi: 'हर परिवार के लिए धाराप्रवाह संस्कृत संवाद',
-    sa: 'प्रत्येकं कुटुम्बाय सरला संस्कृतसम्भाषणम्',
+    en: 'Fluent Sanskrit Conversations',
+    hi: 'धाराप्रवाह संस्कृत संवाद',
+    sa: 'प्रवाहिणी संस्कृतसम्भाषणम्',
+  },
+  heroTagline: {
+    en: 'Speak Sanskrit Naturally & Confidently',
+    hi: 'संस्कृत स्वाभाविक रूप से और आत्मविश्वास से बोलें',
+    sa: 'संस्कृतं सहजतया आत्मविश्वासेन च वदत',
   },
   heroSub: {
-    en: 'Learn to speak Sanskrit naturally through simple daily conversations — no grammar stress, perfect for beginners of all ages.',
-    hi: 'सरल दैनिक संवादों के माध्यम से स्वाभाविक रूप से संस्कृत बोलना सीखें — व्याकरण का तनाव नहीं, हर आयु के लिए उपयुक्त।',
-    sa: 'सरलैः दैनिकसंवादैः सहजतया संस्कृतं वक्तुं शिक्षध्वम् — न व्याकरणक्लेशः, सर्वायुर्यानां कृते उत्तमम्।',
+    en: 'No Grammar Burden • Practical Conversations • Beginner Friendly',
+    hi: 'व्याकरण का बोझ नहीं • व्यावहारिक संवाद • शुरुआती के लिए उपयुक्त',
+    sa: 'न व्याकरणभारः • व्यावहारिकसम्भाषणम् • आरम्भकमित्रम्',
   },
   enrollNow: { en: 'Enroll Now', hi: 'अभी नामांकन करें', sa: 'अद्यैव नामाङ्कयत' },
   joinDemo: { en: 'Join Free Demo Class', hi: 'मुफ्त डेमो क्लास में शामिल हों', sa: 'निःशुल्कं प्रदर्शनवर्गं प्राप्नुत' },
