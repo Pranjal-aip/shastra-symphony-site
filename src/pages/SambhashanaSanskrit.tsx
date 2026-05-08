@@ -476,6 +476,7 @@ const SambhashanaSanskrit: React.FC = () => {
                 <div className="flex items-center gap-3"><Calendar className="h-5 w-5 text-[hsl(var(--accent))]" /><span><strong>{t(tr.startsLabel)}:</strong> {t(tr.startsValue)}</span></div>
                 <div className="flex items-center gap-3"><Video className="h-5 w-5 text-[hsl(var(--accent))]" /><span><strong>{t(tr.modeLabel)}:</strong> {t(tr.modeValue)}</span></div>
                 <div className="flex items-center gap-3"><Globe className="h-5 w-5 text-[hsl(var(--accent))]" /><span><strong>{t(tr.audienceLabel)}:</strong> {t(tr.audienceValue)}</span></div>
+                <div className="flex items-center gap-3"><Clock className="h-5 w-5 text-[hsl(var(--accent))]" /><span><strong>{t(tr.timeLabel)}:</strong> {t(tr.timeValue)}</span></div>
               </div>
             </CardContent>
           </Card>
