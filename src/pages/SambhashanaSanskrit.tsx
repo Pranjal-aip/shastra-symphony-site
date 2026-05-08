@@ -108,30 +108,27 @@ const tr = {
     },
   ],
 
-  materialsTitle: { en: 'Materials & Support', hi: 'सामग्री और सहयोग', sa: 'सामग्री समर्थनं च' },
+  materialsTitle: { en: 'What You Get', hi: 'आपको क्या मिलेगा', sa: 'भवन्तः किं प्राप्स्यन्ति' },
   materials: [
     {
       icon: Video,
-      t: { en: 'Recorded sessions', hi: 'रिकॉर्डेड सत्र', sa: 'अभिलिखितसत्राणि' },
-      d: { en: 'Watch anytime, anywhere.', hi: 'कभी भी, कहीं भी देखें।', sa: 'यदा कुत्र वा पश्यत।' },
+      t: { en: 'Recorded online sessions', hi: 'रिकॉर्डेड ऑनलाइन सत्र', sa: 'अभिलिखितानि सत्राणि' },
+      d: { en: 'Lifetime access to revisit anytime.', hi: 'आजीवन कभी भी पुनः देखें।', sa: 'आजीवनं यदा कदा अपि पश्यत।' },
     },
     {
       icon: BookOpen,
-      t: { en: 'Practice materials', hi: 'अभ्यास सामग्री', sa: 'अभ्याससामग्री' },
-      d: {
-        en: 'Useful phrases and sentence patterns.',
-        hi: 'उपयोगी वाक्यांश और वाक्य पैटर्न।',
-        sa: 'उपयोगि वाक्यानि वाक्यप्रतिमानानि च।',
-      },
+      t: { en: 'Practice materials & sentence patterns', hi: 'अभ्यास सामग्री और वाक्य पैटर्न', sa: 'अभ्याससामग्री वाक्यप्रतिमानानि च' },
+      d: { en: 'Useful phrases for daily practice.', hi: 'दैनिक अभ्यास के लिए उपयोगी वाक्यांश।', sa: 'दैनिकाभ्यासाय उपयोगि वाक्यानि।' },
+    },
+    {
+      icon: MessageCircle,
+      t: { en: 'Guided conversation-building exercises', hi: 'मार्गदर्शित संवाद-निर्माण अभ्यास', sa: 'मार्गदर्शिताः संवादनिर्माणाभ्यासाः' },
+      d: { en: 'Step-by-step practice to build dialogues.', hi: 'संवाद बनाने का चरणबद्ध अभ्यास।', sa: 'संवादनिर्माणस्य क्रमिकाभ्यासः।' },
     },
     {
       icon: GraduationCap,
-      t: { en: 'Teacher guidance', hi: 'शिक्षक मार्गदर्शन', sa: 'आचार्यमार्गदर्शनम्' },
-      d: {
-        en: 'Build and practise real conversations.',
-        hi: 'वास्तविक संवाद बनाएं और अभ्यास करें।',
-        sa: 'वास्तविकसंवादान् निर्मीयताम् अभ्यस्यताम् च।',
-      },
+      t: { en: 'Structured learning support', hi: 'संरचित शिक्षण सहयोग', sa: 'संरचितं शिक्षणसमर्थनम्' },
+      d: { en: 'Clear path from beginner to confident speaker.', hi: 'शुरुआती से आत्मविश्वासी वक्ता तक स्पष्ट मार्ग।', sa: 'आरम्भकात् आत्मविश्वासिवक्तृत्वं प्रति स्पष्टमार्गः।' },
     },
   ],
   materialsNote: {
@@ -139,6 +136,28 @@ const tr = {
     hi: 'सूचना: प्रतिभागियों की अधिक संख्या के कारण, लाइव संवाद के अवसर सीमित हो सकते हैं।',
     sa: 'सूचना: बहूनां सहभागिनां कारणात् सजीवसंवादावसराः सीमिताः स्युः।',
   },
+
+  // Course Effort
+  effortTitle: { en: 'Course Effort', hi: 'पाठ्यक्रम परिश्रम', sa: 'पाठ्यक्रमप्रयासः' },
+  effortSub: {
+    en: '35–40 Hours Total Learning Experience · Live Sessions + Self Study + Assessments',
+    hi: '35–40 घंटे का कुल अनुभव · लाइव सत्र + स्व-अध्ययन + मूल्यांकन',
+    sa: '३५–४० होराः समग्रशिक्षणानुभवः · सजीवसत्राणि + स्वाध्यायः + मूल्याङ्कनम्',
+  },
+  effortLectures: { en: 'Lectures', hi: 'व्याख्यान', sa: 'व्याख्यानानि' },
+  effortLecturesV: { en: '20 hours', hi: '20 घंटे', sa: '२० होराः' },
+  effortSelf: { en: 'Self-Study', hi: 'स्व-अध्ययन', sa: 'स्वाध्यायः' },
+  effortSelfV: { en: '12 hours', hi: '12 घंटे', sa: '१२ होराः' },
+  effortAssess: { en: 'Assessments', hi: 'मूल्यांकन', sa: 'मूल्याङ्कनम्' },
+  effortAssessV: { en: '8 hours', hi: '8 घंटे', sa: '८ होराः' },
+  effortTotal: {
+    en: '~40 hours of learner-effort across live sessions, recorded class material, and prescribed assessments.',
+    hi: 'लगभग 40 घंटे का शिक्षार्थी प्रयास — लाइव सत्र, रिकॉर्डेड सामग्री और निर्धारित मूल्यांकन सहित।',
+    sa: 'प्रायः ४० होराः शिक्षार्थिप्रयासः — सजीवसत्राणि, अभिलिखितसामग्री, निर्दिष्टमूल्याङ्कनं च समाविष्टम्।',
+  },
+  effortTag1: { en: 'Online Live Classes', hi: 'ऑनलाइन लाइव कक्षाएं', sa: 'सजीवाः अन्तर्जालवर्गाः' },
+  effortTag2: { en: 'Suitable for All Age Groups', hi: 'सभी आयु वर्ग के लिए उपयुक्त', sa: 'सर्वायुर्याणां कृते योग्यम्' },
+  effortTag3: { en: 'Limited Interaction Due to Large Participation', hi: 'अधिक प्रतिभागिता के कारण सीमित संवाद', sa: 'अधिकसहभागितायाः कारणात् सीमितः संवादः' },
 
   eligibilityTitle: { en: 'Who Can Join', hi: 'कौन शामिल हो सकता है', sa: 'के सम्मेलितुं शक्नुवन्ति' },
   elig: [
