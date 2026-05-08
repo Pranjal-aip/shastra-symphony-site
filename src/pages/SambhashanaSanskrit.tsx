@@ -149,6 +149,8 @@ const tr = {
   modeValue: { en: 'Live Online + Recordings', hi: 'लाइव ऑनलाइन + रिकॉर्डिंग', sa: 'सजीव ऑनलाइन + अभिलेखाः' },
   audienceLabel: { en: 'For', hi: 'किनके लिए', sa: 'केषां कृते' },
   audienceValue: { en: 'All age groups', hi: 'सभी आयु वर्ग', sa: 'सर्वायुर्याः' },
+  timeLabel: { en: 'Class Time', hi: 'कक्षा समय', sa: 'वर्गसमयः' },
+  timeValue: { en: '8:00 PM (IST) · Starting June 2026', hi: 'रात्रि 8:00 बजे (IST) · जून 2026 से आरंभ', sa: 'रात्रौ ८:०० वादने (IST) · जून २०२६ तः आरम्भः' },
 
   pricingTitle: { en: 'Pay What You Want', hi: 'जो चाहें भुगतान करें', sa: 'यथेच्छं दीयताम्' },
   actualValue: { en: 'Actual Value', hi: 'वास्तविक मूल्य', sa: 'वास्तविकमूल्यम्' },
