@@ -286,10 +286,8 @@ const CountdownTo: React.FC<{ target: Date }> = ({ target }) => {
 // ---------------- Page ----------------
 const SambhashanaSanskrit: React.FC = () => {
   const { t, language } = useLanguage();
-  const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
   const [showSticky, setShowSticky] = useState(false);
-  const targetDate = new Date('2026-06-01T08:00:00+05:30');
+  const targetDate = new Date('2026-06-01T20:00:00+05:30');
 
   useEffect(() => {
     const onScroll = () => setShowSticky(window.scrollY > 600);
@@ -297,20 +295,8 @@ const SambhashanaSanskrit: React.FC = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const submitLead = (e: React.FormEvent) => {
-    e.preventDefault();
-    const cleanName = name.trim().slice(0, 80);
-    const cleanPhone = phone.trim().replace(/[^0-9+]/g, '').slice(0, 20);
-    if (cleanName.length < 2 || cleanPhone.length < 8) {
-      toast({ title: 'Please enter your name and a valid WhatsApp number.' });
-      return;
-    }
-    const msg = `Hi! I'm ${cleanName} (${cleanPhone}). Please reserve my seat in the Spoken Sanskrit course starting June.`;
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
+  const goEnroll = () => {
+    window.open(ENROLL_LINK, '_blank', 'noopener,noreferrer');
   };
 
   return (
