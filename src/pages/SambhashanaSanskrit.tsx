@@ -491,10 +491,7 @@ const SambhashanaSanskrit: React.FC = () => {
           </h2>
           <Card className="border-2 border-[hsl(var(--accent))]/30 shadow-xl overflow-hidden">
             <div className="bg-gradient-to-r from-[hsl(var(--accent))]/10 to-[hsl(var(--primary))]/5 p-6 sm:p-10 text-center">
-              <p className="text-sm text-muted-foreground line-through">{t(tr.actualValue)}: ₹999</p>
-              <p className="font-heading text-4xl sm:text-5xl font-bold text-[hsl(var(--primary))] mt-2">{t(tr.payRange)}</p>
-              <p className="text-sm text-muted-foreground mt-1">{t(tr.todayLabel)} · Pay What You Want</p>
-              <p className="font-body text-base text-foreground mt-6 max-w-lg mx-auto italic">
+              <p className="font-body text-base text-foreground max-w-lg mx-auto italic">
                 “{t(tr.contributionLine)}”
               </p>
               <Button size="lg" variant="saffron" className="mt-6" onClick={() => goEnroll()}>
