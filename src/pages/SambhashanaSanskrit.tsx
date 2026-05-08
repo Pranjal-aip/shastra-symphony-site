@@ -31,11 +31,7 @@ import {
 } from 'lucide-react';
 import heroImage from '@/assets/sanskrit-course-hero.jpg';
 
-const WHATSAPP_NUMBER = '918679441338';
-const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-  "Hi! I'm interested in the Spoken Sanskrit (Sambhashana) course starting in June. Please share details."
-)}`;
-const ENROLL_LINK = WHATSAPP_LINK;
+const ENROLL_LINK = 'https://learn.shastrakulam.com/courses/Sanskrit-Sambhashan-69fdad295f6900c59577d5b0';
 
 // ---------------- translations ----------------
 const tr = {
