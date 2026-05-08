@@ -570,32 +570,14 @@ const SambhashanaSanskrit: React.FC = () => {
         </div>
       </section>
 
-      {/* LEAD FORM + FINAL CTA */}
-      <section id="lead-form" className="py-14 md:py-20 bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--primary))]/90 text-primary-foreground">
-        <div className="container mx-auto px-4 max-w-4xl text-center">
+      {/* FINAL CTA */}
+      <section className="py-14 md:py-20 bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--primary))]/90 text-primary-foreground">
+        <div className="container mx-auto px-4 max-w-3xl text-center">
           <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold mb-4">{t(tr.finalTitle)}</h2>
-          <p className="text-primary-foreground/80 mb-8">{t(tr.formSub)}</p>
-
-          <Card className="bg-white text-foreground max-w-xl mx-auto">
-            <CardContent className="p-6 sm:p-8">
-              <h3 className="font-heading text-xl font-bold text-[hsl(var(--primary))] mb-4 flex items-center justify-center gap-2">
-                <ShieldCheck className="h-5 w-5 text-[hsl(var(--accent))]" /> {t(tr.formTitle)}
-              </h3>
-              <form onSubmit={submitLead} className="space-y-4 text-left">
-                <div>
-                  <Label htmlFor="lead-name">{t(tr.name)}</Label>
-                  <Input id="lead-name" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} required />
-                </div>
-                <div>
-                  <Label htmlFor="lead-phone">{t(tr.whatsapp)}</Label>
-                  <Input id="lead-phone" type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} maxLength={20} required />
-                </div>
-                <Button type="submit" variant="saffron" size="lg" className="w-full">
-                  <MessageCircle className="mr-2 h-4 w-4" /> {t(tr.submit)}
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
+          <p className="text-primary-foreground/80 mb-8">{t(tr.timeValue)}</p>
+          <Button size="lg" variant="saffron" onClick={goEnroll} className="text-base">
+            {t(tr.enrollNow)} <ArrowRight className="ml-1 h-4 w-4" />
+          </Button>
         </div>
       </section>
 
