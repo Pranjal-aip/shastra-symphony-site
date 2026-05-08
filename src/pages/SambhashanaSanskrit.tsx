@@ -327,7 +327,7 @@ const SambhashanaSanskrit: React.FC = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                <Button size="lg" variant="saffron" onClick={() => scrollTo('lead-form')} className="text-base">
+                <Button size="lg" variant="saffron" onClick={() => goEnroll()} className="text-base">
                   {t(tr.enrollNow)} <ArrowRight className="ml-1 h-4 w-4" />
                 </Button>
               </div>
@@ -476,7 +476,7 @@ const SambhashanaSanskrit: React.FC = () => {
           <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold mb-8">{t(tr.countdownStart)}</h2>
           <CountdownTo target={targetDate} />
           <div className="mt-8">
-            <Button size="lg" variant="saffron" onClick={() => scrollTo('lead-form')}>
+            <Button size="lg" variant="saffron" onClick={() => goEnroll()}>
               {t(tr.secureSeat)} <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
           </div>
@@ -497,7 +497,7 @@ const SambhashanaSanskrit: React.FC = () => {
               <p className="font-body text-base text-foreground mt-6 max-w-lg mx-auto italic">
                 “{t(tr.contributionLine)}”
               </p>
-              <Button size="lg" variant="saffron" className="mt-6" onClick={() => scrollTo('lead-form')}>
+              <Button size="lg" variant="saffron" className="mt-6" onClick={() => goEnroll()}>
                 {t(tr.secureSeat)} <ArrowRight className="ml-1 h-4 w-4" />
               </Button>
             </div>
@@ -613,7 +613,7 @@ const SambhashanaSanskrit: React.FC = () => {
                 <Flame className="inline h-3 w-3 text-[hsl(var(--accent))] mr-1" />
                 {t(tr.urgencyTitle)}
               </div>
-              <Button size="sm" variant="saffron" onClick={() => scrollTo('lead-form')}>
+              <Button size="sm" variant="saffron" onClick={() => goEnroll()}>
                 {t(tr.enrollNow)} <ArrowRight className="ml-1 h-3 w-3" />
               </Button>
             </div>
