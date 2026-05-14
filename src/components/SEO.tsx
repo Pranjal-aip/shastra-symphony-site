@@ -84,78 +84,33 @@ const SEO: React.FC<SEOProps> = ({
   
   const absoluteImageUrl = getAbsoluteImageUrl(image);
   
-  // Default organization structured data
-  const organizationSchema = {
+  // Article structured data (per-route, for blog posts)
+  const articleSchema = type === 'article' && article ? {
     "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    "name": "Shastrakulam",
-    "alternateName": "शास्त्रकुलम्",
-    "url": baseUrl,
-    "logo": "https://storage.googleapis.com/gpt-engineer-file-uploads/q7GFho7FFRXCbUcp2yLkc2QG3Kq2/uploads/1766976733180-logo_final-removebg-preview.png",
-    "description": "Authentic Vedic education through Sanskrit courses, full-time gurukul schooling, and immersive camps for children and seekers.",
-    "foundingDate": "2020",
-    "numberOfEmployees": {
-      "@type": "QuantitativeValue",
-      "minValue": 10,
-      "maxValue": 50
+    "@type": "Article",
+    "headline": currentTitle,
+    "description": currentDescription,
+    "image": absoluteImageUrl,
+    "datePublished": article.publishedTime,
+    "dateModified": article.modifiedTime || article.publishedTime,
+    "author": {
+      "@type": "Person",
+      "name": article.author || "Shastrakulam"
     },
-    "areaServed": {
-      "@type": "Country",
-      "name": "India"
+    "publisher": {
+      "@type": "Organization",
+      "name": "Shastrakulam",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://storage.googleapis.com/gpt-engineer-file-uploads/q7GFho7FFRXCbUcp2yLkc2QG3Kq2/uploads/1766976733180-logo_final-removebg-preview.png"
+      }
     },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Vedic Education Courses",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Course",
-            "name": "Sanskrit Language Courses"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Course",
-            "name": "Bhagavad Gita Studies"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Course",
-            "name": "Vedic Mathematics"
-          }
-        }
-      ]
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": currentUrl
     },
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "NH334, Badheri",
-      "addressLocality": "Badheri",
-      "addressRegion": "Uttar Pradesh",
-      "postalCode": "251307",
-      "addressCountry": "IN"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "29.0588",
-      "longitude": "77.7006"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+91-96749-16567",
-      "contactType": "customer service",
-      "email": "info@shastrakulam.com",
-      "availableLanguage": ["English", "Hindi", "Sanskrit"]
-    },
-    "sameAs": [
-      "https://www.instagram.com/shastrakulam",
-      "https://www.youtube.com/@shastrakulam",
-      "https://www.facebook.com/shastrakulam"
-    ]
-  };
+    "articleSection": article.section
+  } : null;
 
   // Course structured data
   const courseSchema = course ? {
