@@ -1,0 +1,19 @@
+# Shastrakulam
+
+> Authentic Vedic education platform offering live online Sanskrit courses, Bhagavad Gita and Upanishad classes, Vedic mathematics, and full-time gurukul schooling for children and adult seekers.
+
+Shastrakulam is led by Acharya Yogesh Bhardwaj. Programs run in English, Hindi, and Sanskrit.
+
+## Pages
+
+- [Home](/): Overview of courses, programs, and the gurukul.
+- [Courses](/courses): All live online courses.
+- [Spoken Sanskrit](/courses/spoken-sanskrit): Beginner-friendly conversational Sanskrit course.
+- [Bodhika](/bodhika): 6-month Sanatan Dharma program for children aged 6–12.
+- [Gurukul Camp 2026](/camps/gurukul-2026): Residential Vedic camp for children.
+- [Camps](/camps): Immersive learning camps.
+- [Programs](/programs): Long-form learning programs.
+- [Blog](/blog): Articles on Sanskrit, dharma, and Vedic learning.
+- [About](/about): Founder and mission.
+- [Contact](/contact): Reach the team (+91 86794 41338).
+- [Donate](/donate): Support the gurukul.
