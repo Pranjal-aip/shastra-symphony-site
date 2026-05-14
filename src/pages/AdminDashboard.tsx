@@ -2245,7 +2245,7 @@ const SettingsTab: React.FC = () => {
           </div>
           <div>
             <label className="font-body text-sm font-medium mb-2 block">Contact Email</label>
-            <Input placeholder="info@shastrakulam.org" defaultValue="info@shastrakulam.org" />
+            <Input placeholder="info@shastrakulam.com" defaultValue="info@shastrakulam.com" />
           </div>
           <div>
             <label className="font-body text-sm font-medium mb-2 block">Contact Phone</label>
