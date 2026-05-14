@@ -167,9 +167,11 @@ const SEO: React.FC<SEOProps> = ({
     }))
   } : null;
 
-  // Combine all structured data
+  // Combine all structured data (Organization/LocalBusiness/WebSite live in index.html
+  // sitewide — keep only per-route schemas here to avoid duplication on every page).
   const allSchemas = [
-    structuredData || organizationSchema,
+    structuredData,
+    articleSchema,
     courseSchema,
     breadcrumbSchema,
     faqSchema
