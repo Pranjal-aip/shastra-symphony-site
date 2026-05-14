@@ -191,7 +191,9 @@ const Contact: React.FC = () => {
                 </div>
                 <div className="flex items-center gap-4">
                   <Mail className="h-6 w-6 text-accent" />
-                  <span className="font-body">info@shastrakulam.org</span>
+                  <a href="mailto:info@shastrakulam.com" className="font-body hover:text-accent transition-colors">
+                    info@shastrakulam.com
+                  </a>
                 </div>
               </div>
             </div>
