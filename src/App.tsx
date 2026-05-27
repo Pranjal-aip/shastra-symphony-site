@@ -55,6 +55,8 @@ const App = () => (
                     <Route path="/bodhika" element={<Bodhika />} />
                     <Route path="/courses/spoken-sanskrit" element={<SambhashanaSanskrit />} />
                     <Route path="/spoken-sanskrit" element={<SambhashanaSanskrit />} />
+                    <Route path="/courses/antarik-kurukshetra" element={<AntarikKurukshetra />} />
+                    <Route path="/antarik-kurukshetra" element={<AntarikKurukshetra />} />
                     <Route path="/admin/login" element={<AdminLogin />} />
                     <Route path="/admin" element={<AdminDashboard />} />
                     <Route path="*" element={<NotFound />} />
