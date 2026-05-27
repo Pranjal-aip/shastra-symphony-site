@@ -22,6 +22,7 @@ import GurukulCamp2026 from "./pages/GurukulCamp2026";
 import Donate from "./pages/Donate";
 import Bodhika from "./pages/BodhikaLanding";
 import SambhashanaSanskrit from "./pages/SambhashanaSanskrit";
+import AntarikKurukshetra from "./pages/AntarikKurukshetra";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
