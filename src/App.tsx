@@ -22,6 +22,7 @@ import GurukulCamp2026 from "./pages/GurukulCamp2026";
 import Donate from "./pages/Donate";
 import Bodhika from "./pages/BodhikaLanding";
 import SambhashanaSanskrit from "./pages/SambhashanaSanskrit";
+import AntarikKurukshetra from "./pages/AntarikKurukshetra";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
@@ -54,6 +55,8 @@ const App = () => (
                     <Route path="/bodhika" element={<Bodhika />} />
                     <Route path="/courses/spoken-sanskrit" element={<SambhashanaSanskrit />} />
                     <Route path="/spoken-sanskrit" element={<SambhashanaSanskrit />} />
+                    <Route path="/courses/antarik-kurukshetra" element={<AntarikKurukshetra />} />
+                    <Route path="/antarik-kurukshetra" element={<AntarikKurukshetra />} />
                     <Route path="/admin/login" element={<AdminLogin />} />
                     <Route path="/admin" element={<AdminDashboard />} />
                     <Route path="*" element={<NotFound />} />
