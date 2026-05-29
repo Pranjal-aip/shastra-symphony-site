@@ -422,18 +422,9 @@ const AntarikKurukshetra: React.FC = () => {
               transition={{ duration: 0.6 }}
               className="relative"
             >
-              <Card className="bg-gradient-to-br from-primary to-primary/85 text-primary-foreground border-0 shadow-elevated overflow-hidden">
-                <div className="relative h-56 md:h-64">
-                  <img
-                    src={krishnaImg}
-                    alt={t(tr.krishnaTitle)}
-                    width={1024}
-                    height={1024}
-                    loading="lazy"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent" />
-                </div>
+              <Card className="bg-gradient-to-br from-primary via-[hsl(var(--maroon-dark))] to-primary text-primary-foreground border-0 shadow-elevated overflow-hidden relative">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_0%,hsl(var(--accent)/0.30),transparent_55%)]" />
+                <div className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(hsl(var(--accent))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--accent))_1px,transparent_1px)] [background-size:40px_40px]" />
                 <CardContent className="p-8 md:p-10 -mt-2">
                   <Quote className="h-10 w-10 text-accent mb-4" />
                   <h3 className="font-heading text-2xl font-bold mb-3">
