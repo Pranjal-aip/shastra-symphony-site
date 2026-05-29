@@ -220,16 +220,9 @@ const AntarikKurukshetra: React.FC = () => {
       </Helmet>
 
       {/* ============ HERO ============ */}
-      <section className="relative overflow-hidden text-primary-foreground min-h-[88vh] flex items-center">
-        <img
-          src={heroImg}
-          alt={t(tr.heroTitle)}
-          width={1920}
-          height={1080}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/85 via-primary/75 to-primary/95" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,hsl(var(--accent)/0.25),transparent_55%),radial-gradient(circle_at_80%_80%,hsl(var(--accent)/0.18),transparent_50%)]" />
+      <section className="relative overflow-hidden text-primary-foreground min-h-[88vh] flex items-center bg-gradient-to-br from-primary via-primary to-[hsl(var(--maroon-dark))]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,hsl(var(--accent)/0.30),transparent_55%),radial-gradient(circle_at_80%_80%,hsl(var(--accent)/0.22),transparent_50%)]" />
+        <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(hsl(var(--accent))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--accent))_1px,transparent_1px)] [background-size:60px_60px]" />
 
         <div className="container mx-auto px-4 py-20 md:py-24 relative">
           <div className="max-w-4xl mx-auto text-center space-y-6">
