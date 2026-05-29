@@ -11,9 +11,6 @@ import {
   Swords, Heart, Brain, Sparkles, Shield, Flame, BookOpen,
   Compass, Award, ArrowRight, CheckCircle2, Quote,
 } from 'lucide-react';
-import heroImg from '@/assets/kurukshetra-hero.jpg';
-import innerBattleImg from '@/assets/inner-battle.jpg';
-import krishnaImg from '@/assets/krishna-guidance.jpg';
 
 const ENROLL_LINK = 'https://learn.shastrakulam.com';
 
