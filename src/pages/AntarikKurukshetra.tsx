@@ -373,10 +373,6 @@ const AntarikKurukshetra: React.FC = () => {
                   </motion.div>
                 ))}
               </div>
-
-              <p className="text-center font-body text-muted-foreground italic mt-6">
-                {t(tr.pandavaKauravaNote)}
-              </p>
             </div>
           </div>
         </div>
