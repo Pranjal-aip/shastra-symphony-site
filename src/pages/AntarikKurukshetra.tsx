@@ -11,9 +11,6 @@ import {
   Swords, Heart, Brain, Sparkles, Shield, Flame, BookOpen,
   Compass, Award, ArrowRight, CheckCircle2, Quote,
 } from 'lucide-react';
-import heroImg from '@/assets/kurukshetra-hero.jpg';
-import innerBattleImg from '@/assets/inner-battle.jpg';
-import krishnaImg from '@/assets/krishna-guidance.jpg';
 
 const ENROLL_LINK = 'https://learn.shastrakulam.com';
 
@@ -223,16 +220,9 @@ const AntarikKurukshetra: React.FC = () => {
       </Helmet>
 
       {/* ============ HERO ============ */}
-      <section className="relative overflow-hidden text-primary-foreground min-h-[88vh] flex items-center">
-        <img
-          src={heroImg}
-          alt={t(tr.heroTitle)}
-          width={1920}
-          height={1080}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/85 via-primary/75 to-primary/95" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,hsl(var(--accent)/0.25),transparent_55%),radial-gradient(circle_at_80%_80%,hsl(var(--accent)/0.18),transparent_50%)]" />
+      <section className="relative overflow-hidden text-primary-foreground min-h-[88vh] flex items-center bg-gradient-to-br from-primary via-primary to-[hsl(var(--maroon-dark))]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,hsl(var(--accent)/0.30),transparent_55%),radial-gradient(circle_at_80%_80%,hsl(var(--accent)/0.22),transparent_50%)]" />
+        <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(hsl(var(--accent))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--accent))_1px,transparent_1px)] [background-size:60px_60px]" />
 
         <div className="container mx-auto px-4 py-20 md:py-24 relative">
           <div className="max-w-4xl mx-auto text-center space-y-6">
@@ -327,15 +317,21 @@ const AntarikKurukshetra: React.FC = () => {
               transition={{ duration: 0.6 }}
               className="relative"
             >
-              <div className="absolute -inset-4 bg-gradient-to-br from-accent/20 to-primary/20 rounded-3xl blur-2xl" />
-              <img
-                src={innerBattleImg}
-                alt={t(tr.aboutTitle)}
-                width={1024}
-                height={1024}
-                loading="lazy"
-                className="relative rounded-3xl shadow-elevated w-full aspect-square object-cover"
-              />
+              <div className="absolute -inset-4 bg-gradient-to-br from-accent/25 to-primary/25 rounded-3xl blur-2xl" />
+              <div className="relative rounded-3xl shadow-elevated aspect-square overflow-hidden bg-gradient-to-br from-primary via-[hsl(var(--maroon-dark))] to-primary text-primary-foreground flex items-center justify-center p-10">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--accent)/0.35),transparent_55%),radial-gradient(circle_at_70%_80%,hsl(var(--accent)/0.25),transparent_50%)]" />
+                <div className="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(hsl(var(--accent))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--accent))_1px,transparent_1px)] [background-size:40px_40px]" />
+                <div className="relative text-center space-y-6">
+                  <Swords className="h-16 w-16 mx-auto text-accent" strokeWidth={1.5} />
+                  <p className="font-heading text-3xl md:text-4xl leading-snug">
+                    {t(tr.pandava)} <span className="text-accent">×</span> {t(tr.kaurava)}
+                  </p>
+                  <div className="h-px w-24 bg-accent/60 mx-auto" />
+                  <p className="font-body text-sm md:text-base text-primary-foreground/80 italic max-w-xs mx-auto">
+                    {t(tr.pandavaKauravaNote)}
+                  </p>
+                </div>
+              </div>
             </motion.div>
 
             <div>
@@ -377,10 +373,6 @@ const AntarikKurukshetra: React.FC = () => {
                   </motion.div>
                 ))}
               </div>
-
-              <p className="text-center font-body text-muted-foreground italic mt-6">
-                {t(tr.pandavaKauravaNote)}
-              </p>
             </div>
           </div>
         </div>
@@ -426,18 +418,9 @@ const AntarikKurukshetra: React.FC = () => {
               transition={{ duration: 0.6 }}
               className="relative"
             >
-              <Card className="bg-gradient-to-br from-primary to-primary/85 text-primary-foreground border-0 shadow-elevated overflow-hidden">
-                <div className="relative h-56 md:h-64">
-                  <img
-                    src={krishnaImg}
-                    alt={t(tr.krishnaTitle)}
-                    width={1024}
-                    height={1024}
-                    loading="lazy"
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/40 to-transparent" />
-                </div>
+              <Card className="bg-gradient-to-br from-primary via-[hsl(var(--maroon-dark))] to-primary text-primary-foreground border-0 shadow-elevated overflow-hidden relative">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_0%,hsl(var(--accent)/0.30),transparent_55%)]" />
+                <div className="absolute inset-0 opacity-[0.06] [background-image:linear-gradient(hsl(var(--accent))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--accent))_1px,transparent_1px)] [background-size:40px_40px]" />
                 <CardContent className="p-8 md:p-10 -mt-2">
                   <Quote className="h-10 w-10 text-accent mb-4" />
                   <h3 className="font-heading text-2xl font-bold mb-3">
@@ -536,16 +519,9 @@ const AntarikKurukshetra: React.FC = () => {
       </section>
 
       {/* ============ SAR ============ */}
-      <section className="py-24 text-primary-foreground relative overflow-hidden">
-        <img
-          src={heroImg}
-          alt=""
-          aria-hidden
-          loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-primary/92" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,hsl(var(--accent)/0.25),transparent_55%)]" />
+      <section className="py-24 text-primary-foreground relative overflow-hidden bg-gradient-to-br from-primary via-[hsl(var(--maroon-dark))] to-primary">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,hsl(var(--accent)/0.28),transparent_55%),radial-gradient(circle_at_75%_70%,hsl(var(--accent)/0.18),transparent_55%)]" />
+        <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(hsl(var(--accent))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--accent))_1px,transparent_1px)] [background-size:60px_60px]" />
         <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <Sparkles className="h-10 w-10 text-accent mx-auto" />
