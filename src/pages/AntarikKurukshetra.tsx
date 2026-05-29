@@ -317,15 +317,21 @@ const AntarikKurukshetra: React.FC = () => {
               transition={{ duration: 0.6 }}
               className="relative"
             >
-              <div className="absolute -inset-4 bg-gradient-to-br from-accent/20 to-primary/20 rounded-3xl blur-2xl" />
-              <img
-                src={innerBattleImg}
-                alt={t(tr.aboutTitle)}
-                width={1024}
-                height={1024}
-                loading="lazy"
-                className="relative rounded-3xl shadow-elevated w-full aspect-square object-cover"
-              />
+              <div className="absolute -inset-4 bg-gradient-to-br from-accent/25 to-primary/25 rounded-3xl blur-2xl" />
+              <div className="relative rounded-3xl shadow-elevated aspect-square overflow-hidden bg-gradient-to-br from-primary via-[hsl(var(--maroon-dark))] to-primary text-primary-foreground flex items-center justify-center p-10">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--accent)/0.35),transparent_55%),radial-gradient(circle_at_70%_80%,hsl(var(--accent)/0.25),transparent_50%)]" />
+                <div className="absolute inset-0 opacity-[0.08] [background-image:linear-gradient(hsl(var(--accent))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--accent))_1px,transparent_1px)] [background-size:40px_40px]" />
+                <div className="relative text-center space-y-6">
+                  <Swords className="h-16 w-16 mx-auto text-accent" strokeWidth={1.5} />
+                  <p className="font-heading text-3xl md:text-4xl leading-snug">
+                    {t(tr.pandava)} <span className="text-accent">×</span> {t(tr.kaurava)}
+                  </p>
+                  <div className="h-px w-24 bg-accent/60 mx-auto" />
+                  <p className="font-body text-sm md:text-base text-primary-foreground/80 italic max-w-xs mx-auto">
+                    {t(tr.pandavaKauravaNote)}
+                  </p>
+                </div>
+              </div>
             </motion.div>
 
             <div>
