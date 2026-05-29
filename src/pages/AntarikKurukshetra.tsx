@@ -523,16 +523,9 @@ const AntarikKurukshetra: React.FC = () => {
       </section>
 
       {/* ============ SAR ============ */}
-      <section className="py-24 text-primary-foreground relative overflow-hidden">
-        <img
-          src={heroImg}
-          alt=""
-          aria-hidden
-          loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-primary/92" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,hsl(var(--accent)/0.25),transparent_55%)]" />
+      <section className="py-24 text-primary-foreground relative overflow-hidden bg-gradient-to-br from-primary via-[hsl(var(--maroon-dark))] to-primary">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_40%,hsl(var(--accent)/0.28),transparent_55%),radial-gradient(circle_at_75%_70%,hsl(var(--accent)/0.18),transparent_55%)]" />
+        <div className="absolute inset-0 opacity-[0.07] [background-image:linear-gradient(hsl(var(--accent))_1px,transparent_1px),linear-gradient(90deg,hsl(var(--accent))_1px,transparent_1px)] [background-size:60px_60px]" />
         <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <Sparkles className="h-10 w-10 text-accent mx-auto" />
