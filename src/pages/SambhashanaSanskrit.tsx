@@ -35,6 +35,16 @@ import heroImage from '@/assets/sanskrit-course-hero.jpg';
 
 const ENROLL_LINK = 'https://learn.shastrakulam.com/courses/Sanskrit-Sambhashan-69fdad295f6900c59577d5b0';
 
+const SPONSORS: string[] = [
+  'Tika Nand Vidyarthi', 'Harkishan', 'Kanhaiya Aary', 'Sachin Kumar', 'Bhuneshwar Kumar Naik',
+  'Sonu Kumar', 'Amit Tomar', 'Arula Dange', 'Dheeraj', 'Avinash Kumar',
+  'Vikas Kumar', 'Rajesh B. Pandya', 'Bhoomika Mishra', 'Deepti Soni', 'Bhanja Kishore Sahoo',
+  'Lalita Trivedi', 'Harish Kumar', 'Sewa Ram', 'Raghavendra Pratap Singh', 'Bharti Jain',
+  'Yogesh Kumar', 'Aavya Annya Kumari', 'Pritam Kumar', 'Ambika Chauhan', 'Bhupinder Dhir',
+  'Manish Kumar', 'Rajkumar Verma', 'Puneet', 'Alka Rawal', 'Manoj S Kajale',
+  'Jitendra Kumar', 'Rajesh Kumar', 'Brajesh Kumar', 'Ayushi Farmania', 'Akshat',
+];
+
 // ---------------- translations ----------------
 const tr = {
   navBadge: { en: 'New Batch · June 2026', hi: 'नया बैच · जून 2026', sa: 'नूतनः गणः · जून २०२६' },
