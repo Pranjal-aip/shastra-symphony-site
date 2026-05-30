@@ -35,15 +35,43 @@ import heroImage from '@/assets/sanskrit-course-hero.jpg';
 
 const ENROLL_LINK = 'https://learn.shastrakulam.com/courses/Sanskrit-Sambhashan-69fdad295f6900c59577d5b0';
 
-const SPONSORS: string[] = [
-  'Tika Nand Vidyarthi', 'Harkishan', 'Kanhaiya Aary', 'Sachin Kumar', 'Bhuneshwar Kumar Naik',
-  'Sonu Kumar', 'Amit Tomar', 'Arula Dange', 'Dheeraj', 'Avinash Kumar',
-  'Vikas Kumar', 'Rajesh B. Pandya', 'Bhoomika Mishra', 'Deepti Soni', 'Bhanja Kishore Sahoo',
-  'Lalita Trivedi', 'Harish Kumar', 'Sewa Ram', 'Raghavendra Pratap Singh', 'Bharti Jain',
-  'Yogesh Kumar', 'Aavya Annya Kumari', 'Pritam Kumar', 'Ambika Chauhan', 'Bhupinder Dhir',
-  'Manish Kumar', 'Rajkumar Verma', 'Puneet', 'Alka Rawal', 'Manoj S Kajale',
-  'Jitendra Kumar', 'Rajesh Kumar', 'Brajesh Kumar', 'Ayushi Farmania', 'Akshat',
-];
+const SPONSORS: { name: string; amount: number }[] = [
+  { name: 'Tika Nand Vidyarthi', amount: 2000 },
+  { name: 'Harkishan', amount: 500 },
+  { name: 'Kanhaiya Aary', amount: 500 },
+  { name: 'Sachin Kumar', amount: 1000 },
+  { name: 'Bhuneshwar Kumar Naik', amount: 500 },
+  { name: 'Sonu Kumar', amount: 200 },
+  { name: 'Amit Tomar', amount: 200 },
+  { name: 'Arula Dange', amount: 500 },
+  { name: 'Dheeraj', amount: 200 },
+  { name: 'Avinash Kumar', amount: 1000 },
+  { name: 'Vikas Kumar', amount: 500 },
+  { name: 'Rajesh B. Pandya', amount: 200 },
+  { name: 'Bhoomika Mishra', amount: 500 },
+  { name: 'Deepti Soni', amount: 2000 },
+  { name: 'Bhanja Kishore Sahoo', amount: 500 },
+  { name: 'Lalita Trivedi', amount: 200 },
+  { name: 'Harish Kumar', amount: 200 },
+  { name: 'Sewa Ram', amount: 500 },
+  { name: 'Raghavendra Pratap Singh', amount: 500 },
+  { name: 'Bharti Jain', amount: 200 },
+  { name: 'Yogesh Kumar', amount: 500 },
+  { name: 'Aavya Annya Kumari', amount: 200 },
+  { name: 'Pritam Kumar', amount: 2000 },
+  { name: 'Ambika Chauhan', amount: 200 },
+  { name: 'Bhupinder Dhir', amount: 200 },
+  { name: 'Manish Kumar', amount: 200 },
+  { name: 'Rajkumar Verma', amount: 500 },
+  { name: 'Puneet', amount: 500 },
+  { name: 'Alka Rawal', amount: 500 },
+  { name: 'Manoj S Kajale', amount: 200 },
+  { name: 'Jitendra Kumar', amount: 500 },
+  { name: 'Rajesh Kumar', amount: 200 },
+  { name: 'Brajesh Kumar', amount: 2000 },
+  { name: 'Ayushi Farmania', amount: 500 },
+  { name: 'Akshat', amount: 200 },
+].sort((a, b) => b.amount - a.amount);
 
 // ---------------- translations ----------------
 const tr = {
@@ -695,13 +723,16 @@ const SambhashanaSanskrit: React.FC = () => {
                 })}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
-                {SPONSORS.map((name, i) => (
+                {SPONSORS.map((s, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[hsl(var(--accent))]/5 border border-[hsl(var(--accent))]/15 hover:bg-[hsl(var(--accent))]/10 transition-colors"
+                    className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-[hsl(var(--accent))]/5 border border-[hsl(var(--accent))]/15 hover:bg-[hsl(var(--accent))]/10 transition-colors"
                   >
-                    <Heart className="h-3.5 w-3.5 text-[hsl(var(--accent))] flex-shrink-0" />
-                    <span className="text-sm font-body text-foreground capitalize truncate">{name}</span>
+                    <div className="flex items-center gap-2 min-w-0">
+                      <Heart className="h-3.5 w-3.5 text-[hsl(var(--accent))] flex-shrink-0" />
+                      <span className="text-sm font-body text-foreground capitalize truncate">{s.name}</span>
+                    </div>
+                    <span className="text-sm font-semibold text-[hsl(var(--primary))] flex-shrink-0">₹{s.amount.toLocaleString('en-IN')}</span>
                   </div>
                 ))}
               </div>
