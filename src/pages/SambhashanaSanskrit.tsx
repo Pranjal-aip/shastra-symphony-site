@@ -723,13 +723,16 @@ const SambhashanaSanskrit: React.FC = () => {
                 })}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
-                {SPONSORS.map((name, i) => (
+                {SPONSORS.map((s, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[hsl(var(--accent))]/5 border border-[hsl(var(--accent))]/15 hover:bg-[hsl(var(--accent))]/10 transition-colors"
+                    className="flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-[hsl(var(--accent))]/5 border border-[hsl(var(--accent))]/15 hover:bg-[hsl(var(--accent))]/10 transition-colors"
                   >
-                    <Heart className="h-3.5 w-3.5 text-[hsl(var(--accent))] flex-shrink-0" />
-                    <span className="text-sm font-body text-foreground capitalize truncate">{name}</span>
+                    <div className="flex items-center gap-2 min-w-0">
+                      <Heart className="h-3.5 w-3.5 text-[hsl(var(--accent))] flex-shrink-0" />
+                      <span className="text-sm font-body text-foreground capitalize truncate">{s.name}</span>
+                    </div>
+                    <span className="text-sm font-semibold text-[hsl(var(--primary))] flex-shrink-0">₹{s.amount.toLocaleString('en-IN')}</span>
                   </div>
                 ))}
               </div>
