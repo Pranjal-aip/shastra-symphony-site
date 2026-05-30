@@ -10,6 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from '@/hooks/use-toast';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import {
   CheckCircle2,
   MessageCircle,
@@ -28,6 +29,7 @@ import {
   GraduationCap,
   PlayCircle,
   ShieldCheck,
+  HandHeart,
 } from 'lucide-react';
 import heroImage from '@/assets/sanskrit-course-hero.jpg';
 
