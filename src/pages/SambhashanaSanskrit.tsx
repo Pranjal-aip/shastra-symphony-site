@@ -10,6 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from '@/hooks/use-toast';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import {
   CheckCircle2,
   MessageCircle,
@@ -28,10 +29,21 @@ import {
   GraduationCap,
   PlayCircle,
   ShieldCheck,
+  HandHeart,
 } from 'lucide-react';
 import heroImage from '@/assets/sanskrit-course-hero.jpg';
 
 const ENROLL_LINK = 'https://learn.shastrakulam.com/courses/Sanskrit-Sambhashan-69fdad295f6900c59577d5b0';
+
+const SPONSORS: string[] = [
+  'Tika Nand Vidyarthi', 'Harkishan', 'Kanhaiya Aary', 'Sachin Kumar', 'Bhuneshwar Kumar Naik',
+  'Sonu Kumar', 'Amit Tomar', 'Arula Dange', 'Dheeraj', 'Avinash Kumar',
+  'Vikas Kumar', 'Rajesh B. Pandya', 'Bhoomika Mishra', 'Deepti Soni', 'Bhanja Kishore Sahoo',
+  'Lalita Trivedi', 'Harish Kumar', 'Sewa Ram', 'Raghavendra Pratap Singh', 'Bharti Jain',
+  'Yogesh Kumar', 'Aavya Annya Kumari', 'Pritam Kumar', 'Ambika Chauhan', 'Bhupinder Dhir',
+  'Manish Kumar', 'Rajkumar Verma', 'Puneet', 'Alka Rawal', 'Manoj S Kajale',
+  'Jitendra Kumar', 'Rajesh Kumar', 'Brajesh Kumar', 'Ayushi Farmania', 'Akshat',
+];
 
 // ---------------- translations ----------------
 const tr = {
@@ -642,6 +654,59 @@ const SambhashanaSanskrit: React.FC = () => {
               </AccordionItem>
             ))}
           </Accordion>
+        </div>
+      </section>
+
+      {/* SPONSORS */}
+      <section className="py-14 md:py-20 bg-gradient-to-br from-[hsl(var(--accent))]/10 via-background to-[hsl(var(--primary))]/5">
+        <div className="container mx-auto px-4 max-w-3xl text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[hsl(var(--accent))]/15 text-[hsl(var(--accent))] text-xs font-semibold mb-4">
+            <HandHeart className="h-4 w-4" /> {t({ en: 'With Gratitude', hi: 'कृतज्ञता सहित', sa: 'कृतज्ञतापूर्वकम्' })}
+          </div>
+          <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-[hsl(var(--primary))] mb-3">
+            {t({ en: 'Our Generous Sponsors', hi: 'हमारे उदार प्रायोजक', sa: 'अस्माकं उदाराः प्रायोजकाः' })}
+          </h2>
+          <p className="text-muted-foreground mb-6 max-w-xl mx-auto">
+            {t({
+              en: 'Heartfelt thanks to those whose contributions make Sanskrit accessible to all.',
+              hi: 'उन सभी का हार्दिक धन्यवाद जिनके योगदान से संस्कृत सबके लिए सुलभ बनी है।',
+              sa: 'येषां योगदानेन संस्कृतं सर्वेषां कृते सुलभं भवति तेभ्यः हार्दिकं धन्यवादम्।',
+            })}
+          </p>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button size="lg" variant="saffron" className="gap-2">
+                <Users className="h-5 w-5" />
+                {t({ en: 'View Sponsors', hi: 'प्रायोजक देखें', sa: 'प्रायोजकान् पश्यत' })}
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle className="font-heading text-2xl text-[hsl(var(--primary))] flex items-center gap-2">
+                  <HandHeart className="h-6 w-6 text-[hsl(var(--accent))]" />
+                  {t({ en: 'Our Sponsors', hi: 'हमारे प्रायोजक', sa: 'अस्माकं प्रायोजकाः' })}
+                </DialogTitle>
+              </DialogHeader>
+              <p className="text-sm text-muted-foreground">
+                {t({
+                  en: 'With deep gratitude to every contributor supporting this Sanskrit journey.',
+                  hi: 'इस संस्कृत यात्रा का समर्थन करने वाले प्रत्येक योगदानकर्ता के प्रति गहरी कृतज्ञता।',
+                  sa: 'अस्य संस्कृतयात्रायाः समर्थकेभ्यः सर्वेभ्यः गभीरा कृतज्ञता।',
+                })}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+                {SPONSORS.map((name, i) => (
+                  <div
+                    key={i}
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[hsl(var(--accent))]/5 border border-[hsl(var(--accent))]/15 hover:bg-[hsl(var(--accent))]/10 transition-colors"
+                  >
+                    <Heart className="h-3.5 w-3.5 text-[hsl(var(--accent))] flex-shrink-0" />
+                    <span className="text-sm font-body text-foreground capitalize truncate">{name}</span>
+                  </div>
+                ))}
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </section>
 
