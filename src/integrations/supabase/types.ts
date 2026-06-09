@@ -91,14 +91,27 @@ export type Database = {
           content_hi: string | null
           content_sa: string | null
           created_at: string
+          custom_css: string | null
+          custom_html_en: string | null
+          custom_html_hi: string | null
+          custom_html_sa: string | null
           date: string
           excerpt_en: string | null
           excerpt_hi: string | null
           excerpt_sa: string | null
           id: string
           og_image: string | null
+          scheduled_at: string | null
+          seo_description_en: string | null
+          seo_description_hi: string | null
+          seo_description_sa: string | null
+          seo_title_en: string | null
+          seo_title_hi: string | null
+          seo_title_sa: string | null
           show_on_home: boolean
           slug: string
+          status: string
+          tags: string[]
           thumbnail: string | null
           title_en: string
           title_hi: string | null
@@ -112,14 +125,27 @@ export type Database = {
           content_hi?: string | null
           content_sa?: string | null
           created_at?: string
+          custom_css?: string | null
+          custom_html_en?: string | null
+          custom_html_hi?: string | null
+          custom_html_sa?: string | null
           date?: string
           excerpt_en?: string | null
           excerpt_hi?: string | null
           excerpt_sa?: string | null
           id?: string
           og_image?: string | null
+          scheduled_at?: string | null
+          seo_description_en?: string | null
+          seo_description_hi?: string | null
+          seo_description_sa?: string | null
+          seo_title_en?: string | null
+          seo_title_hi?: string | null
+          seo_title_sa?: string | null
           show_on_home?: boolean
           slug: string
+          status?: string
+          tags?: string[]
           thumbnail?: string | null
           title_en: string
           title_hi?: string | null
@@ -133,14 +159,27 @@ export type Database = {
           content_hi?: string | null
           content_sa?: string | null
           created_at?: string
+          custom_css?: string | null
+          custom_html_en?: string | null
+          custom_html_hi?: string | null
+          custom_html_sa?: string | null
           date?: string
           excerpt_en?: string | null
           excerpt_hi?: string | null
           excerpt_sa?: string | null
           id?: string
           og_image?: string | null
+          scheduled_at?: string | null
+          seo_description_en?: string | null
+          seo_description_hi?: string | null
+          seo_description_sa?: string | null
+          seo_title_en?: string | null
+          seo_title_hi?: string | null
+          seo_title_sa?: string | null
           show_on_home?: boolean
           slug?: string
+          status?: string
+          tags?: string[]
           thumbnail?: string | null
           title_en?: string
           title_hi?: string | null
