@@ -32,6 +32,13 @@ export interface BlogPost {
   author: string;
   date: string;
   showOnHome: boolean;
+  tags?: string[];
+  seoTitle?: { en: string; hi: string; sa: string };
+  seoDescription?: { en: string; hi: string; sa: string };
+  status?: 'draft' | 'scheduled' | 'published';
+  scheduledAt?: string;
+  customHtml?: { en: string; hi: string; sa: string };
+  customCss?: string;
 }
 
 export interface Category {
