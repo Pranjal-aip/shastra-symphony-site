@@ -32,6 +32,13 @@ export interface BlogPost {
   author: string;
   date: string;
   showOnHome: boolean;
+  tags?: string[];
+  seoTitle?: { en: string; hi: string; sa: string };
+  seoDescription?: { en: string; hi: string; sa: string };
+  status?: 'draft' | 'scheduled' | 'published';
+  scheduledAt?: string;
+  customHtml?: { en: string; hi: string; sa: string };
+  customCss?: string;
 }
 
 export interface Category {
@@ -132,6 +139,25 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
           author: b.author,
           date: b.date,
           showOnHome: b.show_on_home,
+          tags: ((b as Record<string, unknown>).tags as string[]) || [],
+          seoTitle: {
+            en: ((b as Record<string, unknown>).seo_title_en as string) || '',
+            hi: ((b as Record<string, unknown>).seo_title_hi as string) || '',
+            sa: ((b as Record<string, unknown>).seo_title_sa as string) || '',
+          },
+          seoDescription: {
+            en: ((b as Record<string, unknown>).seo_description_en as string) || '',
+            hi: ((b as Record<string, unknown>).seo_description_hi as string) || '',
+            sa: ((b as Record<string, unknown>).seo_description_sa as string) || '',
+          },
+          status: (((b as Record<string, unknown>).status as string) || 'published') as BlogPost['status'],
+          scheduledAt: ((b as Record<string, unknown>).scheduled_at as string) || undefined,
+          customHtml: {
+            en: ((b as Record<string, unknown>).custom_html_en as string) || '',
+            hi: ((b as Record<string, unknown>).custom_html_hi as string) || '',
+            sa: ((b as Record<string, unknown>).custom_html_sa as string) || '',
+          },
+          customCss: ((b as Record<string, unknown>).custom_css as string) || '',
         })));
       }
 
@@ -333,7 +359,20 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       author: post.author,
       date: post.date,
       show_on_home: post.showOnHome,
-    });
+      tags: post.tags || [],
+      seo_title_en: post.seoTitle?.en || null,
+      seo_title_hi: post.seoTitle?.hi || null,
+      seo_title_sa: post.seoTitle?.sa || null,
+      seo_description_en: post.seoDescription?.en || null,
+      seo_description_hi: post.seoDescription?.hi || null,
+      seo_description_sa: post.seoDescription?.sa || null,
+      status: post.status || 'published',
+      scheduled_at: post.scheduledAt || null,
+      custom_html_en: post.customHtml?.en || null,
+      custom_html_hi: post.customHtml?.hi || null,
+      custom_html_sa: post.customHtml?.sa || null,
+      custom_css: post.customCss || null,
+    } as never);
     if (error) throw error;
     await fetchData();
   };
@@ -361,8 +400,27 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     if (updates.category) updateData.category = updates.category;
     if (updates.author) updateData.author = updates.author;
     if (updates.showOnHome !== undefined) updateData.show_on_home = updates.showOnHome;
+    if (updates.tags !== undefined) updateData.tags = updates.tags;
+    if (updates.seoTitle) {
+      updateData.seo_title_en = updates.seoTitle.en;
+      updateData.seo_title_hi = updates.seoTitle.hi;
+      updateData.seo_title_sa = updates.seoTitle.sa;
+    }
+    if (updates.seoDescription) {
+      updateData.seo_description_en = updates.seoDescription.en;
+      updateData.seo_description_hi = updates.seoDescription.hi;
+      updateData.seo_description_sa = updates.seoDescription.sa;
+    }
+    if (updates.status) updateData.status = updates.status;
+    if (updates.scheduledAt !== undefined) updateData.scheduled_at = updates.scheduledAt || null;
+    if (updates.customHtml) {
+      updateData.custom_html_en = updates.customHtml.en;
+      updateData.custom_html_hi = updates.customHtml.hi;
+      updateData.custom_html_sa = updates.customHtml.sa;
+    }
+    if (updates.customCss !== undefined) updateData.custom_css = updates.customCss;
 
-    const { error } = await supabase.from('blog_posts').update(updateData).eq('id', id);
+    const { error } = await supabase.from('blog_posts').update(updateData as never).eq('id', id);
     if (error) throw error;
     await fetchData();
   };

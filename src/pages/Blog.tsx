@@ -69,17 +69,25 @@ const Blog: React.FC = () => {
             <div className="text-center py-12">
               <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto" />
             </div>
-          ) : blogPosts.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-muted-foreground font-body">{t(blogTranslations.noPosts)}</p>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {blogPosts.map((post) => (
-                <BlogCard key={post.id} post={post} />
-              ))}
-            </div>
-          )}
+          ) : (() => {
+            const now = new Date();
+            const visible = blogPosts.filter(p => {
+              if (!p.status || p.status === 'published') return true;
+              if (p.status === 'scheduled' && p.scheduledAt && new Date(p.scheduledAt) <= now) return true;
+              return false;
+            });
+            return visible.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-muted-foreground font-body">{t(blogTranslations.noPosts)}</p>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {visible.map((post) => (
+                  <BlogCard key={post.id} post={post} />
+                ))}
+              </div>
+            );
+          })()}
         </div>
       </section>
     </Layout>
