@@ -139,6 +139,25 @@ export const AdminProvider: React.FC<{ children: ReactNode }> = ({ children }) =
           author: b.author,
           date: b.date,
           showOnHome: b.show_on_home,
+          tags: ((b as Record<string, unknown>).tags as string[]) || [],
+          seoTitle: {
+            en: ((b as Record<string, unknown>).seo_title_en as string) || '',
+            hi: ((b as Record<string, unknown>).seo_title_hi as string) || '',
+            sa: ((b as Record<string, unknown>).seo_title_sa as string) || '',
+          },
+          seoDescription: {
+            en: ((b as Record<string, unknown>).seo_description_en as string) || '',
+            hi: ((b as Record<string, unknown>).seo_description_hi as string) || '',
+            sa: ((b as Record<string, unknown>).seo_description_sa as string) || '',
+          },
+          status: (((b as Record<string, unknown>).status as string) || 'published') as BlogPost['status'],
+          scheduledAt: ((b as Record<string, unknown>).scheduled_at as string) || undefined,
+          customHtml: {
+            en: ((b as Record<string, unknown>).custom_html_en as string) || '',
+            hi: ((b as Record<string, unknown>).custom_html_hi as string) || '',
+            sa: ((b as Record<string, unknown>).custom_html_sa as string) || '',
+          },
+          customCss: ((b as Record<string, unknown>).custom_css as string) || '',
         })));
       }
 
