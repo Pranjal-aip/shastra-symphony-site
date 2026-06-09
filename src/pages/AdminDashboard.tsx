@@ -827,80 +827,75 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  
-  const [formData, setFormData] = useState({
-    title: '',
-    titleHi: '',
-    titleSa: '',
-    excerpt: '',
-    excerptHi: '',
-    excerptSa: '',
-    content: '',
-    contentHi: '',
-    contentSa: '',
-    category: '',
-    author: '',
-    thumbnail: '/placeholder.svg',
-    ogImage: '',
-    showOnHome: false,
+  const [formData, setFormData] = useState<BlogEditorData>(emptyBlogEditorData());
+
+  const resetForm = () => setFormData(emptyBlogEditorData());
+
+  const buildSlug = (title: string) =>
+    title.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').slice(0, 80) || `post-${Date.now()}`;
+
+  const toPayload = (status: BlogEditorData['status']): Omit<BlogPost, 'id'> => ({
+    slug: buildSlug(formData.title.en || formData.title.hi || formData.title.sa || 'untitled'),
+    title: {
+      en: formData.title.en,
+      hi: formData.title.hi || formData.title.en,
+      sa: formData.title.sa || formData.title.en,
+    },
+    excerpt: {
+      en: formData.excerpt.en,
+      hi: formData.excerpt.hi || formData.excerpt.en,
+      sa: formData.excerpt.sa || formData.excerpt.en,
+    },
+    content: {
+      en: formData.content.en,
+      hi: formData.content.hi || formData.content.en,
+      sa: formData.content.sa || formData.content.en,
+    },
+    thumbnail: formData.thumbnail,
+    ogImage: formData.ogImage || undefined,
+    category: formData.category,
+    author: formData.author || 'Shastrakulam Team',
+    date: new Date().toISOString().split('T')[0],
+    showOnHome: formData.showOnHome,
+    tags: formData.tags,
+    seoTitle: formData.seoTitle,
+    seoDescription: formData.seoDescription,
+    status,
+    scheduledAt: status === 'scheduled' && formData.scheduledAt ? new Date(formData.scheduledAt).toISOString() : undefined,
+    customHtml: formData.customHtml,
+    customCss: formData.customCss,
   });
 
-  const resetForm = () => {
-    setFormData({
-      title: '',
-      titleHi: '',
-      titleSa: '',
-      excerpt: '',
-      excerptHi: '',
-      excerptSa: '',
-      content: '',
-      contentHi: '',
-      contentSa: '',
-      category: '',
-      author: '',
-      thumbnail: '/placeholder.svg',
-      ogImage: '',
-      showOnHome: false,
-    });
+  const validate = (status: BlogEditorData['status']) => {
+    if (!formData.title.en.trim()) { toast({ title: 'Title required', description: 'English title is required.', variant: 'destructive' }); return false; }
+    if (!formData.category) { toast({ title: 'Category required', description: 'Please select a category.', variant: 'destructive' }); return false; }
+    if (status === 'scheduled' && !formData.scheduledAt) {
+      toast({ title: 'Schedule date required', description: 'Pick a date and time to schedule.', variant: 'destructive' });
+      return false;
+    }
+    return true;
   };
 
-
-  const handleAddPost = async () => {
-    if (!formData.title || !formData.category) {
-      toast({ title: 'Error', description: 'Please fill in required fields', variant: 'destructive' });
-      return;
-    }
+  const handleSave = async (status: BlogEditorData['status']) => {
+    if (!validate(status)) return;
     setIsLoading(true);
     try {
-      await onAdd({
-        slug: formData.title.toLowerCase().replace(/\s+/g, '-'),
-        title: { 
-          en: formData.title, 
-          hi: formData.titleHi || formData.title, 
-          sa: formData.titleSa || formData.title 
-        },
-        excerpt: { 
-          en: formData.excerpt, 
-          hi: formData.excerptHi || formData.excerpt, 
-          sa: formData.excerptSa || formData.excerpt 
-        },
-        content: { 
-          en: formData.content, 
-          hi: formData.contentHi || formData.content, 
-          sa: formData.contentSa || formData.content 
-        },
-        thumbnail: formData.thumbnail,
-        ogImage: formData.ogImage || undefined,
-        category: formData.category,
-        author: formData.author || 'Shastrakulam Team',
-        date: new Date().toISOString().split('T')[0],
-        showOnHome: formData.showOnHome,
-      });
+      if (editingPost) {
+        await onUpdate(editingPost.id, toPayload(status));
+      } else {
+        await onAdd(toPayload(status));
+      }
+      try { localStorage.removeItem('blog-editor-autosave'); } catch { /* ignore */ }
       setIsAddOpen(false);
+      setIsEditOpen(false);
+      setEditingPost(null);
       resetForm();
-      toast({ title: 'Success', description: 'Blog post added successfully' });
-    } catch (error) {
-      toast({ title: 'Error', description: 'Failed to add post', variant: 'destructive' });
+      toast({
+        title: status === 'draft' ? 'Draft saved' : status === 'scheduled' ? 'Scheduled' : 'Published',
+        description: editingPost ? 'Blog post updated successfully.' : 'Blog post saved successfully.',
+      });
+    } catch (e) {
+      toast({ title: 'Error', description: 'Failed to save post', variant: 'destructive' });
     } finally {
       setIsLoading(false);
     }
@@ -909,63 +904,23 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
   const handleEditClick = (post: BlogPost) => {
     setEditingPost(post);
     setFormData({
-      title: post.title.en,
-      titleHi: post.title.hi,
-      titleSa: post.title.sa,
-      excerpt: post.excerpt.en,
-      excerptHi: post.excerpt.hi,
-      excerptSa: post.excerpt.sa,
-      content: post.content?.en || '',
-      contentHi: post.content?.hi || '',
-      contentSa: post.content?.sa || '',
-      category: post.category,
-      author: post.author,
+      title: post.title,
+      excerpt: post.excerpt,
+      content: post.content || { en: '', hi: '', sa: '' },
+      customHtml: post.customHtml || { en: '', hi: '', sa: '' },
+      customCss: post.customCss || '',
       thumbnail: post.thumbnail,
       ogImage: post.ogImage || '',
+      category: post.category,
+      author: post.author,
+      tags: post.tags || [],
+      seoTitle: post.seoTitle || { en: '', hi: '', sa: '' },
+      seoDescription: post.seoDescription || { en: '', hi: '', sa: '' },
+      status: post.status || 'published',
+      scheduledAt: post.scheduledAt ? post.scheduledAt.slice(0, 16) : '',
       showOnHome: post.showOnHome,
     });
     setIsEditOpen(true);
-  };
-
-  const handleUpdatePost = async () => {
-    if (!editingPost || !formData.title || !formData.category) {
-      toast({ title: 'Error', description: 'Please fill in required fields', variant: 'destructive' });
-      return;
-    }
-    setIsLoading(true);
-    try {
-      await onUpdate(editingPost.id, {
-        slug: formData.title.toLowerCase().replace(/\s+/g, '-'),
-        title: { 
-          en: formData.title, 
-          hi: formData.titleHi || formData.title, 
-          sa: formData.titleSa || formData.title 
-        },
-        excerpt: { 
-          en: formData.excerpt, 
-          hi: formData.excerptHi || formData.excerpt, 
-          sa: formData.excerptSa || formData.excerpt 
-        },
-        content: { 
-          en: formData.content, 
-          hi: formData.contentHi || formData.content, 
-          sa: formData.contentSa || formData.content 
-        },
-        thumbnail: formData.thumbnail,
-        ogImage: formData.ogImage || undefined,
-        category: formData.category,
-        author: formData.author,
-        showOnHome: formData.showOnHome,
-      });
-      setIsEditOpen(false);
-      setEditingPost(null);
-      resetForm();
-      toast({ title: 'Success', description: 'Blog post updated successfully' });
-    } catch (error) {
-      toast({ title: 'Error', description: 'Failed to update post', variant: 'destructive' });
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const handleDeleteConfirm = async () => {
@@ -982,73 +937,38 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
     }
   };
 
-  const blogFormFieldsJSX = (
-    <div className="space-y-4 py-4 max-h-[60vh] overflow-y-auto">
-      {/* Image Upload */}
-      <ImageUpload
-        value={formData.thumbnail}
-        onChange={(url) => setFormData({ ...formData, thumbnail: url || '/placeholder.svg' })}
-        label="Featured Image"
-        hint="Upload an image for the blog post"
-      />
-      
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Title (English) *</label>
-        <Input placeholder="Post Title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} />
-      </div>
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Title (Hindi)</label>
-        <Input placeholder="पोस्ट का शीर्षक" value={formData.titleHi} onChange={(e) => setFormData({ ...formData, titleHi: e.target.value })} />
-      </div>
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Title (Sanskrit)</label>
-        <Input placeholder="लेखशीर्षकम्" value={formData.titleSa} onChange={(e) => setFormData({ ...formData, titleSa: e.target.value })} />
-      </div>
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Excerpt (English)</label>
-        <Textarea placeholder="Short excerpt" value={formData.excerpt} onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })} />
-      </div>
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Excerpt (Hindi)</label>
-        <Textarea placeholder="संक्षिप्त अंश" value={formData.excerptHi} onChange={(e) => setFormData({ ...formData, excerptHi: e.target.value })} />
-      </div>
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Excerpt (Sanskrit)</label>
-        <Textarea placeholder="संक्षिप्तांशः" value={formData.excerptSa} onChange={(e) => setFormData({ ...formData, excerptSa: e.target.value })} />
-      </div>
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Content (English)</label>
-        <Textarea placeholder="Full blog content in English..." className="min-h-[150px]" value={formData.content} onChange={(e) => setFormData({ ...formData, content: e.target.value })} />
-      </div>
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Content (Hindi)</label>
-        <Textarea placeholder="हिंदी में पूर्ण ब्लॉग सामग्री..." className="min-h-[150px]" value={formData.contentHi} onChange={(e) => setFormData({ ...formData, contentHi: e.target.value })} />
-      </div>
-      <div className="space-y-2">
-        <label className="text-sm font-medium">Content (Sanskrit)</label>
-        <Textarea placeholder="संस्कृते पूर्णं ब्लॉग सामग्री..." className="min-h-[150px]" value={formData.contentSa} onChange={(e) => setFormData({ ...formData, contentSa: e.target.value })} />
-      </div>
-      <Select value={formData.category} onValueChange={(v) => setFormData({ ...formData, category: v })}>
-        <SelectTrigger><SelectValue placeholder="Select Category *" /></SelectTrigger>
-        <SelectContent>
-          {categories.map((cat) => (
-            <SelectItem key={cat.id} value={cat.name.en}>{cat.name.en}</SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-      <Input placeholder="Author Name" value={formData.author} onChange={(e) => setFormData({ ...formData, author: e.target.value })} />
-      <div className="border-t pt-4 mt-2">
-        <ImageUpload
-          value={formData.ogImage}
-          onChange={(url) => setFormData({ ...formData, ogImage: url })}
-          label="OG Image for Social Sharing"
-          hint="Custom image for social media sharing (1200x630px recommended). If empty, the featured image will be used."
-        />
-      </div>
-      <div className="flex items-center justify-between">
-        <Label htmlFor="blogShowOnHome">Show on Home Page</Label>
-        <Switch id="blogShowOnHome" checked={formData.showOnHome} onCheckedChange={(checked) => setFormData({ ...formData, showOnHome: checked })} />
-      </div>
+  const editorDialogBody = (
+    <BlogEditor
+      data={formData}
+      setData={setFormData}
+      categories={categories}
+      autosaveKey={editingPost ? `blog-editor-${editingPost.id}` : 'blog-editor-autosave'}
+    />
+  );
+
+  const actionFooter = (
+    <div className="flex flex-wrap items-center justify-end gap-2 w-full">
+      <Button variant="ghost" onClick={() => { setIsAddOpen(false); setIsEditOpen(false); setEditingPost(null); resetForm(); }}>
+        Cancel
+      </Button>
+      <Button variant="outline" onClick={() => handleSave('draft')} disabled={isLoading} className="gap-1.5">
+        {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
+        Save Draft
+      </Button>
+      <Button
+        variant="outline"
+        onClick={() => handleSave('scheduled')}
+        disabled={isLoading || !formData.scheduledAt}
+        className="gap-1.5"
+        title={!formData.scheduledAt ? 'Set a date in Schedule publish' : 'Schedule'}
+      >
+        <CloudUpload className="h-4 w-4" />
+        Schedule
+      </Button>
+      <Button variant="saffron" onClick={() => handleSave('published')} disabled={isLoading} className="gap-1.5">
+        {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <CheckCircle2 className="h-4 w-4" />}
+        {editingPost ? 'Update & Publish' : 'Publish'}
+      </Button>
     </div>
   );
 
@@ -1059,41 +979,29 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
         <Dialog open={isAddOpen} onOpenChange={(open) => { setIsAddOpen(open); if (!open) resetForm(); }}>
           <DialogTrigger asChild>
             <Button variant="saffron" className="gap-2">
-              <Plus className="h-4 w-4" /> Add Post
+              <Plus className="h-4 w-4" /> New Post
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-lg">
-            <DialogHeader>
-              <DialogTitle className="font-heading">Add New Blog Post</DialogTitle>
-              <DialogDescription>Create a new blog post.</DialogDescription>
+          <DialogContent className="max-w-6xl max-h-[95vh] overflow-hidden flex flex-col p-0 gap-0">
+            <DialogHeader className="px-6 py-4 border-b bg-gradient-to-r from-primary/5 via-background to-accent/5">
+              <DialogTitle className="font-heading text-2xl">Create Blog Post</DialogTitle>
+              <DialogDescription>Modern multi-language editor with live preview.</DialogDescription>
             </DialogHeader>
-            {blogFormFieldsJSX}
-            <DialogFooter>
-              <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
-              <Button variant="saffron" onClick={handleAddPost} disabled={isLoading}>
-                {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
-                Add Post
-              </Button>
-            </DialogFooter>
+            <div className="px-6 py-5 overflow-y-auto flex-1">{editorDialogBody}</div>
+            <DialogFooter className="px-6 py-3 border-t bg-muted/30">{actionFooter}</DialogFooter>
           </DialogContent>
         </Dialog>
       </div>
 
       {/* Edit Dialog */}
       <Dialog open={isEditOpen} onOpenChange={(open) => { setIsEditOpen(open); if (!open) { setEditingPost(null); resetForm(); } }}>
-        <DialogContent className="max-w-lg">
-          <DialogHeader>
-            <DialogTitle className="font-heading">Edit Blog Post</DialogTitle>
-            <DialogDescription>Update blog post details.</DialogDescription>
+        <DialogContent className="max-w-6xl max-h-[95vh] overflow-hidden flex flex-col p-0 gap-0">
+          <DialogHeader className="px-6 py-4 border-b bg-gradient-to-r from-primary/5 via-background to-accent/5">
+            <DialogTitle className="font-heading text-2xl">Edit Blog Post</DialogTitle>
+            <DialogDescription>Update content, SEO, and publishing options.</DialogDescription>
           </DialogHeader>
-          {blogFormFieldsJSX}
-          <DialogFooter>
-            <DialogClose asChild><Button variant="outline">Cancel</Button></DialogClose>
-            <Button variant="saffron" onClick={handleUpdatePost} disabled={isLoading}>
-              {isLoading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
-              Save Changes
-            </Button>
-          </DialogFooter>
+          <div className="px-6 py-5 overflow-y-auto flex-1">{editorDialogBody}</div>
+          <DialogFooter className="px-6 py-3 border-t bg-muted/30">{actionFooter}</DialogFooter>
         </DialogContent>
       </Dialog>
 
@@ -1105,6 +1013,7 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
         title="Delete Blog Post?"
         description="Are you sure you want to delete this blog post? This action cannot be undone."
       />
+
 
       <div className="bg-card rounded-xl shadow-card border border-border overflow-hidden">
         <Table>
