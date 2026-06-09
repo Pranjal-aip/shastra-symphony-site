@@ -71,6 +71,7 @@ import { useToast } from '@/hooks/use-toast';
 import DeleteConfirmDialog from '@/components/DeleteConfirmDialog';
 import CampsTab from '@/components/admin/CampsTab';
 import ImageUpload from '@/components/admin/ImageUpload';
+import BlogEditor, { type BlogEditorData, emptyBlogEditorData } from '@/components/admin/BlogEditor';
 import TeamManagementTab from '@/components/admin/TeamManagementTab';
 import GraphyDataTab from '@/components/admin/GraphyDataTab';
 
