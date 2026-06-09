@@ -165,12 +165,32 @@ const BlogDetail: React.FC = () => {
             </p>
 
             {/* Full Content */}
-            {post.content && (
-              <div className="prose prose-lg max-w-none">
-                <p className="font-body text-foreground leading-relaxed whitespace-pre-wrap">
-                  {t(post.content)}
-                </p>
-              </div>
+            {post.content && t(post.content) && (
+              (() => {
+                const html = t(post.content) || '';
+                const isHtml = /<[a-z][\s\S]*>/i.test(html);
+                const safeContent = isHtml ? sanitizeBlogHtml(html) : '';
+                const safeCustom = post.customHtml ? sanitizeBlogHtml(t(post.customHtml) || '') : '';
+                const safeCss = (post.customCss || '').replace(/<\/?style[^>]*>/gi, '');
+                return (
+                  <>
+                    {safeCss && <style dangerouslySetInnerHTML={{ __html: safeCss }} />}
+                    {isHtml ? (
+                      <div
+                        className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-heading prose-img:rounded-lg prose-pre:bg-zinc-900 prose-pre:text-zinc-100"
+                        dangerouslySetInnerHTML={{ __html: safeContent }}
+                      />
+                    ) : (
+                      <div className="prose prose-lg max-w-none">
+                        <p className="font-body text-foreground leading-relaxed whitespace-pre-wrap">{html}</p>
+                      </div>
+                    )}
+                    {safeCustom && (
+                      <div className="mt-8 pt-8 border-t" dangerouslySetInnerHTML={{ __html: safeCustom }} />
+                    )}
+                  </>
+                );
+              })()
             )}
           </div>
         </div>
