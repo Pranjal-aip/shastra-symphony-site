@@ -1033,7 +1033,14 @@ const BlogsTab: React.FC<BlogsTabProps> = ({ posts, categories, onDelete, onAdd,
                 <TableCell>
                   <div className="flex items-center gap-3">
                     <img src={post.thumbnail || '/placeholder.svg'} alt="" className="w-10 h-10 rounded-lg object-cover" />
-                    <span className="font-body font-medium">{post.title.en}</span>
+                    <div className="flex flex-col gap-0.5">
+                      <span className="font-body font-medium">{post.title.en}</span>
+                      {post.status && post.status !== 'published' && (
+                        <Badge variant={post.status === 'draft' ? 'outline' : 'secondary'} className="w-fit text-[10px] capitalize">
+                          {post.status}{post.status === 'scheduled' && post.scheduledAt ? ` · ${new Date(post.scheduledAt).toLocaleString()}` : ''}
+                        </Badge>
+                      )}
+                    </div>
                   </div>
                 </TableCell>
                 <TableCell><Badge variant="secondary">{post.category}</Badge></TableCell>
